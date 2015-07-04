@@ -1,0 +1,43 @@
+##############################################
+#
+#         README for Line Tracer
+#
+#  Wellcome to the line tracer demo program.
+#
+##############################################
+
+Line Tracer is a short compact set of classes
+designed to show the operation of a line tracing
+algorithm developed by
+
+
+Luis Ibanez, 
+Division of Neurosurgery
+Medical Image Display and Analysis Group 
+University of North Carolina at Chapel Hill
+http://www.cs.unc.edu/~ibanez
+
+Chafiaa Hamitouch, Christian Roux
+Departement Image et Traitement de l'Information
+ENST-Bretagne, France
+http://www-iti.enst-bretagne.fr
+
+
+
+This algorithm is suitable for tracing discrete
+straight lines in regular grids of any dimension.
+
+
+The implementation uses the MTL library
+(Matrix Template Library) from:
+
+Andrew Lumsdaine, Jeremy G.Siek, Lie-Quan Lee
+University of Notre Dame
+http://www.lsc.nd.edu/research/mtl
+
+You need to download the MTL to be able to 
+compile this code. (and eventually update
+your C++ compiler)
+
+
+

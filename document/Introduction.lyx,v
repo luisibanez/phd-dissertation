@@ -1,0 +1,273 @@
+head	1.1;
+access;
+symbols;
+locks
+	ibanez:1.1; strict;
+comment	@# @;
+
+
+1.1
+date	2000.07.19.03.35.01;	author ibanez;	state Exp;
+branches;
+next	;
+
+
+desc
+@Chapitre d'introduction
+@
+
+
+1.1
+log
+@Initial revision
+@
+text
+@#LyX 1.1 created this file. For more info see http://www.lyx.org/
+\lyxformat 2.15
+\textclass book
+\begin_preamble
+\usepackage{url}
+\end_preamble
+\language french
+\inputencoding latin1
+\fontscheme default
+\graphics default
+\paperfontsize 11
+\spacing single 
+\papersize Default
+\paperpackage a4
+\use_geometry 0
+\use_amsmath 0
+\paperorientation portrait
+\secnumdepth 2
+\tocdepth 2
+\paragraph_separation indent
+\defskip medskip
+\quotes_language english
+\quotes_times 2
+\papercolumns 1
+\papersides 1
+\paperpagestyle default
+
+\layout Chapter
+
+Introduction
+\layout Standard
+
+Cette thèse condense le travail réalisé autour de la segmentation de volumes
+ des données de structures osseuses.
+ Cette segmentation constitue un pas décisif dans l'étude de morphologie
+ et la fonctionnalité des os longs.
+\layout Standard
+
+Ce travail est caractérisé par un important effort interdisciplinaire.
+ En effet, la compréhension du comportement et des caractéristiques des
+ organes biologiques ne peut être atteinte avec la contribution d'une seule
+ discipline.
+ La diversité de concepts dérivés de cette interdisciplinarité ainsi que
+ la compréhension des multiples relations existantes entre ces disciplines
+ constitue l'idée la plus importante résultant de ce travail.
+ 
+\layout Standard
+
+Le fait que la forme des structures osseuses soit soumise aussi bien au
+ processus qui génère la forme de l'organisme, qu'à l'activité dont cette
+ forme est responsable, qu'à l'adaptation des espèces aux conditions de
+ l'environnement, ne peut être apprécié uniquement du point de vue du traitement
+ de signal.
+ 
+\layout Standard
+
+De la même façon, l'analyse du processus de morphogenèse fait sous la lumière
+ de la théorie de l'information, ou celui de la modélisation des surfaces
+ à la lumière de la cinématique conduit à une nouvelle dimensionalité et
+ change complètement notre perception des mécanismes impliqués, leurs finalités
+ et limitations.
+\layout Standard
+
+Dès le début de ce travail notre intérêt était dirigé vers la segmentation
+ et modélisation des surfaces articulaires.
+ Bien que l'objectif final était de décrire la fonctionnalité des os longs
+ dans sa généralité, des travaux antérieurs réalisés au sein du département
+ avaient pour but de développer des méthodologies appropriées et efficaces
+ pour la segmentation et la modélisation de la partie médiale des os longs.
+ Ces méthodologies se sont avérées insuffisantes dans le cas des régions
+ articulaires car, la configuration géométrique et la composition tissulaire
+ font que les caractéristiques de l'image sont très différentes de celles
+ qui peuvent être observées dans la partie médiale des os.
+\layout Standard
+
+Le schéma présenté dans la figure 
+\begin_inset LatexCommand \ref{fig: PlanInitial}
+
+\end_inset 
+
+ montre le plan original de cette thèse.
+ Ce plan supposait que les structures articulaires pouvaient être segmentées
+ au moyen d'opérations de traitement d'image.
+ Cette étape était supposée fournir une vérité terrain à partir de laquelle
+ il serait possible de passer à l'étude des caractéristiques de forme des
+ surfaces extraites.
+ L'étude de la forme devrait conduire ensuite à la définition de contraintes
+ mécaniques imposées par la morphologie.
+\layout Standard
+
+\begin_float fig 
+\layout Standard
+\align center 
+
+\begin_inset Figure size 238 38
+file Introduction_eps/diagramme_initial.eps
+width 4 80.00
+flags 8
+
+\end_inset 
+
+
+\layout Standard
+
+
+\begin_inset LatexCommand \label{fig: PlanInitial}
+
+\end_inset 
+
+Plan original de la thèse
+\end_float 
+\layout Standard
+
+D'autre part, le schéma de la figure 
+\begin_inset LatexCommand \ref{fig: PlanReel}
+
+\end_inset 
+
+ montre la démarche réellement suivie pour la réalisation de ce travail
+ de thèse.
+ Notons que la structure globale n'est pas une suite de tâches définies
+ de façon nette et réalisées de façon séquentielle, mais plutôt un processus
+ de maturation d'idées avec des boucles de retour (
+\emph on 
+feedback
+\emph toggle 
+).
+ 
+\layout Standard
+
+\begin_float fig 
+\layout Standard
+\align center 
+
+\begin_inset Figure size 238 135
+file Introduction_eps/diagramme_reel.eps
+width 4 80.00
+flags 8
+
+\end_inset 
+
+
+\layout Standard
+
+
+\begin_inset LatexCommand \label{fig: PlanReel}
+
+\end_inset 
+
+Plan suivi dans ce travail
+\end_float 
+\layout Standard
+
+Le problème de la segmentation de données a été abordé par l'étude de divers
+ opérateurs de détection de surfaces, avec une catégorisation des processus
+ intermédiaires.
+ Cette étude est décrite dans le chapitre
+\protected_separator 
+
+\begin_inset LatexCommand \ref{sec: DetectionSurfaces}
+
+\end_inset 
+
+ de façon détaillée.
+\layout Standard
+
+L'étape d'extraction de surfaces à partir de volumes des données a mis en
+ évidence les limites de la topologie de la grille cubique et nous a conduit
+ à la discipline de la topologie discrète.
+ Une étude approfondie dans le domaine de la topologie nous a montré l'importanc
+e d'utiliser la grille BCC comme grille d'échantillonnage pour les volumes
+ de données, et par généralisation sa famille N-D pour l'échantillonnage
+ de fonctions de dimension supérieure.
+ La description des avantages de ces grilles aussi bien du point de vue
+ topologique que du point de vue du traitement du signal fait l'objet du
+ chapitre
+\protected_separator 
+
+\begin_inset LatexCommand \ref{sec: Topologie}
+
+\end_inset 
+
+.
+\layout Standard
+
+Le frein immédiat à l'utilisation d'une nouvelle grille d'échantillonnage
+ est le manque d'algorithmes pour manipuler les données dans une telle grille.
+ Ces algorithmes vont de la visualisation jusqu'à l'extraction de paramètres
+ pertinents en passant par le filtrage.
+ Nous avons donc, développé quelques algorithmes de base fournissant les
+ fonctionnalités indispensables, dont un algorithme qui permet de tracer
+ des lignes discrètes dans une grille régulière de dimension quelconque.
+ Cet algorithme original s'avère très efficace car il n'utilise que des
+ additions.
+ Les principes théoriques ainsi que les détails de la mise en oeuvre sont
+ traités dans le chapitre 
+\begin_inset LatexCommand \ref{sec: Lignes}
+
+\end_inset 
+
+.
+\layout Standard
+
+Pour analyser la morphologie des structures osseuses, il s'avère indispensable
+ de comprendre les processus qui génèrent la forme.
+ Ces processus sont l'objet d'étude dans les domaines comme la biologie
+ du développement, l'embryologie, la paléontologie et la biologie cellulaire.
+ Le chapitre 
+\begin_inset LatexCommand \ref{sec: Morphogenese}
+
+\end_inset 
+
+ présente notre étude des mécanismes impliqués dans la morphogenèse.
+\layout Standard
+
+Une fois que les éléments de base de la morphogenèse ont été assimilés,
+ il a été possible de proposer un modèle capable de représenter les formes
+ osseuses, en utilisant un paradigme similaire à celui du processus naturel.
+ Ce modèle suit l'approche des modèles déformables afin de combler l'insufissanc
+e des approches locales des algorithmes de détection de contours et de garantir
+ ainsi, l'extraction de surfaces connexes complètes.
+ Le modèle développé est décrit dans le chapitre 
+\begin_inset LatexCommand \ref{sec: Modelisation}
+
+\end_inset 
+
+, il utilise des fonctions implicites pour définir le support d'une surface
+ déformable.
+ Cette approche permet de résoudre simultanément les problèmes de segmentation
+ et de modélisation de la surface articulaire.
+\layout Standard
+
+Enfin, l'analyse de la forme des surfaces articulaires a nécessité l'étude
+ de la cinématique géométrique.
+ Le chapitre 
+\begin_inset LatexCommand \ref{sec: Fonctionalite}
+
+\end_inset 
+
+ montre les relations entre la morphologie de la surface et les restrictions
+ imposées par le mouvement.
+ Il est montré que la forme même des surfaces articulaires peut être modélisée
+ par des fonctions implicites, mais qu'au lieu d'être basées sur des fonctions
+ convexes, qu'elles soient construites comme des evolvents des surfaces
+ associées à la fonctionnalité mécanique.
+ Ce chapitre ferme le boucle qui relie la fonctionnalité et la morphologie
+ des surfaces articulaires.
+\the_end
+@

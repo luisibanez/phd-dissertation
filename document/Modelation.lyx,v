@@ -1,0 +1,3131 @@
+head	1.2;
+access;
+symbols;
+locks
+	ibanez:1.2; strict;
+comment	@# @;
+
+
+1.2
+date	2000.07.19.03.48.02;	author ibanez;	state Exp;
+branches;
+next	1.1;
+
+1.1
+date	2000.07.19.00.51.40;	author ibanez;	state Exp;
+branches;
+next	;
+
+
+desc
+@Chapitre de Modelisation
+@
+
+
+1.2
+log
+@Version Envoyee a Chafiaa Juillet 18 2000
+@
+text
+@#LyX 1.1 created this file. For more info see http://www.lyx.org/
+\lyxformat 2.15
+\textclass book
+\language french
+\inputencoding default
+\fontscheme default
+\graphics default
+\paperfontsize default
+\spacing single 
+\papersize Default
+\paperpackage a4
+\use_geometry 0
+\use_amsmath 0
+\paperorientation portrait
+\secnumdepth 4
+\tocdepth 4
+\paragraph_separation indent
+\defskip medskip
+\quotes_language english
+\quotes_times 2
+\papercolumns 1
+\papersides 2
+\paperpagestyle default
+
+\layout Chapter
+
+La Modélisation de formes
+\begin_inset LatexCommand \label{sec: Modelisation}
+
+\end_inset 
+
+
+\layout Standard
+
+L'analyse de la morphogenèse des structures biologiques nous permet d'aborder
+ le problème de la modélisation avec des éléments issus des processus impliqués.
+ Les deux mécanismes principaux de la morphogenèse osseuse considérés ici
+ sont : 
+\layout Itemize
+
+La croissance interstitielle
+\layout Itemize
+
+Le dépôt de couches
+\layout Standard
+
+Un objet soumis seulement à l'action de la première va subir une dilatation
+ par homothétie.
+ Un objet soumis seulement à la deuxième se transforme en générant des surfaces
+ parallèles à celles de son état actuel 
+\begin_inset LatexCommand \cite{Gray93}
+
+\end_inset 
+
+
+\begin_inset LatexCommand \cite{Porteous94}
+
+\end_inset 
+
+.
+ Un objet soumis à l'action simultanée des deux phénomènes se place dans
+ un champ morpho-génétique important.
+\layout Standard
+
+Nous avons développé ici un modèle déformable pour simuler le processus
+ de morphogenèse soumis à ces deux interactions particulières.
+ Notre modèle utilise une fonction implicite dont les paramètres sont adaptés
+ aux caractéristiques de la forme.
+ Il intègre une représentation surfacique avec une représentation volumique,
+ ce qui s'avère très approprié pour la détection de collisions entre objets.
+ La fonction implicite est construite suivant le paradigme de 
+\emph on 
+metaballs
+\emph toggle 
+, qui consiste en sommer des fonctions ellipsoïdales simples après les avoir
+ passées par une fonction Gaussienne.
+ 
+\layout Standard
+
+Ce modèle représente bien les types d'interactions qu'existent dans le processus
+ de morphogenèse des organismes vivants, aussi bien la croissance interstitielle
+ que le dépôt de couches.
+ La meilleure option suivante étant celle d'utiliser des modèles des éléments
+ finis
+\begin_inset Info hamitou Thu Jul  6 14:41:14 2000
+\end_inset 
+
+.
+ Ces derniers peuvent être beaucoup mieux adaptés à la description des interacti
+ons biologiques, mais avec un coût prohibitif en temps de calcul.
+\layout Section
+
+Le modèle déformable
+\layout Standard
+
+Les modèles déformables ont été largement utilisés en imagerie médicale
+ en raison de leur capacité d'adaptation à la géométrie adoucie des formes
+ biologiques 
+\begin_inset LatexCommand \cite{Pentland91}
+
+\end_inset 
+
+
+\begin_inset LatexCommand \cite{Lobregt95}
+
+\end_inset 
+
+.
+ Cependant, des comportements inadéquats se présentent souvent pendant l'évoluti
+on dynamique de ces modèles, parmi lesquels nous pouvons citer leur tendance
+ à être déviés par des détails locaux (probablement dus au bruit).
+ Des versions améliorées des modèles déformables ont été proposées, introduisant
+ de l'information a priori sur la forme afin de restreindre les degrés de
+ liberté du modèle 
+\begin_inset LatexCommand \cite{Hill93}
+
+\end_inset 
+
+
+\begin_inset LatexCommand \cite{Szekely95}
+
+\end_inset 
+
+
+\begin_inset LatexCommand \cite{ModelDrivenSegmentation}
+
+\end_inset 
+
+.
+ Ces méthodes dépassent en performance les versions originales des modèles
+ déformables.
+\layout Subsection
+
+La paramétrisation du modèle
+\layout Standard
+
+Les premières versions des modèles déformables utilisent un ensemble de
+ points connexes qui se déplacent pour s'ajuster à la forme d'un objet présent
+ dans une image.
+ Le déplacement est géré par des équations de forces comprenant des interactions
+ entre les points (forces internes) et entre les points et l'image (forces
+ externes).
+ L'ajustement du modèle est résolu par des méthodes d'optimisation sous
+ contraintes 
+\begin_inset LatexCommand \cite{Lobregt95}
+
+\end_inset 
+
+
+\begin_inset LatexCommand \cite{Pentland91}
+
+\end_inset 
+
+.
+ Ces modèles sont connus aussi comme 
+\emph on 
+snakes
+\emph toggle 
+.
+ Des variantes ont été développées pour améliorer le comportement du modèle,
+ par exemple en s'adaptant à la topologie de la forme 
+\begin_inset LatexCommand \cite{McInerney95}
+
+\end_inset 
+
+, ou en augmentant la densité des points du modèle dans les régions de courbure
+ plus importante 
+\begin_inset LatexCommand \cite{Hug99}
+
+\end_inset 
+
+.
+ La diversité est telle qu' il a été nécessaire de proposer une unification
+ des meilleures méthodes 
+\begin_inset LatexCommand \cite{Liang99}
+
+\end_inset 
+
+
+\layout Standard
+
+Dans cette configuration, le nombre de degrés de liberté du modèle est égal
+ au produit de la dimension de l'espace par le nombre de points 
+\begin_inset LatexCommand \cite{Duta99}
+
+\end_inset 
+
+.
+ Bien qu'ils soient utiles pour la segmentation de l'image, ces modèles
+ sont encombrants pour la représentation de la forme 
+\begin_inset LatexCommand \cite{Guo99}
+
+\end_inset 
+
+.
+ Il est donc intéressant de paramétrer les modèles déformables, car cela
+ apporterait, entre autres, les avantages suivants:
+\layout Itemize
+
+Condensation de l'information
+\layout Itemize
+
+Interprétation de la signification
+\layout Itemize
+
+Contrôle des déformations
+\layout Standard
+
+Un modèle paramétré est contrôlé par un nombre réduit de valeurs qui définissent
+ entièrement l'état du modèle.
+ La difficulté concerne alors, la recherche d'une paramétrisation adéquate,
+ dans laquelle il est souhaitable de prendre en compte la nature de l'objet
+ contenu dans l'image.
+\layout Standard
+
+L'introduction de l'information 
+\emph on 
+a priori
+\emph default 
+ de l'objet au moment de choisir la paramétrisation, conduit à des modèles
+ plus stables, réalistes et surtout significatifs pour les utilisateurs;
+ Plus particulièrement, quand cette information inclut des contraintes physiques
+ et de comportements physiologiques (pour les applications médicales) 
+\begin_inset LatexCommand \cite{Metaxas98}
+
+\end_inset 
+
+
+\begin_inset LatexCommand \cite{Rolland98}
+
+\end_inset 
+
+
+\begin_inset LatexCommand \cite{Bardinet98}
+
+\end_inset 
+
+.
+\layout Section
+
+Les fonctions paramétrées
+\layout Standard
+
+Un choix possible dans la quête d'un modèle paramétré est celui des fonctions
+ mathématiques capables de générer une grande variété de formes en fonction
+ de leurs paramètres.
+ Parmi les fonctions qui s'adaptent bien à ce propos on peut citer les suivantes
+ :
+\layout Subsection
+
+Les super quadriques
+\layout Standard
+
+Les super quadriques sont définies comme une généralisation de l'équation
+ d'une quadrique par l'équation implicite :
+\layout Standard
+
+
+\begin_inset Formula 
+\[
+\left( \left( \left( \frac{x}{a_{1}}\right) ^{\frac{2}{\epsilon _{2}}}+\left( \frac{y}{a_{2}}\right) ^{\frac{2}{\epsilon _{2}}}\right) ^{\frac{\epsilon _{2}}{\epsilon _{1}}}+\left( \frac{z}{a_{3}}\right) ^{\frac{2}{\epsilon _{1}}}\right) ^{\frac{\epsilon _{1}}{2}}=1\]
+
+\end_inset 
+
+
+\layout Standard
+
+Une paramétrisation est obtenue de façon naturelle à partir de celle de
+ la sphère :
+\layout Standard
+
+
+\begin_inset Formula 
+\begin{eqnarray*}
+x & = & a_{1}\cos ^{\epsilon _{1}}\theta \cos ^{\epsilon _{2}}\phi \\
+y & = & a_{2}\cos ^{\epsilon _{1}}\theta \sin ^{\epsilon _{2}}\phi \\
+z & = & a_{3}\sin ^{\epsilon _{1}}\theta 
+\end{eqnarray*}
+
+\end_inset 
+
+
+\layout Standard
+
+où 
+\begin_inset Formula \( \theta \in [0,\pi ] \)
+\end_inset 
+
+ et 
+\begin_inset Formula \( \phi \in [0,2\pi ] \)
+\end_inset 
+
+ sont les angles d'azimuth et de latitude classiques.
+\layout Standard
+
+Il faut remarquer ici qu'aucune paramétrisation d'une surface fermée ne
+ peut être faite avec uniquement deux paramètres sans introduire des points
+ où la surface est non différentiable 
+\begin_inset LatexCommand \cite{Knupp93}
+
+\end_inset 
+
+.
+ Bien qu'en principe, une surface fermée est une variété bidimensionnelle,
+ il faut au moins trois paramètres pour avoir une représentation différentiable
+ partout 
+\begin_inset LatexCommand \cite{Gray93}
+
+\end_inset 
+
+
+\begin_inset LatexCommand \cite{Knupp93}
+
+\end_inset 
+
+.
+ Dans le cas présent, les pôles donneront lieu à des problèmes de stabilité.
+\layout Standard
+
+Les super quadriques, malgré leur diversité de formes, ne sont pas assez
+ riches pour approcher les objets biologiques.
+ Des variantes ont été développées, dans lesquelles une déformation est
+ appliquée sur l'espace 3D pour élargir le domaine des formes 
+\begin_inset LatexCommand \cite{Bardinet98}
+
+\end_inset 
+
+.
+ Cependant, ces approches, bien qu'appropriées pour une meilleure segmentation
+ et pour la visualisation, manquent de signification physique pour représenter
+ l'objet.
+\layout Subsection
+
+Les descripteurs de Fourier
+\layout Standard
+
+Les descripteurs de Fourier sont une des options les plus utilisées pour
+ la représentation des courbes fermées.
+ La courbe exprimée en coordonnées polaires comme une fonction 
+\begin_inset Formula \( r=f(\theta ) \)
+\end_inset 
+
+ est décomposée sur une base vectorielle de fonctions sinusoïdales.
+ Cette méthode est applicable aux courbes en forme d'étoile (
+\emph on 
+star shaped
+\emph default 
+) dont les points sont toujours visibles depuis un centre.
+ Les descripteurs de Fourier sont sensibles au choix du point central.
+ 
+\layout Standard
+
+Une courbe peut être exprimée avec la précision voulue, simplement en ajoutant
+ de plus en plus de composantes fréquentielles.
+ Un avantage de ce type d'expression est le fait de disposer en même temps
+ d'une expression implicite et d'une expression paramétrique; ce qui permet
+ de tester si la position d'un point de l'espace se trouve à l'intérieur
+ ou à l'extérieur de la courbe qui délimite la forme.
+\layout Subsection
+
+Les harmoniques sphériques
+\layout Standard
+
+Les harmoniques sphériques peuvent bien être considérés comme la version
+ 3D des descripteurs de Fourier.
+ La forme d'une surface est exprimée comme une distance radiale en fonction
+ des angles.
+ La décomposition de cette fonction sur une base vectorielle de fonctions
+ exponentielles produit les coefficients des harmoniques sphériques.
+\layout Standard
+
+\begin_float fig 
+\layout Standard
+\align center 
+
+\begin_inset Figure size 283 88
+file Modelation_eps/MRep.eps
+width 1 10.00
+flags 8
+
+\end_inset 
+
+
+\layout Caption
+
+
+\begin_inset LatexCommand \label{fig: MRep}
+
+\end_inset 
+
+Représentation schématique d'une M-Rep, ou modèle médial.
+ La figure montre une éventuelle M-Rep d'un embryon.
+ A droite: un noeud du modèle M-Rep, contient l'information d'une position
+ 
+\begin_inset Formula \( \overline{p} \)
+\end_inset 
+
+, la distance à la frontière de la forme 
+\begin_inset Formula \( r \)
+\end_inset 
+
+, un vecteur 
+\begin_inset Formula \( \overline{b} \)
+\end_inset 
+
+ indiquant la direction du prolongement de la ligne médiale de la forme,
+ et un angle 
+\begin_inset Formula \( T \)
+\end_inset 
+
+ qui est relié à l'angle formé entre les deux bords opposés du contour.
+\end_float 
+ 
+\layout Standard
+
+L'avantage de cette approche est la richesse des formes qu'elle peut produire.
+ Son inconvénient est le manque de signification des paramètres, car, ils
+ représentent tout simplement les valeurs de composantes de la forme dans
+ la base vectorielle.
+ Pour les formes qui ne sont pas des étoiles, une combinaison de plusieurs
+ fonctions décomposées sur des centres différents peut être utilisée.
+\layout Section
+
+Les modèles basés sur la structure médiale
+\layout Standard
+
+Dans ce type de modélisation, une forme contenue dans une image en niveaux
+ de gris, est filtrée en utilisant des noyaux gaussiens à multiples échelles,
+ ce qui génère une suite d'images.
+ L'analyse de cette suite d'images, connue aussi comme l'analyse multi-échelle
+ de l'image originale, permet d'identifier la structure médiale de la forme,
+ de façon similaire à la squelettisation 
+\begin_inset Info 
+\end_inset 
+
+en morphologie mathématique.
+ 
+\layout Standard
+
+Les modèles sont une représentation discrète de la structure médiale continue
+ produite par cette analyse multi-échelle.
+ Un modèle dit médial est composé d'une suite de points distribués uniformément
+ sur le squelette de la forme.
+ Pour chacun de ces points on identifie les deux points du contour de la
+ forme qui lui sont les plus proches.
+ Le modèle ajoute l'information de distance et d'orientation entre le point
+ médial et le contour dans les deux directions 
+\begin_inset LatexCommand \cite{Fritsch97}
+
+\end_inset 
+
+
+\begin_inset LatexCommand \cite{Fritsch94}
+
+\end_inset 
+
+
+\begin_inset LatexCommand \cite{Fritsch95}
+
+\end_inset 
+
+.
+\layout Standard
+
+L'avantage de ce type de modèles est de représenter en même temps le contour
+ et la structure interne de la forme.
+ Le modèle, illustré dans la figure 
+\begin_inset LatexCommand \ref{fig: MRep}
+
+\end_inset 
+
+, consiste en un ensemble de noeuds placés le long de la ligne médiale de
+ la forme.
+ Chaque noeud contient comme information la position 
+\begin_inset Formula \( \overline{p} \)
+\end_inset 
+
+ de la ligne médiale, un vecteur 
+\begin_inset Formula \( \overline{b} \)
+\end_inset 
+
+ tangent à la ligne, deux bras latéraux qui se dirigent vers la frontière
+ et lui sont orthogonaux, les bras forment un angle 
+\begin_inset Formula \( T \)
+\end_inset 
+
+ avec le vecteur tangent 
+\begin_inset Formula \( \overline{b} \)
+\end_inset 
+
+, et une estimation de la distance 
+\begin_inset Formula \( r \)
+\end_inset 
+
+ à la frontière.
+ 
+\layout Standard
+
+Ce type de modèles se prêtent bien à la paramétrisation en définissant des
+ relations entre les éléments internes du modèle, ce qui est typiquement
+ fait par une analyse statistique d'un ensemble de formes du même type.
+ Dans les applications de segmentation, ces modèles ont l'avantage d'être
+ plus robustes aux discontinuités des contours et au bruit dans l'image.
+\layout Section
+
+Les fonctions implicites
+\layout Standard
+
+Une fonction implicite 
+\begin_inset Formula \( f \)
+\end_inset 
+
+ dans un espace de dimension 
+\begin_inset Formula \( n \)
+\end_inset 
+
+ est définie à partir d'une fonction 
+\begin_inset Formula \( g\left( \overrightarrow{x}\right)  \)
+\end_inset 
+
+ de dimension 
+\begin_inset Formula \( (n+1) \)
+\end_inset 
+
+ comme l'ensemble des points tels que la fonction 
+\begin_inset Formula \( g\left( \overrightarrow{x}\right)  \)
+\end_inset 
+
+ est égale à une valeur 
+\begin_inset Formula \( k \)
+\end_inset 
+
+ prédéfinie, 
+\begin_inset Formula \( f=\left\{ \overrightarrow{x}\mid g\left( \overrightarrow{x}\right) =k\right\}  \)
+\end_inset 
+
+.
+ Elles sont souvent appelées ensemble zéro (
+\begin_inset Formula \( k=0 \)
+\end_inset 
+
+) (
+\emph on 
+zéro set
+\emph default 
+) d'une autre fonction 
+\begin_inset LatexCommand \cite{VTKBook}
+
+\end_inset 
+
+.
+ Ces fonctions sont souvent décrites comme 
+\emph on 
+
+\begin_inset Quotes eld
+\end_inset 
+
+fonctions non paramétriques
+\begin_inset Quotes erd
+\end_inset 
+
+ 
+\emph default 
+car elles ne sont pas exprimées en terme de paramètres balayant leur domaine
+ 
+\begin_inset LatexCommand \cite{Gray93}
+
+\end_inset 
+
+
+\begin_inset LatexCommand \cite{Porteous94}
+
+\end_inset 
+
+
+\begin_inset LatexCommand \cite{Poston78}
+
+\end_inset 
+
+
+\begin_inset LatexCommand \cite{Stander97}
+
+\end_inset 
+
+.
+\layout Subsection
+
+Les fonctions implicites comme représentation d'objets
+\layout Standard
+
+Les fonctions implicites sont bien adaptées pour la représentation des objets
+ biologiques.
+ L'analyse de la composition des organes nous montre que la définition même
+ d'organe est faite au niveau histologique, c'est à dire en terme de caractérist
+iques d'un certain type de cellules et de composition de la matrice extra-cellul
+aire.
+ 
+\layout Standard
+
+La notion d'organe est donc basée sur le concept de densité volumique, soit
+ cellulaire, soit de concentration d'un certain type de protéine.
+ Un organe finit là où la densité de son type cellulaire ne dépasse pas
+ une certaine valeur.
+\layout Standard
+
+Le concept de fonction implicite a été utilisé pour la segmentation des
+ images médicales sous le nom de 
+\emph on 
+level-set
+\emph toggle 
+ 
+\begin_inset LatexCommand \cite{Audette99}
+
+\end_inset 
+
+
+\begin_inset LatexCommand \cite{Guo99}
+
+\end_inset 
+
+.
+ La fonction est représentée comme étant échantillonnée dans un volume de
+ données au lieu de disposer d'une expression mathématique explicite.
+ Notre représentation est plus compacte car la connaissance des paramètres
+ des fonctions de base suffit pour définir complètement la fonction.
+\layout Subsection
+
+La représentation de la fonction implicite
+\layout Standard
+
+Les multiples besoins de la représentation d'une forme rendent difficile
+ le choix d'une représentation optimale.
+ Notre choix est celui de la combinaison de plusieurs éléments, à savoir
+ :
+\layout Enumerate
+
+L'expression analytique de la fonction.
+\layout Enumerate
+
+Un ensemble de points distribués de façon aussi uniforme que possible sur
+ la surface.
+ 
+\layout Enumerate
+
+Un maillage triangulaire reliant les points de la surface.
+ 
+\layout Standard
+
+L'expression analytique de la fonction simplifie la mise en oeuvre de la
+ détection de collisions entre deux objets, car la simple évaluation de
+ la fonction nous permet de déterminer si un point se trouve à l'intérieur
+ ou à l'extérieur de la surface implicite.
+\layout Standard
+
+L'ensemble des points de la surface peut être interprété comme un échantillonnag
+e de la surface implicite, ils sont utilisés ici pour évaluer la bonne correspon
+dance entre la forme synthétisée et la forme réelle.
+ Ils sont utilisés également dans la détection de collisions; pour vérifier
+ si deux formes A et B sont en collision il suffit d'évaluer la fonction
+ analytique de A pour tous les points de la surface de B, et la fonction
+ analytique de B pour tous les points de la surface de A.
+ Les formes A et B seront en collision si on trouve qu' un point d'une forme
+ est placé à l'intérieur de l'autre.
+\layout Standard
+
+Le maillage triangulaire est indispensable pour la visualisation rapide
+ de la forme, ainsi que pour la gestion de l'évolution de la surface, notamment
+ pour l'application d'algorithmes d'insertion et d'élimination de noeuds
+ qui vont permettre de maintenir une distribution uniforme de points au
+ fur et à mesure que la fonction implicite évolue.
+\layout Subsubsection
+
+Le modèle composé de primitives
+\layout Standard
+
+Nous avons choisi de construire une fonction implicite comme une combinaison
+ de primitives simples, suivant l'approche utilisée pour les 
+\emph on 
+metaballs
+\emph default 
+ ou 
+\emph on 
+blobby object 
+\emph default 
+
+\begin_inset LatexCommand \cite{Muraki95}
+
+\end_inset 
+
+, ou les 
+\emph on 
+blobs
+\emph default 
+ 
+\begin_inset LatexCommand \cite{POVRay}
+
+\end_inset 
+
+, ce mécanisme permet de réaliser des formes de la même manière que dans
+ le CSG
+\begin_float footnote 
+\layout Standard
+
+Constructive Solid Geometry
+\end_float 
+ 
+\begin_inset LatexCommand \cite{Hoffman96}
+
+\end_inset 
+
+
+\begin_inset LatexCommand \cite{Bloch90}
+
+\end_inset 
+
+.
+ Un des avantages importants de cette approche est le fait de pouvoir adapter
+ localement la forme de la fonction implicite globale en faisant varier
+ les paramètres d'une primitive particulière.
+ La seule contrainte imposée est celle d'obtenir une fonction dont les courbes
+ de niveaux soient fermées 
+\begin_inset LatexCommand \cite{Gray93}
+
+\end_inset 
+
+, pour bien représenter le fait que l'objet modélisé par la fonction a un
+ support fini, ce qui est, bien évidemment, le cas des formes biologiques.
+\layout Paragraph
+
+Les metaballs
+\layout Standard
+
+Les 
+\emph on 
+metaballs
+\emph default 
+ (ou 
+\emph on 
+blobby objects
+\emph default 
+, ou 
+\emph on 
+blobs
+\emph default 
+) ont été introduites dans le domaine de la synthèse d'image par ordinateur
+ 
+\begin_inset LatexCommand \cite{Muraki95}
+
+\end_inset 
+
+
+\begin_inset LatexCommand \cite{POVRay}
+
+\end_inset 
+
+
+\begin_inset LatexCommand \cite{Glassner89}
+
+\end_inset 
+
+ comme un mécanisme de représentation de formes adoucies, typiquement bien
+ adaptées pour la modélisation de formes vivantes .
+ Le modèle original des metaballs utilise des primitives formées par des
+ fonctions coniques 3D, passées par une gaussienne, le cas le plus simple
+ étant :
+\layout Standard
+
+
+\begin_inset Formula 
+\[
+f(x,y,z)=\alpha \exp \left( -\lambda \left( x^{2}+y^{2}+z^{2}\right) \right) -k\]
+
+\end_inset 
+
+
+\layout Standard
+
+La surface implicite est définie par l'ensemble des points tels que 
+\begin_inset Formula \( f(x,y,z)=0 \)
+\end_inset 
+
+.
+ Pour introduire des transformations affines dans la forme, l'équation peut
+ être réécrite en utilisant les coordonnées homogènes pour décrire la position
+ d'un point dans l'espace 
+\begin_inset LatexCommand \cite{GraphicGems}
+
+\end_inset 
+
+
+\begin_inset LatexCommand \cite{FoleyVanDam}
+
+\end_inset 
+
+
+\begin_inset LatexCommand \cite{OpenGLGuide}
+
+\end_inset 
+
+
+\begin_inset LatexCommand \cite{Earnshaw85}
+
+\end_inset 
+
+:
+\layout Standard
+
+
+\begin_inset Formula 
+\[
+\overrightarrow{V}=\left[ \begin{array}{cccc}
+x & y & z & 1
+\end{array}\right] \]
+
+\end_inset 
+
+
+\layout Standard
+
+La fonction devient :
+\layout Standard
+
+
+\begin_inset Formula 
+\[
+f\left( \overrightarrow{V}\right) =\alpha \exp \left( -\lambda \left( \overrightarrow{V}A\overrightarrow{V}^{T}\right) \right) -k\]
+
+\end_inset 
+
+
+\layout Standard
+
+où la matrice 
+\begin_inset Formula \( A \)
+\end_inset 
+
+ de taille 
+\begin_inset Formula \( \left[ 4\times 4\right]  \)
+\end_inset 
+
+ représente une transformation affine, typiquement contenant des rotations,
+ translations et changements d'échelle isotropes.
+ Une combinaison des metaballs permet de créer des formes complexes avec
+ la simple somme des fonctions primitives :
+\layout Standard
+
+
+\begin_inset Formula 
+\[
+F\left( \overrightarrow{V}\right) =\sum _{i}\alpha _{i}\exp \left( -\lambda _{i}\left( \overrightarrow{V}A_{i}\overrightarrow{V}^{T}\right) \right) -k\]
+
+\end_inset 
+
+
+\layout Standard
+
+Les paramètres caractérisant la metaball sont 
+\begin_inset Formula \( \left( \alpha _{i},\lambda _{i},A_{i}\right)  \)
+\end_inset 
+
+.
+ Le paramètre 
+\begin_inset Formula \( \lambda  \)
+\end_inset 
+
+ contrôle le degré de diffusion de la primitive, ce qui lui confère la propriété
+ d'être plus ou moins 
+\emph on 
+gluante
+\emph default 
+ par rapport aux primitives voisines.
+ Une valeur importante de 
+\begin_inset Formula \( \lambda  \)
+\end_inset 
+
+ réduit la tendance de la primitive à se coller à ses voisines.
+ Le facteur 
+\begin_inset Formula \( \alpha  \)
+\end_inset 
+
+ contrôle le degré de domination de la primitive ce qui est utile pour modifier
+ l'ensemble des primitives en faisant apparaître progressivement une nouvelle.
+ La matrice 
+\begin_inset Formula \( A \)
+\end_inset 
+
+, offre un grand potentiel d'adaptation de la primitive sans changer sa
+ nature morphologique (ou sa 
+\emph on 
+forme qualitative
+\emph default 
+).
+\layout Standard
+
+La figure 
+\begin_inset LatexCommand \ref{fig:Metaball2D}
+
+\end_inset 
+
+ illustre la façon de combiner deux metaballs pour le cas de fonctions 2D.
+ Les deux metaballs présentées dans cet exemple sont équivalentes à deux
+ gaussiennes de symétrie circulaire séparées dans la direction de l'axe
+ 
+\begin_inset Formula \( x \)
+\end_inset 
+
+.
+ 
+\layout Standard
+
+\begin_float fig 
+\layout Standard
+\align center 
+
+\begin_inset Figure size 155 127
+file Modelation_eps/metaball00.eps
+width 1 5.50
+height 1 4.50
+angle -90.00
+flags 8
+
+\end_inset 
+
+ 
+\begin_inset Figure size 155 127
+file Modelation_eps/metaball01.eps
+width 1 5.50
+height 1 4.50
+angle -90.00
+flags 8
+
+\end_inset 
+
+
+\layout Standard
+\align center 
+
+\begin_inset Figure size 155 127
+file Modelation_eps/metaball02.eps
+width 1 5.50
+height 1 4.50
+angle -90.00
+flags 8
+
+\end_inset 
+
+ 
+\begin_inset Figure size 155 127
+file Modelation_eps/metaball03.eps
+width 1 5.50
+height 1 4.50
+angle -90.00
+flags 8
+
+\end_inset 
+
+
+\layout Standard
+\align center 
+
+\begin_inset Figure size 155 127
+file Modelation_eps/metaball04.eps
+width 1 5.50
+height 1 4.50
+angle -90.00
+flags 8
+
+\end_inset 
+
+ 
+\begin_inset Figure size 155 127
+file Modelation_eps/metaball05.eps
+width 1 5.50
+height 1 4.50
+angle -90.00
+flags 8
+
+\end_inset 
+
+
+\layout Caption
+
+
+\begin_inset LatexCommand \label{fig:Metaball2D}
+
+\end_inset 
+
+Représentations surfaciques et en courbes d'isovaleur de la fonction corresponda
+nt à la somme de deux metaballs 2D.
+ On remarque l'évolution des courbes d'isovaleur en fonction de l'augmentation
+ de la séparation entre les deux metaballs.
+\end_float 
+\layout Standard
+
+La figure 
+\begin_inset LatexCommand \ref{fig:Metaball3D}
+
+\end_inset 
+
+ illustre le même cas pour deux metaballs en 3D.
+ Cette fois, les fonctions sont deux gaussiennes de symétrie sphérique,
+ nous remarquons à nouveau l'évolution de la surface (l'isosurface de valeur
+ zéro ou l'ensemble zéro de la fonction) au fur et à mesure que les deux
+ metaballs se séparent.
+ Le maillage qui enveloppe les deux primitives représente l'isosurface de
+ valeur zéro de la fonction.
+ Des noeuds sont introduits ou enlevés en fonction de la courbure locale
+ de la surface, de façon à maintenir une relation : un nombre de points/stéradia
+ns, relativement uniforme.
+\begin_float fig 
+\layout Standard
+\align center 
+
+\begin_inset Figure size 328 504
+file Modelation_eps/Metaball3d.eps
+flags 8
+
+\end_inset 
+
+
+\layout Caption
+
+
+\begin_inset LatexCommand \label{fig:Metaball3D}
+
+\end_inset 
+
+Représentation surfacique de la combinaison de deux metaballs simples.
+ Les éléments de base dans ce cas sont deux fonctions ellipsoïdales 3D.
+\end_float 
+ 
+\layout Paragraph
+
+La généralisation des primitives
+\layout Standard
+
+Pour augmenter la capacité d'adaptation aux morphologies biologiques nous
+ avons adopté ici un ensemble plus riche de primitives, en introduisant
+ des formes inspirées des concepts de la théorie des catastrophes.
+\layout Standard
+
+Elles proviennent de la catastrophe la plus simple, le 
+\emph on 
+cusp
+\emph default 
+:
+\layout Standard
+
+
+\begin_inset Formula 
+\[
+x^{4}+\alpha x^{2}\]
+
+\end_inset 
+
+
+\layout Standard
+
+Si on analyse le comportement des racines de ce polynôme en fonction de
+ la valeur du paramètre 
+\begin_inset Formula \( \alpha  \)
+\end_inset 
+
+ on trouve le concept de la modification de la forme dans sa dimension 
+\series bold 
+qualitative
+\series default 
+, le passage de 
+\begin_inset Formula \( \alpha  \)
+\end_inset 
+
+ par la valeur zéro change la forme de la fonction.
+ En revanche, des changements de la valeur 
+\begin_inset Formula \( \alpha  \)
+\end_inset 
+
+, qui restent du même côté de la valeur zéro, modifient seulement de façon
+ quantitative la fonction.
+\layout Standard
+
+
+\series bold 
+Le cylindre
+\series default 
+, qui peut aussi être vue comme une superquadrique 
+\begin_inset LatexCommand \cite{Gray93}
+
+\end_inset 
+
+:
+\layout Standard
+
+
+\begin_inset Formula 
+\[
+f(x,y,z)=\left( x^{2}+y^{2}\right) ^{2}+z^{4}-k\]
+
+\end_inset 
+
+
+\layout Standard
+
+
+\series bold 
+La coque:
+\layout Standard
+
+
+\begin_inset Formula 
+\[
+f(x,y,z)=\alpha \left( x^{2}+y^{2}\right) ^{2}+\left( 1-\alpha z\right) \left( x^{2}+y^{2}\right) +z^{2}-k\]
+
+\end_inset 
+
+
+\layout Standard
+
+
+\series bold 
+La double boule:
+\layout Standard
+
+
+\begin_inset Formula 
+\[
+f(x,y,z)=\alpha z^{4}+\left( 1-\alpha \right) z^{2}+\left( x^{2}+y^{2}\right) -k\]
+
+\end_inset 
+
+
+\layout Standard
+
+Une asymétrie entre les deux extrémités de la double boule peut être introduite
+ facilement avec un terme en 
+\begin_inset Formula \( z \)
+\end_inset 
+
+ contrôlé par un coefficient 
+\begin_inset Formula \( \beta  \)
+\end_inset 
+
+ pour produire 
+\series bold 
+La double boule 
+\series default 
+asymétrique :
+\layout Standard
+
+
+\begin_inset Formula 
+\[
+f(x,y,z)=\alpha z^{4}+\left( 1-\alpha \right) z^{2}+\beta z+\left( x^{2}+y^{2}\right) -k\]
+
+\end_inset 
+
+
+\layout Standard
+
+De la même façon d'autres asymétries peuvent être introduites pour les autres
+ primitives pour chacune des directions 
+\begin_inset Formula \( x \)
+\end_inset 
+
+, 
+\begin_inset Formula \( y \)
+\end_inset 
+
+ et 
+\begin_inset Formula \( z \)
+\end_inset 
+
+.
+ Ces asymétries sont à attendre dans la modélisation des formes biologiques
+ car les systèmes dynamiques responsables de la morphogenèse sont soumis
+ à des contraintes de symétries qui peuvent rarement être atteintes dans
+ leur totalité, ce qui fait que de légères asymétries sont toujours présentes
+ dans les morphologies réelles 
+\begin_inset LatexCommand \cite{Tu92}
+
+\end_inset 
+
+
+\begin_inset LatexCommand \cite{Thom77}
+
+\end_inset 
+
+.
+\layout Standard
+
+Remarquons que chacune de ces primitives peut être modifiée par l'introduction
+ d'une transformation affine au moment de l'évaluation de la fonction.
+ Néanmoins, la théorie des catastrophes nous garantit que la 
+\emph on 
+forme qualitative
+\emph default 
+ de la primitive ne changera pas suite à cette transformation 
+\begin_inset LatexCommand \cite{Thom77}
+
+\end_inset 
+
+
+\begin_inset LatexCommand \cite{Poston78}
+
+\end_inset 
+
+.
+\layout Subsubsection
+
+Le placement des points de la surface
+\layout Standard
+
+Concernant la représentation visuelle, les points du maillage doivent être
+ placés sur l'isosurface zéro.
+ Ce problème, dans le cadre général, est très difficile à résoudre si on
+ s'attaque directement à la fonction globale.
+ En revanche, pour une fonction appartenant à une famille 
+\begin_inset Formula \( F \)
+\end_inset 
+
+ de fonctions régies par un paramètre 
+\begin_inset Formula \( \eta  \)
+\end_inset 
+
+, si nous connaissons l'ensemble zéro pour une fonction 
+\begin_inset Formula \( F_{\eta } \)
+\end_inset 
+
+, nous pouvons avec une facilité relative trouver celui de la fonction 
+\begin_inset Formula \( F_{(\eta +\epsilon )} \)
+\end_inset 
+
+.
+ Pourvu que la topologie de l'ensemble zéro ne change pas dans le voisinage
+ de 
+\begin_inset Formula \( \eta  \)
+\end_inset 
+
+.
+ La théorie des catastrophes fournit les éléments nécessaires pour faire
+ ce type d'analyse 
+\begin_inset LatexCommand \cite{Mazure89}
+
+\end_inset 
+
+
+\begin_inset LatexCommand \cite{Thom77}
+
+\end_inset 
+
+
+\begin_inset LatexCommand \cite{Poston78}
+
+\end_inset 
+
+.
+\layout Standard
+
+Il faut remarquer que l'ensemble zéro d'une fonction 3D n'est pas forcément
+ une surface 
+\begin_inset LatexCommand \cite{Gray93}
+
+\end_inset 
+
+
+\begin_inset LatexCommand \cite{Poston78}
+
+\end_inset 
+
+.
+ Nous nous limiterons ici à utiliser les fonctions dont l'ensemble zéro
+ est une surface immergée dans un espace 3D.
+ Nous nous limiterons également à faire évoluer la forme sans transformer
+ la topologie de l'ensemble zéro, le problème de l'adaptation à la modification
+ de la topologie est traité dans 
+\begin_inset LatexCommand \cite{Stander97}
+
+\end_inset 
+
+.
+\begin_float fig 
+\layout Standard
+\align center 
+
+\begin_inset Figure size 226 141
+file Modelation_eps/homotopy.eps
+width 1 8.00
+height 1 5.00
+angle -90.00
+flags 8
+
+\end_inset 
+
+
+\layout Caption
+
+Evolution des racines du polynôme 
+\begin_inset Formula \( \left( x^{3}-\alpha x\right)  \)
+\end_inset 
+
+ en fonction du paramètre 
+\begin_inset Formula \( \alpha  \)
+\end_inset 
+
+.
+ Il est clair que connaisant les racines pour une valeur 
+\begin_inset Formula \( \alpha  \)
+\end_inset 
+
+, il est relativement facile de trouver celles correspondant à 
+\begin_inset Formula \( \alpha +\epsilon  \)
+\end_inset 
+
+.
+ Pourvu que la valeur de 
+\begin_inset Formula \( \alpha  \)
+\end_inset 
+
+ ne soit pas proche de zéro, car en cette valeur la topologie de l'ensemble
+ des racines se modifie.
+\end_float 
+\layout Standard
+
+En guise de comparaison, si les racines du polynôme 
+\begin_inset Formula \( \left( x^{3}-\alpha x\right)  \)
+\end_inset 
+
+ sont connues, il est possible de les utiliser comme valeurs initiales pour
+ chercher les racines du polynôme 
+\begin_inset Formula \( \left( x^{3}-(\alpha +\epsilon )x\right)  \)
+\end_inset 
+
+.
+ Une méthode de type Newton-Ramphson, ou même un algorithme de recherche
+ de racines par dichotomie pourra les trouver sans problème majeur, pourvu
+ que 
+\begin_inset Formula \( \alpha  \)
+\end_inset 
+
+ ne se trouve pas dans le voisinage immédiat de la valeur zéro car en cette
+ valeur la topologie de l'ensemble zéro passe d'un point à trois points.
+ 
+\layout Standard
+
+Cette notion d'évolution de la forme est nommée 
+\emph on 
+homotopie
+\emph default 
+ dans le domaine de la topologie 
+\begin_inset LatexCommand \cite{Gross87}
+
+\end_inset 
+
+
+\begin_inset LatexCommand \cite{Kinsey}
+
+\end_inset 
+
+, elle joue un rôle déterminant dans la classification des formes, et en
+ conséquence s'avère être d'une grande importance dans l'étude de la morphogenès
+e en embryologie et dans les études de parenté en théorie de l'évolution
+ 
+\begin_inset LatexCommand \cite{Langton95}
+
+\end_inset 
+
+
+\begin_inset LatexCommand \cite{Wells97}
+
+\end_inset 
+
+
+\begin_float footnote 
+\layout Standard
+
+Nous avons déjà remarqué qu'avant l'avènement de la génétique et la capacité
+ de comparer les génotypes de deux espèces, la parenté entre espèces était
+ établie sur la base de la similitude morphologique, ce qui implicitement
+ introduisait la notion que l'évolution devrait se produire de façon progressive
+ avec de faibles changements.
+\end_float 
+.
+ L'utilisation de l'homotopie pour résoudre des problèmes géométriques sous
+ contraintes est traitée dans 
+\begin_inset LatexCommand \cite{Lamure96}
+
+\end_inset 
+
+.
+\layout Standard
+
+Du point de vue de la théorie de l'information, le fait de construire une
+ forme de façon progressive suivant une évolution par homotopie permet d'obtenir
+ des représentations compactes de l'information.
+ Simplement parce que l'incertitude sur la forme de la fonction 
+\begin_inset Formula \( F_{\eta +\epsilon } \)
+\end_inset 
+
+ est faible quand on dispose des fonctions 
+\begin_inset Formula \( F_{\eta } \)
+\end_inset 
+
+ et 
+\begin_inset Formula \( F_{\eta -\epsilon } \)
+\end_inset 
+
+, plus le fait de savoir que la forme est contrainte d'évoluer de façon
+ progressive.
+ La quantité totale d'information de la forme finale est l'intégrale des
+ incertitudes différentielles depuis la forme originale 
+\begin_inset Formula \( F_{o} \)
+\end_inset 
+
+ 
+\begin_inset LatexCommand \cite{Roman92}
+
+\end_inset 
+
+
+\begin_inset LatexCommand \cite{Emmeche94}
+
+\end_inset 
+
+.
+\layout Standard
+
+Soit 
+\begin_inset Formula \( p\left( F_{\eta +\epsilon }/\left\{ F_{o}\rightarrow F_{\eta }\right\} \right)  \)
+\end_inset 
+
+ la probabilité d'obtenir 
+\begin_inset Formula \( F_{\eta +\epsilon } \)
+\end_inset 
+
+ connaissant la suite 
+\begin_inset Formula \( \left\{ F_{o}\rightarrow F_{\eta }\right\}  \)
+\end_inset 
+
+, la quantité d'information de la forme 
+\begin_inset Formula \( F_{\eta } \)
+\end_inset 
+
+ est :
+\layout Standard
+
+
+\begin_inset Formula 
+\[
+Q(F_{\eta })=\int ^{\eta }_{o}p\left( F_{\gamma }/\left\{ F_{o}\rightarrow F_{\gamma -\epsilon }\right\} \right) \log \left( p\left( F_{\gamma }/\left\{ F_{o}\rightarrow F_{\gamma -\epsilon }\right\} \right) \right) d\gamma \]
+
+\end_inset 
+
+
+\layout Standard
+
+Ce fait est à remarquer du point de vue biologique, car nous avons déjà
+ discuté dans les chapitres précédents que la capacité de stockage et traitement
+ de l'information des organismes biologiques est limitée par la biologie
+ moléculaire.
+ Ils doivent donc se servir de représentations très compactes de l'information.
+\layout Subsection
+
+Adaptation du maillage
+\layout Standard
+
+Il n'est pas trivial de trouver le meilleur ensemble de noeuds et de connexions
+ associées pour représenter une surface donnée.
+ Dans notre cas, le fait d'avoir une forme évolutive nécessite de modifier
+ de façon dynamique la surface représentant la fonction implicite.
+\layout Subsubsection
+
+Les méthodes de référence
+\layout Standard
+
+Les travaux réalisés dans ce domaine utilisent diverses méthodes, celles
+ qui sont basées sur des critères de longueur des arêtes 
+\begin_inset LatexCommand \cite{JohnsonHebert}
+
+\end_inset 
+
+ 
+\begin_inset LatexCommand \cite{Schroeder92}
+
+\end_inset 
+
+, d'autres utilisant la distance du noeud vers un plan approximativement
+ tangent à la surface 
+\begin_inset LatexCommand \cite{Soucy96}
+
+\end_inset 
+
+
+\begin_inset LatexCommand \cite{Xia97}
+
+\end_inset 
+
+
+\begin_inset LatexCommand \cite{Gourdon95}
+
+\end_inset 
+
+.
+ Le principal inconvénient de cette approche est que les nouvelles triangulation
+s ont tendance à se contracter dans les régions à forte courbure de la surface
+ 
+\begin_inset LatexCommand \cite{JohnsonHebert}
+
+\end_inset 
+
+
+\begin_inset LatexCommand \cite{VTKBook}
+
+\end_inset 
+
+.
+\layout Standard
+
+Dans 
+\begin_inset LatexCommand \cite{Turk92}
+
+\end_inset 
+
+, la triangulation est mise à jour en introduisant une nouvelle population
+ de noeuds.
+ La distribution de ces nouveaux noeuds sur la surface est faite par une
+ méthode qui applique une force de répulsion entre eux.
+ Ensuite l'ancienne population des noeuds est éliminée.
+ Pour s'adapter à la forme de la surface, la force de répulsion peut être
+ inversement proportionnelle à la courbure, ce qui produit des densités
+ plus importantes dans les régions de fortes courbures.
+ L'évaluation de la courbure est réalisée en estimant le rayon de la plus
+ grande sphère qui puisse être placée (inscrite) dans la pyramide formée
+ par les triangles incidents sur un noeud.
+\layout Standard
+
+Certaines méthodes ont été proposées pour gérer la simplification de maillages
+ en fonction du point de vue sur lequel l'objet est présenté pour la visualisati
+on.
+ Ces méthodes prennent également en compte la distance de l'observateur
+ LOD (
+\emph on 
+level of detail
+\emph default 
+) 
+\begin_inset LatexCommand \cite{Hoppe97}
+
+\end_inset 
+
+
+\begin_inset LatexCommand \cite{Luebke97}
+
+\end_inset 
+
+, ils satisfassent plus les besoins de la visualisation que ceux de la représent
+ation physique des objets.
+ Dans 
+\begin_inset LatexCommand \cite{Garland97}
+
+\end_inset 
+
+, est présentée une méthode qui modifie la topologie des objets afin de
+ simplifier le maillage et d'accélérer la visualisation pour une grande
+ distance.
+\layout Standard
+
+Une structure de données efficace est proposée dans 
+\begin_inset LatexCommand \cite{Popovic97}
+
+\end_inset 
+
+ pour réaliser la représentation progressive des complexes, de façon à disposer
+ d'une suite de représentations qui commence par une version grossière et
+ finit avec une version assez fine.
+ Les problèmes d'élaboration de techniques d'optimisation de maillages dans
+ des environnements interactifs sont discutés dans 
+\begin_inset LatexCommand \cite{Zorin97}
+
+\end_inset 
+
+ et une méthode adaptée pour les résoudre y est développée également.
+\layout Subsubsection
+
+La méthode implantée
+\layout Standard
+
+La méthode que nous avons choisie, vérifie à chaque étape de la mise à jour
+ dynamique de la fonction implicite, si un noeud doit être entouré de nouveaux
+ noeuds ou si au contraire il doit être éliminé.
+\layout Standard
+
+Le critère de base pour déterminer la qualité de l'adaptation de la triangulatio
+n à la surface est la courbure estimée en chaque noeud selon la méthode
+ développée dans 
+\begin_inset LatexCommand \cite{Reshetnyak93}
+
+\end_inset 
+
+
+\begin_inset LatexCommand \cite{Berestovskij93}
+
+\end_inset 
+
+.
+ Cette estimation est faite en considérant une surface polyèdre comme une
+ variété de Riemman sans les contraintes de continuité de ses dérivées.
+ La valeur de la courbure en un noeud est calculée comme :
+\layout Standard
+
+
+\begin_inset Formula 
+\[
+C=2\pi -\sum \theta _{i}\]
+
+\end_inset 
+
+
+\layout Standard
+
+où les angles 
+\begin_inset Formula \( \theta _{i} \)
+\end_inset 
+
+ sont les angles des triangles incidents dans le noeud.
+ La figure 
+\begin_inset LatexCommand \ref{fig:CourbureDiscrete}
+
+\end_inset 
+
+ illustre ces relations, les angles 
+\begin_inset Formula \( \theta _{i} \)
+\end_inset 
+
+ son formés par les arêtes des voisins 
+\begin_inset Formula \( V_{i} \)
+\end_inset 
+
+ et 
+\begin_inset Formula \( V_{i+1} \)
+\end_inset 
+
+.
+\layout Standard
+
+\begin_float fig 
+\layout Standard
+\align center 
+
+\begin_inset Figure size 195 126
+file Modelation_eps/Etoile.eps
+flags 8
+
+\end_inset 
+
+
+\layout Caption
+
+
+\begin_inset LatexCommand \label{fig:CourbureDiscrete}
+
+\end_inset 
+
+Méthode d'estimation de la courbure en un point P d'une surface polyèdre.
+ Les angles 
+\begin_inset Formula \( \theta _{i} \)
+\end_inset 
+
+ sont indiqués comme 
+\begin_inset Formula \( a_{i} \)
+\end_inset 
+
+.
+\end_float 
+ 
+\layout Paragraph
+
+Insertion des noeuds
+\layout Standard
+
+Lorsque la courbure calculée en un point de la triangulation est trop importante
+, cela signifie que le noeud est insuffisant pour représenter la forme locale
+ de la surface réelle.
+ Il est nécessaire à ce moment là d'introduire de nouveaux noeuds autour
+ de lui pour redistribuer l'information de façon plus équilibrée.
+ Une triangulation peut être considérée comme bien équilibrée pour représenter
+ une surface quand la quantité d'information de tous les noeuds est de grandeur
+ similaire.
+\layout Standard
+
+Nous avons implanté trois méthodes d'insertion de noeuds.
+ Cette implantation permet à un utilisateur de choisir une méthode parmi
+ les trois, depuis une interface graphique.
+\layout Standard
+
+\begin_float fig 
+\layout Standard
+\align center 
+
+\begin_inset Figure size 340 70
+file Modelation_eps/InsertionLocal.eps
+width 1 12.00
+height 1 2.50
+flags 8
+
+\end_inset 
+
+
+\layout Caption
+
+
+\begin_inset LatexCommand \label{fig:InsertionLocal}
+
+\end_inset 
+
+Processus d'insertion des noeuds dans le voisinage d'un noeud qui paraît
+ insuffisant pour représenter la forme locale de la surface.
+\end_float 
+\begin_float fig 
+\layout Standard
+\align center 
+
+\begin_inset Figure size 340 70
+file Modelation_eps/InsertionEdges.eps
+width 1 12.00
+height 1 2.50
+flags 8
+
+\end_inset 
+
+
+\layout Caption
+
+
+\begin_inset LatexCommand \label{fig:InsertionEdges}
+
+\end_inset 
+
+Processus d'insertion de noeuds par division des arêtes.
+ Toute arête est divisée en deux, tout triangle est divisé en quatre.
+\end_float 
+\begin_float fig 
+\layout Standard
+\align center 
+
+\begin_inset Figure size 340 70
+file Modelation_eps/InsertionTriangles.eps
+width 1 12.00
+height 1 2.50
+flags 8
+
+\end_inset 
+
+
+\layout Caption
+
+
+\begin_inset LatexCommand \label{fig:InsertionTriangles}
+
+\end_inset 
+
+Processus d'insertion de noeuds par substitution des triangles.
+ Un nouveau noeud est ajouté au milieu de chaque triangle, toutes les arêtes
+ son renouvelées.
+\end_float 
+\layout Standard
+
+\layout Paragraph
+
+Enlèvement de noeuds
+\layout Standard
+
+Lorsque la courbure en un noeud est trop faible, c'est une indication de
+ que ce noeud n'apporte pas beaucoup d'information sur la forme de la surface
+ réelle.
+ L'élimination du noeud peut être considérée pour réduire le coût de la
+ manipulation de la triangulation.
+\layout Standard
+
+Les techniques d'enlèvement de noeuds diffèrent entre elles uniquement dans
+ le choix du critère qui établit la nécessité de l'enlèvement, mais les
+ procédures mêmes d'élimination sont très similaires, car elles sont toutes
+ contraintes de respecter la topologie du graphe de la triangulation.
+ La procédure retenue ici consiste à casser l'arête entre deux noeuds voisins
+ 
+\begin_inset LatexCommand \cite{Popovic97}
+
+\end_inset 
+
+
+\begin_inset LatexCommand \cite{Garland97}
+
+\end_inset 
+
+.
+\layout Paragraph
+
+La redistribution des connexions
+\layout Standard
+
+Les processus d'agrégation et d'enlèvement de noeuds peuvent facilement
+ laisser des traces dans les formes des facettes de la triangulation.
+ Des triangles trop allongés sont une preuve d'une mauvaise distribution
+ des connexions entre noeuds.
+ Une procédure simple pour rétablir des triangles assez compacts consiste
+ en l'application du critère d'angles opposés qui s'utilise typiquement
+ pour construire une triangulation de Delaunay dans le plan.
+ Ce critère consiste à tester si la somme des angles opposés est supérieure
+ à 
+\begin_inset Formula \( \pi  \)
+\end_inset 
+
+.
+ 
+\layout Standard
+
+Ceci est illustré dans la figure 
+\begin_inset LatexCommand \ref{fig:AnglesOposes}
+
+\end_inset 
+
+ : si la somme des angles 
+\begin_inset Formula \( A \)
+\end_inset 
+
+ et 
+\begin_inset Formula \( B \)
+\end_inset 
+
+ est supérieure à 
+\begin_inset Formula \( \pi  \)
+\end_inset 
+
+, la paire de triangles doit être commutée en changeant la ligne représentée
+ par des tirets par la ligne en pointillée.
+ Ce test indique si le sommet 
+\begin_inset Formula \( p_{a} \)
+\end_inset 
+
+ se trouve à l'intérieur du cercle 
+\begin_inset Formula \( C_{b} \)
+\end_inset 
+
+ ou non 
+\begin_inset LatexCommand \cite{Earnshaw85}
+
+\end_inset 
+
+.
+ Remarquons que dans notre cas, comme on ne se trouve pas dans le plan,
+ le résultat de cette procédure ne serait pas, de façon certaine une triangulati
+on avec les propriétés de celle de Delaunay, mais elle aura, en tous cas,
+ une meilleure distribution des formes de triangles.
+ 
+\layout Standard
+
+\begin_float fig 
+\layout Standard
+\align center 
+
+\begin_inset Figure size 226 141
+file Modelation_eps/AnglesOposes.eps
+width 1 8.00
+height 1 5.00
+flags 8
+
+\end_inset 
+
+
+\layout Caption
+
+
+\begin_inset LatexCommand \label{fig:AnglesOposes}
+
+\end_inset 
+
+Critère de somme des angles opposés utilisé dans l'algorithme d'amélioration
+ de la triangulation.
+\end_float 
+\layout Standard
+
+D'autres travaux utilisent la valeur du plus petit angle comme critère pour
+ décider si les connexions doivent être modifiées puisqu'on démontre que
+ la maximisation de cet angle conduit à la minimisation du rayon du cercle
+ circonscrit 
+\begin_inset LatexCommand \cite{Soucy96}
+
+\end_inset 
+
+.
+ Il s'agit ici de permuter la diagonale de deux triangles voisins.
+ L'avantage de cette méthode est de ne pas modifier le reste de la triangulation.
+\layout Paragraph
+
+Mise en oeuvre de l'ensemble 
+\layout Standard
+
+L'algorithme de mise à jour de la triangulation utilisée pour représenter
+ la surface, applique après chaque modification de la fonction implicite
+ les étapes suivantes :
+\layout Enumerate
+
+Mise à jour des positions des noeuds le long de la normale à la surface
+ dans les nouvelles conditions de la fonction (méthode de dichotomie et
+ notion d'homotopie).
+\layout Enumerate
+
+Évaluation de la courbure discrète en tous les noeuds de la triangulation.
+\layout Enumerate
+
+Pour ceux dont la courbure dépasse un seuil (haut), des noeuds sont introduits
+ autour.
+\layout Enumerate
+
+Pour ceux dont la courbure ne dépasse pas un autre seuil (bas), il est enlevé
+ par fusion avec un de ses voisins, en cassant l'arête commune.
+\layout Enumerate
+
+La triangulation est mise à jour.
+ Toutes les paires de triangles voisins sont testées pour vérifier si un
+ échange de diagonales permet de réduire la somme des angles internes.
+\layout Subsection
+
+Les fonctions de forme tubulaire
+\layout Standard
+
+Un nombre important de tissus biologiques s'organisent en faisceaux fibreux.
+ Leur représentation nécessite un modèle tubulaire qui ne peut pas être
+ correctement approché par les fonctions décrites jusqu'ici.
+ Des tissus comme les tendons, les ligaments et les muscles appartiennent
+ à cette catégorie.
+\layout Subsubsection
+
+Les tubes inextensibles incompressibles
+\layout Standard
+
+Une première classe est celle des tubes incompressibles et inextensibles.
+ En les utilisant, nous visons la modélisation des tendons.
+ Notre modèle consiste en une séquence de points 
+\begin_inset Formula \( \left\{ \overrightarrow{p_{i}}\right\}  \)
+\end_inset 
+
+ représentant la ligne médiale de la structure tubulaire, ainsi qu'une suite
+ de valeurs de rayons 
+\begin_inset Formula \( \left\{ r_{i}\right\}  \)
+\end_inset 
+
+ de cette structure correspondant à chacun des points de la ligne médiale.
+\layout Standard
+
+Dans le cas des tendons, ces rayons ne subissent pas de changement majeur
+ le long de la ligne médiale, mais on gardera ici une approche générale,
+ car ce modèle est susceptible d'être réutilisé pour bien d'autres structures
+ anatomiques.
+\layout Standard
+
+La notion de la fonction implicite correspond intuitivement à la diffusion
+ de la ligne médiale.
+ Nous voulons donc représenter une fonction 
+\begin_inset Formula \( 3D \)
+\end_inset 
+
+ telle que son profil dans chaque plan perpendiculaire à la ligne médiale
+ 
+\begin_inset Formula \( l_{m} \)
+\end_inset 
+
+ soit une fonction gaussienne 
+\begin_inset Formula \( 2D \)
+\end_inset 
+
+.
+ 
+\layout Standard
+
+
+\begin_inset Formula 
+\[
+T\left( \overrightarrow{p}\right) =e^{\left( -\frac{dist\left( \overrightarrow{p},l_{m}\right) ^{2}}{2\sigma ^{2}}\right) }\]
+
+\end_inset 
+
+
+\layout Standard
+
+La distance d'un point 
+\begin_inset Formula \( \overrightarrow{p} \)
+\end_inset 
+
+ à la ligne médiale 
+\begin_inset Formula \( l_{m} \)
+\end_inset 
+
+ étant définie par :
+\layout Enumerate
+
+Evaluer la distance du point 
+\begin_inset Formula \( \overrightarrow{p} \)
+\end_inset 
+
+ jusqu'au segment de la ligne médiale contenant la projection de ce point.
+\layout Enumerate
+
+Évaluer la distance du point 
+\begin_inset Formula \( \overrightarrow{p} \)
+\end_inset 
+
+ jusqu'à chacun des points 
+\begin_inset Formula \( \overrightarrow{P_{i}} \)
+\end_inset 
+
+ de la ligne médiale.
+\layout Enumerate
+
+La valeur minimale entre les deux ensembles est la distance entre le point
+ 
+\begin_inset Formula \( \overrightarrow{p} \)
+\end_inset 
+
+ et la ligne médiale 
+\begin_inset Formula \( l_{m} \)
+\end_inset 
+
+.
+ 
+\layout Standard
+
+Le fait de définir une fonction en chaque point 
+\begin_inset Formula \( \overrightarrow{p} \)
+\end_inset 
+
+ de l'espace, dépendant de la distance du point à une courbe suppose impliciteme
+nt qu'une telle distance est déjà bien définie.
+ Dans le cas continu, la notion de distance à un courbe est bien définie
+ pourvu qu'elle soit inférieure au rayon de courbure au point de la courbe,
+ le plus proche au point 
+\begin_inset Formula \( \overrightarrow{p} \)
+\end_inset 
+
+ 
+\begin_inset LatexCommand \cite{Gray93}
+
+\end_inset 
+
+
+\begin_inset LatexCommand \cite{Porteous94}
+
+\end_inset 
+
+.
+ 
+\begin_float fig 
+\layout Standard
+\align center 
+
+\begin_inset Figure size 283 170
+file Modelation_eps/tubular.eps
+width 1 10.00
+height 1 6.00
+flags 8
+
+\end_inset 
+
+
+\layout Caption
+
+
+\begin_inset LatexCommand \label{fig:distanceTubulaire}
+
+\end_inset 
+
+Représentation schématique de la structure tubulaire.
+\end_float 
+La figure 
+\begin_inset LatexCommand \ref{fig:distanceTubulaire}
+
+\end_inset 
+
+ montre les relations géométriques dans la structure tubulaire.
+ La ligne médiale discrétisée est représentée pour la séquence de points
+ 
+\begin_inset Formula \( P_{i} \)
+\end_inset 
+
+.
+ Les rayons de la structure en chacun de ses points sont déterminés par
+ les valeurs 
+\begin_inset Formula \( R_{i} \)
+\end_inset 
+
+.
+\layout Subsubsection
+
+Les tubes extensibles incompressibles
+\layout Standard
+
+Cette classe d'objets est adaptée pour la modélisation des muscles.
+ Le fonctionnement d'un muscle implique une conservation du volume car le
+ tissu musculaire est, comme la plupart des tissus, composée d'un fort pourcenta
+ge d'eau.
+\layout Standard
+
+Le muscle est un ensemble de fibres qui sous l'action de l'innervation se
+ contracte jusqu'au tiers de sa taille normale.
+ La contraction produit un grossissement du diamètre du muscle à cause de
+ son incompressibilité 
+\begin_inset LatexCommand \cite{Scheepers97}
+
+\end_inset 
+
+
+\begin_inset LatexCommand \cite{Wilhelms97}
+
+\end_inset 
+
+.
+\layout Section
+
+Optimisation des paramètres
+\layout Standard
+
+L'adaptation d'un modèle géométrique à une forme réelle nécessite un ajustement
+ convenable des valeurs des paramètres du modèle.
+ L'information sur la forme réelle est représentée ici par le module du
+ gradient et le Laplacien du volume de données.
+ Dans une première étape, nous nous concentrerons sur l'ajustement du modèle
+ en tant que corps rigide.
+ Une fois ce recalage effectué nous procédons à l'application de déformations
+ locales, rendues possibles grâce à la nature composée des metaballs (que
+ nous avons retenu comme mécanisme de représentation des fonctions implicites).
+ Ensuite, nous décrivons les méthodes développées et mises en oeuvre pour
+ l'ajustement rigide du modèle géométrique.
+ Ces méthodes supposent que le modèle géométrique se trouve près de la forme
+ réelle et qu'on procède plutôt à un affinement des paramètres de position,
+ échelle et orientation.
+\layout Subsection
+
+L'apport de notre méthode
+\layout Standard
+
+\begin_float fig 
+\layout Standard
+\align center 
+
+\begin_inset Figure size 142 116
+file Modelation_eps/LaplacianBras.eps
+flags 8
+
+\end_inset 
+
+ 
+\begin_inset Figure size 118 116
+file Modelation_eps/LaplacianEpaule.eps
+flags 8
+
+\end_inset 
+
+
+\layout Caption
+
+
+\begin_inset LatexCommand \label{fig:LaplacianRealImage}
+
+\end_inset 
+
+Coupes du Laplacien du volume de données de structures osseuses.
+ A gauche, l'avant bras, on distingue le radius et l'ulna.
+ A droite, l'articulation de l'épaule, sont visibles la tête de l'humérus,
+ une portion de la cavité glénoïde 
+\begin_inset Info 
+\end_inset 
+
+et en haut l'acromium.
+\end_float 
+\layout Standard
+
+L'originalité de l'approche que nous présentons consiste en l'introduction
+ des concepts suivants:
+\layout Itemize
+
+L'utilisation de l'information du Laplacien.
+\layout Itemize
+
+L'intégration de l'information locale captée par les points de la surface
+ du modèle pour estimer le meilleur changement à faire dans les paramètres
+ du modèle dans son ensemble.
+\layout Standard
+
+Le premier est introduit en opposition à l'habituelle optimisation du placement
+ du modèle par rapport aux régions de maximum du module du gradient.
+ Du point de vue du calcul différentiel, ces deux critères sont équivalents,
+ mais du point de vue de la mise en oeuvre, le laplacien est d'un grand
+ intérêt car, il indique non pas uniquement si le modèle est bien placé,
+ mais, il permet en plus de déterminer la direction dans laquelle il faut
+ modifier les paramètres du modèle pour améliorer le recalage.
+\layout Standard
+\added_space_top 0.3cm \added_space_bottom 0.3cm \align center 
+\begin_float fig 
+\layout Standard
+\align center 
+
+\begin_inset Figure size 328 252
+file Modelation_eps/ModelFit.eps
+flags 8
+
+\end_inset 
+
+
+\layout Caption
+
+
+\begin_inset LatexCommand \label{fig:modelSkin}
+
+\end_inset 
+
+Illustration de la triangulation représentant la surface d'un modèle géométrique.
+ La surface est superposée à une coupe du module du gradient d'un volume
+ de données de l'avant bras.
+ La figure en bas à gauche illustre les estimations des vecteurs normales
+ à la surface.
+ La figure en bas à droite illustre la même surface avec un affinement du
+ maillage, ce qui augmente la précision de l'ajustement au prix du temps
+ de calcul.
+\end_float 
+\layout Standard
+
+Le deuxième concept élimine un des problèmes classiques des modèles déformables,
+ à savoir, leur tendance à déplacer leurs points de façon indépendante en
+ fonction des informations locales 
+\begin_inset LatexCommand \cite{Garland97}
+
+\end_inset 
+
+.
+ Dans notre cas, les positions des points sont controlées par la fonction
+ implicite sous-jacente au modèle, les informations captées au niveau des
+ points sont utilisées pour optimiser les paramètres de cette fonction implicite.
+ Cette approche permet de maintenir la cohérence de la forme face aux facteurs
+ gênants tels que la présence de bruit, la dégradation du contraste de l'image
+ et les discontinuités des contours.
+\layout Subsection
+
+Ajustement de la position
+\layout Subsubsection
+
+Le principe de la méthode
+\layout Standard
+
+Un volume de données dans lequel on a extrait le Laplacien, fournit un champ
+ scalaire 3D dans lequel on trouve des bandes autour des contours de la
+ figure originale.
+ Ces bandes seront de signe positif si elles se trouvent à l'extérieur de
+ l'objet et de signe négatif dans le cas contraire
+\begin_float footnote 
+\layout Standard
+
+En supposant que l'objet dans l'image originale est représenté par des niveaux
+ de gris élevés, ce qui est le cas pour les volumes de données de structures
+ osseuses en scanner-X.
+\end_float 
+ .
+ La figure 
+\begin_inset LatexCommand \ref{fig:LaplacianRealImage}
+
+\end_inset 
+
+ présente des exemples de coupes du Laplacien d'un volume de données, à
+ gauche une coupe de l'avant bras où sont visibles le radius et l'ulna,
+ à droite une coupe de l'épaule.
+ La figure 
+\begin_inset LatexCommand \ref{fig:modelSkin}
+
+\end_inset 
+
+ montre la superposition de la surface du modèle géométrique et d'une coupe
+ du module du gradient d'un volume de données.
+ La figure 
+\begin_inset LatexCommand \ref{fig:CenterFromLaplacian}
+
+\end_inset 
+
+ illustre l'hypothèse de base de cette méthode, la bande interne (gris foncé)
+ représente la partie négative du Laplacien, tandis que la bande externe
+ (gris clair) correspond à la partie positive.
+ 
+\layout Standard
+
+\begin_float fig 
+\layout Standard
+\align center 
+
+\begin_inset Figure size 322 118
+file Modelation_eps/CentreFromLaplacian.eps
+flags 8
+
+\end_inset 
+
+
+\layout Caption
+
+A gauche : disposition des points de la surface du modèle sur le Laplacien
+ d'un objet.
+ La normale à la surface en chaque point est multipliée par la valeur du
+ Laplacien pour constituer ainsi une force locale appliquée sur la surface,
+ la somme de toutes les forces locales produit une force totale qui indique
+ la direction dans laquelle il faut déplacer le modèle.
+ A droite : détail local, les flèches en gras et continu représentent la
+ normale estimée à la surface du modèle, les flèches en tirets représentent
+ la direction de la force de recalage local, qui peut être parallèle ou
+ non à la normale en fonction du signe du Laplacien.
+\begin_inset LatexCommand \label{fig:CenterFromLaplacian}
+
+\end_inset 
+
+
+\end_float 
+\layout Standard
+
+Si le modèle géométrique est dans la position de recalage parfaite, les
+ points de sa surface, (sa peau) se trouvent dans l'isosurface de valeur
+ zéro du Laplacien qui est le lieu géométrique des passages par zéro corresponda
+nts aux surfaces de la forme originale.
+ Si, en revanche, le modèle est déplacé, certains de ses points se trouveraient
+ dans la bande positive du Laplacien, tandis que d'autres se trouveraient
+ dans la bande négative.
+ Ce fait permet de déterminer si un point se place à l'extérieur ou à l'intérieu
+r de la forme.
+\layout Standard
+
+Si cette information est combinée avec la connaissance d'une estimation
+ du vecteur normal à la surface (ce qui est compris dans notre modèle géométriqu
+e, voir figure 
+\begin_inset LatexCommand \ref{fig:modelSkin}
+
+\end_inset 
+
+), il est possible d'estimer la direction du déplacement qui guidera le
+ modèle vers sa position d'ajustement optimal avec la forme, c'est à dire,
+ à le placer le plus près possible de l'isosurface des passages par zéro
+ du Laplacien.
+\layout Subsubsection
+
+La mise en oeuvre
+\layout Standard
+
+Le vecteur de déplacement global du modèle géométrique est calculé en multiplian
+t pour chaque point 
+\begin_inset Formula \( p_{i} \)
+\end_inset 
+
+, la valeur du Laplacien 
+\begin_inset Formula \( L(p_{i}) \)
+\end_inset 
+
+ par le vecteur 
+\begin_inset Formula \( \overrightarrow{n_{i}} \)
+\end_inset 
+
+ normal à la surface en ce point.
+ Sachant que les normales du modèle géométrique se dirigent toujours vers
+ l'extérieur de la forme, la force de recalage locale est calculée comme
+ :
+\layout Standard
+
+
+\begin_inset Formula 
+\[
+\overrightarrow{Fr(p_{i})}=-\overrightarrow{n_{i}}\cdot L(p_{i})\]
+
+\end_inset 
+
+
+\layout Standard
+
+Pour un point placé dans la partie positive du Laplacien (l'extérieur),
+ cette force pousse le point vers l'intérieur.
+ Pour le cas d'un point placé à l'intérieur de la forme (partie négative
+ du Laplacien), cette poussée se dirigera vers l'extérieur de la forme.
+ La force de recalage globale est simplement la somme de toutes les contribution
+s des forces locales de recalage :
+\layout Standard
+
+
+\begin_inset Formula 
+\[
+\overrightarrow{Fr}=\sum _{i}\overrightarrow{Fr(p_{i})}\]
+
+\end_inset 
+
+
+\layout Standard
+
+On remarquera que cette façon de calculer la poussée du recalage conduit
+ le modèle géométrique vers la position de l'isosurface du passage par zéro
+ du Laplacien.
+ 
+\begin_float fig 
+\layout Standard
+\align center 
+
+\begin_inset Figure size 328 378
+file Modelation_eps/ModelOpt.eps
+flags 8
+
+\end_inset 
+
+
+\layout Caption
+
+
+\begin_inset LatexCommand \label{fig:SequenceOptimisation}
+
+\end_inset 
+
+Séquence d'optimisation de la position d'un modèle simple sur la structure
+ médiale du radius.
+ 
+\end_float 
+\layout Standard
+
+La méthode d'optimisation de la position s'exécute de façon itérative.
+ Pour une position donnée du modèle géométrique à l'instant 
+\begin_inset Formula \( t \)
+\end_inset 
+
+, on calcule la force globale de recalage 
+\begin_inset Formula \( \overrightarrow{Fr} \)
+\end_inset 
+
+, puis, le modèle est déplacé dans cette direction d'une distance préétablie
+ et la force est recalculée, si la nouvelle force se présente dans la même
+ direction que pour l'instant précédent, plus précisément si : 
+\begin_inset Formula \( \overrightarrow{Fr_{(t-1)}}\cdot \overrightarrow{Fr_{t}}>0 \)
+\end_inset 
+
+, on avance du même pas.
+ Si en revanche, la nouvelle force se présente dans la direction contraire
+ à la force de l'instant précédent, autrement dit 
+\begin_inset Formula \( \overrightarrow{Fr_{(t-1)}}\cdot \overrightarrow{Fr_{t}}\leq 0 \)
+\end_inset 
+
+, on réduit la longueur du pas de moitié, car, si la direction du vecteur
+ 
+\begin_inset Formula \( \overrightarrow{Fr} \)
+\end_inset 
+
+ change d'une itération à l'autre, cela signifie que le modèle a dépassé
+ sa position d'équilibre pour se placer de l'autre côté de la forme.
+ Dans ce cas, le pas est divisé par deux afin de garantir la convergence
+ de l'estimation de la position, en évitant des oscillations.
+\layout Standard
+
+La longueur initiale du pas est prédéfinie par une valeur considérée suffisammen
+t faible pour garantir la stabilité de la première itération (0.1 millimètre
+ pour les images des articulations osseuses).
+ Dans la mise en oeuvre de la méthode la longueur du pas peut être définie
+ par l'utilisateur depuis une interface graphique.
+\layout Subsubsection
+
+Résultats
+\layout Standard
+
+Cette méthode produit des résultats rapides avec une précision suffisante
+ pourvu que le modèle géométrique soit de morphologie similaire à la forme
+ à recaler et que la distance entre les deux ne soit pas trop importante.
+ La figure 
+\begin_inset LatexCommand \ref{fig:SequenceOptimisation}
+
+\end_inset 
+
+ montre un exemple d'application de cette méthode, le modèle est un metaball
+ basé sur une primitive superquadrique.
+ Entre chacune des images de la suite, la méthode a réalisé vingt itérations.
+ La coloration de la surface du modèle représente les valeurs du Laplacien
+ sur la surface : bleu pour les régions positives, rouge pour les régions
+ négatives, vert pour les passages par zéro.
+ Cela permet d'interpréter la géométrie du modèle par rapport à la forme
+ réelle; les régions en bleu se trouvent à l'extérieur de la forme tandis
+ que les régions en rouge se trouvent à l'intérieur, celles en vert sont
+ bien placées sur la surface de la forme.
+ Il faut remarquer ici que la double bande verte visible dans la surface
+ est due au fait que le radius a une structure tubulaire, il y a donc deux
+ surfaces confrontées : une interne et une autre externe, ce qui est d'ailleurs
+ bien visible dans la coupe du module du gradient.
+\layout Subsection
+
+Ajustement de l'échelle
+\layout Standard
+
+La méthode d'ajustement de l'échelle suit la même philosophie que celle
+ de la méthode d'ajustement de la position.
+ Il suffit de remarquer le fait que si le modèle géométrique s'avère de
+ taille trop réduite par rapport à la forme réelle, et que sa position n'est
+ pas trop loin d'être centrée, la plupart des points de la surface du modèle
+ géométrique se trouvent à l'intérieur de la forme, ils seront donc, placés
+ sur la bande de valeurs négative du Laplacien (voir la partie à gauche
+ de la figure 
+\begin_inset LatexCommand \ref{fig:ScaleFromLaplacian}
+
+\end_inset 
+
+).
+ Si en revanche, le modèle géométrique est de taille supérieur à celle de
+ la forme réelle, ses points seront placés sur la bande positive du Laplacien
+ (voir la partie à droite de la figure 
+\begin_inset LatexCommand \ref{fig:ScaleFromLaplacian}
+
+\end_inset 
+
+).
+ 
+\layout Standard
+
+\begin_float fig 
+\layout Standard
+\align center 
+
+\begin_inset Figure size 285 132
+file Modelation_eps/ScaleFromLaplacian.eps
+flags 8
+
+\end_inset 
+
+
+\layout Caption
+
+
+\begin_inset LatexCommand \label{fig:ScaleFromLaplacian}
+
+\end_inset 
+
+ Placement des points de la surface du modèle pour des échelles différentes.
+ A gauche le cas d'une faible échelle.
+ A droite le cas d'une grande échelle.
+ Les vecteurs illustrent la direction des forces locales appliquées sur
+ la surface.
+ En pratique, il suffit de faire la somme des valeurs du Laplacien sur tous
+ les points de la surface, et de déterminer si la somme est positive ou
+ négative.
+\end_float 
+\layout Standard
+
+La simple somme des valeurs du Laplacien en tout point de la surface du
+ modèle géométrique nous indique si l'échelle doit être réduite ou augmentée.
+ Une valeur négative de la somme totale du Laplacien indique que la taille
+ doit être augmentée, tandis qu' une valeur positive indique que la taille
+ doit être réduite.
+\layout Subsection
+
+Ajustement de l'orientation
+\layout Standard
+
+L'ajustement de l'orientation s'avère plus délicate que les deux procédures
+ précédentes.
+ La méthode décrite dans ce qui suit, fournit une estimation de l'axe de
+ rotation qui permettra de mieux recaler le modèle géométrique sur la forme
+ réelle.
+ Il s'agit d'un calcul de torsions cumulées sur tous les points de la surface
+ du modèle.
+ Comme la rotation globale s'effectue dans l'espace 3D, elle nécessite la
+ détermination d'un axe et d'un angle, ou, un équivalent des quaternions
+ pour décrire la rotation 
+\begin_inset LatexCommand \cite{GraphicGems}
+
+\end_inset 
+
+.
+\layout Standard
+
+\begin_float fig 
+\layout Standard
+\align center 
+
+\begin_inset Figure size 283 153
+file Modelation_eps/OrientationFromLaplacian.eps
+flags 8
+
+\end_inset 
+
+
+\layout Caption
+
+
+\begin_inset LatexCommand \label{fig:OrientationFromLaplacian}
+
+\end_inset 
+
+ Ajustement de la rotation du modèle géométrique par rapport à la forme
+ réelle.
+ Les forces locales appliquées sur les points de la surface du modèle produisent
+ des torsions par rapport à l'origine des coordonnées.
+ Les vecteurs en gras représentent les normales estimées tandis que les
+ vecteurs en tirets représentent les forces locales.
+ Il faut remarquer qu'ils changent de sens en fonction de la valeur du Laplacien.
+\end_float 
+\layout Standard
+
+La figure 
+\begin_inset LatexCommand \ref{fig:OrientationFromLaplacian}
+
+\end_inset 
+
+ montre les relations entre les forces appliquées localement sur les points
+ de la surface du modèle géométrique.
+ Chaque force 
+\begin_inset Formula \( \overrightarrow{Fr_{i}} \)
+\end_inset 
+
+ est calculée comme le produit entre le vecteur normale 
+\begin_inset Formula \( \overrightarrow{n_{i}} \)
+\end_inset 
+
+ et la valeur locale du Laplacien 
+\begin_inset Formula \( L(p_{i}) \)
+\end_inset 
+
+.
+ Ces forces sont utilisées ensuite pour calculer des torsions 
+\begin_inset Formula \( \overrightarrow{T(p_{i})} \)
+\end_inset 
+
+ par rapport au centre 
+\begin_inset Formula \( \overrightarrow{c_{i}} \)
+\end_inset 
+
+ du modèle.
+\layout Standard
+
+
+\begin_inset Formula 
+\[
+\overrightarrow{T(p_{i})}=\left( \overrightarrow{p_{i}}-\overrightarrow{c_{i}}\right) \times \left( \overrightarrow{n_{i}}\cdot L(p_{i})\right) \]
+
+\end_inset 
+
+
+\layout Standard
+
+La somme de toutes les torsions locales produit une torsion globale 
+\begin_inset Formula \( \overrightarrow{T} \)
+\end_inset 
+
+ sur le modèle.
+ De cette torsion globale nous ne retenons que l'orientation que nous utiliseron
+s comme axe de rotation.
+ La valeur initiale de l'angle à tourner est choisie égale à 
+\begin_inset Formula \( 0.1 \)
+\end_inset 
+
+ radian, (environ 
+\begin_inset Formula \( 5 \)
+\end_inset 
+
+ degrés).
+ A chaque fois que l'axe de rotation change de sens, le pas de l'itération
+ en degrés est réduit de moitié, ce qui garantit la convergence du processus.
+\layout Standard
+
+Le critère du changement de sens est similaire à celui utilisée pour l'optimisat
+ion de la position, autrement dit : 
+\begin_inset Formula \( \overrightarrow{T_{(t-1)}}\cdot \overrightarrow{T_{t}}>0 \)
+\end_inset 
+
+.
+\layout Section
+
+L'analyse de formes ou la décomposition en primitives
+\layout Standard
+
+Nous avons montré comment il est possible de synthétiser une forme en utilisant
+ une fonction implicite composée de primitives simples.
+ Nous considérons maintenant la question de comment déterminer, à partir
+ d'une forme donnée, le meilleur ensemble de primitives convenable pour
+ la synthétiser.
+ Ce problème est à rapprocher de la transformation (par exemple Fourier)
+ d'un signal, que l'on pourra appeler transformée en metaballs.
+\layout Standard
+
+Le principe de base pour cette analyse est le théorème de fonctions implicites,
+ connu comme le théorème de traversavilité 
+\begin_inset LatexCommand \cite{Thom77}
+
+\end_inset 
+
+
+\begin_inset LatexCommand \cite{Poston78}
+
+\end_inset 
+
+
+\begin_inset LatexCommand \cite{Mazure89}
+
+\end_inset 
+
+.
+ Cette analyse n'a pas été abordée dans ce travail, mais elle a été identifiée
+ comme fondamentale pour envisager l'automatisation, ou au moins la simplificati
+on, du processus de construction de modèles.
+\the_end
+@
+
+
+1.1
+log
+@Initial revision
+@
+text
+@d1 1
+a1 2
+#This file was created by <ibanez> Mon May 29 21:24:55 2000
+#LyX 0.12 (C) 1995-1998 Matthias Ettrich and the LyX Team
+d36 1
+a36 1
+ la modélisation avec les éléments issus des processus impliqués.
+d44 1
+a44 1
+Le dépôt des couches
+d67 2
+a68 14
+\begin_inset Info hamitou Fri Oct  8 10:27:10 1999
+L'introduction est un peu courte,
+
+
+ibanez:
+Tu as bien raison. J'ai donc ajoute une
+description de la representation que
+nous avons retenu.  Cela tombe bien
+avant de decrire les autres possibles
+methodes.
+\end_inset 
+
+ Nôtre modèle utilise une fonction implicite dont les paramètres sont adaptés
+ à les caracteristiques de la forme.
+d70 1
+a70 1
+ ce qui résulte très approprié pour la détection de colisions.
+d75 2
+a76 2
+, qui consiste en sommer des fonctions ellipsoïdales simples après d'avoir
+ été passées par une fonction Gaussienne.
+d83 7
+a89 3
+ La meilleur option suivante étant celle d'utiliser des modèles des éléments
+ finis.
+ Ces derniers peuvent être beaucoup mieux adaptés a la description des interacti
+d166 1
+a166 1
+, ou en augmentant la densité des points du modèle dans las regions de courbure
+d173 2
+a174 2
+ La diversité est telle que il a été nécessaire de proposer une unification
+ de les meilleurs méthodes 
+d210 1
+a210 1
+ entièrement l'état du modèle .
+d293 1
+a293 1
+ sont les angles d'azimut et de latitude classiques.
+d304 1
+a304 1
+ Bien qu'en principe, une surface fermée est une variété bidimensionelle,
+d329 1
+a329 1
+ Cependant, ces approches, bien qu' appropriées pour une meilleure segmentation
+d354 1
+a354 1
+ de plus en plus de composantes frequentielles.
+d356 3
+a358 3
+ d'une expression implicite et d'une expression paramétrique.
+ Ce qui permet de tester si la position d'un point de l'espace se trouve
+ à l'intérieur ou à l'extérieur de la courbe qui délimite la forme.
+d364 1
+a364 1
+Les harmoniques sphériques peuvent bien être considérés comme une version
+d378 1
+a378 1
+width 1 10
+d391 3
+a393 3
+Représentation esquematique de une M-Rep, ou modèle médiale.
+ La figure montre une possible M-Rep de un embryon.
+ A droit: un noeud du modele M-Rep, contient l'information d'une position
+d398 1
+a398 1
+, la distance à la frontiere de la forme 
+d406 1
+a406 1
+ indiquant la direction de la continuation de la ligne mediale de la forme,
+d411 1
+a411 1
+ qui est relié à l'angle formé entre les deux bords oposés du contour.
+d429 2
+a430 2
+ ce qui génère une suite d' images.
+ L'analyse de cette suite d'images, connue aussi comme l'analyse multi-échelles
+d432 5
+a436 1
+ de façon similaire à la squeletisation en morphologie mathématique.
+d442 3
+a444 3
+ Un modèle dit médiale est composé d'une suite de points distribués uniformément
+ dans le squelette de la forme.
+ Pour chacun de ses points on identifie les deux points du contour de la
+d447 1
+a447 1
+ médiale et le contour dans les deux directions 
+d472 2
+a473 2
+, consiste d'une ensemble des noeuds placés le long de la ligne médiale
+ de la forme.
+d499 3
+a501 3
+Ils se prêtent bien à la paramétrisation en définissant des relations entre
+ les éléments internes du modèle, ce qui est typiquement fait par une analyse
+ statistique d'un ensemble de formes du même type.
+d503 1
+a503 13
+ plus robustes au discontinuités des contours et au bruit dans l'image.
+\begin_inset Info hamitou Fri Oct  8 11:29:08 1999
+Cette méthode parait très intéressante, mais tu as été très rapide vers la fin,
+quand tu parles de paramétrisation (je ne vois pas trop comment)
+
+ibanez, Oct 20 1999
+J'ai ajoute des details sur la parametrization et
+une figure, qu''illustre le sens geometrique des
+parametres.
+que
+\end_inset 
+
+
+d506 1
+a506 1
+Les fonction implicites
+d525 1
+a525 1
+ comme l'ensemble de points tels que la fonction 
+d595 2
+a596 2
+iques d'un certain type de cellules et de la composition de la matrice extra-cel
+lulaire.
+d600 4
+a603 5
+Il résulte donc que la notion d'organe est basée sur le concept de densité
+ volumique, soit cellulaire, soit de concentration d'un certain type de
+ protéine.
+ Un organe finit là où la densité de ce type cellulaire ne dépasse pas une
+ certaine valeur.
+d622 4
+a625 4
+ La fonction est représentée comme étant échantillonnée dans une volume
+ des données au lieu de disposer d'une expression mathématique explicite.
+ Nôtre représentation est plus compacte car la connaissance des paramètres
+ de les fonctions de base suffit pour définir complètement la fonction.
+d659 1
+a659 1
+ si deux formes A et B se trouvent en collision il suffit d'évaluer la fonction
+d669 1
+a669 1
+ qui vont permettent de maintenir une distribution uniforme de points au
+d727 1
+a727 1
+ support fini, ce qui est, bien évidement, le cas des formes biologiques.
+d745 1
+a745 1
+) ont été introduits dans le domaine de la synthèse d'image par ordinateur
+d843 1
+a843 1
+ Une combinaison des metaballs permet de composer des formes complexes comme
+d901 1
+a901 1
+ Les deux metaballs presentées dans cet exemple sont equivalentes a deux
+d917 3
+a919 3
+width 1 5.5
+height 1 4.5
+angle -90
+d927 3
+a929 3
+width 1 5.5
+height 1 4.5
+angle -90
+d940 3
+a942 3
+width 1 5.5
+height 1 4.5
+angle -90
+d950 3
+a952 3
+width 1 5.5
+height 1 4.5
+angle -90
+d963 3
+a965 3
+width 1 5.5
+height 1 4.5
+angle -90
+d973 3
+a975 3
+width 1 5.5
+height 1 4.5
+angle -90
+d1173 1
+a1173 1
+ Ces asymétries sont à attendre dans la modélisation ds formes biologiques
+d1175 1
+a1175 1
+ a des contraintes de symétries qui peuvent rarement être atteintes dans
+d1190 1
+a1190 1
+Remarquons que chacune de ses primitives peut être modifiée par l'introduction
+d1213 1
+a1213 1
+ placés dans l'isosurface zéro.
+d1274 1
+a1274 1
+ de la topologie est traité en 
+d1286 3
+a1288 3
+width 1 8
+height 1 5
+angle -90
+d1339 2
+a1340 2
+ ne se trouve pas dans le voisinage immédiat de la valeur zéro car en valeur
+ la topologie de l'ensemble zéro passe d'un point à trois points.
+d1359 2
+a1360 2
+ conséquence résulte d'une grande importance dans l'étude de la morphogenèse
+ en embryologie et dans les études de parenté en théorie de l'évolution
+d1375 1
+a1375 1
+Nous avons déjà remarqué qu' avant l'avènement de la génétique et la capacité
+d1394 1
+a1394 1
+ Simplement parce que l'incertitude de la forme de la fonction 
+d1398 1
+a1398 1
+ est faible quand-t-on dispose des fonctions 
+d1455 2
+a1456 18
+Ce fait 
+\begin_inset Info hamitou Mon Oct 11 16:01:19 1999
+
+Quel fait ?
+
+ibanez Sat Oct 16 1999
+le fait de que la quantite d'information d'une
+forme soit l'expression integral de l'equation
+precedente.
+C'est a dire, le fait de que la nature ne code
+pas les formes finales des organismes, mais
+code plutot les regles que controlent son
+evolution tout le long de sa vie. Un peut
+comme une chaine de markov.
+\end_inset 
+
+est à remarquer du point de vue biologique, car nous avons déjà discuté
+ dans les chapitres précédents que la capacité de stockage et traitement
+d1474 1
+a1474 1
+Les travaux réalisés dans ce domaine utilisent diverses méthodes, Celles
+d1529 1
+a1529 1
+ plus importantes dans les régions de fortes courbes.
+d1570 3
+a1572 3
+ pour réaliser la représentation progressive des complexes, de façon a disposer
+ d'une suite des représentations qui commence par une version grossière
+ et finit dans une version assez fine.
+d1585 1
+a1585 1
+La méthode que nous avons choisit, vérifie à chaque étape de la mise à jour
+d1604 1
+a1604 1
+ variété de Riemman sans les contraintes de continuité de ses dérivés.
+d1618 1
+a1618 1
+Où les angles 
+d1688 1
+a1688 1
+Nous avons implanté trois méthodes d' insertion de noeuds.
+d1699 2
+a1700 2
+width 1 12
+height 1 2.5
+d1722 2
+a1723 2
+width 1 12
+height 1 2.5
+d1745 2
+a1746 2
+width 1 12
+height 1 2.5
+d1760 2
+a1761 2
+ Un nouveau noeud est ajouté au milieu de chaque triangle, tous les arêtes
+ son renouvelés.
+d1805 1
+a1805 1
+ Ce critère consiste à tester si la somme des angles oposés est supérieure
+d1814 1
+a1814 1
+Il est illustré dans la figure 
+d1860 2
+a1861 2
+width 1 8
+height 1 5
+d1925 2
+a1926 2
+ leur représentation nécessite un modèle tubulaire qui ne peut pas être
+ correctement approchée par les fonctions décrites jusqu'ici.
+d1935 1
+a1935 1
+ En les utilisant, nous visons de modéliser les tendons.
+d1965 1
+a1965 1
+ soit une fonction Gaussienne 
+d2005 1
+a2005 1
+ jusqu'à chacun des point 
+d2029 2
+a2030 3
+ de l'espace, dépendant de la distance du point à une courbe est soumise
+ implicitement à la supposition qu'une telle distance, en elle même, est
+ déjà bien définie.
+d2055 2
+a2056 2
+width 1 10
+height 1 6
+d2094 1
+a2094 1
+Cette classe d'objets est adaptée pour la modélisation de muscles.
+d2127 1
+a2127 1
+ nous avons retenu comme mécanisme de représentation des fonction implicites).
+d2166 5
+a2170 1
+ une portion de la cavité glenoide et en haut l'acromium.
+d2186 1
+a2186 1
+Le premier est introduit en opposition à l' habituelle optimisation du placement
+d2225 2
+a2226 2
+ à savoir, leur tendance à déplacer ses point de façon indépendante en fonction
+ des informations locales 
+d2232 1
+a2232 1
+ Dans notre cas, les positions des points sont controlés par la fonction
+d2272 1
+a2272 1
+ montre la superposition de la surface du modèle géométrique et d'un coupe
+d2302 1
+a2302 1
+ la somme de toutes les forces locales produit un force totale qui indique
+d2307 1
+a2307 1
+ non à la normale en fonction ssdu signe du Laplacien.
+d2319 4
+a2322 4
+nts aux contours de la forme originale.
+ Si, en revanche, le modèle est déplacé, certaines de ses points se trouvent
+ dans la bande positive du Laplacien, tandis que d'autres se trouvent dans
+ la bande négative.
+d2445 1
+a2445 1
+ sa position d'équilibre pour se placer de l'autre coté de la forme.
+d2478 1
+a2478 1
+ Il faut remarquer ici que la double bande vert visible dans la surface
+d2480 1
+a2480 1
+ surfaces confrontées : une interne et un autre externe, ce qui est d'ailleurs
+d2489 1
+a2489 1
+ Il suffit de remarquer le fait que : si le modèle géométrique s'avère de
+d2493 1
+a2493 1
+ sur la bande de valeurs négative du Laplacien, voir la partie à gauche
+d2499 1
+a2499 1
+.
+d2501 2
+a2502 2
+ la forme réelle, ses points seront placés sur la bande positive du Laplacien,
+ voir la partie à droite de la figure 
+d2507 1
+a2507 1
+.
+d2555 2
+a2556 2
+ Il s'agit d'un calcul de torsions accumulées sur tous les points de la
+ surface du modèle.
+d2588 1
+a2588 1
+ des torsions par rapport à l'origine de coordonnées.
+d2647 1
+a2647 1
+ radians, (environ 
+d2693 3
+a2695 3
+ Cette analyse n'a pas été abordée dans ce travail, mais il a été identifié
+ comme fondamental pour envisager l'automatisation, ou au moins la simplificatio
+n, du processus de construction de modèles.
+@

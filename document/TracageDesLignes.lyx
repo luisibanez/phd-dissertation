@@ -1,0 +1,7838 @@
+#LyX 1.1 created this file. For more info see http://www.lyx.org/
+\lyxformat 2.15
+\textclass book
+\begin_preamble
+\usepackage{url}
+\urldef\ThisPaperImages\url{http://www-iti.enst-bretagne.fr/~ibanez/papers/lines/images}
+\end_preamble
+\language french
+\inputencoding default
+\fontscheme default
+\graphics default
+\paperfontsize default
+\spacing single 
+\papersize Default
+\paperpackage a4
+\use_geometry 0
+\use_amsmath 1
+\paperorientation portrait
+\secnumdepth 2
+\tocdepth 2
+\paragraph_separation indent
+\defskip medskip
+\quotes_language english
+\quotes_times 2
+\papercolumns 1
+\papersides 2
+\paperpagestyle default
+
+\layout Chapter
+
+Traçage de lignes discrètes dans une grille régulière N-D
+\begin_inset LatexCommand \label{sec: Lignes}
+
+\end_inset 
+
+
+\layout Section
+
+Introduction
+\layout Standard
+
+Nous présentons dans ce chapitre un algorithme de traçage de lignes discrètes.
+ Cet algorithme est applicable à toutes les grilles régulières de dimension
+ quelconque, orthogonales ou non.
+ Nous l'avons développé afin de mettre en oeuvre une application de visualisatio
+n par lancer de rayons, appropriée pour des volumes de données échantillonnés
+ avec des grilles telles que la BCC (
+\emph on 
+body centered cubic
+\emph toggle 
+) ou la FCC (
+\emph on 
+face centered cubic
+\emph toggle 
+) 
+\begin_inset LatexCommand \cite{Ibanez97}
+
+\end_inset 
+
+.
+ Notons que la plupart des algorithmes de traçage de lignes ont été développés
+ dans les grilles 
+\begin_inset Formula \( \mathbb {Z}^{2} \)
+\end_inset 
+
+ et 
+\begin_inset Formula \( \mathbb {Z}^{3} \)
+\end_inset 
+
+ 
+\begin_inset LatexCommand \cite{AdvancesDCG}
+
+\end_inset 
+
+.
+ 
+\layout Standard
+
+L'algorithme que nous avons développé se sert de la définition préalable
+ de la connexité dans la grille, ce qui donne une grande flexibilité à la
+ méthode car elle ne s'attache pas à une connexité particulière.
+ De plus, une bonne performance est atteinte grâce au fait que cet algorithme
+ de traçage n'utilise que des additions.
+\layout Standard
+
+La recherche d'un algorithme approprié pour ces grilles optimales (BCC,
+ FCC) nous a conduit à construire une approche plus générale applicable
+ aux grilles régulières de dimension 
+\begin_inset Formula \( N \)
+\end_inset 
+
+.
+ Nous représentons ici la grille comme un espace vectoriel discret, ce qui
+ constitue un cadre général dans lequel les problèmes topologiques peuvent
+ être analysés.
+\layout Standard
+
+L'utilisation des grilles non-orthogonales de dimension supérieure a reçu
+ une attention croissante particulièrement dans les applications d'imagerie
+ médicale 
+\begin_inset LatexCommand \cite{MatejBlobs}
+
+\end_inset 
+
+
+\begin_inset LatexCommand \cite{HexagonalTomography}
+
+\end_inset 
+
+
+\begin_inset LatexCommand \cite{HermanSimplyConnected}
+
+\end_inset 
+
+
+\begin_inset LatexCommand \cite{Ibanez97}
+
+\end_inset 
+
+.
+ Certaines grilles fournissent d'importants avantages pour des applications
+ de traitement du signal 
+\begin_inset LatexCommand \cite{Halftoning}
+
+\end_inset 
+
+
+\begin_inset LatexCommand \cite{MultidimensionalDSP}
+
+\end_inset 
+
+, et possèdent des symétries qui leur donnent de bonnes propriétés topologiques
+ 
+\begin_inset LatexCommand \cite{Serra}
+
+\end_inset 
+
+
+\begin_inset LatexCommand \cite{SpherePacking}
+
+\end_inset 
+
+
+\begin_inset LatexCommand \cite{TransformGeometry}
+
+\end_inset 
+
+
+\begin_inset LatexCommand \cite{Coxeter}
+
+\end_inset 
+
+
+\begin_inset LatexCommand \cite{Ibanez96}
+
+\end_inset 
+
+.
+\layout Standard
+
+Le paragraphe 
+\begin_inset LatexCommand \ref{sec:square}
+
+\end_inset 
+
+ présente le cas familier du traçage de lignes dans la grille carrée en
+ utilisant l'algorithme de Bresenham, il est présenté dans le cadre d'un
+ espace vectoriel.
+ Le paragraphe
+\protected_separator 
+
+\begin_inset LatexCommand \ref{sec:hexagonal}
+
+\end_inset 
+
+ présente l'application de la même méthodologie pour la grille hexagonale.Nous
+ montrererons 
+\protected_separator 
+
+\begin_inset LatexCommand \ref{sec:cubic}
+
+\end_inset 
+
+ comment l'algorithme peut être appliqué dans la grille cubique en 
+\begin_inset Formula \( 3D \)
+\end_inset 
+
+, puis
+\protected_separator 
+
+\begin_inset LatexCommand \ref{sec:bcc}
+
+\end_inset 
+
+, dans la grille BCC et enfin, une généralisation de la procédure, pour
+ les grilles régulières de dimension N sera présentée dans le paragraphe
+ 
+\protected_separator 
+
+\begin_inset LatexCommand \ref{sec:general}
+
+\end_inset 
+
+ et une discussion de la méthode, ainsi que les perspectives seront présentées
+ 
+\protected_separator 
+
+\begin_inset LatexCommand \ref{sec:discusion}
+
+\end_inset 
+
+.
+ 
+\layout Section
+
+
+\begin_inset LatexCommand \label{sec:square}
+
+\end_inset 
+
+Le traçage de lignes dans la grille carrée
+\layout Subsection
+
+
+\begin_inset LatexCommand \label{sec:BresenhamAlgo}
+
+\end_inset 
+
+L'algorithme de Bresenham
+\layout Standard
+
+La figure
+\protected_separator 
+
+\begin_inset LatexCommand \ref{fig:BresenhamSquareGrid}
+
+\end_inset 
+
+ illustre le problème du traçage d'une ligne entre 2 points 
+\begin_inset Formula \( A \)
+\end_inset 
+
+ et 
+\begin_inset Formula \( B \)
+\end_inset 
+
+ dans la grille carrée.
+ Les cadres ombrés autour des points 
+\begin_inset Formula \( A \)
+\end_inset 
+
+ et 
+\begin_inset Formula \( B \)
+\end_inset 
+
+ représentent le concept de 
+\emph on 
+pixel
+\emph default 
+ tel qu'il est utilisé dans le domaine du traitement d'image.
+ Des cercles pleins et vides représentent les 
+\emph on 
+points de la grille
+\emph default 
+, tels qu'ils sont utilisés en topologie discrète.
+ L'objectif du traçage de lignes est de choisir la suite de points de la
+ grille (ou pixels) qui réalise la meilleure approximation de la ligne euclidien
+ne continue 
+\begin_inset Formula \( AB \)
+\end_inset 
+
+.
+ L'algorithme de Bresenham résoud ce problème avec la procédure suivante
+ 
+\begin_inset LatexCommand \cite{Bresenham}
+
+\end_inset 
+
+: 
+\layout Enumerate
+
+
+\family typewriter 
+Déterminer la direction dominante
+\begin_float footnote 
+\layout Standard
+
+La direction de l'espace qui a la composante la plus grande parmi les composante
+s du vecteur parallèle à la ligne.
+\end_float 
+
+\family typewriter 
+ de la ligne : 
+\newline 
+l'axe 
+\begin_inset Formula \( X \)
+\end_inset 
+
+ si la pente est inférieure à 
+\begin_inset Formula \( 45^{\circ } \)
+\end_inset 
+
+,
+\newline 
+ou l'axe 
+\begin_inset Formula \( Y \)
+\end_inset 
+
+ dans le cas contraire.
+\layout Enumerate
+
+
+\family typewriter 
+Avancer d'un pas le long de la direction dominante.
+ 
+\layout Enumerate
+
+
+\family typewriter 
+Vérifier s'il est temps de donner un pas 
+\newline 
+dans la direction secondaire:
+\newline 
+si oui: avancer d'un pas le long 
+\newline 
+de la direction secondaire.
+\layout Enumerate
+
+
+\family typewriter 
+Si on ne se trouve pas encore au point B, 
+\newline 
+aller au pas (2).
+\layout Standard
+
+Quand la ligne discrète est considérée comme une suite connexe de points
+ de la grille, la notion de connexité doit être clairement définie.
+ Les définitions les plus courantes de connexité dans la grille carrée sont
+ illustrées sur la figure
+\protected_separator 
+
+\begin_inset LatexCommand \ref{fig:Connectivity4and8}
+
+\end_inset 
+
+.
+ La 4-connexité choisit comme seuls voisins les points les plus proches
+ ayant les mêmes coordonnées horizontales ou les mêmes coordonnées verticales.
+ La 8-connexité inclut les points sur les diagonales comme voisins supplémentair
+es.
+\layout Standard
+
+\begin_float fig 
+\layout Standard
+\align center 
+
+\begin_inset Figure size 218 146
+file TracageDesLignes_eps/breseham.eps
+flags 8
+
+\end_inset 
+
+
+\layout Caption
+
+
+\begin_inset LatexCommand \label{fig:BresenhamSquareGrid}
+
+\end_inset 
+
+Traçage de lignes dans la grille carrée avec l'algorithme de Bresenham.
+ Les carrées ombrés représentent les pixels tandis que les cercles représentent
+ les points de la grille.
+\end_float 
+\layout Standard
+
+Nous présentons ici la procédure pour tracer une ligne 4-connexe.
+ Les seules directions valables pour se déplacer d'un point de la grille
+ à l'autre sont la verticale et l'horizontale.
+ Le critère pour prendre la décision si un pas doit être fait dans la direction
+ secondaire est obtenu à partir de l'équation analytique de la ligne.
+ La figure
+\protected_separator 
+
+\begin_inset LatexCommand \ref{fig:VectorRelations}
+
+\end_inset 
+
+ montre les relations géométriques intervenants.
+ Soient 
+\begin_inset Formula \( \left( x_{a1},x_{a2}\right)  \)
+\end_inset 
+
+ les coordonnées du point 
+\begin_inset Formula \( A \)
+\end_inset 
+
+, 
+\begin_inset Formula \( \left( x_{b1},x_{b2}\right)  \)
+\end_inset 
+
+ celles du point 
+\begin_inset Formula \( B \)
+\end_inset 
+
+ et 
+\begin_inset Formula \( \left( x_{1},x_{2}\right)  \)
+\end_inset 
+
+ celles d'un point arbitraire 
+\begin_inset Formula \( P \)
+\end_inset 
+
+.
+ Le vecteur 
+\begin_inset Formula \( \mathbf{V}_{\mathbf{t}}=\left( \left( x_{b1}-x_{a1}\right) ,\left( x_{b2}-x_{a2}\right) \right)  \)
+\end_inset 
+
+ est parallèle à la ligne 
+\begin_inset Formula \( AB \)
+\end_inset 
+
+, tandis que le vecteur 
+\begin_inset Formula \( \mathbf{V}_{\mathbf{p}}=\left( \left( x_{b2}-x_{a2}\right) ,-\left( x_{b1}-x_{a1}\right) \right)  \)
+\end_inset 
+
+ lui est orthogonal.
+ Le vecteur 
+\begin_inset Formula \( \mathbf{V}_{\mathbf{PA}}=\left( \left( x_{1}-x_{a1}\right) ,\left( x_{2}-x_{a2}\right) \right)  \)
+\end_inset 
+
+ donne la position du point 
+\begin_inset Formula \( P \)
+\end_inset 
+
+ relative au point 
+\begin_inset Formula \( A \)
+\end_inset 
+
+.
+ La distance euclidienne 
+\begin_inset Formula \( d \)
+\end_inset 
+
+ entre le point 
+\begin_inset Formula \( P \)
+\end_inset 
+
+ et la ligne 
+\begin_inset Formula \( AB \)
+\end_inset 
+
+, peut être mesurée au moyen du produit scalaire de l'équation
+\protected_separator 
+
+\begin_inset LatexCommand \ref{eqn:DisToLine}
+
+\end_inset 
+
+.
+\layout Standard
+
+
+\begin_inset Formula 
+\begin{equation}
+\label{eqn:DisToLine}
+d(P,AB)=\frac{\mathbf{V}_{\mathbf{PA}}\cdot \mathbf{V}_{\mathbf{p}}}{\left\Vert \mathbf{V}_{\mathbf{p}}\right\Vert }
+\end{equation}
+
+\end_inset 
+
+ 
+\layout Standard
+
+Cette équation peut être exprimée en fonction des coordonnées comme :
+\layout Standard
+
+
+\begin_inset Formula 
+\begin{equation}
+\label{eqn:DistCoordinates}
+d(P,AB)\cdot \left\Vert \mathbf{V}_{\mathbf{p}}\right\Vert =\left( x_{1}-x_{a1}\right) \left( x_{b2}-x_{a2}\right) -\left( x_{2}-x_{a2}\right) \left( x_{b1}-x_{a1}\right) 
+\end{equation}
+
+\end_inset 
+
+
+\layout Standard
+
+Il faut remarquer que tous les termes du membre droit de l'équation
+\protected_separator 
+
+\begin_inset LatexCommand \ref{eqn:DistCoordinates}
+
+\end_inset 
+
+ sont des entiers.
+ La valeur de 
+\begin_inset Formula \( d(P,AB) \)
+\end_inset 
+
+ peut être interprétée comme l'erreur commise pour utiliser 
+\begin_inset Formula \( P \)
+\end_inset 
+
+ comme un des points représentant la ligne 
+\begin_inset Formula \( AB \)
+\end_inset 
+
+.
+ La norme 
+\begin_inset Formula \( \left\Vert \mathbf{V}_{\mathbf{p}}\right\Vert  \)
+\end_inset 
+
+ du vecteur, ainsi que les coordonnées des points 
+\begin_inset Formula \( A \)
+\end_inset 
+
+ et 
+\begin_inset Formula \( B \)
+\end_inset 
+
+ sont constantes.
+ L'équation de la ligne euclidienne continue 
+\begin_inset Formula \( AB \)
+\end_inset 
+
+ est obtenue quand 
+\begin_inset Formula \( d \)
+\end_inset 
+
+ est nulle pour tous les points 
+\begin_inset Formula \( P \)
+\end_inset 
+
+ représentant la ligne : c'est à dire que la ligne euclidienne 
+\begin_inset Formula \( AB \)
+\end_inset 
+
+ est définie comme l'ensemble des points 
+\begin_inset Formula \( P \)
+\end_inset 
+
+ tels que 
+\begin_inset Formula \( d(P,AB)=0 \)
+\end_inset 
+
+, en conséquence:
+\layout Standard
+
+
+\begin_inset Formula 
+\begin{equation}
+\label{eqn:LineEquation}
+x_{2}=\frac{\left( x_{b2}-x_{a2}\right) }{\left( x_{b1}-x_{a1}\right) }\left( x_{1}-x_{a1}\right) +x_{a2}
+\end{equation}
+
+\end_inset 
+
+
+\layout Standard
+
+Pour éviter les valeurs non entières dans les calculs, on utilise le produit
+ 
+\begin_inset Formula \( d(P,AB)\cdot \left\Vert \mathbf{V}_{\mathbf{p}}\right\Vert  \)
+\end_inset 
+
+ au lieu de la vraie distance 
+\begin_inset Formula \( d(P,AB) \)
+\end_inset 
+
+ pour prendre la décision : si le point 
+\begin_inset Formula \( P \)
+\end_inset 
+
+ doit appartenir à la ligne discrète ou non.
+ 
+\layout Standard
+
+Le facteur constant 
+\begin_inset Formula \( \left\Vert \mathbf{V}_{\mathbf{p}}\right\Vert  \)
+\end_inset 
+
+ ne change en rien la nature du problème puisque que nous devons dans tous
+ les cas chercher les points 
+\begin_inset Formula \( P \)
+\end_inset 
+
+ de la grille minimisant 
+\begin_inset Formula \( d(P,AB) \)
+\end_inset 
+
+.
+ Nous appelons ici 
+\begin_inset Formula \( d(P,AB) \)
+\end_inset 
+
+ la distance euclidienne et 
+\begin_inset Formula \( D(P,AB) \)
+\end_inset 
+
+ la distance arithmétique entre le point 
+\begin_inset Formula \( P \)
+\end_inset 
+
+ et la ligne 
+\begin_inset Formula \( AB \)
+\end_inset 
+
+.
+ La distance arithmétique étant définie par :
+\layout Standard
+
+
+\begin_inset Formula 
+\begin{equation}
+\label{eqn:ArithmeticEuclideanDistance}
+D(P,AB)=d(P,AB)\cdot \left\Vert \mathbf{V}_{\mathbf{p}}\right\Vert 
+\end{equation}
+
+\end_inset 
+
+
+\layout Standard
+
+L'algorithme de Bresenham profite du fait que 
+\begin_inset Formula \( (x_{1},x_{2}) \)
+\end_inset 
+
+ sont entiers.
+ Une variation de 
+\begin_inset Formula \( \pm 1 \)
+\end_inset 
+
+ dans la coordonnée 
+\begin_inset Formula \( x_{1} \)
+\end_inset 
+
+ produit une variation de 
+\begin_inset Formula \( \pm (x_{b2}-x_{a2}) \)
+\end_inset 
+
+ en 
+\begin_inset Formula \( D(P,AB) \)
+\end_inset 
+
+.
+ Une variation de 
+\begin_inset Formula \( \pm 1 \)
+\end_inset 
+
+ en 
+\begin_inset Formula \( x_{2} \)
+\end_inset 
+
+ produit une variation de 
+\begin_inset Formula \( \mp (x_{b1}-x_{a1}) \)
+\end_inset 
+
+ en 
+\begin_inset Formula \( D(P,AB) \)
+\end_inset 
+
+.
+ Ce qui peut facilement être vérifié d'après les équations
+\protected_separator 
+
+\begin_inset LatexCommand \ref{eqn:DistCoordinates}
+
+\end_inset 
+
+ et
+\protected_separator 
+
+\begin_inset LatexCommand \ref{eqn:ArithmeticEuclideanDistance}
+
+\end_inset 
+
+.
+ La valeur de 
+\begin_inset Formula \( D(P,AB) \)
+\end_inset 
+
+ est utilisée dans le processus de traçage de la ligne, comme critère pour
+ décider si un pas doit être fait dans la direction secondaire ou pas.
+ 
+\layout Standard
+
+\begin_float fig 
+\layout Standard
+\align center 
+
+\begin_inset Figure size 164 56
+file TracageDesLignes_eps/Connectivity4and8.eps
+flags 8
+
+\end_inset 
+
+
+\layout Caption
+
+
+\begin_inset LatexCommand \label{fig:Connectivity4and8}
+
+\end_inset 
+
+Connexité dans la grille carrée.
+ A gauche : 4-connexité (un point a quatre voisins).
+ A droite : 8-connexité (un point a huit voisins).
+ Les cercles pleins représentent les points de la grille, les carrés représenten
+t les pixels.
+\end_float 
+\layout Standard
+
+L'algorithme de Bresenham calcule 
+\begin_inset Formula \( D(P,AB) \)
+\end_inset 
+
+ d'une façon incrémentale, en mettant à jour la valeur à chaque pas.
+ Par exemple, pour tracer une ligne de pente inférieure à 
+\begin_inset Formula \( 45^{\circ } \)
+\end_inset 
+
+ en 4-connexité, la direction dominante est l'horizontale, tandis que la
+ direction secondaire est la verticale.
+ Le pseudo-code pour ce cas est :
+\layout Enumerate
+
+
+\family typewriter 
+Initialiser le point 
+\begin_inset Formula \( P \)
+\end_inset 
+
+ courant dans la position 
+\begin_inset Formula \( A \)
+\end_inset 
+
+
+\family default 
+ 
+\family typewriter 
+:
+\newline 
+
+\begin_inset Formula \( x_{1}=x_{a1} \)
+\end_inset 
+
+, 
+\begin_inset Formula \( x_{2}=x_{a2} \)
+\end_inset 
+
+
+\layout Enumerate
+
+
+\family typewriter 
+Initialiser la variable de contrôle: 
+\begin_inset Formula \( D=0 \)
+\end_inset 
+
+.
+\layout Enumerate
+
+
+\family typewriter 
+Faire un pas dans la direction dominante 
+\begin_inset Formula \( X \)
+\end_inset 
+
+: 
+\newline 
+ajouter 
+\begin_inset Formula \( 1 \)
+\end_inset 
+
+ à 
+\begin_inset Formula \( x_{1} \)
+\end_inset 
+
+,
+\family default 
+ 
+\family typewriter 
+ajouter 
+\begin_inset Formula \( 2(x_{b2}-x_{a2}) \)
+\end_inset 
+
+ à 
+\begin_inset Formula \( D \)
+\end_inset 
+
+.
+\layout Enumerate
+
+
+\family typewriter 
+Tester si un pas doit être fait dans la direction secondaire 
+\begin_inset Formula \( Y \)
+\end_inset 
+
+:
+\newline 
+si 
+\begin_inset Formula \( D>\left[ \left( x_{b1}-x_{a1}\right) -\left( x_{b2}-x_{a2}\right) \right]  \)
+\end_inset 
+
+ donc
+\newline 
+ajouter 
+\begin_inset Formula \( 1 \)
+\end_inset 
+
+ à 
+\begin_inset Formula \( x_{2} \)
+\end_inset 
+
+,
+\family default 
+ 
+\family typewriter 
+ajouter 
+\begin_inset Formula \( -2(x_{b1}-x_{a1}) \)
+\end_inset 
+
+ à 
+\begin_inset Formula \( D \)
+\end_inset 
+
+
+\layout Enumerate
+
+
+\family typewriter 
+Si le point 
+\begin_inset Formula \( P \)
+\end_inset 
+
+ est différent du point 
+\begin_inset Formula \( B \)
+\end_inset 
+
+, 
+\newline 
+retourner au pas (3), ou, dans le cas contraire, finir la procédure.
+\layout Standard
+
+La variable 
+\begin_inset Formula \( D \)
+\end_inset 
+
+ dans le pseudo-code représente la valeur 
+\begin_inset Formula \( 2D(P,AB) \)
+\end_inset 
+
+.
+ Elle est dite 
+\emph on 
+variable de contrôle 
+\emph default 
+puisque sa valeur détermine le cours d'action.
+\layout Subsection
+
+Approche vectorielle de l'algorithme de Bresenham 
+\layout Standard
+
+Notre algorithme est motivé par le besoin de tracer des lignes dans des
+ grilles non orthogonales.
+ La première chose à faire pour manipuler ce type de grille est de la représente
+r en utilisant une base vectorielle.
+ Ce paragraphe décrit la formalisation de l'algorithme de Bresenham en termes
+ de la base vectorielle.
+\layout Standard
+
+\begin_float fig 
+\layout Standard
+\align center 
+
+\begin_inset Figure size 218 146
+file TracageDesLignes_eps/VectorRelations.eps
+flags 8
+
+\end_inset 
+
+
+\layout Caption
+
+
+\begin_inset LatexCommand \label{fig:VectorRelations}
+
+\end_inset 
+
+Relations vectorielles dans le cadre du traçage des lignes.
+\end_float 
+\layout Subsubsection
+
+Concept des espaces vectoriels
+\layout Standard
+
+Étant donnée la simplicité de la grille carrée, il devient inutile d'utiliser
+ un espace vectoriel pour la décrire, mais, la présence de cet espace vectoriel
+ reste implicite.
+ Si un point 
+\begin_inset Formula \( P \)
+\end_inset 
+
+ a comme coordonnées 
+\begin_inset Formula \( \left( x_{1},x_{2}\right)  \)
+\end_inset 
+
+, le vecteur 
+\begin_inset Formula \( \mathbf{P} \)
+\end_inset 
+
+ qui le relie à l'origine est : 
+\begin_inset Formula \( \mathbf{P}=x_{1}\mathbf{V}_{1}+x_{2}\mathbf{V}_{2} \)
+\end_inset 
+
+, où les vecteurs 
+\begin_inset Formula \( \mathbf{V}_{1} \)
+\end_inset 
+
+ et 
+\begin_inset Formula \( \mathbf{V}_{2} \)
+\end_inset 
+
+ sont les vecteurs unitaires dans la direction horizontale et verticale,
+ tel qu'il est illustré dans la figure
+\protected_separator 
+
+\begin_inset LatexCommand \ref{fig:VectorRelations}
+
+\end_inset 
+
+.
+ 
+\layout Standard
+
+Les vecteurs 
+\begin_inset Formula \( \mathbf{V}_{1} \)
+\end_inset 
+
+ et 
+\begin_inset Formula \( \mathbf{V}_{2} \)
+\end_inset 
+
+ appartiennent à l'espace 
+\begin_inset Formula \( \mathbb {R}^{2} \)
+\end_inset 
+
+, tandis que les coordonnées 
+\begin_inset Formula \( x_{1} \)
+\end_inset 
+
+ et 
+\begin_inset Formula \( x_{2} \)
+\end_inset 
+
+ appartiennent à l'espace 
+\begin_inset Formula \( \mathbb {Z} \)
+\end_inset 
+
+.
+ Pour cette raison, il est courant de considérer uniquement les coordonnées
+ 
+\begin_inset Formula \( (x_{1},x_{2}) \)
+\end_inset 
+
+ et de placer le problème dans l'espace 
+\begin_inset Formula \( \mathbb {Z}^{2} \)
+\end_inset 
+
+.
+ Néanmoins, cette simplification ne peut pas être effectuée dans le cas
+ des grilles non orthogonales.
+ 
+\layout Standard
+
+\begin_float fig 
+\layout Standard
+\align center 
+
+\begin_inset Figure size 218 146
+file TracageDesLignes_eps/ControlVariable.eps
+flags 8
+
+\end_inset 
+
+
+\layout Caption
+
+
+\begin_inset LatexCommand \label{fig:CasesControlVariable}
+
+\end_inset 
+
+Critère pour la sélection du point suivant au point Q dans la ligne discrète.
+ Les trois résultats possibles du test de distance sont illustrés ici.
+ 
+\begin_inset Formula \( D(P,AB) \)
+\end_inset 
+
+ est positive d'un côté de la ligne euclidienne et négative de l'autre.
+\end_float 
+\layout Standard
+
+Les vecteurs 
+\begin_inset Formula \( \mathbf{V}_{1} \)
+\end_inset 
+
+ et 
+\begin_inset Formula \( \mathbf{V}_{2} \)
+\end_inset 
+
+ sont les vecteurs de la base vectorielle de la grille.
+ Il est souvent utile de définir une autre base vectorielle formée par des
+ vecteurs 
+\begin_inset Formula \( \mathbf{U}_{1} \)
+\end_inset 
+
+ et 
+\begin_inset Formula \( \mathbf{U}_{2} \)
+\end_inset 
+
+ tels que : 
+\begin_inset Formula 
+\begin{equation}
+\label{eqn:Reciprocal2DBasis}
+\begin{array}{cccc}
+\mathbf{V}_{1}\cdot \mathbf{U}_{1}=1, & \mathbf{V}_{1}\cdot \mathbf{U}_{2}=0, & \mathbf{V}_{2}\cdot \mathbf{U}_{1}=0, & \mathbf{V}_{2}\cdot \mathbf{U}_{2}=1
+\end{array}
+\end{equation}
+
+\end_inset 
+
+
+\layout Standard
+
+La base vectorielle 
+\begin_inset Formula \( \left\{ \mathbf{U}_{1},\mathbf{U}_{2}\right\}  \)
+\end_inset 
+
+ est la base réciproque de 
+\begin_inset Formula \( \left\{ \mathbf{V}_{1},\mathbf{V}_{2}\right\}  \)
+\end_inset 
+
+.
+ Tout vecteur 
+\begin_inset Formula \( \mathbf{V} \)
+\end_inset 
+
+ de la grille peut être exprimé comme une combinaison linéaire des vecteurs
+ de la base, de la forme : 
+\begin_inset Formula \( \mathbf{V}=x_{1}\mathbf{V}_{1}+x_{2}\mathbf{V}_{2} \)
+\end_inset 
+
+, où 
+\begin_inset Formula \( x_{1},x_{2}\in \mathbb {Z} \)
+\end_inset 
+
+.
+ Si le vecteur 
+\begin_inset Formula \( \mathbf{V} \)
+\end_inset 
+
+de la grille est exprimé dans la base vectorielle, tout vecteur orthogonal
+ à 
+\begin_inset Formula \( \mathbf{V} \)
+\end_inset 
+
+ doit être exprimé dans la base réciproque.
+ Ceci est trivial dans la grille carrée puisque la base et sa réciproque
+ sont les mêmes, mais cette simplicité n'existe pas dans les grilles non
+ orthogonales.
+ 
+\layout Subsubsection
+
+
+\begin_inset LatexCommand \label{sec:VectorConnectivity}
+
+\end_inset 
+
+Approche vectorielle de la connexité 
+\layout Standard
+
+La connexité de la grille est complètement spécifiée par l'ensemble des
+ vecteurs qui décrivent toutes les positions possibles relatives entre deux
+ points, pour qu'ils puissent être considérés comme des voisins.
+ Par exemple, la 4-connexité dans la grille carrée est définie par l'ensemble
+ de vecteurs 
+\begin_inset Formula \( T \)
+\end_inset 
+
+ :
+\layout Standard
+
+
+\begin_inset Formula 
+\[
+T=\left\{ \left( 1,0\right) ,\left( -1,0\right) ,(0,1),(0,-1)\right\} \]
+
+\end_inset 
+
+
+\layout Standard
+
+La relation 
+\begin_inset Quotes eld
+\end_inset 
+
+
+\emph on 
+être voisin de 
+\emph default 
+
+\begin_inset Quotes erd
+\end_inset 
+
+ est symétrique.
+ En conséquence, si un vecteur 
+\begin_inset Formula \( \mathbf{V} \)
+\end_inset 
+
+ appartient à l'ensemble 
+\begin_inset Formula \( T \)
+\end_inset 
+
+, le vecteur 
+\begin_inset Formula \( (-\mathbf{V}) \)
+\end_inset 
+
+ doit y appartenir aussi.
+\layout Standard
+
+L'ensemble des vecteurs correspondant à la 8-connexité qui est présenté
+ dans la figure
+\protected_separator 
+
+\begin_inset LatexCommand \ref{fig:Connectivity4and8}
+
+\end_inset 
+
+ est : 
+\layout Standard
+
+
+\begin_inset Formula 
+\[
+T=\left\{ \left( 1,0\right) ,\left( -1,0\right) ,\left( 0,1\right) ,\left( 0,-1\right) ,\left( 1,1\right) ,\left( -1,1\right) ,(1,-1),(-1,-1)\right\} \]
+
+\end_inset 
+
+
+\layout Standard
+
+La première chose à faire pour tracer une ligne discrète est de choisir
+ le type de connexité.
+ Les concepts de direction principale et secondaire utilisés dans le paragraphe
+\protected_separator 
+
+\begin_inset LatexCommand \ref{sec:BresenhamAlgo}
+
+\end_inset 
+
+ correspondent simplement aux couples de vecteurs qui définissent comment
+ passer d'un point de la grille à l'autre.
+ Tracer une ligne 4-connexe implique l'utilisation des vecteurs 
+\begin_inset Formula \( \mathbf{V}_{1}=\left( 1,0\right)  \)
+\end_inset 
+
+ est 
+\begin_inset Formula \( \mathbf{V}_{2}=\left( 0,1\right)  \)
+\end_inset 
+
+ uniquement, comme directions valables.
+ 
+\layout Subsubsection
+
+
+\begin_inset LatexCommand \label{sec:SquareQuadrantSelection}
+
+\end_inset 
+
+Sélection du quadrant 
+\layout Standard
+
+Comme il est souvent le cas, nous considérons ici qu'un seul quadrant, car
+ les autres peuvent être obtenus par symétrie 
+\begin_inset LatexCommand \cite{Bresenham}
+
+\end_inset 
+
+
+\begin_inset LatexCommand \cite{GraphicGems}
+
+\end_inset 
+
+
+\begin_inset LatexCommand \cite{FoleyVanDam}
+
+\end_inset 
+
+
+\begin_inset LatexCommand \cite{TransformGeometry}
+
+\end_inset 
+
+
+\begin_inset LatexCommand \cite{Reveilles3D}
+
+\end_inset 
+
+.
+ La sélection du quadrant dans lequel on doit tracer la ligne représentée
+ par un vecteur 
+\begin_inset Formula \( \mathbf{V}_{\mathbf{t}} \)
+\end_inset 
+
+, correspond en termes vectoriels, à choisir parmi les vecteurs de la base,
+ une paire telle que le vecteur 
+\begin_inset Formula \( \mathbf{V}_{\mathbf{t}} \)
+\end_inset 
+
+ puisse être exprimé avec des composantes 
+\begin_inset Formula \( x_{1}\geq 0 \)
+\end_inset 
+
+ et 
+\begin_inset Formula \( x_{2}\geq 0 \)
+\end_inset 
+
+, 
+\begin_inset Formula \( x_{1},x_{2} \)
+\end_inset 
+
+ aussi petites que possible.
+\layout Standard
+
+Cette sélection nous donne les deux vecteurs qui sont les mieux alignés
+ avec la ligne euclidienne 
+\begin_inset Formula \( AB \)
+\end_inset 
+
+, parmi tous les vecteurs de l'ensemble 
+\begin_inset Formula \( T \)
+\end_inset 
+
+.
+ Il faut remarquer que la paire 
+\begin_inset Formula \( \left\{ \mathbf{V}_{1},\mathbf{V}_{2}\right\}  \)
+\end_inset 
+
+ doit former une base vectorielle pour garantir que le vecteur 
+\begin_inset Formula \( \mathbf{V}_{\mathbf{t}} \)
+\end_inset 
+
+ puisse être exprimé avec des composantes entières 
+\begin_inset Formula \( \left( x_{1},x_{2}\right)  \)
+\end_inset 
+
+.
+ 
+\layout Standard
+
+Une simplification supplémentaire peut être faite en ne considérant que
+ le cas 
+\begin_inset Formula \( (x_{1}\geq x_{2}) \)
+\end_inset 
+
+, car l'autre est obtenu par symétrie.
+ La sélection du quadrant est une tâche triviale dans la grille carrée,
+ mais elle devient beaucoup plus complexe dans les grilles non-orthogonales
+ ainsi que dans les dimensions supérieures 
+\begin_inset LatexCommand \cite{Serra}
+
+\end_inset 
+
+
+\begin_inset LatexCommand \cite{SpherePacking}
+
+\end_inset 
+
+
+\begin_inset LatexCommand \cite{TransformGeometry}
+
+\end_inset 
+
+.
+ L'approche vectorielle présentée ici est suffisamment générale pour faire
+ face à cette complexité.
+\layout Subsubsection
+
+
+\begin_inset LatexCommand \label{sec:VectorParadigm}
+
+\end_inset 
+
+Le paradigme des composantes vectorielles
+\layout Standard
+
+Tracer une ligne signifie que nous voulons obtenir une suite de points connexes.
+ Par conséquent, nous sommes contraints à prendre des pas en suivant les
+ vecteurs 
+\begin_inset Formula \( \mathbf{V}_{1} \)
+\end_inset 
+
+ et 
+\begin_inset Formula \( \mathbf{V}_{2} \)
+\end_inset 
+
+.
+ Ces vecteurs sont, parmi les vecteurs valables pour la connexité choisie,
+ ceux qui permettent d'exprimer le mieux la direction de la ligne.
+\layout Standard
+
+Le vecteur 
+\begin_inset Formula \( \mathbf{V}_{\mathbf{t}} \)
+\end_inset 
+
+ qui relie les points extrêmes 
+\begin_inset Formula \( A \)
+\end_inset 
+
+ et 
+\begin_inset Formula \( B \)
+\end_inset 
+
+, peut s'exprimer dans la base vectorielle 
+\begin_inset Formula \( \left\{ \mathbf{V}_{1},\mathbf{V}_{2}\right\}  \)
+\end_inset 
+
+ comme : 
+\begin_inset Formula \( \mathbf{V}_{\mathbf{t}}=x_{1}\mathbf{V}_{1}+x_{2}\mathbf{V}_{2} \)
+\end_inset 
+
+.
+ A partir des composantes 
+\begin_inset Formula \( \left( x_{1},x_{2}\right)  \)
+\end_inset 
+
+ nous savons que pour aller du point 
+\begin_inset Formula \( A \)
+\end_inset 
+
+ au point 
+\begin_inset Formula \( B \)
+\end_inset 
+
+, il faut faire 
+\begin_inset Formula \( x_{1} \)
+\end_inset 
+
+ pas dans la direction 
+\begin_inset Formula \( \mathbf{V}_{1} \)
+\end_inset 
+
+ et 
+\begin_inset Formula \( x_{2} \)
+\end_inset 
+
+ pas dans la direction 
+\begin_inset Formula \( \mathbf{V}_{2} \)
+\end_inset 
+
+.
+ Le problème se réduit donc à établir dans quel ordre ces pas doivent-ils
+ être faits?.Pour mieux approcher la ligne euclidienne 
+\begin_inset Formula \( AB \)
+\end_inset 
+
+, telle qu'elle est définie dans l'équation
+\protected_separator 
+
+\begin_inset LatexCommand \ref{eqn:LineEquation}
+
+\end_inset 
+
+, nous cherchons à placer les points de la ligne discrète aussi proches
+ que possible de la ligne 
+\begin_inset Formula \( AB \)
+\end_inset 
+
+.
+\layout Subsection
+
+Définitions de lignes discrètes
+\layout Subsubsection
+
+Définition en géométrie discrète
+\layout Standard
+
+Une définition assez générale de la ligne discrète 
+\begin_inset Formula \( 2D \)
+\end_inset 
+
+ a été proposée par Reveillès 
+\begin_inset LatexCommand \cite{ReveillesThese}
+
+\end_inset 
+
+.
+ Elle a été ensuite étendue aux plans discrets par Andrès 
+\begin_inset LatexCommand \cite{AndresThese}
+
+\end_inset 
+
+.
+ Leur approche considère une bande de longueur 
+\begin_inset Formula \( W_{d} \)
+\end_inset 
+
+ autour de la ligne euclidienne 
+\begin_inset Formula \( AB \)
+\end_inset 
+
+.
+ Les points de la grille qui se trouvent à l'intérieur de cette bande, appartien
+nent à la ligne discrète.
+ Ceci est montré dans la figure
+\protected_separator 
+
+\begin_inset LatexCommand \ref{fig:ReveillesLine}
+
+\end_inset 
+
+.
+ Ces points satisfassent d'ailleurs l'équation suivante : 
+\layout Standard
+
+\begin_float fig 
+\layout Standard
+\align center 
+
+\begin_inset Figure size 218 146
+file TracageDesLignes_eps/Reveilles.eps
+flags 8
+
+\end_inset 
+
+
+\layout Caption
+
+
+\begin_inset LatexCommand \label{fig:ReveillesLine}
+
+\end_inset 
+
+La ligne discrète définie par Reveillès.
+\end_float 
+\layout Standard
+
+
+\begin_inset Formula 
+\begin{equation}
+\label{eqn:ReveillesLine}
+0\leq Mx_{1}+Nx_{2}<w
+\end{equation}
+
+\end_inset 
+
+
+\layout Standard
+
+où 
+\begin_inset Formula \( M \)
+\end_inset 
+
+, 
+\begin_inset Formula \( N \)
+\end_inset 
+
+ et 
+\begin_inset Formula \( w \)
+\end_inset 
+
+ sont entiers.
+ Le terme 
+\begin_inset Formula \( w \)
+\end_inset 
+
+ dans l'équation 
+\protected_separator 
+
+\begin_inset LatexCommand \ref{eqn:ReveillesLine}
+
+\end_inset 
+
+ est appelé longueur
+\emph on 
+ arithmétique
+\emph default 
+ et peut être relié à la longueur euclidienne 
+\begin_inset Formula \( W_{d} \)
+\end_inset 
+
+ par 
+\begin_inset Formula \( w=W_{d}\sqrt{M^{2}+N^{2}} \)
+\end_inset 
+
+, ce qui est illustré dans la figure
+\protected_separator 
+
+\begin_inset LatexCommand \ref{fig:ReveillesLine}
+
+\end_inset 
+
+.
+ La relation suivante entre la connexité et la longueur 
+\begin_inset Formula \( w \)
+\end_inset 
+
+
+\emph toggle 
+ 
+\emph default 
+de la ligne a été établie dans 
+\begin_inset LatexCommand \cite{ReveillesThese}
+
+\end_inset 
+
+:
+\layout Itemize
+
+
+\begin_inset Formula \( w=\left| M\right| +\left| N\right|  \)
+\end_inset 
+
+ produit des lignes 4-connexes, qui sont connues comme des lignes 
+\emph on 
+standards.
+\layout Itemize
+
+
+\begin_inset Formula \( w=max\left( \left| M\right| ,\left| N\right| \right)  \)
+\end_inset 
+
+ produit des lignes 8-connexes, connues comme des lignes 
+\emph on 
+naïves.
+\layout Subsubsection
+
+
+\begin_inset LatexCommand \label{sec:VectorialLineDefinition}
+
+\end_inset 
+
+Définition dans un espaces vectoriel
+\layout Standard
+
+Dans notre méthode, le concept de ligne discrète est construit à partir
+ de la notion de connexité, telle qu'elle est définie dans le paragraphe
+ 
+\begin_inset LatexCommand \ref{sec:VectorConnectivity}
+
+\end_inset 
+
+ par l'ensemble 
+\begin_inset Formula \( T \)
+\end_inset 
+
+ de vecteurs.
+ Ces vecteurs décrivent les positions relatives possibles entre deux points
+ considérés comme voisins.
+ Une courbe discrète entre les points 
+\begin_inset Formula \( A \)
+\end_inset 
+
+ et 
+\begin_inset Formula \( B \)
+\end_inset 
+
+ de la grille est définie ici comme la suite de points de la grille qui
+ commence en 
+\begin_inset Formula \( A \)
+\end_inset 
+
+ et finit en 
+\begin_inset Formula \( B \)
+\end_inset 
+
+, telle que tout point a exactement deux voisins en 
+\begin_inset Formula \( S \)
+\end_inset 
+
+, à la seule exception de deux points 
+\begin_inset Formula \( A \)
+\end_inset 
+
+ et 
+\begin_inset Formula \( B \)
+\end_inset 
+
+ qui ont qu' un voisin en 
+\begin_inset Formula \( S \)
+\end_inset 
+
+.
+\layout Standard
+
+Une définition similaire se trouve dans 
+\begin_inset LatexCommand \cite{Kim83}
+
+\end_inset 
+
+ mais limitée aux grilles carrée et cubique.
+ Une ligne discrète 
+\begin_inset Formula \( L \)
+\end_inset 
+
+ est un cas particulier d'une courbe discrète 
+\begin_inset Formula \( S \)
+\end_inset 
+
+.
+ La notion de 
+\begin_inset Quotes eld
+\end_inset 
+
+droiture
+\begin_inset Quotes erd
+\end_inset 
+
+ (
+\emph on 
+straightness
+\emph default 
+) 
+\begin_inset LatexCommand \cite{Rosenfeld74}
+
+\end_inset 
+
+ nous conduit à chercher la courbe discrète 
+\begin_inset Formula \( S \)
+\end_inset 
+
+ telle que sa distance à la ligne euclidienne 
+\begin_inset Formula \( AB \)
+\end_inset 
+
+ soit aussi petite que possible.
+ La distance entre une courbe discrète 
+\begin_inset Formula \( S \)
+\end_inset 
+
+ et la ligne euclidienne 
+\begin_inset Formula \( AB \)
+\end_inset 
+
+ étant la valeur absolue maximale de tous les points en 
+\begin_inset Formula \( S \)
+\end_inset 
+
+, vers la ligne : 
+\layout Standard
+
+
+\begin_inset Formula 
+\begin{equation}
+\label{eqn:DefDistanceCurveToLine}
+D(S,AB)=\max _{P\in S}\{\left| D(P,AB)\right| \}
+\end{equation}
+
+\end_inset 
+
+
+\layout Standard
+
+Une ligne discrète entre les points 
+\begin_inset Formula \( A \)
+\end_inset 
+
+ et 
+\begin_inset Formula \( B \)
+\end_inset 
+
+ est donc, la courbe discrète 
+\begin_inset Formula \( S \)
+\end_inset 
+
+ de points extrêmes 
+\begin_inset Formula \( A \)
+\end_inset 
+
+ et 
+\begin_inset Formula \( B \)
+\end_inset 
+
+ qui minimise la distance 
+\begin_inset Formula \( D(S,AB) \)
+\end_inset 
+
+.
+\layout Subsubsection
+
+Procédure pour tracer une ligne
+\layout Standard
+
+Le premier point 
+\begin_inset Formula \( P \)
+\end_inset 
+
+ de la courbe discrète est placé en 
+\begin_inset Formula \( A \)
+\end_inset 
+
+.
+ La distance 
+\begin_inset Formula \( D(P,AB) \)
+\end_inset 
+
+ étant zéro dans ce cas.
+ La décision concernant la direction (
+\begin_inset Formula \( \mathbf{V}_{1} \)
+\end_inset 
+
+ ou 
+\begin_inset Formula \( \mathbf{V}_{2} \)
+\end_inset 
+
+) dans laquelle un pas doit être fait est prise en fonction du résultat
+ du test suivant :
+\layout Standard
+
+
+\begin_inset Formula 
+\begin{equation}
+\label{eqn:TestControlVariable}
+2\cdot D(P,AB)<\left( x_{b1}-x_{a1}\right) -\left( x_{b2}-x_{a2}\right) 
+\end{equation}
+
+\end_inset 
+
+
+\layout Standard
+
+Si le résultat est affirmatif, le pas suivant est fait dans la direction
+ dominante 
+\begin_inset Formula \( \mathbf{V}_{1} \)
+\end_inset 
+
+, dans le cas contraire la direction 
+\begin_inset Formula \( \mathbf{V}_{2} \)
+\end_inset 
+
+ est prise.
+ Un pas fait dans la direction 
+\begin_inset Formula \( \mathbf{V}_{1} \)
+\end_inset 
+
+ produit un incrément de 
+\begin_inset Formula \( \left( x_{b2}-x_{a2}\right)  \)
+\end_inset 
+
+ dans 
+\begin_inset Formula \( D(P,AB) \)
+\end_inset 
+
+, tandis qu' un pas fait dans la direction 
+\begin_inset Formula \( \mathbf{V}_{2} \)
+\end_inset 
+
+ produit un incrément de 
+\begin_inset Formula \( -\left( x_{b1}-x_{a1}\right)  \)
+\end_inset 
+
+ dans 
+\begin_inset Formula \( D(P,AB) \)
+\end_inset 
+
+.
+ La valeur 
+\begin_inset Formula \( 2\cdot D(P,AB) \)
+\end_inset 
+
+ est définie comme 
+\emph on 
+la variable de contrôle 
+\emph default 
+de l'algorithme.
+ Des pas consécutifs sont faits en effectuant le même test  (équation
+\protected_separator 
+
+\begin_inset LatexCommand \ref{eqn:TestControlVariable}
+
+\end_inset 
+
+) de manière itérative.
+ La procédure s'arrête quand la courbe passe par le point 
+\begin_inset Formula \( B \)
+\end_inset 
+
+.
+ Ce qui peut être garanti parce que 
+\begin_inset Formula \( D(B,AB)=0 \)
+\end_inset 
+
+ et sachant que la méthode avance en prenant les points où 
+\begin_inset Formula \( \left| D(B,AB)\right|  \)
+\end_inset 
+
+ est minimum.
+\layout Section
+
+
+\begin_inset LatexCommand \label{sec:hexagonal}
+
+\end_inset 
+
+La grille hexagonale 
+\layout Subsection
+
+
+\begin_inset LatexCommand \label{sec:HexagonalPreparing}
+
+\end_inset 
+
+Introduction 
+\layout Standard
+
+La grille hexagonale constitue un cas simple et pédagogique pour introduire
+ le problème de traçage de lignes dans les grilles non-orthogonales.
+ Cette grille peut être définie par les vecteurs 
+\begin_inset Formula \( \mathbf{V}_{1}=(1,0) \)
+\end_inset 
+
+ et 
+\begin_inset Formula \( \mathbf{V}_{2}=(\frac{1}{2},\frac{\sqrt{3}}{2}) \)
+\end_inset 
+
+ qui forment une base vectorielle.
+ Le vecteur 
+\begin_inset Formula \( \mathbf{P} \)
+\end_inset 
+
+ représente la position d'un point 
+\begin_inset Formula \( P \)
+\end_inset 
+
+ de la grille par rapport à l'origine.
+ Il peut s'exprimer comme une combinaison linéaire des vecteurs 
+\begin_inset Formula \( \mathbf{V}_{1} \)
+\end_inset 
+
+ et 
+\begin_inset Formula \( \mathbf{V}_{2} \)
+\end_inset 
+
+ définie par 
+\begin_inset Formula \( \mathbf{P}=x_{1}\mathbf{V}_{1}+x_{2}\mathbf{V}_{2} \)
+\end_inset 
+
+.
+ Les valeurs entières 
+\begin_inset Formula \( \left( x_{1},x_{2}\right)  \)
+\end_inset 
+
+ sont les composantes du vecteur 
+\begin_inset Formula \( \mathbf{P} \)
+\end_inset 
+
+ dans la base vectorielle 
+\begin_inset Formula \( \left\{ \mathbf{V}_{1},\mathbf{V}_{2}\right\}  \)
+\end_inset 
+
+.
+ Les éléments de base impliqués dans le traçage de lignes dans la grille
+ hexagonale sont montrés dans la figure
+\protected_separator 
+
+\begin_inset LatexCommand \ref{fig:HexagonalGrid}
+
+\end_inset 
+
+.
+ 
+\layout Standard
+
+\begin_float fig 
+\layout Standard
+\align center 
+
+\begin_inset Figure size 220 148
+file TracageDesLignes_eps/HexagonalGrid.eps
+flags 8
+
+\end_inset 
+
+
+\layout Caption
+
+
+\begin_inset LatexCommand \label{fig:HexagonalGrid}
+
+\end_inset 
+
+Le traçage d'une ligne discrète dans le cadre de la grille hexagonale.
+\end_float 
+\layout Standard
+
+En utilisant une approche vectorielle, la position du point 
+\begin_inset Formula \( A \)
+\end_inset 
+
+ relative à l'origine est 
+\begin_inset Formula \( \mathbf{A}=x_{a1}\mathbf{V}_{1}+x_{a2}\mathbf{V}_{2} \)
+\end_inset 
+
+, la position du point 
+\begin_inset Formula \( B \)
+\end_inset 
+
+ relative à l'origine est 
+\begin_inset Formula \( \mathbf{B}=x_{b1}\mathbf{V}_{1}+x_{b2}\mathbf{V}_{2} \)
+\end_inset 
+
+, et la position du point 
+\begin_inset Formula \( B \)
+\end_inset 
+
+ relative au point 
+\begin_inset Formula \( A \)
+\end_inset 
+
+ est 
+\begin_inset Formula \( \mathbf{V}_{\mathbf{t}}=\left( x_{b1}-x_{a1}\right) \mathbf{V}_{1}+\left( x_{b2}-x_{a2}\right) \mathbf{V}_{2} \)
+\end_inset 
+
+.
+ Le vecteur 
+\begin_inset Formula \( \mathbf{V}_{\mathbf{t}} \)
+\end_inset 
+
+ est parallèle à la ligne euclidienne 
+\begin_inset Formula \( AB \)
+\end_inset 
+
+.
+\layout Standard
+
+Les différences par rapport à la grille carrée commencent à apparaître au
+ moment de chercher le vecteur 
+\begin_inset Formula \( \mathbf{V}_{\mathbf{p}} \)
+\end_inset 
+
+ orthogonal au vecteur 
+\begin_inset Formula \( \mathbf{V}_{\mathbf{t}} \)
+\end_inset 
+
+.
+ Dans les grilles non-orthogonales, un vecteur orthogonal ne peut être forcément
+ exprimé en fonction des vecteurs de base de la grille.
+ Il peut, en revanche, être toujours exprimé en fonction des vecteurs 
+\begin_inset Formula \( \left\{ \mathbf{U}_{1},\mathbf{U}_{2}\right\}  \)
+\end_inset 
+
+ de la base réciproque.
+ Ces vecteurs sont obtenus en construisant une matrice 
+\begin_inset Formula \( M_{v} \)
+\end_inset 
+
+ dans laquelle les vecteurs 
+\begin_inset Formula \( \left\{ \mathbf{V}_{1},\mathbf{V}_{2}\right\}  \)
+\end_inset 
+
+ sont les colonnes : 
+\begin_inset Formula 
+\begin{equation}
+\label{eqn:MatrixOfVectorBasis}
+M_{v}=\left[ \begin{array}{cc}
+\mathbf{V}_{1} & \mathbf{V}_{2}
+\end{array}\right] =\left[ \begin{array}{cc}
+1 & \frac{1}{2}\\
+0 & \frac{\sqrt{3}}{2}
+\end{array}\right] 
+\end{equation}
+
+\end_inset 
+
+ 
+\layout Standard
+
+Nous pouvons maintenant définir la matrice 
+\begin_inset Formula \( M_{u} \)
+\end_inset 
+
+ comme: 
+\begin_inset Formula 
+\begin{equation}
+\label{eqn:OrthonormalBasis}
+M_{u}=M_{v}\left( M_{v}^{T}M_{v}\right) ^{-1}
+\end{equation}
+
+\end_inset 
+
+
+\layout Standard
+
+Les colonnes de la matrice 
+\begin_inset Formula \( M_{u} \)
+\end_inset 
+
+ sont les vecteurs 
+\begin_inset Formula \( \left\{ \mathbf{U}_{1},\mathbf{U}_{2}\right\}  \)
+\end_inset 
+
+.
+ Dans le cas de la grille hexagonale on obtient :
+\layout Standard
+
+
+\begin_inset Formula 
+\begin{equation}
+\label{eqn:MatrixOfReciprocalBasis}
+M_{u}=\left[ \begin{array}{cc}
+\mathbf{U}_{1} & \mathbf{U}_{2}
+\end{array}\right] =\left[ \begin{array}{cc}
+1 & 0\\
+-\frac{\sqrt{3}}{3} & \frac{2\sqrt{3}}{3}
+\end{array}\right] 
+\end{equation}
+
+\end_inset 
+
+
+\layout Standard
+
+Ce qui conduit à 
+\begin_inset Formula \( \mathbf{U}_{1}=\left( 1,\frac{-\sqrt{3}}{3}\right)  \)
+\end_inset 
+
+ et 
+\begin_inset Formula \( \mathbf{U}_{2}=\left( 0,\frac{2\sqrt{3}}{3}\right)  \)
+\end_inset 
+
+.
+\layout Standard
+
+Le vecteur 
+\begin_inset Formula \( \mathbf{V}_{\mathbf{p}} \)
+\end_inset 
+
+ orthogonal à 
+\begin_inset Formula \( \mathbf{V}_{\mathbf{t}} \)
+\end_inset 
+
+ est obtenu en commutant les composantes du vecteur 
+\begin_inset Formula \( \mathbf{V}_{\mathbf{t}} \)
+\end_inset 
+
+ dans la base 
+\begin_inset Formula \( \left\{ \mathbf{V}_{1},\mathbf{V}_{2}\right\}  \)
+\end_inset 
+
+ et en changeant le signe d'une des deux.
+ Nous arrivons à : 
+\begin_inset Formula \( \mathbf{V}_{\mathbf{p}}=-\left( y_{b2}-y_{a2}\right) \mathbf{U}_{1}+\left( x_{b1}-x_{a1}\right) \mathbf{U}_{2} \)
+\end_inset 
+
+.
+ Ce résultat est crucial pour le processus de traçage de lignes, car le
+ vecteur 
+\begin_inset Formula \( \mathbf{V}_{\mathbf{p}} \)
+\end_inset 
+
+ est utilisé dans l'équation
+\protected_separator 
+
+\begin_inset LatexCommand \ref{eqn:DisToLine}
+
+\end_inset 
+
+ pour calculer la distance 
+\begin_inset Formula \( d(P,AB) \)
+\end_inset 
+
+.
+ Pour le cas particulier de l'exemple montré dans la  figure
+\protected_separator 
+
+\begin_inset LatexCommand \ref{fig:HexagonalGrid}
+
+\end_inset 
+
+, nous obtenons 
+\begin_inset Formula \( \mathbf{V}_{\mathbf{t}}=6\mathbf{V}_{1}+4\mathbf{V}_{2} \)
+\end_inset 
+
+ et 
+\begin_inset Formula \( \mathbf{V}_{\mathbf{p}}=-4\mathbf{U}_{1}+6\mathbf{U}_{2} \)
+\end_inset 
+
+.
+ En utilisant l'équation
+\protected_separator 
+
+\begin_inset LatexCommand \ref{eqn:Reciprocal2DBasis}
+
+\end_inset 
+
+, il est facile de vérifier que 
+\begin_inset Formula \( \mathbf{V}_{\mathbf{t}}\cdot \mathbf{V}_{\mathbf{p}}=0 \)
+\end_inset 
+
+.
+\layout Subsection
+
+Le traçage de la ligne
+\layout Subsubsection
+
+Choix de la connexité de la grille
+\layout Standard
+
+Dans la grille hexagonale, il est naturel de choisir la 6-connexité montrée
+ dans la figure
+\protected_separator 
+
+\begin_inset LatexCommand \ref{fig:HexagonalConnectivity}
+
+\end_inset 
+
+.
+ L'ensemble 
+\begin_inset Formula \( T \)
+\end_inset 
+
+ est donc 
+\begin_inset Formula \( T=\left\{ \mathbf{V}_{1},\mathbf{V}_{2},\mathbf{V}_{3},-\mathbf{V}_{1},-\mathbf{V}_{2},-\mathbf{V}_{3}\right\}  \)
+\end_inset 
+
+, où les vecteurs 
+\begin_inset Formula \( \mathbf{V}_{1} \)
+\end_inset 
+
+ et 
+\begin_inset Formula \( \mathbf{V}_{2} \)
+\end_inset 
+
+ sont ceux définis dans le paragraphe
+\protected_separator 
+
+\begin_inset LatexCommand \ref{sec:HexagonalPreparing}
+
+\end_inset 
+
+ et le vecteur 
+\begin_inset Formula \( \mathbf{V}_{3} \)
+\end_inset 
+
+ a pour composantes 
+\begin_inset Formula \( \left( -\frac{1}{2},\frac{\sqrt{3}}{2}\right)  \)
+\end_inset 
+
+.
+\layout Standard
+
+\begin_float fig 
+\layout Standard
+\align center 
+
+\begin_inset Figure size 72 70
+file TracageDesLignes_eps/Connectivity6.eps
+flags 8
+
+\end_inset 
+
+
+\layout Caption
+
+
+\begin_inset LatexCommand \label{fig:HexagonalConnectivity}
+
+\end_inset 
+
+Connexité dans la grille hexagonale.
+ Les cercles pleins représentent les points de la grille, les hexagones
+ représentent les pixels.
+ Les vecteurs 
+\begin_inset Formula \( \mathbf{V}_{1} \)
+\end_inset 
+
+,
+\begin_inset Formula \( \mathbf{V}_{2} \)
+\end_inset 
+
+, 
+\begin_inset Formula \( \mathbf{V}_{3} \)
+\end_inset 
+
+ et leurs opposés relient chaque point de la grille à ses voisins.
+\end_float 
+\layout Subsubsection
+
+
+\begin_inset LatexCommand \label{sec:selectingHexSector}
+
+\end_inset 
+
+Détermination de la base vectorielle
+\layout Standard
+
+Une fois que les points 
+\begin_inset Formula \( A \)
+\end_inset 
+
+ et 
+\begin_inset Formula \( B \)
+\end_inset 
+
+ de la ligne sont définis, nous cherchons les paires de vecteurs les mieux
+ adaptés pour décrire le vecteur 
+\begin_inset Formula \( \mathbf{V}_{\mathbf{t}} \)
+\end_inset 
+
+ reliant les points 
+\begin_inset Formula \( A \)
+\end_inset 
+
+ et 
+\begin_inset Formula \( B \)
+\end_inset 
+
+.
+ D'après ce qui a été établi dans la paragraphe
+\protected_separator 
+
+\begin_inset LatexCommand \ref{sec:SquareQuadrantSelection}
+
+\end_inset 
+
+, nous prendrons de l'ensemble 
+\begin_inset Formula \( T \)
+\end_inset 
+
+ la paire de vecteurs formant une base vectorielle telle que les composantes
+ de 
+\begin_inset Formula \( \mathbf{V}_{\mathbf{t}} \)
+\end_inset 
+
+ satisfassent 
+\begin_inset Formula \( (x_{1}\geq 0) \)
+\end_inset 
+
+, 
+\begin_inset Formula \( (x_{2}\geq 0) \)
+\end_inset 
+
+; 
+\begin_inset Formula \( \left( x_{1},x_{2}\right)  \)
+\end_inset 
+
+ tout en étant aussi petits que possible.
+ La sélection de cette base vectorielle équivaut au choix du quadrant dans
+ la grille carrée.
+\layout Standard
+
+La raison pour inclure la condition précédente pour 
+\begin_inset Formula \( \left( x_{1},x_{2}\right)  \)
+\end_inset 
+
+ peut être facilement comprise d'après les figures
+\protected_separator 
+
+\begin_inset LatexCommand \ref{fig:HexagonalGrid}
+
+\end_inset 
+
+ et
+\protected_separator 
+
+\begin_inset LatexCommand \ref{fig:HexagonalConnectivity}
+
+\end_inset 
+
+.
+ Par exemple, 
+\begin_inset Formula \( \mathbf{V}_{\mathbf{t}} \)
+\end_inset 
+
+ dans la figure
+\protected_separator 
+
+\begin_inset LatexCommand \ref{fig:HexagonalGrid}
+
+\end_inset 
+
+ peut être exprimé : 
+\layout Itemize
+
+en fonction des vecteurs de la base 
+\begin_inset Formula \( \left\{ \mathbf{V}_{2},-\mathbf{V}_{3}\right\}  \)
+\end_inset 
+
+ avec composantes 
+\begin_inset Formula \( \left( 10,6\right)  \)
+\end_inset 
+
+, 
+\layout Itemize
+
+en fonction des vecteurs de la base 
+\begin_inset Formula \( \left\{ \mathbf{V}_{1},\mathbf{V}_{3}\right\}  \)
+\end_inset 
+
+ avec composantes 
+\begin_inset Formula \( \left( 10,4\right)  \)
+\end_inset 
+
+ 
+\layout Itemize
+
+en fonction des vecteurs de la base 
+\begin_inset Formula \( \left\{ \mathbf{V}_{1},\mathbf{V}_{2}\right\}  \)
+\end_inset 
+
+ avec composantes 
+\begin_inset Formula \( \left( 6,4\right)  \)
+\end_inset 
+
+ 
+\layout Standard
+
+Nous retenons cette dernière écriture, car elle corresponds à prendre les
+ deux vecteurs dans 
+\begin_inset Formula \( T \)
+\end_inset 
+
+ qui sont les mieux alignés avec la ligne euclidienne 
+\begin_inset Formula \( AB \)
+\end_inset 
+
+.
+\layout Subsubsection
+
+
+\begin_inset LatexCommand \label{sec:ComputingOrthoVector}
+
+\end_inset 
+
+Calcul du vecteur orthogonal 
+\layout Standard
+
+Pour trouver le vecteur 
+\begin_inset Formula \( \mathbf{V}_{\mathbf{p}} \)
+\end_inset 
+
+ orthogonal à 
+\begin_inset Formula \( \mathbf{V}_{\mathbf{t}} \)
+\end_inset 
+
+ nous avons besoin de connaître la base réciproque 
+\begin_inset Formula \( \left\{ \mathbf{U}_{1},\mathbf{U}_{2}\right\}  \)
+\end_inset 
+
+.
+ Celle-ci peut être obtenue en suivant la procédure détaillée dans le paragraphe
+\protected_separator 
+
+\begin_inset LatexCommand \ref{sec:HexagonalPreparing}
+
+\end_inset 
+
+.
+ Elle n'implique pas une surcharge en temps de calcul car elle peut s'effectuer
+ préalablement pour toutes les combinaisons possibles de vecteurs de base
+ 
+\begin_inset Formula \( \left\{ \mathbf{V}_{1},\mathbf{V}_{2}\right\}  \)
+\end_inset 
+
+.
+ Dans le cas de la grille hexagonale cela correspond à analyser six cas.
+\layout Standard
+
+Une fois que la base vectorielle est connue, le vecteur 
+\begin_inset Formula \( \mathbf{V}_{\mathbf{p}} \)
+\end_inset 
+
+ est construit en échangeant les composantes du vecteur 
+\begin_inset Formula \( \mathbf{V}_{\mathbf{t}} \)
+\end_inset 
+
+ et en changeant le signe d'une d'entre elles.
+ Si nous avons deux vecteurs 
+\begin_inset Formula \( \mathbf{X} \)
+\end_inset 
+
+ et 
+\begin_inset Formula \( \mathbf{Y} \)
+\end_inset 
+
+, le premier exprimé en fonction de la base vectorielle de la grille comme
+ 
+\begin_inset Formula \( \mathbf{X}=x_{1}\mathbf{V}_{1}+x_{2}\mathbf{V}_{2} \)
+\end_inset 
+
+, et le deuxième exprimé en fonction de la base réciproque comme 
+\begin_inset Formula \( \mathbf{Y}=y_{1}\mathbf{U}_{1}+y_{2}\mathbf{U}_{2} \)
+\end_inset 
+
+.
+ Leur produit scalaire d'après l'équation
+\protected_separator 
+
+\begin_inset LatexCommand \ref{eqn:Reciprocal2DBasis}
+
+\end_inset 
+
+, est 
+\begin_inset Formula \( \mathbf{X}\cdot \mathbf{Y}=x_{1}y_{1}+x_{2}y_{2} \)
+\end_inset 
+
+.
+ En conséquence, une forme facile d'avoir 
+\begin_inset Formula \( \mathbf{Y} \)
+\end_inset 
+
+ orthogonal à 
+\begin_inset Formula \( \mathbf{X} \)
+\end_inset 
+
+ est de choisir les composantes 
+\begin_inset Formula \( y_{1}=x_{2} \)
+\end_inset 
+
+ et 
+\begin_inset Formula \( y_{2}=-x_{1} \)
+\end_inset 
+
+.
+\layout Subsubsection
+
+Définition de la variable de contrôle
+\layout Standard
+
+Tout le long du processus de traçage, la distance à partir d'un point 
+\begin_inset Formula \( P \)
+\end_inset 
+
+ de la grille jusqu'à la ligne euclidienne 
+\begin_inset Formula \( AB \)
+\end_inset 
+
+ est calculée par l'équation
+\protected_separator 
+
+\begin_inset LatexCommand \ref{eqn:DisToLine}
+
+\end_inset 
+
+.
+ Pour éviter les nombres non entiers, elle peut être transformée pour calculer
+ 
+\begin_inset Formula \( 2D(P,AB) \)
+\end_inset 
+
+ au lieu de 
+\begin_inset Formula \( d(P,AB) \)
+\end_inset 
+
+ d'après l'équation
+\protected_separator 
+
+\begin_inset LatexCommand \ref{eqn:DistCoordinates}
+
+\end_inset 
+
+.
+ L'algorithme de Bresenham présenté dans le paragraphe
+\protected_separator 
+
+\begin_inset LatexCommand \ref{sec:BresenhamAlgo}
+
+\end_inset 
+
+ est applicable sans modification pour le traçage des lignes dans la grille
+ hexagonale, pourvu que les termes soient interprétés dans le contexte établi
+ dans le présent paragraphe.
+\layout Standard
+
+La valeur de la distance 
+\begin_inset Formula \( D(P,AB) \)
+\end_inset 
+
+ pour la plupart des pixels hexagonaux du cas 
+\begin_inset Formula \( \mathbf{V}_{\mathbf{t}}=6\mathbf{V}_{1}+4\mathbf{V}_{2} \)
+\end_inset 
+
+ est montré dans la figure
+\protected_separator 
+
+\begin_inset LatexCommand \ref{fig:HexagonalTracing}
+
+\end_inset 
+
+.
+ Le processus peut se décrire comme une méthodologie pour aller du pixel
+ 
+\begin_inset Formula \( A \)
+\end_inset 
+
+ au pixel 
+\begin_inset Formula \( B \)
+\end_inset 
+
+ en faisant des pas soit dans la direction 
+\begin_inset Formula \( \mathbf{V}_{1} \)
+\end_inset 
+
+, soit dans la direction 
+\begin_inset Formula \( \mathbf{V}_{2} \)
+\end_inset 
+
+.
+ En choisissant à chaque fois de passer par le pixel tel que 
+\begin_inset Formula \( \left| D(P,AB)\right|  \)
+\end_inset 
+
+ soit minimale.
+\layout Standard
+
+\begin_float fig 
+\layout Standard
+\align center 
+
+\begin_inset Figure size 225 112
+file TracageDesLignes_eps/HexagonalTracing.eps
+flags 8
+
+\end_inset 
+
+
+\layout Caption
+
+
+\begin_inset LatexCommand \label{fig:HexagonalTracing}
+
+\end_inset 
+
+Valeurs de la variable de contrôle sur les points de la grille hexagonale.
+ 
+\end_float 
+\layout Standard
+
+A partir de cette description, il est évident qu'une ambiguïté se présente
+ si deux pixels possibles ont la même valeur, ce qui arrive, par exemple,
+ quand les composantes 
+\begin_inset Formula \( \left( x_{1},x_{2}\right)  \)
+\end_inset 
+
+ de 
+\series bold 
+
+\begin_inset Formula \( \mathbf{V}_{\mathbf{t}} \)
+\end_inset 
+
+ 
+\series default 
+sont égales.
+ Un exemple trivial est celui de tracer une ligne de pente 
+\begin_inset Formula \( 45^{\circ } \)
+\end_inset 
+
+ dans la grille carrée en 4-connexité où il faut décider si le premier pas
+ doit être fait dans la direction horizontale ou la direction verticale.
+ La solution serait un choix arbitraire, sous la condition que le même choix
+ doit être pris à chaque fois que l'ambiguïté se présente à nouveau.
+\layout Subsubsection
+
+Extension de la définition de Reveillès à la grille hexagonale
+\layout Standard
+
+La définition de la ligne discrète proposée dans 
+\begin_inset LatexCommand \cite{ReveillesThese}
+
+\end_inset 
+
+ peut s'étendre facilement à des grilles non orthogonales.
+ L'équation
+\protected_separator 
+
+\begin_inset LatexCommand \ref{eqn:ReveillesLine}
+
+\end_inset 
+
+ peut s'utiliser avec la seule différence que les termes 
+\begin_inset Formula \( x_{1} \)
+\end_inset 
+
+ et 
+\begin_inset Formula \( x_{2} \)
+\end_inset 
+
+ doivent s'interpréter comme les composantes du vecteur de position 
+\begin_inset Formula \( \mathbf{P} \)
+\end_inset 
+
+ du point 
+\begin_inset Formula \( P \)
+\end_inset 
+
+ exprimé dans la base vectorielle de la grille 
+\begin_inset Formula \( \left\{ \mathbf{V}_{1},\mathbf{V}_{2}\right\}  \)
+\end_inset 
+
+.
+ Les termes 
+\begin_inset Formula \( M \)
+\end_inset 
+
+ et 
+\begin_inset Formula \( N \)
+\end_inset 
+
+ doivent s'interpréter géométriquement comme les composantes du vecteur
+ 
+\begin_inset Formula \( \mathbf{V}_{\mathbf{t}} \)
+\end_inset 
+
+ orthogonal à la ligne euclidienne, exprimé dans la base réciproque 
+\begin_inset Formula \( \left\{ \mathbf{U}_{1},\mathbf{U}_{2}\right\}  \)
+\end_inset 
+
+.
+ Il faut remarquer que la définition de Reveillès produit des lignes qui
+ se trouvent d'un côté de la ligne euclidienne au lieu d'être centrées sur
+ elle.
+ Ceci peut se corriger par une soustraction de 
+\begin_inset Formula \( w/2 \)
+\end_inset 
+
+ dans l'équation
+\protected_separator 
+
+\begin_inset LatexCommand \ref{eqn:ReveillesLine}
+
+\end_inset 
+
+ et en multipliant par un facteur 
+\begin_inset Formula \( 2 \)
+\end_inset 
+
+ pour éviter les fractions :
+\layout Standard
+
+
+\begin_inset Formula 
+\begin{equation}
+\label{eqn:ReveillesCenteredLine}
+-w\leq 2Mx_{1}+2Nx_{2}<w
+\end{equation}
+
+\end_inset 
+
+
+\layout Standard
+
+Dans la grille hexagonale, on montre que le choix de 
+\begin_inset Formula \( w=\left| M\right| +\left| N\right|  \)
+\end_inset 
+
+ produit des lignes 6-connexes.
+ Pour le cas particulier présenté dans la figure
+\protected_separator 
+
+\begin_inset LatexCommand \ref{fig:HexagonalTracing}
+
+\end_inset 
+
+, nous avons 
+\begin_inset Formula \( M=-4 \)
+\end_inset 
+
+, 
+\begin_inset Formula \( N=6 \)
+\end_inset 
+
+ et 
+\begin_inset Formula \( w=10 \)
+\end_inset 
+
+, la ligne standard définie par Reveillès est composée de pixels hexagonaux
+ tels que 
+\begin_inset Formula \( -\frac{w}{2}\leq D(P/AB)<\frac{w}{2} \)
+\end_inset 
+
+, ce qui coïncide avec le traçage de la ligne par notre algorithme quand
+ nous utilisons la 6-connexité.
+\layout Section
+
+
+\begin_inset LatexCommand \label{sec:cubic}
+
+\end_inset 
+
+Le cas 3D
+\layout Standard
+
+La grille cubique, ou grille 
+\begin_inset Formula \( \mathbb {Z}^{3} \)
+\end_inset 
+
+ a été largement traitée dans le domaine de recherche de la visualisation
+ et de la géométrie discrète 
+\begin_inset LatexCommand \cite{Kaufman}
+
+\end_inset 
+
+
+\begin_inset LatexCommand \cite{Eurographics95}
+
+\end_inset 
+
+
+\begin_inset LatexCommand \cite{HermanSummerSchool}
+
+\end_inset 
+
+
+\begin_inset LatexCommand \cite{Reveilles3D}
+
+\end_inset 
+
+
+\begin_inset LatexCommand \cite{Kim83}
+
+\end_inset 
+
+
+\begin_inset LatexCommand \cite{Kaufman3DScan}
+
+\end_inset 
+
+
+\begin_inset LatexCommand \cite{PlaneTemplate}
+
+\end_inset 
+
+
+\begin_inset LatexCommand \cite{VoxelTraversal}
+
+\end_inset 
+
+.
+ Une approche générale pour discrétiser (
+\emph on 
+rasterize
+\emph toggle 
+) les courbes, les surfaces et les volumes paramétriques sur la grille 
+\begin_inset Formula \( \mathbb {Z}^{3} \)
+\end_inset 
+
+, est présentée dans 
+\begin_inset LatexCommand \cite{Kaufman3DScan}
+
+\end_inset 
+
+.
+ Quelques méthodes utilisées dans la grille cubique ont été généralisées
+ pour la grille 
+\begin_inset Formula \( \mathbb {Z}^{N} \)
+\end_inset 
+
+.
+ Une version 
+\begin_inset Formula \( N \)
+\end_inset 
+
+-dimensionnelle de l'algorithme de Bresenham est présentée dans 
+\begin_inset LatexCommand \cite{UniformlySubdivSpace}
+
+\end_inset 
+
+.
+ Une définition de la ligne discrète dans 
+\begin_inset Formula \( \mathbb {Z}^{N} \)
+\end_inset 
+
+ se trouve dans 
+\begin_inset LatexCommand \cite{DigitizationSchemes}
+
+\end_inset 
+
+.
+\layout Subsection
+
+Définitions proposées pour la ligne discrète 3D 
+\layout Standard
+
+Kim a définit la ligne discrète dans la grille cubique comme une suite de
+ points de la grille dont les projections dans les plans des coordonnées
+ sont des lignes 
+\begin_inset Formula \( 2D \)
+\end_inset 
+
+ discrètes 8-connexes 
+\begin_inset LatexCommand \cite{Kim83}
+
+\end_inset 
+
+.
+ Un algorithme est proposé pour reconnaître une ligne discrète, mais pas
+ pour la tracer.
+\layout Standard
+
+Françon 
+\begin_inset LatexCommand \cite{Francon}
+
+\end_inset 
+
+ a proposé une définition de ligne discrète basée sur le concept de 
+\emph on 
+supercover
+\emph toggle 
+, la ligne étant composée de tous les points de la grille dont la région
+ de Voronoï est intersectée par la ligne euclidienne.
+ Cette définition a l'inconvénient de produire des lignes dans lesquelles
+ un point peut avoir plus de deux voisins appartenant à la ligne.
+\layout Standard
+
+\begin_float fig 
+\layout Standard
+\align center 
+
+\begin_inset Figure size 275 227
+file TracageDesLignes_eps/CubicLine2.eps
+flags 8
+
+\end_inset 
+
+
+\layout Caption
+
+
+\begin_inset LatexCommand \label{fig:CubicElements}
+
+\end_inset 
+
+Traçage de la ligne dans la grille cubique.
+ Une ligne est tracée entre les points 
+\begin_inset Formula \( A \)
+\end_inset 
+
+ et 
+\begin_inset Formula \( B \)
+\end_inset 
+
+.
+\end_float 
+\layout Standard
+
+Figueiredo et Reveillès 
+\begin_inset LatexCommand \cite{Reveilles3D}
+
+\end_inset 
+
+ ont défini la ligne discrète 
+\begin_inset Formula \( 3D \)
+\end_inset 
+
+ comme l'intersection de deux plans discrets non parallèles.
+ Les plans discrets ont été définis par Andrès 
+\begin_inset LatexCommand \cite{AndresThese}
+
+\end_inset 
+
+ comme une généralisation de la ligne discrète 
+\begin_inset Formula \( 2D \)
+\end_inset 
+
+ de Reveillès 
+\begin_inset LatexCommand \cite{ReveillesThese}
+
+\end_inset 
+
+.
+ La procédure de traçage utilise un plan orthogonal à la ligne.
+ Chaque point est projeté dans ce plan orthogonal.
+ Leur algorithme est limité à la grille 
+\begin_inset Formula \( \mathbb {Z}^{3} \)
+\end_inset 
+
+ avec la 26-connexité.
+ 
+\layout Subsection
+
+
+\begin_inset LatexCommand \label{sec:CubicVectorApproach}
+
+\end_inset 
+
+L'approche vectorielle
+\layout Subsubsection
+
+
+\begin_inset LatexCommand \label{sec:CubicPreparingElements}
+
+\end_inset 
+
+Introduction
+\layout Standard
+
+Nous exprimons d'abord en termes vectoriels les éléments de base nécessaires
+ pour tracer une ligne entre le point 
+\begin_inset Formula \( A \)
+\end_inset 
+
+ et le point 
+\begin_inset Formula \( B \)
+\end_inset 
+
+.
+ La position du point 
+\begin_inset Formula \( A \)
+\end_inset 
+
+ par rapport à l'origine est représentée par le vecteur 
+\begin_inset Formula \( \mathbf{A}=x_{a1}\mathbf{V}_{1}+x_{a2}\mathbf{V}_{2}+x_{a3}\mathbf{V}_{3} \)
+\end_inset 
+
+.
+ La position du point 
+\begin_inset Formula \( B \)
+\end_inset 
+
+ par rapport à l'origine est représentée par le vecteur 
+\begin_inset Formula \( \mathbf{B}=x_{b1}\mathbf{V}_{1}+x_{b2}\mathbf{V}_{2}+x_{b3}\mathbf{V}_{3} \)
+\end_inset 
+
+.
+ La position du point 
+\begin_inset Formula \( B \)
+\end_inset 
+
+ par rapport au point 
+\begin_inset Formula \( A \)
+\end_inset 
+
+ est le vecteur 
+\begin_inset Formula \( \mathbf{V}_{\mathbf{t}}=\left( x_{a1}-x_{b1}\right) \mathbf{V}_{1}+\left( x_{a2}-x_{b2}\right) \mathbf{V}_{2}+\left( x_{a3}-x_{b3}\right) \mathbf{V}_{3} \)
+\end_inset 
+
+.
+ 
+\layout Subsubsection
+
+Définition de la connexité
+\layout Standard
+
+Pour définir la connexité, nous avons spécifié l'ensemble 
+\begin_inset Formula \( T \)
+\end_inset 
+
+ de vecteurs qui relient les positions des points de la grille considérés
+ comme des voisins.
+ Il faut remarquer que cela est un 
+\emph on 
+choix
+\emph toggle 
+ qui doit être fait avant le 
+\emph default 
+traçage de la ligne.
+\layout Subsubsection
+
+Sélection de l'octant
+\layout Standard
+
+La procédure analogue à celle de choisir le quadrant dans la grille carrée
+ en 
+\begin_inset Formula \( 2D \)
+\end_inset 
+
+ est celle de choisir un octant dans la grille cubique ou grille 
+\begin_inset Formula \( \mathbb {Z}^{3} \)
+\end_inset 
+
+.
+ Dans le cas général d'un grille quelconque, il s'agit de choisir trois
+ vecteurs parmi ceux dans l'ensemble 
+\begin_inset Formula \( T \)
+\end_inset 
+
+, de façon à former une base vectorielle.
+ 
+\layout Standard
+
+La sélection de la base vectorielle est fonction de la ligne à tracer.
+ La base correcte est celle dans laquelle les composantes 
+\begin_inset Formula \( (x_{1},x_{2},x_{3}) \)
+\end_inset 
+
+ du vecteur 
+\begin_inset Formula \( \mathbf{V}_{\mathbf{t}} \)
+\end_inset 
+
+ satisfont 
+\begin_inset Formula \( (x_{1}\geq 0) \)
+\end_inset 
+
+, 
+\begin_inset Formula \( (x_{2}\geq 0) \)
+\end_inset 
+
+, 
+\begin_inset Formula \( (x_{3}\geq 0) \)
+\end_inset 
+
+ et sont aussi petits que possible.
+ Ce critère garantit que ces vecteurs soient alignés de la meilleure façon
+ avec la ligne à tracer.
+ La direction associée avec la valeur maximale parmi les 
+\begin_inset Formula \( \left\{ x_{1},x_{2},x_{3}\right\}  \)
+\end_inset 
+
+ est appelée direction 
+\emph on 
+dominante
+\emph default 
+, les autres étant considérées comme des directions 
+\emph on 
+secondaires
+\emph default 
+.
+\layout Subsubsection
+
+
+\begin_inset LatexCommand \label{sec:CubicReciprocalGrid}
+
+\end_inset 
+
+Détermination de la grille réciproque
+\layout Standard
+
+Une fois que les vecteurs de la base ont été choisis, il est possible de
+ calculer la base réciproque.
+ Nous développons ici le cas du premier octant dans lequel la base vectorielle
+ est composée par les vecteurs 
+\begin_inset Formula \( \left\{ \mathbf{V}_{1},\mathbf{V}_{2},\mathbf{V}_{3}\right\}  \)
+\end_inset 
+
+.
+ Les autres octants pouvant être résolus par symétrie 
+\begin_inset LatexCommand \cite{SpherePacking}
+
+\end_inset 
+
+
+\begin_inset LatexCommand \cite{TransformGeometry}
+
+\end_inset 
+
+
+\begin_inset LatexCommand \cite{Reveilles3D}
+
+\end_inset 
+
+.
+ La procédure est analogue à celle utilisée en 
+\begin_inset Formula \( 2D \)
+\end_inset 
+
+ dans le paragraphe
+\protected_separator 
+
+\begin_inset LatexCommand \ref{sec:HexagonalPreparing}
+
+\end_inset 
+
+.
+ La Matrice 
+\begin_inset Formula \( M_{v} \)
+\end_inset 
+
+ de dimension 
+\begin_inset Formula \( 3\times 3 \)
+\end_inset 
+
+ est formée en disposant les vecteurs 
+\begin_inset Formula \( \left\{ \mathbf{V}_{1},\mathbf{V}_{2},\mathbf{V}_{3}\right\}  \)
+\end_inset 
+
+ en colonnes.
+ La matrice 
+\begin_inset Formula \( M_{u} \)
+\end_inset 
+
+ est calculée d'après l'équation
+\protected_separator 
+
+\begin_inset LatexCommand \ref{eqn:OrthonormalBasis}
+
+\end_inset 
+
+.
+ Les colonnes de la matrice 
+\begin_inset Formula \( M_{u} \)
+\end_inset 
+
+ sont les vecteurs 
+\begin_inset Formula \( \left\{ \mathbf{U}_{1},\mathbf{U}_{2},\mathbf{U}_{3}\right\}  \)
+\end_inset 
+
+ qui forment la base réciproque 
+\begin_inset LatexCommand \cite{SpherePacking}
+
+\end_inset 
+
+.
+ On satisfait la propriété fondamentale entre une base et sa base réciproque
+ : 
+\layout Standard
+
+
+\begin_inset Formula 
+\begin{equation}
+\label{eqn:Kroneker}
+\mathbf{V}_{\mathbf{i}}\cdot \mathbf{U}_{\mathbf{j}}=\left\{ \begin{array}{ccc}
+1 & if & i=j\\
+0 & if & i\neq j
+\end{array}\right. \forall i,j\in [1,N]
+\end{equation}
+
+\end_inset 
+
+
+\layout Standard
+
+où 
+\begin_inset Formula \( N \)
+\end_inset 
+
+ est la dimension de la grille.
+ 
+\layout Subsubsection
+
+Calcul de la distance à la ligne
+\layout Standard
+
+Pour calculer la distance entre un point 
+\begin_inset Formula \( P \)
+\end_inset 
+
+ et la ligne euclidienne 
+\begin_inset Formula \( AB \)
+\end_inset 
+
+ nous avons besoin, non pas d'un vecteur 
+\begin_inset Formula \( \mathbf{V}_{\mathbf{p}} \)
+\end_inset 
+
+ orthogonal au vecteur 
+\begin_inset Formula \( \mathbf{V}_{\mathbf{t}} \)
+\end_inset 
+
+ comme pour les cas 
+\begin_inset Formula \( 2D \)
+\end_inset 
+
+ traité dans les paragraphes
+\protected_separator 
+
+\begin_inset LatexCommand \ref{sec:square}
+
+\end_inset 
+
+ et
+\protected_separator 
+
+\begin_inset LatexCommand \ref{sec:hexagonal}
+
+\end_inset 
+
+, mais de deux vecteurs.
+ Soient 
+\begin_inset Formula \( \mathbf{U}_{\mathbf{p}1} \)
+\end_inset 
+
+ et 
+\begin_inset Formula \( \mathbf{U}_{\mathbf{p}2} \)
+\end_inset 
+
+ deux vecteurs non parallèles tous les deux orthogonaux au vecteur 
+\begin_inset Formula \( \mathbf{V}_{\mathbf{t}} \)
+\end_inset 
+
+.
+ Ces deux vecteurs, non nécessairement orthogonaux entre eux, définissent
+ un plan dans l'espace 
+\begin_inset Formula \( \mathbb {R}^{3} \)
+\end_inset 
+
+.
+ Une ligne euclidienne 
+\begin_inset Formula \( AB \)
+\end_inset 
+
+ est un objet de dimension un.
+ Quand il est placé dans un espace 
+\begin_inset Formula \( \mathbb {R}^{N} \)
+\end_inset 
+
+ de dimension 
+\begin_inset Formula \( N \)
+\end_inset 
+
+, la distance entre un point 
+\begin_inset Formula \( P \)
+\end_inset 
+
+ et la ligne doit se calculer dans l'espace 
+\begin_inset Formula \( \mathbb {R}^{(N-1)} \)
+\end_inset 
+
+ de dimension 
+\begin_inset Formula \( (N-1) \)
+\end_inset 
+
+.
+ Cet espace est appelé le 
+\emph on 
+sous-espace
+\emph default 
+ orthogonal à la ligne euclidienne 
+\begin_inset Formula \( AB \)
+\end_inset 
+
+.
+\layout Standard
+
+Les vecteurs 
+\begin_inset Formula \( \mathbf{U}_{\mathbf{p}1} \)
+\end_inset 
+
+ et 
+\begin_inset Formula \( \mathbf{U}_{\mathbf{p}2} \)
+\end_inset 
+
+ décrivent ce sous-espace car ils peuvent être utilisés comme base vectorielle.
+ En conséquence, la position de tout point dans le sous-espace orthogonal
+ peut s'exprimer comme une combinaison linéaire de 
+\begin_inset Formula \( \mathbf{U}_{\mathbf{p}1} \)
+\end_inset 
+
+ et 
+\begin_inset Formula \( \mathbf{U}_{\mathbf{p}2} \)
+\end_inset 
+
+.
+ Il faut remarquer que 
+\begin_inset Formula \( \mathbf{U}_{\mathbf{p}1}\in \mathbb {R}^{3} \)
+\end_inset 
+
+ et 
+\begin_inset Formula \( \mathbf{U}_{\mathbf{p}2}\in \mathbb {R}^{3} \)
+\end_inset 
+
+ , mais le sous-espace qu'ils représentent est un plan.
+\layout Subsubsection
+
+
+\begin_inset LatexCommand \label{sec:OrhogonalVectorsInCubic}
+
+\end_inset 
+
+Calcul des vecteurs du sous-espace orthogonal
+\layout Standard
+
+Nous calculons ici les vecteurs 
+\begin_inset Formula \( \mathbf{U}_{\mathbf{p}1} \)
+\end_inset 
+
+ et 
+\begin_inset Formula \( \mathbf{U}_{\mathbf{p}2} \)
+\end_inset 
+
+ en fonction des vecteurs de la base réciproque 
+\begin_inset Formula \( \left\{ \mathbf{U}_{1},\mathbf{U}_{2},\mathbf{U}_{3}\right\}  \)
+\end_inset 
+
+.
+ La méthode présentée ici, n'est pas unique comme solution pour ce problème.
+ Elle a néanmoins l'avantage de produire deux vecteurs bien adaptés pour
+ décrire la procédure de traçage de la ligne.
+ La direction de la ligne à tracer est définie par le vecteur 
+\begin_inset Formula \( \mathbf{V}_{\mathbf{t}}=x_{1}\mathbf{V}_{1}+x_{2}\mathbf{V}_{2}+x_{3}\mathbf{V}_{3} \)
+\end_inset 
+
+, avec 
+\begin_inset Formula \( x_{1}=\left( x_{b1}-x_{a1}\right)  \)
+\end_inset 
+
+, 
+\begin_inset Formula \( x_{2}=\left( x_{b2}-x_{a2}\right)  \)
+\end_inset 
+
+ et 
+\begin_inset Formula \( x_{3}=\left( x_{b3}-x_{a3}\right)  \)
+\end_inset 
+
+ comme dans le paragraphe
+\protected_separator 
+
+\begin_inset LatexCommand \ref{sec:CubicPreparingElements}
+
+\end_inset 
+
+.
+ Par souci de clarté nous ne traitons ici que le cas 
+\begin_inset Formula \( x_{1}\leq x_{2}\leq x_{3} \)
+\end_inset 
+
+; les autres cas pouvant être résolus par symétrie 
+\begin_inset LatexCommand \cite{TransformGeometry}
+
+\end_inset 
+
+
+\begin_inset LatexCommand \cite{Reveilles3D}
+
+\end_inset 
+
+.
+ 
+\layout Standard
+
+Nous suivrons une procédure analogue à celle utilisée en 
+\begin_inset Formula \( 2D \)
+\end_inset 
+
+, dans le paragraphe
+\protected_separator 
+
+\begin_inset LatexCommand \ref{sec:ComputingOrthoVector}
+
+\end_inset 
+
+.
+ Deux des composantes du vecteur 
+\begin_inset Formula \( \mathbf{V}_{\mathbf{t}} \)
+\end_inset 
+
+ sont échangées, le signe d'une d'entre elles est changé.
+ Toutes les deux sont utilisées comme composantes dans la base réciproque.
+ La composante restante est mise à zéro.
+ Pour construire 
+\begin_inset Formula \( \mathbf{U}_{\mathbf{p}1} \)
+\end_inset 
+
+ nous prenons donc 
+\begin_inset Formula \( x_{1} \)
+\end_inset 
+
+ et 
+\begin_inset Formula \( x_{3} \)
+\end_inset 
+
+ pour former 
+\begin_inset Formula \( \mathbf{U}_{\mathbf{p}1}=x_{3}\mathbf{U}_{1}+0\mathbf{U}_{2}-x_{1}\mathbf{U}_{3} \)
+\end_inset 
+
+.
+ Pour construire 
+\begin_inset Formula \( \mathbf{U}_{\mathbf{p}2} \)
+\end_inset 
+
+ nous prenons 
+\begin_inset Formula \( x_{1} \)
+\end_inset 
+
+ et 
+\begin_inset Formula \( x_{2} \)
+\end_inset 
+
+ pour obtenir 
+\begin_inset Formula \( \mathbf{U}_{\mathbf{p}2}=0\mathbf{U}_{1}+x_{3}\mathbf{U}_{2}-x_{2}\mathbf{U}_{3} \)
+\end_inset 
+
+.
+ Nous pouvons vérifier facilement d'après l'équation
+\protected_separator 
+
+\begin_inset LatexCommand \ref{eqn:Kroneker}
+
+\end_inset 
+
+ que 
+\begin_inset Formula \( \mathbf{U}_{\mathbf{p}1}\cdot \mathbf{V}_{\mathbf{t}}=0 \)
+\end_inset 
+
+, 
+\begin_inset Formula \( \mathbf{U}_{\mathbf{p}2}\cdot \mathbf{V}_{\mathbf{t}}=0 \)
+\end_inset 
+
+, 
+\begin_inset Formula \( \mathbf{U}_{\mathbf{p}1}\cdot \mathbf{V}_{2}=0 \)
+\end_inset 
+
+, et 
+\begin_inset Formula \( \mathbf{U}_{\mathbf{p}2}\cdot \mathbf{V}_{1}=0 \)
+\end_inset 
+
+.
+ Une représentation des vecteurs 
+\begin_inset Formula \( \mathbf{U}_{\mathbf{p}1} \)
+\end_inset 
+
+ et 
+\begin_inset Formula \( \mathbf{U}_{\mathbf{p}2} \)
+\end_inset 
+
+ est schématisée dans la figure
+\protected_separator 
+
+\begin_inset LatexCommand \ref{fig:CubicElements}
+
+\end_inset 
+
+, où le plan représente le sous-espace orthogonal à 
+\begin_inset Formula \( \mathbf{V}_{\mathbf{t}} \)
+\end_inset 
+
+.
+\layout Standard
+
+En notation matricielle, les vecteurs 
+\begin_inset Formula \( \mathbf{U}_{\mathbf{p}1} \)
+\end_inset 
+
+ et 
+\begin_inset Formula \( \mathbf{U}_{\mathbf{p}2} \)
+\end_inset 
+
+ peuvent être placés comme colonnes de la matrice 
+\begin_inset Formula \( M_{Up} \)
+\end_inset 
+
+, qui est reliée à la matrice 
+\begin_inset Formula \( M_{u} \)
+\end_inset 
+
+ par
+\layout Standard
+
+
+\begin_inset Formula 
+\begin{equation}
+\label{eqn:SubspaceUbase}
+M_{Up}=M_{u}\, M_{sp}
+\end{equation}
+
+\end_inset 
+
+
+\layout Standard
+
+où 
+\begin_inset Formula \( M_{sp} \)
+\end_inset 
+
+ est la matrice qui produit la projection sur le sous-espace.
+ Elle est définie comme
+\layout Standard
+
+
+\begin_inset Formula 
+\[
+M_{sp}=\left[ \begin{array}{cc}
+x_{3} & 0\\
+0 & x_{3}\\
+-x_{1} & -x_{2}
+\end{array}\right] \]
+
+\end_inset 
+
+
+\layout Standard
+
+De la même façon que la base vectorielle 
+\begin_inset Formula \( \left\{ \mathbf{V}_{1},\mathbf{V}_{2},\mathbf{V}_{3}\right\}  \)
+\end_inset 
+
+ a une base réciproque 
+\begin_inset Formula \( \left\{ \mathbf{U}_{1},\mathbf{U}_{2},\mathbf{U}_{3}\right\}  \)
+\end_inset 
+
+, la base composée par les vecteurs 
+\begin_inset Formula \( \left\{ \mathbf{U}_{\mathbf{p}1},\mathbf{U}_{\mathbf{p}2}\right\}  \)
+\end_inset 
+
+ appartenant au sous-espace orthogonal, a une base réciproque 
+\begin_inset Formula \( \left\{ \mathbf{W}_{\mathbf{p}1},\mathbf{W}_{\mathbf{p}2}\right\}  \)
+\end_inset 
+
+.
+ Ils satisfont : 
+\layout Standard
+
+
+\begin_inset Formula 
+\begin{equation}
+\label{eqn:KroneckerSubSpace}
+\mathbf{W}_{\mathbf{p}i}\cdot \mathbf{U}_{\mathbf{p}j}=\left\{ \begin{array}{ccc}
+1 & if & i=j\\
+0 & if & i\neq j
+\end{array}\right. \forall i,j\in [1,N-1]
+\end{equation}
+
+\end_inset 
+
+
+\layout Standard
+
+Ils peuvent être obtenus à partir des vecteurs 
+\begin_inset Formula \( \left\{ \mathbf{U}_{\mathbf{p}1},\mathbf{U}_{\mathbf{p}2}\right\}  \)
+\end_inset 
+
+ en utilisant la procédure décrite dans le paragraphe
+\protected_separator 
+
+\begin_inset LatexCommand \ref{sec:HexagonalPreparing}
+
+\end_inset 
+
+, en particulier l'équation
+\protected_separator 
+
+\begin_inset LatexCommand \ref{eqn:OrthonormalBasis}
+
+\end_inset 
+
+.
+\layout Subsubsection
+
+
+\begin_inset LatexCommand \label{sec:CubicProjVectOnOrthoSub}
+
+\end_inset 
+
+Projection d'un vecteur dans le sous-espace orthogonal
+\layout Standard
+
+Soit 
+\begin_inset Formula \( \mathbf{M}=m_{1}\mathbf{V}_{1}+m_{2}\mathbf{V}_{2}+m_{3}\mathbf{V}_{3} \)
+\end_inset 
+
+ un vecteur de la grille.
+ Soit le vecteur 
+\begin_inset Formula \( \mathbf{M}_{\mathbf{p}} \)
+\end_inset 
+
+ la projection de 
+\begin_inset Formula \( \mathbf{M} \)
+\end_inset 
+
+ sur le sous-espace orthogonal.
+ Le vecteur 
+\begin_inset Formula \( \mathbf{M}_{\mathbf{p}} \)
+\end_inset 
+
+ peut s'exprimer comme 
+\begin_inset Formula \( \mathbf{M}_{\mathbf{p}}=m_{p1}\mathbf{W}_{\mathbf{p}1}+m_{p2}\mathbf{W}_{\mathbf{p}2} \)
+\end_inset 
+
+, où les composantes 
+\begin_inset Formula \( m_{p1} \)
+\end_inset 
+
+ et 
+\begin_inset Formula \( m_{p2} \)
+\end_inset 
+
+ sont des entiers.
+ Ces composantes sont calculées à partir du produit scalaire entre le vecteur
+ 
+\begin_inset Formula \( \mathbf{M} \)
+\end_inset 
+
+ et les vecteurs 
+\begin_inset Formula \( \mathbf{U}_{\mathbf{p}1} \)
+\end_inset 
+
+ et 
+\begin_inset Formula \( \mathbf{U}_{\mathbf{p}2} \)
+\end_inset 
+
+ de la base du sous-espace orthogonal :
+\layout Standard
+
+
+\begin_inset Formula 
+\begin{equation}
+\label{eqn:ComponentOfProjection}
+\begin{array}{ccccc}
+m_{p1} & = & \mathbf{M}\cdot \mathbf{U}_{\mathbf{p}1} & = & m_{1}x_{3}-m_{3}x_{1}\\
+m_{p2} & = & \mathbf{M}\cdot \mathbf{U}_{\mathbf{p}2} & = & m_{2}x_{3}-m_{3}x_{2}
+\end{array}
+\end{equation}
+
+\end_inset 
+
+
+\layout Standard
+
+Il est intéressant de remarquer que la projection du vecteur 
+\begin_inset Formula \( \mathbf{V}_{1} \)
+\end_inset 
+
+ dans le sous-espace orthogonal est 
+\begin_inset Formula \( \left( x_{3}\mathbf{W}_{\mathbf{p}1}\right)  \)
+\end_inset 
+
+, la projection de 
+\begin_inset Formula \( \mathbf{V}_{2} \)
+\end_inset 
+
+ est 
+\begin_inset Formula \( \left( x_{3}\mathbf{W}_{\mathbf{p}2}\right)  \)
+\end_inset 
+
+, et celle de 
+\begin_inset Formula \( \mathbf{V}_{3} \)
+\end_inset 
+
+ est 
+\begin_inset Formula \( (-x_{1}\mathbf{W}_{\mathbf{p}1}-x_{2}\mathbf{W}_{\mathbf{p}2}) \)
+\end_inset 
+
+.
+ C'est à dire, chacune des directions secondaires est projetée parallèlement
+ à un des vecteurs de la base réciproque dans le sous-espace orthogonal.
+ Cette propriété nous permet de suivre facilement le processus de traçage
+ de la ligne, en n'utilisant que les projections des points de la ligne
+ discrète sur le sous-espace orthogonal.
+ En notation matricielle les composantes peuvent être exprimées comme
+\layout Standard
+
+
+\begin_inset Formula 
+\[
+\left[ \begin{array}{c}
+m_{p1}\\
+m_{p1}
+\end{array}\right] =\left[ \begin{array}{ccc}
+x_{3} & 0 & -x_{1}\\
+0 & x_{3} & -x_{2}
+\end{array}\right] \left[ \begin{array}{c}
+m_{1}\\
+m_{2}\\
+m_{3}
+\end{array}\right] \]
+
+\end_inset 
+
+
+\layout Standard
+
+et avec la définition de 
+\begin_inset Formula \( M_{sp} \)
+\end_inset 
+
+ cela devient
+\layout Standard
+
+
+\begin_inset Formula 
+\begin{equation}
+\label{eq:MatrixProjection}
+\left[ \begin{array}{c}
+m_{p1}\\
+m_{p1}
+\end{array}\right] =\left( M_{sp}\right) ^{T}\left[ \begin{array}{c}
+m_{1}\\
+m_{2}\\
+m_{3}
+\end{array}\right] 
+\end{equation}
+
+\end_inset 
+
+
+\layout Subsubsection
+
+La distance Euclidienne à la ligne
+\layout Standard
+
+Le vecteur 
+\begin_inset Formula \( \mathbf{M} \)
+\end_inset 
+
+ représente la position d'un point 
+\begin_inset Formula \( P \)
+\end_inset 
+
+ par rapport au point 
+\begin_inset Formula \( A \)
+\end_inset 
+
+, donc 
+\begin_inset Formula \( \mathbf{M}=(\mathbf{P}-\mathbf{A}) \)
+\end_inset 
+
+.
+ La module de 
+\begin_inset Formula \( \mathbf{M}_{\mathbf{p}} \)
+\end_inset 
+
+ est égal à la distance Euclidienne entre le point 
+\begin_inset Formula \( P \)
+\end_inset 
+
+ et la ligne 
+\begin_inset Formula \( AB \)
+\end_inset 
+
+.
+ Ce module peut être calculé comme 
+\layout Standard
+
+
+\begin_inset Formula 
+\begin{equation}
+\label{eqn:SquareDistanceToLine}
+\left\Vert \mathbf{M}_{\mathbf{p}}\right\Vert ^{2}=\mathbf{M}_{\mathbf{p}}\cdot \mathbf{M}_{\mathbf{p}}=\left[ \begin{array}{cc}
+m_{p1} & m_{p2}
+\end{array}\right] \left( M_{Wp}^{T}M_{Wp}\right) \left[ \begin{array}{c}
+m_{p1}\\
+m_{p2}
+\end{array}\right] 
+\end{equation}
+
+\end_inset 
+
+
+\layout Standard
+
+où 
+\begin_inset Formula \( M_{Wp} \)
+\end_inset 
+
+ est la matrice formée en utilisant les vecteurs 
+\begin_inset Formula \( \mathbf{W}_{\mathbf{pi}} \)
+\end_inset 
+
+ comme colonnes 
+\begin_inset Formula 
+\begin{equation}
+M_{Wp}=\left[ \begin{array}{cc}
+\mathbf{W}_{\mathbf{p}1} & \mathbf{W}_{\mathbf{p}2}
+\end{array}\right] 
+\end{equation}
+
+\end_inset 
+
+
+\layout Standard
+
+De la même façon que dans le paragraphe 
+\begin_inset LatexCommand \ref{sec:HexagonalPreparing}
+
+\end_inset 
+
+ pour l'équation 
+\begin_inset LatexCommand \ref{eqn:MatrixOfVectorBasis}
+
+\end_inset 
+
+.
+ Le produit matriciel est 
+\layout Standard
+
+
+\begin_inset Formula 
+\begin{equation}
+M_{Wp}^{T}M_{Wp}=\left[ \begin{array}{cc}
+\mathbf{W}_{\mathbf{p}1}\cdot \mathbf{W}_{\mathbf{p}1} & \mathbf{W}_{\mathbf{p}1}\cdot \mathbf{W}_{\mathbf{p}2}\\
+\mathbf{W}_{\mathbf{p}2}\cdot \mathbf{W}_{\mathbf{p}1} & \mathbf{W}_{\mathbf{p}2}\cdot \mathbf{W}_{\mathbf{p}2}
+\end{array}\right] 
+\end{equation}
+
+\end_inset 
+
+
+\layout Standard
+
+La relation existante entre la base vectorielle et sa réciproque implique
+ que
+\layout Standard
+
+
+\begin_inset Formula 
+\begin{equation}
+\label{eq:ReciprocalMatrices}
+M_{Wp}^{T}M_{Wp}=\left( M_{Up}^{T}M_{Up}\right) ^{-1}
+\end{equation}
+
+\end_inset 
+
+
+\layout Standard
+
+où
+\layout Standard
+
+
+\begin_inset Formula 
+\begin{equation}
+M_{Up}^{T}M_{Up}=\left[ \begin{array}{cc}
+\mathbf{U}_{\mathbf{p}1}\cdot \mathbf{U}_{\mathbf{p}1} & \mathbf{U}_{\mathbf{p}1}\cdot \mathbf{U}_{\mathbf{p}2}\\
+\mathbf{U}_{\mathbf{p}2}\cdot \mathbf{U}_{\mathbf{p}1} & \mathbf{U}_{\mathbf{p}2}\cdot \mathbf{U}_{\mathbf{p}2}
+\end{array}\right] 
+\end{equation}
+
+\end_inset 
+
+
+\layout Standard
+
+en utilisant l'équation 
+\begin_inset LatexCommand \ref{eqn:SubspaceUbase}
+
+\end_inset 
+
+ nous arrivons à 
+\layout Standard
+
+
+\begin_inset Formula 
+\begin{equation}
+M_{Up}^{T}M_{Up}=M^{T}_{sp}\, \left( M^{T}_{u}M_{u}\right) \, M_{sp}
+\end{equation}
+
+\end_inset 
+
+
+\layout Standard
+
+et en utilisant l'équation 
+\begin_inset LatexCommand \ref{eqn:OrthonormalBasis}
+
+\end_inset 
+
+ cela devient 
+\layout Standard
+
+
+\begin_inset Formula 
+\begin{equation}
+M_{Up}^{T}M_{Up}=M^{T}_{sp}\, \left( M^{T}_{v}M_{v}\right) ^{-1}\, M_{sp}
+\end{equation}
+
+\end_inset 
+
+
+\layout Standard
+
+Nous pouvons donc écrire l'équation 
+\begin_inset LatexCommand \ref{eqn:SquareDistanceToLine}
+
+\end_inset 
+
+ comme 
+\layout Standard
+
+
+\begin_inset Formula 
+\begin{equation}
+\left\Vert \mathbf{M}_{\mathbf{p}}\right\Vert ^{2}=\left[ \begin{array}{cc}
+m_{p1} & m_{p2}
+\end{array}\right] \left( M^{T}_{sp}\, \left( M^{T}_{v}M_{v}\right) ^{-1}\, M_{sp}\right) ^{-1}\left[ \begin{array}{c}
+m_{p1}\\
+m_{p2}
+\end{array}\right] 
+\end{equation}
+
+\end_inset 
+
+
+\layout Standard
+
+et à partir de l'équation 
+\begin_inset LatexCommand \ref{eq:MatrixProjection}
+
+\end_inset 
+
+, nous arrivons finalement à
+\layout Standard
+
+
+\begin_inset Formula 
+\begin{equation}
+\left\Vert \mathbf{M}_{\mathbf{p}}\right\Vert ^{2}=\left[ \begin{array}{ccc}
+m_{1} & m_{2} & m_{3}
+\end{array}\right] M_{sp}\left( M^{T}_{sp}\, \left( M^{T}_{v}M_{v}\right) ^{-1}\, M_{sp}\right) ^{-1}M^{T}_{sp}\left[ \begin{array}{c}
+m_{1}\\
+m_{2}\\
+m_{3}
+\end{array}\right] 
+\end{equation}
+
+\end_inset 
+
+
+\layout Standard
+
+Il faut remarquer que l'opération d'inversion matricielle ne peut pas être
+ distribuée à l'intérieur des parenthèses car la matrice 
+\begin_inset Formula \( M_{sp} \)
+\end_inset 
+
+ n'est pas carrée.
+ Cette expression est équivalente à la forme quadratique 
+\begin_inset Formula 
+\begin{equation}
+\left\Vert \mathbf{M}_{\mathbf{p}}\right\Vert ^{2}=\sum _{i,j}m_{i}m_{j}\Theta _{ij}
+\end{equation}
+
+\end_inset 
+
+
+\layout Standard
+
+où la matrice symétrique 
+\begin_inset Formula \( \Theta  \)
+\end_inset 
+
+ est
+\layout Standard
+
+
+\begin_inset Formula 
+\begin{equation}
+\label{eq:ThetaMatrix}
+\Theta =M_{sp}\left( M^{T}_{sp}\, \left( M^{T}_{v}M_{v}\right) ^{-1}\, M_{sp}\right) ^{-1}M^{T}_{sp}
+\end{equation}
+
+\end_inset 
+
+
+\layout Standard
+
+La matrice 
+\begin_inset Formula \( M_{v} \)
+\end_inset 
+
+ est complètement définie par la base vectorielle de la grille ainsi que
+ par l'octant dans lequel la ligne va être tracée.
+ La matrice 
+\begin_inset Formula \( M_{sp} \)
+\end_inset 
+
+ dépend uniquement des composantes du vecteur 
+\begin_inset Formula \( \mathbf{V}_{\mathbf{t}} \)
+\end_inset 
+
+.
+ Toutes les matrices 
+\begin_inset Formula \( M_{v} \)
+\end_inset 
+
+ possibles peuvent être précalculées une fois que la grille a été définie.
+ Il y aura une matrice pour chaque octant possible.
+ La matrice 
+\begin_inset Formula \( M_{sp} \)
+\end_inset 
+
+ est calculée une fois que les points extrêmes de la ligne sont définis.
+ De cette façon, quand nous commençons le processus de traçage de la ligne,
+ les éléments de la matrice 
+\begin_inset Formula \( \Theta  \)
+\end_inset 
+
+ sont tous des valeurs constantes connues.
+\layout Standard
+
+Pendant le traçage de la ligne, le choix de la direction du pas suivant
+ est fait en évaluant les valeurs de 
+\begin_inset Formula \( \left\Vert \mathbf{M}_{\mathbf{p}}\right\Vert ^{2} \)
+\end_inset 
+
+ (carré de la distance entre un point 
+\begin_inset Formula \( P \)
+\end_inset 
+
+ de la ligne discrète et la ligne Euclidienne) pour chaque éventuel pas.
+ La direction du mouvement choisie sera celle qui conduit à la valeur minimale
+ de 
+\begin_inset Formula \( \left\Vert \mathbf{M}_{\mathbf{p}}\right\Vert ^{2} \)
+\end_inset 
+
+.
+ 
+\layout Standard
+
+Étant donnée que la matrice 
+\begin_inset Formula \( \Theta  \)
+\end_inset 
+
+ est constante pour la ligne 
+\begin_inset Formula \( AB \)
+\end_inset 
+
+, il est possible de calculer 
+\begin_inset Formula \( \left\Vert \mathbf{M}_{\mathbf{p}}\right\Vert ^{2} \)
+\end_inset 
+
+ de façon incrémentale.
+ Prenons le cas où nous connaissons la valeur de 
+\begin_inset Formula \( \left\Vert \mathbf{M}_{\mathbf{p}}\right\Vert ^{2} \)
+\end_inset 
+
+ pour un point 
+\begin_inset Formula \( P \)
+\end_inset 
+
+.
+ Le vecteur 
+\begin_inset Formula \( \mathbf{M} \)
+\end_inset 
+
+ décrit la position du point 
+\begin_inset Formula \( P \)
+\end_inset 
+
+ par rapport au point extrême 
+\begin_inset Formula \( A \)
+\end_inset 
+
+.
+ Les composantes du vecteur 
+\begin_inset Formula \( \mathbf{M} \)
+\end_inset 
+
+ étant 
+\begin_inset Formula \( \left\{ m_{i}\right\}  \)
+\end_inset 
+
+.
+ Si une des composantes, par exemple 
+\begin_inset Formula \( m_{k} \)
+\end_inset 
+
+, est augmentée de un, la valeur 
+\begin_inset Formula \( \left\Vert \mathbf{M}^{'}_{\mathbf{p}}\right\Vert ^{2} \)
+\end_inset 
+
+ de la nouvelle distance au carré sera donnée par
+\layout Standard
+
+
+\begin_inset Formula 
+\begin{eqnarray*}
+\left\Vert \mathbf{M}^{'}_{\mathbf{p}}\right\Vert ^{2} & = & \sum _{i,j\neq k}m_{i}m_{j}\Theta _{ij}+2(m_{k}+1)\sum _{j\neq k}m_{j}\Theta _{kj}+(m_{k}+1)^{2}\Theta _{kk}\\
+ & = & \sum _{i,j}m_{i}m_{j}\Theta _{ij}+2\sum _{j}m_{j}\Theta _{kj}+\Theta _{kk}\\
+ & = & \left\Vert \mathbf{M}_{\mathbf{p}}\right\Vert ^{2}+2\sum _{j}m_{j}\Theta _{kj}+\Theta _{kk}
+\end{eqnarray*}
+
+\end_inset 
+
+
+\layout Standard
+
+Prenons le vecteur 
+\begin_inset Formula \( \mathbf{R}_{\mathbf{p}} \)
+\end_inset 
+
+ comme celui qui a des composantes 
+\begin_inset Formula \( 2\sum _{j}m_{j}\Theta _{kj} \)
+\end_inset 
+
+ dans la base vectorielle 
+\begin_inset Formula \( \left\{ \mathbf{U}_{\mathbf{Pk}}\right\}  \)
+\end_inset 
+
+
+\layout Standard
+
+
+\begin_inset Formula 
+\begin{equation}
+\mathbf{R}_{\mathbf{P}}=\sum _{k}\left( 2\sum _{j}m_{j}\Theta _{kj}\right) \mathbf{U}_{\mathbf{Pk}}
+\end{equation}
+
+\end_inset 
+
+
+\layout Standard
+
+et définissons la matrice colonne 
+\begin_inset Formula \( M_{R} \)
+\end_inset 
+
+ comme celle formée par les composantes du vecteur 
+\begin_inset Formula \( \mathbf{R}_{\mathbf{p}} \)
+\end_inset 
+
+
+\layout Standard
+
+
+\begin_inset Formula 
+\begin{equation}
+M_{R}=\left[ \begin{array}{c}
+2\sum _{j}m_{j}\Theta _{1j}\\
+2\sum _{j}m_{j}\Theta _{2j}\\
+...\\
+2\sum _{j}m_{j}\Theta _{nj}
+\end{array}\right] 
+\end{equation}
+
+\end_inset 
+
+
+\layout Standard
+
+le produit scalaire 
+\begin_inset Formula \( \mathbf{R}_{\mathbf{p}}\cdot \mathbf{M}_{\mathbf{p}} \)
+\end_inset 
+
+ est égal à 
+\begin_inset Formula \( \left\Vert \mathbf{M}_{\mathbf{p}}\right\Vert ^{2} \)
+\end_inset 
+
+.
+ Dans certaines notations, le vecteur 
+\begin_inset Formula \( \mathbf{M}_{\mathbf{p}} \)
+\end_inset 
+
+ est dit 
+\emph on 
+covariant
+\emph toggle 
+ tandis que le vecteur 
+\begin_inset Formula \( \mathbf{R}_{\mathbf{p}} \)
+\end_inset 
+
+ est dit 
+\emph on 
+contravariant
+\emph toggle 
+.
+ Pour mettre à jour la valeur de 
+\begin_inset Formula \( \left\Vert \mathbf{M}_{\mathbf{p}}\right\Vert ^{2} \)
+\end_inset 
+
+, nous devons lui ajouter la valeur de la 
+\begin_inset Formula \( k \)
+\end_inset 
+
+-ème composante de 
+\begin_inset Formula \( M_{R} \)
+\end_inset 
+
+ plus le terme 
+\begin_inset Formula \( \Theta _{kk} \)
+\end_inset 
+
+.
+ La matrice colonne 
+\begin_inset Formula \( M_{R} \)
+\end_inset 
+
+ doit être mise à jour aussi, en lui ajoutant le double de la 
+\begin_inset Formula \( k \)
+\end_inset 
+
+-ème colonne de la matrice 
+\begin_inset Formula \( \Theta  \)
+\end_inset 
+
+, ce qui laissera 
+\begin_inset Formula \( M_{R} \)
+\end_inset 
+
+ prête pour l'itération suivante
+\layout Standard
+
+
+\begin_inset Formula 
+\begin{equation}
+M^{'}_{R}=\left[ \begin{array}{c}
+2\sum _{j}m_{j}\Theta _{1j}\\
+2\sum _{j}m_{j}\Theta _{2j}\\
+...\\
+2\sum _{j}m_{j}\Theta _{nj}
+\end{array}\right] +2\left[ \begin{array}{c}
+\Theta _{1k}\\
+\Theta _{2k}\\
+...\\
+\Theta _{nk}
+\end{array}\right] 
+\end{equation}
+
+\end_inset 
+
+
+\layout Standard
+
+De cette façon, l'utilisation des matrices 
+\begin_inset Formula \( \Theta  \)
+\end_inset 
+
+ de taille 
+\begin_inset Formula \( n\times n \)
+\end_inset 
+
+ et 
+\begin_inset Formula \( M_{R} \)
+\end_inset 
+
+ de taille 
+\begin_inset Formula \( 1\times n \)
+\end_inset 
+
+ comme des données auxiliaires, rend possible le calcul du carré de la distance
+ entre un point 
+\begin_inset Formula \( P \)
+\end_inset 
+
+ de la grille et la ligne Euclidienne 
+\begin_inset Formula \( AB \)
+\end_inset 
+
+, tout cela avec seulement 
+\begin_inset Formula \( (n+1) \)
+\end_inset 
+
+ additions.
+\layout Subsection
+
+
+\begin_inset LatexCommand \label{sec:CubicTracingLine}
+
+\end_inset 
+
+Le traçage de la ligne
+\layout Standard
+
+Pour tracer la ligne nous devons prendre la suite 
+\begin_inset Formula \( S \)
+\end_inset 
+
+ de points connexes qui minimise la distance 
+\begin_inset Formula \( D(S,AB) \)
+\end_inset 
+
+ comme nous l'avons établi dans le paragraphe
+\protected_separator 
+
+\begin_inset LatexCommand \ref{sec:VectorialLineDefinition}
+
+\end_inset 
+
+.
+ La distance entre le point 
+\begin_inset Formula \( P \)
+\end_inset 
+
+ et la ligne 
+\begin_inset Formula \( AB \)
+\end_inset 
+
+ est calculée en projetant le point 
+\begin_inset Formula \( P \)
+\end_inset 
+
+ sur le sous-espace orthogonal à la ligne.
+ Ce sous-espace est défini par la base vectorielle 
+\begin_inset Formula \( \left\{ \mathbf{U}_{\mathbf{p}1},\mathbf{U}_{\mathbf{p}2}\right\}  \)
+\end_inset 
+
+.
+ 
+\layout Standard
+
+Comme nous ne considérons que le cas 
+\begin_inset Formula \( x_{1}\leq x_{2}\leq x_{3} \)
+\end_inset 
+
+, il est clair que la direction dominante de la ligne est celle de 
+\begin_inset Formula \( \mathbf{V}_{3} \)
+\end_inset 
+
+.
+ Les deux autres vecteurs 
+\begin_inset Formula \( \mathbf{V}_{1} \)
+\end_inset 
+
+ et 
+\begin_inset Formula \( \mathbf{V}_{2} \)
+\end_inset 
+
+ sont des directions secondaires.
+ Forts de la connaissance des points extrêmes de la ligne nous pouvons calculer
+ la matrice 
+\begin_inset Formula \( \Theta  \)
+\end_inset 
+
+.
+\layout Standard
+
+Considérons maintenant que nous démarrons avec le point 
+\begin_inset Formula \( P \)
+\end_inset 
+
+ en coïncidence avec le point 
+\begin_inset Formula \( A \)
+\end_inset 
+
+.
+ Le vecteur 
+\begin_inset Formula \( \mathbf{M}=\mathbf{P}-\mathbf{A} \)
+\end_inset 
+
+ a comme composantes 
+\begin_inset Formula \( \left\{ m_{1},m_{2},m_{3}\right\}  \)
+\end_inset 
+
+ toutes nulles.
+ La projection du vecteur 
+\begin_inset Formula \( \mathbf{M} \)
+\end_inset 
+
+ sur le sous-espace orthogonal est 
+\begin_inset Formula \( \mathbf{M}_{\mathbf{p}} \)
+\end_inset 
+
+.
+ Son module
+\begin_inset Formula \( \left\Vert \mathbf{M}_{\mathbf{p}}\right\Vert  \)
+\end_inset 
+
+ est égal à la distance entre le point 
+\begin_inset Formula \( P \)
+\end_inset 
+
+ et la ligne 
+\begin_inset Formula \( AB \)
+\end_inset 
+
+.
+ 
+\layout Standard
+
+Notre stratégie consiste à avancer toujours vers le point de la grille qui
+ a la valeur minimale de 
+\begin_inset Formula \( \left\Vert \mathbf{M}^{'}_{\mathbf{p}}\right\Vert  \)
+\end_inset 
+
+.
+ Étant donnée que la valeur 
+\begin_inset Formula \( \left\Vert \mathbf{M}^{'}_{\mathbf{p}}\right\Vert ^{2} \)
+\end_inset 
+
+ est calculée de façon incrémentale à partir de la valeur 
+\begin_inset Formula \( \left\Vert \mathbf{M}_{\mathbf{p}}\right\Vert ^{2} \)
+\end_inset 
+
+, nous cherchons le pas qui produit l'incrément minimal.
+ La quête du meilleur pas suivant est donc équivalent à la quête de l'indice
+ 
+\begin_inset Formula \( k \)
+\end_inset 
+
+ qui minimise l'expression 
+\begin_inset Formula \( 2\sum _{j}m_{j}\Theta _{kj}+\Theta _{kk} \)
+\end_inset 
+
+.
+ 
+\layout Standard
+
+Dans la mise en oeuvre, les valeurs du premier terme sont stockées dans
+ la matrice colonne 
+\begin_inset Formula \( M_{R} \)
+\end_inset 
+
+ initialisée à la matrice nulle.
+ Les valeurs du deuxième terme sont justement ceux de la diagonale de la
+ matrice 
+\begin_inset Formula \( \Theta  \)
+\end_inset 
+
+.
+ Le test consiste à faire la somme de la matrice 
+\begin_inset Formula \( M_{R} \)
+\end_inset 
+
+ avec la diagonale de 
+\begin_inset Formula \( \Theta  \)
+\end_inset 
+
+, puis choisir le 
+\begin_inset Formula \( k \)
+\end_inset 
+
+-ème élément comme celui pour lequel la somme est minimale.
+ Tout ceci équivaut à 
+\begin_inset Formula 
+\begin{equation}
+k=\arg _{i}\min \left\{ 2\sum _{j}m_{j}\Theta _{ij}+\Theta _{ii}\right\} 
+\end{equation}
+
+\end_inset 
+
+
+\layout Standard
+
+Dans la pratique la matrice colonne 
+\begin_inset Formula \( M_{T} \)
+\end_inset 
+
+ peut être calculée comme la somme
+\layout Standard
+
+
+\begin_inset Formula 
+\begin{equation}
+M_{T}=M_{R}+diagonal(\Theta )
+\end{equation}
+
+\end_inset 
+
+
+\layout Standard
+
+Une fois que l'indice 
+\begin_inset Formula \( k \)
+\end_inset 
+
+ est identifié, nous pouvons donner un pas dans la direction correspondant
+ à 
+\begin_inset Formula \( k \)
+\end_inset 
+
+.
+ En pratique, cela revient à ajouter tout simplement la valeur 
+\begin_inset Formula \( 1 \)
+\end_inset 
+
+ à la composante 
+\begin_inset Formula \( m_{k} \)
+\end_inset 
+
+.
+ En suite, la matrice 
+\begin_inset Formula \( M_{R} \)
+\end_inset 
+
+ est mise à jour en lui ajoutant le double de la 
+\begin_inset Formula \( k \)
+\end_inset 
+
+-ème colonne de la matrice 
+\begin_inset Formula \( \Theta  \)
+\end_inset 
+
+.
+ Pour tracer la ligne il n'est pas vraiment nécessaire de calculer la valeur
+ de 
+\begin_inset Formula \( \left\Vert \mathbf{M}_{\mathbf{p}}\right\Vert ^{2} \)
+\end_inset 
+
+, il suffit de choisir l'incrément minimal à chaque pas.
+\layout Standard
+
+Ce critère agit localement, et pour cette raison il ne peut pas assurer
+ que la ligne résultante sera celle qui donne un minimum global.
+ Il produit néanmoins des lignes avec des points qui essayent de s'attacher
+ à la ligne euclidienne 
+\begin_inset Formula \( AB \)
+\end_inset 
+
+, en faisant le meilleur effort local.
+\layout Subsection
+
+
+\begin_inset LatexCommand \label{sec:Algo3Dlines}
+
+\end_inset 
+
+L'algorithme pour le traçage de lignes en 3D 
+\layout Standard
+
+Nous pouvons maintenant modifier l'algorithme de Bresenham tel qui a été
+ décrit dans le paragraphe
+\protected_separator 
+
+\begin_inset LatexCommand \ref{sec:BresenhamAlgo}
+
+\end_inset 
+
+ pour l'appliquer au traçage de lignes dans une grille 
+\begin_inset Formula \( 3D \)
+\end_inset 
+
+.
+ 
+\layout Standard
+
+L'algorithme est alors :
+\layout Enumerate
+
+
+\family typewriter 
+Initialiser le point courant 
+\begin_inset Formula \( P \)
+\end_inset 
+
+ 
+\newline 
+à la position 
+\begin_inset Formula \( A \)
+\end_inset 
+
+:
+\newline 
+
+\begin_inset Formula \( x_{p1}=x_{a1} \)
+\end_inset 
+
+, 
+\begin_inset Formula \( x_{p2}=x_{a2} \)
+\end_inset 
+
+, 
+\begin_inset Formula \( x_{p3}=x_{a3} \)
+\end_inset 
+
+
+\layout Enumerate
+
+
+\family typewriter 
+Calculer la matrice 
+\family default 
+
+\begin_inset Formula \( \Theta  \)
+\end_inset 
+
+
+\layout Enumerate
+
+
+\family typewriter 
+Initialiser la matrice colonne 
+\begin_inset Formula \( M_{R} \)
+\end_inset 
+
+ à zéro.
+\layout Enumerate
+
+
+\family typewriter 
+Calculer la matrice colonne 
+\begin_inset Formula \( M_{T} \)
+\end_inset 
+
+ comme la somme de 
+\newline 
+la matrice 
+\begin_inset Formula \( M_{R} \)
+\end_inset 
+
+ avec la diagonale de 
+\begin_inset Formula \( \Theta  \)
+\end_inset 
+
+
+\layout Enumerate
+
+
+\family typewriter 
+Choisir l'indice 
+\begin_inset Formula \( k \)
+\end_inset 
+
+ comme celui correspondant 
+\newline 
+à l'élément minimum de 
+\begin_inset Formula \( M_{T} \)
+\end_inset 
+
+
+\layout Enumerate
+
+
+\family typewriter 
+Donner un pas dans la direction 
+\begin_inset Formula \( k \)
+\end_inset 
+
+, 
+\newline 
+c'est à dire, augmenter 
+\family default 
+
+\begin_inset Formula \( m_{k}=m_{k}+1 \)
+\end_inset 
+
+
+\layout Enumerate
+
+
+\family typewriter 
+Mettre à jour la matrice 
+\family default 
+
+\begin_inset Formula \( M_{R} \)
+\end_inset 
+
+ 
+\family typewriter 
+
+\newline 
+en faisant 
+\family default 
+
+\begin_inset Formula \( M_{R}=M_{R}+2\cdot colonne_{k}(\Theta ) \)
+\end_inset 
+
+
+\layout Enumerate
+
+
+\family typewriter 
+Si le point 
+\begin_inset Formula \( P \)
+\end_inset 
+
+ est différent du point 
+\begin_inset Formula \( B \)
+\end_inset 
+
+, 
+\newline 
+aller au pas (4)
+\newline 
+ou finir dans le cas contraire
+\layout Standard
+
+Cet algorithme choisit continuement le point suivant de la ligne discrète
+ comme celui qui est le plus proche de la ligne euclidienne parmi tous les
+ pas possibles.
+ 
+\layout Section
+
+Le cas de la grille cubique
+\layout Standard
+
+Nous présentons dans cette partie un exemple pour lequel notre algorithme
+ peut être appliqué pour tracer une ligne dans la grille cubique.
+ Nous exprimons d'abord en termes de vecteurs les éléments essentiels nécessaire
+s pour le traçage de la ligne entre un point 
+\begin_inset Formula \( A \)
+\end_inset 
+
+ et un point 
+\begin_inset Formula \( B \)
+\end_inset 
+
+.
+\layout Standard
+
+Ces éléments sont illustrés dans la figure
+\protected_separator 
+
+\begin_inset LatexCommand \ref{fig:CubicElements}
+
+\end_inset 
+
+.
+ La grille cubique peut être définie par la base vectorielle constituée
+ des vecteurs 
+\begin_inset Formula \( \mathbf{H}_{1}=(1,0,0) \)
+\end_inset 
+
+, 
+\begin_inset Formula \( \mathbf{H}_{2}=(0,1,0) \)
+\end_inset 
+
+, 
+\begin_inset Formula \( \mathbf{H}_{3}=(0,0,1) \)
+\end_inset 
+
+.
+\layout Subsection
+
+Définition de la connexité
+\layout Standard
+
+Nous avons choisi ici la 6-connexité en 
+\begin_inset Formula \( 3D \)
+\end_inset 
+
+ comme c'est illustré dans la figure
+\protected_separator 
+
+\begin_inset LatexCommand \ref{fig:Cubic6connectivity}
+
+\end_inset 
+
+.
+ Dans cette connexité, deux points 
+\begin_inset Formula \( A \)
+\end_inset 
+
+ et 
+\begin_inset Formula \( B \)
+\end_inset 
+
+ de la grille sont voisins si leurs coordonnées satisfassent 
+\begin_inset Formula \( \left| x_{b1}-x_{a1}\right| +\left| x_{b2}-x_{a2}\right| +\left| x_{b3}-x_{a3}\right| \leq 1 \)
+\end_inset 
+
+.
+ L'ensemble 
+\begin_inset Formula \( T \)
+\end_inset 
+
+ qui définit la 6-connexité est 
+\begin_inset Formula \( T=\left\{ \mathbf{H}_{1},\mathbf{H}_{2},\mathbf{H}_{3},-\mathbf{H}_{1},-\mathbf{H}_{2},-\mathbf{H}_{3}\right\}  \)
+\end_inset 
+
+.
+ 
+\layout Standard
+
+\begin_float fig 
+\layout Standard
+\align center 
+
+\begin_inset Figure size 234 210
+file TracageDesLignes_eps/Cubic6connectivity2.eps
+flags 8
+
+\end_inset 
+
+
+\layout Caption
+
+
+\begin_inset LatexCommand \label{fig:Cubic6connectivity}
+
+\end_inset 
+
+6-connexité dans la grille cubique.
+ Le voxel au centre a six voisins.
+ 
+\end_float 
+\layout Standard
+
+Considérons le cas de la ligne depuis le point 
+\begin_inset Formula \( \mathbf{A}=(0,0,0) \)
+\end_inset 
+
+ vers le point 
+\begin_inset Formula \( \mathbf{B}=(2,3,5) \)
+\end_inset 
+
+.
+ Cette ligne se trouve dans le premier octant, la base vectorielle est donc
+ directement 
+\layout Standard
+
+
+\begin_inset Formula 
+\[
+\left\{ \mathbf{V}_{1}=\mathbf{H}_{1},\mathbf{V}_{2}=\mathbf{H}_{2},\mathbf{V}_{3}=\mathbf{M}_{3}\right\} \]
+
+\end_inset 
+
+
+\layout Standard
+
+Le vecteur 
+\begin_inset Formula \( \mathbf{M} \)
+\end_inset 
+
+ est égal à 
+\begin_inset Formula \( 2\mathbf{V}_{1}+3\mathbf{V}_{2}+5\mathbf{V}_{3} \)
+\end_inset 
+
+.
+ C'est à dire, ses composantes sont 
+\begin_inset Formula \( x_{1}=2 \)
+\end_inset 
+
+, 
+\begin_inset Formula \( x_{2}=3 \)
+\end_inset 
+
+ et 
+\begin_inset Formula \( x_{3}=5 \)
+\end_inset 
+
+.
+\layout Subsection
+
+Projection sur le sous-espace orthogonal 
+\layout Standard
+
+Dans la grille cubique, le calcul de la base réciproque conduit au résultat
+ trivial: 
+\begin_inset Formula \( \mathbf{U}_{1}=\mathbf{V}_{1} \)
+\end_inset 
+
+, 
+\begin_inset Formula \( \mathbf{U}_{2}=\mathbf{V}_{2} \)
+\end_inset 
+
+ et 
+\begin_inset Formula \( \mathbf{U}_{3}=\mathbf{V}_{3} \)
+\end_inset 
+
+.
+ En utilisant les vecteurs 
+\begin_inset Formula \( \mathbf{V}_{\mathbf{i}} \)
+\end_inset 
+
+ nous pouvons former la matrice 
+\begin_inset Formula \( M_{v} \)
+\end_inset 
+
+ qui est simplement une matrice identité.
+ Le calcul de la matrice 
+\begin_inset Formula \( \Theta  \)
+\end_inset 
+
+ d'après l'équation
+\protected_separator 
+
+\begin_inset LatexCommand \ref{eq:ThetaMatrix}
+
+\end_inset 
+
+ se réduit à
+\layout Standard
+
+
+\begin_inset Formula 
+\[
+\Theta =M_{sp}\left( M^{T}_{sp}M_{sp}\right) ^{-1}M^{T}_{sp}\]
+
+\end_inset 
+
+
+\layout Standard
+
+et dans notre exemple particulier 
+\begin_inset Formula \( M_{sp} \)
+\end_inset 
+
+ est
+\layout Standard
+
+
+\begin_inset Formula 
+\[
+M_{sp}=\left[ \begin{array}{cc}
+x_{3} & 0\\
+0 & x_{3}\\
+-x_{1} & -x_{2}
+\end{array}\right] =\left[ \begin{array}{cc}
+5 & 0\\
+0 & 5\\
+-2 & -3
+\end{array}\right] \]
+
+\end_inset 
+
+
+\layout Standard
+
+la matrice 
+\begin_inset Formula \( \Theta  \)
+\end_inset 
+
+ est donc 
+\layout Standard
+
+
+\begin_inset Formula 
+\[
+\Theta =\frac{1}{38}\left[ \begin{array}{ccc}
+34 & -6 & -10\\
+-6 & 29 & -15\\
+-10 & -15 & 13
+\end{array}\right] \]
+
+\end_inset 
+
+
+\layout Standard
+
+on peut vérifier que 
+\layout Standard
+
+
+\begin_inset Formula 
+\[
+\left[ \begin{array}{ccc}
+x_{1} & x_{2} & x_{3}
+\end{array}\right] \Theta \left[ \begin{array}{c}
+x_{1}\\
+x_{2}\\
+x_{3}
+\end{array}\right] =\left[ \begin{array}{ccc}
+2 & 3 & 5
+\end{array}\right] \Theta \left[ \begin{array}{c}
+2\\
+3\\
+5
+\end{array}\right] =0\]
+
+\end_inset 
+
+
+\layout Standard
+
+ce qui géométriquement signifie que la projection du point 
+\begin_inset Formula \( B \)
+\end_inset 
+
+ sur le sous-espace orthogonal est superposée à la projection du point 
+\begin_inset Formula \( A \)
+\end_inset 
+
+.
+ 
+\layout Subsection
+
+Exécution de l'algorithme
+\layout Standard
+
+Faisons tourner l'algorithme pour notre exemple particulier.
+ Les tableaux suivants montrent les valeurs numériques des principaux éléments
+ impliqués dans le processus de traçage.
+ Dans le cadre de l'algorithme nous pouvons ignorer la fraction 
+\begin_inset Formula \( (1/38) \)
+\end_inset 
+
+ dans la matrice 
+\begin_inset Formula \( \Theta  \)
+\end_inset 
+
+ puisque nous avons à comparer des valeurs relatives seulement.
+\layout Standard
+
+Le tableau 
+\begin_inset LatexCommand \ref{tab: MR}
+
+\end_inset 
+
+ montre l'évolution de la matrice colonne 
+\begin_inset Formula \( M_{R} \)
+\end_inset 
+
+.
+ Ses éléments sont initialisés à zéro.
+ Le tableau
+\begin_inset LatexCommand \ref{tab: MT}
+
+\end_inset 
+
+ montre l'évolution de la matrice colonne 
+\begin_inset Formula \( M_{T} \)
+\end_inset 
+
+ qui est à chaque fois la somme de la matrice 
+\begin_inset Formula \( M_{R} \)
+\end_inset 
+
+ avec la diagonale de 
+\begin_inset Formula \( \Theta  \)
+\end_inset 
+
+.
+ L'indice 
+\begin_inset Formula \( k \)
+\end_inset 
+
+ de l'élément minimal de 
+\begin_inset Formula \( M_{T} \)
+\end_inset 
+
+ est celui qui détermine la direction dans laquelle le pas suivant doit
+ être fait.
+ La matrice 
+\begin_inset Formula \( M_{T} \)
+\end_inset 
+
+ est mise à jour en lui ajoutant le double de la 
+\begin_inset Formula \( k \)
+\end_inset 
+
+-ème colonne de 
+\begin_inset Formula \( \Theta  \)
+\end_inset 
+
+.
+ 
+\layout Standard
+
+Le tableau 
+\begin_inset LatexCommand \ref{tab: MVector}
+
+\end_inset 
+
+ montre l'évolution des composantes du point 
+\begin_inset Formula \( P \)
+\end_inset 
+
+, ce qui est finalement la sortie de l'algorithme : la suite des points
+ qui forment la ligne discrète.
+\layout Standard
+
+\begin_float tab 
+\layout Standard
+\added_space_top 0.5001cm \added_space_bottom 0.5001cm \align center \LyXTable
+multicol5
+5 12 0 0 -1 -1 -1 -1
+1 1 0 0
+1 1 0 0
+0 1 0 0
+0 1 0 0
+1 1 0 0
+8 1 1 "" ""
+8 1 0 "" ""
+8 1 0 "" ""
+8 1 0 "" ""
+8 1 0 "" ""
+8 1 0 "" ""
+8 1 0 "" ""
+8 1 0 "" ""
+8 1 0 "" ""
+8 1 0 "" ""
+8 1 0 "" ""
+8 1 1 "" ""
+0 8 0 1 0 0 0 "" ""
+0 8 0 1 0 0 0 "" ""
+0 8 0 1 0 0 0 "" ""
+0 8 0 1 0 0 0 "" ""
+0 8 0 1 0 0 0 "" ""
+0 8 0 1 0 0 0 "" ""
+0 8 0 1 0 0 0 "" ""
+0 8 0 1 0 0 0 "" ""
+0 8 0 1 0 0 0 "" ""
+0 8 0 1 0 0 0 "" ""
+0 8 0 1 0 0 0 "" ""
+0 8 0 1 0 0 0 "" ""
+0 8 0 1 0 0 0 "" ""
+0 8 0 1 0 0 0 "" ""
+0 8 0 1 0 0 0 "" ""
+0 8 0 1 0 0 0 "" ""
+0 8 0 1 0 0 0 "" ""
+0 8 0 1 0 0 0 "" ""
+0 8 0 1 0 0 0 "" ""
+0 8 0 1 0 0 0 "" ""
+0 8 0 1 0 0 0 "" ""
+0 8 0 1 0 0 0 "" ""
+0 8 0 1 0 0 0 "" ""
+0 8 0 1 0 0 0 "" ""
+0 8 0 1 0 0 0 "" ""
+0 8 0 1 0 0 0 "" ""
+0 8 0 1 0 0 0 "" ""
+0 8 0 1 0 0 0 "" ""
+0 8 0 1 0 0 0 "" ""
+0 8 0 1 0 0 0 "" ""
+0 8 0 1 0 0 0 "" ""
+0 8 0 1 0 0 0 "" ""
+0 8 0 1 0 0 0 "" ""
+0 8 0 1 0 0 0 "" ""
+0 8 0 1 0 0 0 "" ""
+0 8 0 1 0 0 0 "" ""
+0 8 0 1 0 0 0 "" ""
+0 8 0 1 0 0 0 "" ""
+0 8 0 1 0 0 0 "" ""
+0 8 0 1 0 0 0 "" ""
+0 8 0 1 0 0 0 "" ""
+0 8 0 1 0 0 0 "" ""
+0 8 0 1 0 0 0 "" ""
+0 8 0 1 0 0 0 "" ""
+0 8 0 1 0 0 0 "" ""
+0 8 0 1 0 0 0 "" ""
+0 8 0 1 0 0 0 "" ""
+0 8 0 1 0 0 0 "" ""
+0 8 0 1 0 0 0 "" ""
+0 8 0 1 0 0 0 "" ""
+0 8 0 1 0 0 0 "" ""
+0 8 0 1 0 0 0 "" ""
+0 8 0 1 0 0 0 "" ""
+0 8 0 1 0 0 0 "" ""
+0 8 0 1 0 0 0 "" ""
+0 8 0 1 0 0 0 "" ""
+0 8 0 1 0 0 0 "" ""
+0 8 0 1 0 0 0 "" ""
+0 8 0 1 0 0 0 "" ""
+0 8 0 1 0 0 0 "" ""
+
+
+\begin_inset Formula \( M_{R} \)
+\end_inset 
+
+
+\newline 
+0
+\newline 
+1
+\newline 
+2
+\newline 
+3
+\newline 
+4
+\newline 
+5
+\newline 
+6
+\newline 
+7
+\newline 
+8
+\newline 
+9
+\newline 
+10
+\newline 
+1
+\newline 
+0
+\newline 
+-20
+\newline 
+-32
+\newline 
+36
+\newline 
+16
+\newline 
+-4
+\newline 
+-16
+\newline 
+-36
+\newline 
+32
+\newline 
+20
+\newline 
+
+\newline 
+2
+\newline 
+0
+\newline 
+-30
+\newline 
+28
+\newline 
+16
+\newline 
+-14
+\newline 
+-44
+\newline 
+14
+\newline 
+-16
+\newline 
+-28
+\newline 
+30
+\newline 
+
+\newline 
+3
+\newline 
+0
+\newline 
+26
+\newline 
+-4
+\newline 
+-24
+\newline 
+2
+\newline 
+28
+\newline 
+-2
+\newline 
+24
+\newline 
+4
+\newline 
+-26
+\newline 
+
+\newline 
+
+\begin_inset Formula \( k \)
+\end_inset 
+
+
+\newline 
+3
+\newline 
+2
+\newline 
+1
+\newline 
+3
+\newline 
+3
+\newline 
+2
+\newline 
+3
+\newline 
+1
+\newline 
+2
+\newline 
+3
+\newline 
+
+\layout Caption
+
+
+\begin_inset LatexCommand \label{tab: MR}
+
+\end_inset 
+
+Évolution de la matrice colonne 
+\begin_inset Formula \( M_{R} \)
+\end_inset 
+
+.
+ Les trois composantes sont rangées verticalement, les itérations sont rangées
+ de gauche à droite.
+ La dernière file montre l'indice qui a servi à déterminer la direction
+ du mouvement à chaque itération.
+ La matrice 
+\begin_inset Formula \( M_{R} \)
+\end_inset 
+
+ est mise à jour en lui ajoutant le double de la 
+\begin_inset Formula \( k \)
+\end_inset 
+
+-ème colonne de la matrice 
+\begin_inset Formula \( \Theta  \)
+\end_inset 
+
+.
+\end_float 
+\layout Standard
+
+\begin_float tab 
+\layout Standard
+\added_space_top 0.5001cm \added_space_bottom 0.5001cm \align center \LyXTable
+multicol5
+5 12 0 0 -1 -1 -1 -1
+1 1 0 0
+1 1 0 0
+0 1 0 0
+0 1 0 0
+1 1 0 0
+8 1 1 "" ""
+8 1 0 "" ""
+8 1 0 "" ""
+8 1 0 "" ""
+8 1 0 "" ""
+8 1 0 "" ""
+8 1 0 "" ""
+8 1 0 "" ""
+8 1 0 "" ""
+8 1 0 "" ""
+8 1 0 "" ""
+8 1 1 "" ""
+0 8 0 1 0 0 0 "" ""
+0 8 0 1 0 0 0 "" ""
+0 8 0 1 0 0 0 "" ""
+0 8 0 1 0 0 0 "" ""
+0 8 0 1 0 0 0 "" ""
+0 8 0 1 0 0 0 "" ""
+0 8 0 1 0 0 0 "" ""
+0 8 0 1 0 0 0 "" ""
+0 8 0 1 0 0 0 "" ""
+0 8 0 1 0 0 0 "" ""
+0 8 0 1 0 0 0 "" ""
+0 8 0 1 0 0 0 "" ""
+0 8 0 1 0 0 0 "" ""
+0 8 0 1 0 0 0 "" ""
+0 8 0 1 0 0 0 "" ""
+0 8 0 1 0 0 0 "" ""
+0 8 0 1 0 0 0 "" ""
+0 8 0 1 0 0 0 "" ""
+0 8 0 1 0 0 0 "" ""
+0 8 0 1 0 0 0 "" ""
+0 8 0 1 0 0 0 "" ""
+0 8 0 1 0 0 0 "" ""
+0 8 0 1 0 0 0 "" ""
+0 8 0 1 0 0 0 "" ""
+0 8 0 1 0 0 0 "" ""
+0 8 0 1 0 0 0 "" ""
+0 8 0 1 0 0 0 "" ""
+0 8 0 1 0 0 0 "" ""
+0 8 0 1 0 0 0 "" ""
+0 8 0 1 0 0 0 "" ""
+0 8 0 1 0 0 0 "" ""
+0 8 0 1 0 0 0 "" ""
+0 8 0 1 0 0 0 "" ""
+0 8 0 1 0 0 0 "" ""
+0 8 0 1 0 0 0 "" ""
+0 8 0 1 0 0 0 "" ""
+0 8 0 1 0 0 0 "" ""
+0 8 0 1 0 0 0 "" ""
+0 8 0 1 0 0 0 "" ""
+0 8 0 1 0 0 0 "" ""
+0 8 0 1 0 0 0 "" ""
+0 8 0 1 0 0 0 "" ""
+0 8 0 1 0 0 0 "" ""
+0 8 0 1 0 0 0 "" ""
+0 8 0 1 0 0 0 "" ""
+0 8 0 1 0 0 0 "" ""
+0 8 0 1 0 0 0 "" ""
+0 8 0 1 0 0 0 "" ""
+0 8 0 1 0 0 0 "" ""
+0 8 0 1 0 0 0 "" ""
+0 8 0 1 0 0 0 "" ""
+0 8 0 1 0 0 0 "" ""
+0 8 0 1 0 0 0 "" ""
+0 8 0 1 0 0 0 "" ""
+0 8 0 1 0 0 0 "" ""
+0 8 0 1 0 0 0 "" ""
+0 8 0 1 0 0 0 "" ""
+0 8 0 1 0 0 0 "" ""
+0 8 0 1 0 0 0 "" ""
+0 8 0 1 0 0 0 "" ""
+
+
+\begin_inset Formula \( M_{T} \)
+\end_inset 
+
+
+\newline 
+0
+\newline 
+1
+\newline 
+2
+\newline 
+3
+\newline 
+4
+\newline 
+5
+\newline 
+6
+\newline 
+7
+\newline 
+8
+\newline 
+9
+\newline 
+10
+\newline 
+1
+\newline 
+34
+\newline 
+14
+\newline 
+2
+\newline 
+70
+\newline 
+50
+\newline 
+30
+\newline 
+18
+\newline 
+-2
+\newline 
+66
+\newline 
+54
+\newline 
+34
+\newline 
+2
+\newline 
+29
+\newline 
+-1
+\newline 
+57
+\newline 
+45
+\newline 
+15
+\newline 
+-15
+\newline 
+43
+\newline 
+13
+\newline 
+1
+\newline 
+59
+\newline 
+29
+\newline 
+3
+\newline 
+13
+\newline 
+39
+\newline 
+9
+\newline 
+-11
+\newline 
+15
+\newline 
+41
+\newline 
+11
+\newline 
+37
+\newline 
+17
+\newline 
+-13
+\newline 
+13
+\newline 
+
+\begin_inset Formula \( k \)
+\end_inset 
+
+
+\newline 
+3
+\newline 
+2
+\newline 
+1
+\newline 
+3
+\newline 
+3
+\newline 
+2
+\newline 
+3
+\newline 
+1
+\newline 
+2
+\newline 
+3
+\newline 
+
+\layout Caption
+
+
+\begin_inset LatexCommand \label{tab: MT}
+
+\end_inset 
+
+Évolution de la matrice colonne 
+\begin_inset Formula \( M_{T} \)
+\end_inset 
+
+.
+ Les trois composantes sont rangées verticalement, les itérations sont rangées
+ de gauche à droite.
+ La dernière file montre l'indice qui a servi à déterminer la direction
+ du mouvement à chaque itération.
+ A chaque pas la matrice est la somme de la matrice 
+\begin_inset Formula \( M_{R} \)
+\end_inset 
+
+ avec la diagonale de 
+\begin_inset Formula \( \Theta  \)
+\end_inset 
+
+.
+ 
+\end_float 
+\layout Standard
+
+\begin_float tab 
+\layout Standard
+\added_space_top 0.5001cm \added_space_bottom 0.5001cm \align center \LyXTable
+multicol5
+5 12 0 0 -1 -1 -1 -1
+1 1 0 0
+1 1 0 0
+0 1 0 0
+0 1 0 0
+1 1 0 0
+8 1 1 "" ""
+8 1 0 "" ""
+8 1 0 "" ""
+8 1 0 "" ""
+8 1 0 "" ""
+8 1 0 "" ""
+8 1 0 "" ""
+8 1 0 "" ""
+8 1 0 "" ""
+8 1 0 "" ""
+8 1 0 "" ""
+8 1 1 "" ""
+0 8 0 1 0 0 0 "" ""
+0 8 0 1 0 0 0 "" ""
+0 8 0 1 0 0 0 "" ""
+0 8 0 1 0 0 0 "" ""
+0 8 0 1 0 0 0 "" ""
+0 8 0 1 0 0 0 "" ""
+0 8 0 1 0 0 0 "" ""
+0 8 0 1 0 0 0 "" ""
+0 8 0 1 0 0 0 "" ""
+0 8 0 1 0 0 0 "" ""
+0 8 0 1 0 0 0 "" ""
+0 8 0 1 0 0 0 "" ""
+0 8 0 1 0 0 0 "" ""
+0 8 0 1 0 0 0 "" ""
+0 8 0 1 0 0 0 "" ""
+0 8 0 1 0 0 0 "" ""
+0 8 0 1 0 0 0 "" ""
+0 8 0 1 0 0 0 "" ""
+0 8 0 1 0 0 0 "" ""
+0 8 0 1 0 0 0 "" ""
+0 8 0 1 0 0 0 "" ""
+0 8 0 1 0 0 0 "" ""
+0 8 0 1 0 0 0 "" ""
+0 8 0 1 0 0 0 "" ""
+0 8 0 1 0 0 0 "" ""
+0 8 0 1 0 0 0 "" ""
+0 8 0 1 0 0 0 "" ""
+0 8 0 1 0 0 0 "" ""
+0 8 0 1 0 0 0 "" ""
+0 8 0 1 0 0 0 "" ""
+0 8 0 1 0 0 0 "" ""
+0 8 0 1 0 0 0 "" ""
+0 8 0 1 0 0 0 "" ""
+0 8 0 1 0 0 0 "" ""
+0 8 0 1 0 0 0 "" ""
+0 8 0 1 0 0 0 "" ""
+0 8 0 1 0 0 0 "" ""
+0 8 0 1 0 0 0 "" ""
+0 8 0 1 0 0 0 "" ""
+0 8 0 1 0 0 0 "" ""
+0 8 0 1 0 0 0 "" ""
+0 8 0 1 0 0 0 "" ""
+0 8 0 1 0 0 0 "" ""
+0 8 0 1 0 0 0 "" ""
+0 8 0 1 0 0 0 "" ""
+0 8 0 1 0 0 0 "" ""
+0 8 0 1 0 0 0 "" ""
+0 8 0 1 0 0 0 "" ""
+0 8 0 1 0 0 0 "" ""
+0 8 0 1 0 0 0 "" ""
+0 8 0 1 0 0 0 "" ""
+0 8 0 1 0 0 0 "" ""
+0 8 0 1 0 0 0 "" ""
+0 8 0 1 0 0 0 "" ""
+0 8 0 1 0 0 0 "" ""
+0 8 0 1 0 0 0 "" ""
+0 8 0 1 0 0 0 "" ""
+0 8 0 1 0 0 0 "" ""
+0 8 0 1 0 0 0 "" ""
+0 8 0 1 0 0 0 "" ""
+
+
+\begin_inset Formula \( M \)
+\end_inset 
+
+
+\newline 
+0
+\newline 
+1
+\newline 
+2
+\newline 
+3
+\newline 
+4
+\newline 
+5
+\newline 
+6
+\newline 
+7
+\newline 
+8
+\newline 
+9
+\newline 
+10
+\newline 
+1
+\newline 
+0
+\newline 
+0
+\newline 
+1
+\newline 
+1
+\newline 
+1
+\newline 
+1
+\newline 
+1
+\newline 
+2
+\newline 
+2
+\newline 
+2
+\newline 
+
+\newline 
+2
+\newline 
+0
+\newline 
+1
+\newline 
+1
+\newline 
+1
+\newline 
+1
+\newline 
+2
+\newline 
+2
+\newline 
+2
+\newline 
+3
+\newline 
+3
+\newline 
+
+\newline 
+3
+\newline 
+1
+\newline 
+1
+\newline 
+1
+\newline 
+2
+\newline 
+3
+\newline 
+3
+\newline 
+4
+\newline 
+4
+\newline 
+4
+\newline 
+5
+\newline 
+
+\newline 
+
+\begin_inset Formula \( k \)
+\end_inset 
+
+
+\newline 
+3
+\newline 
+2
+\newline 
+1
+\newline 
+3
+\newline 
+3
+\newline 
+2
+\newline 
+3
+\newline 
+1
+\newline 
+2
+\newline 
+3
+\newline 
+
+\layout Caption
+
+
+\begin_inset LatexCommand \label{tab: MVector}
+
+\end_inset 
+
+Évolution des composantes du vecteur 
+\begin_inset Formula \( \mathbf{M} \)
+\end_inset 
+
+.
+ 
+\end_float 
+\layout Section
+
+
+\begin_inset LatexCommand \label{sec:bcc}
+
+\end_inset 
+
+Le cas de la grille BCC
+\layout Standard
+
+La grille cubique centrée (BCC), est utile dans le domaine du traitement
+ d'images ainsi que dans le domaine de la géométrie discrète pour plusieurs
+ raisons.
+ Elle est la grille optimale pour l'échantillonnage des signaux dans l'espace
+ 3D 
+\begin_inset LatexCommand \cite{MultidimensionalDSP}
+
+\end_inset 
+
+, il est possible de définir une topologie discrète telle que le graphe
+ de connexité soit un simplexe
+\begin_inset LatexCommand \cite{Ibanez96}
+
+\end_inset 
+
+, ce qui simplifie la représentation d'objets dans cette grille 
+\begin_inset LatexCommand \cite{HermanSimplyConnected}
+
+\end_inset 
+
+
+\begin_inset LatexCommand \cite{HermanJordan}
+
+\end_inset 
+
+
+\begin_inset LatexCommand \cite{Ibanez97}
+
+\end_inset 
+
+.
+ Les opérations de morphologie mathématique en 
+\begin_inset Formula \( 3D \)
+\end_inset 
+
+ sont mieux définies dans la grille BCC que dans la grille cubique
+\protected_separator 
+
+\begin_inset LatexCommand \cite{Serra}
+
+\end_inset 
+
+.
+ 
+\layout Standard
+
+Les bonnes qualités de la grille BCC se retrouvent également dans les membres
+ de dimensions supérieures de sa famille.
+ Ce qui facilite le développement d'une approche topologique uniforme pour
+ plusieurs dimensions
+\protected_separator 
+
+\begin_inset LatexCommand \cite{SpherePacking}
+
+\end_inset 
+
+.
+ La grille BCC ainsi que sa réciproque la grille FCC sont des alternatives
+ à l'utilisation classique de la grille cubique 
+\begin_inset Formula \( \mathbb {Z}^{3} \)
+\end_inset 
+
+ pour représenter des volumes des données médicales
+\protected_separator 
+
+\begin_inset LatexCommand \cite{HermanSummerSchool}
+
+\end_inset 
+
+.
+ La représentation de la grille BCC simplifie également le processus de
+ reconstruction à partir de projections en tomographie
+\protected_separator 
+
+\begin_inset LatexCommand \cite{MatejBlobs}
+
+\end_inset 
+
+.
+ 
+\layout Standard
+
+En prenant en compte que le développement fait dans leparagraphe
+\protected_separator 
+
+\begin_inset LatexCommand \ref{sec:CubicVectorApproach}
+
+\end_inset 
+
+ est réalisé en termes vectoriels, il est directement applicable aux grilles
+ 3D non-orthogonales.
+\layout Standard
+
+La grille BCC peut être définie par la base vectorielle composée des vecteurs:
+ 
+\begin_inset Formula \( \mathbf{H}_{1}=(-1,1,1) \)
+\end_inset 
+
+, 
+\begin_inset Formula \( \mathbf{H}_{2}=(1,-1,1) \)
+\end_inset 
+
+ et 
+\begin_inset Formula \( \mathbf{H}_{3}=(1,1,-1) \)
+\end_inset 
+
+ exprimés en coordonnées Cartésiennes.
+ La position du point 
+\begin_inset Formula \( A \)
+\end_inset 
+
+ est représentée par le vecteur 
+\begin_inset Formula \( \mathbf{A}=x_{a1}\mathbf{H}_{1}+x_{a2}\mathbf{H}_{2}+x_{a3}\mathbf{H}_{3} \)
+\end_inset 
+
+, La position du point 
+\begin_inset Formula \( B \)
+\end_inset 
+
+ est représentée par le vecteur 
+\begin_inset Formula \( \mathbf{B}=x_{b1}\mathbf{H}_{1}+x_{b2}\mathbf{H}_{2}+x_{b3}\mathbf{H}_{3} \)
+\end_inset 
+
+.
+ La ligne euclidienne entre les points 
+\begin_inset Formula \( A \)
+\end_inset 
+
+ et 
+\begin_inset Formula \( B \)
+\end_inset 
+
+ est représentée par le vecteur 
+\begin_inset Formula \( \mathbf{V}_{\mathbf{t}}=(x_{b1}-x_{a1})\mathbf{H}_{1}+(x_{b2}-x_{a2})\mathbf{H}_{2}+(x_{b3}-x_{a3})\mathbf{H}_{3} \)
+\end_inset 
+
+.
+\layout Subsection
+
+Le choix de la connexité
+\layout Standard
+
+Le choix naturel pour la connexité de la grille BCC est celui de la 14-connexité.
+ La raison fondamentale étant que le polyèdre qui correspond au voxel de
+ la grille BCC a 14 faces.
+ Ce polyèdre est l'octaèdre tronqué qui est montré dans la figure
+\protected_separator 
+
+\begin_inset LatexCommand \ref{fig:TruncatedOctahedron}
+
+\end_inset 
+
+, Il correspond à la figure de Voronoï de la grille
+\protected_separator 
+
+\begin_inset LatexCommand \cite{SpherePacking}
+
+\end_inset 
+
+
+\begin_inset LatexCommand \cite{Serra}
+
+\end_inset 
+
+
+\begin_inset LatexCommand \cite{Ibanez96}
+
+\end_inset 
+
+
+\begin_inset LatexCommand \cite{Ibanez97}
+
+\end_inset 
+
+
+\begin_inset LatexCommand \cite{MatejBlobs}
+
+\end_inset 
+
+.
+ Le choix de la 14-connexité représente géométriquement le fait que les
+ voxels voisins partagent une face.
+ L'ensemble de connexité 
+\begin_inset Formula \( T \)
+\end_inset 
+
+ est composé de vecteurs 
+\begin_inset Formula \( \mathbf{H}_{1} \)
+\end_inset 
+
+, 
+\begin_inset Formula \( \mathbf{H}_{2} \)
+\end_inset 
+
+, 
+\begin_inset Formula \( \mathbf{H}_{3} \)
+\end_inset 
+
+, 
+\begin_inset Formula \( \left( \mathbf{H}_{1}+\mathbf{H}_{2}\right)  \)
+\end_inset 
+
+, 
+\begin_inset Formula \( \left( \mathbf{H}_{1}+\mathbf{H}_{3}\right)  \)
+\end_inset 
+
+, 
+\begin_inset Formula \( \left( \mathbf{H}_{2}+\mathbf{H}_{3}\right)  \)
+\end_inset 
+
+, 
+\begin_inset Formula \( \left( \mathbf{H}_{1}+\mathbf{H}_{2}+\mathbf{H}_{3}\right)  \)
+\end_inset 
+
+ ainsi que de leurs opposés comme c'est illustré dans la figure
+\protected_separator 
+
+\begin_inset LatexCommand \ref{fig:BCC14connectivity}
+
+\end_inset 
+
+.
+ 
+\layout Subsection
+
+La sélection de la base vectorielle
+\layout Standard
+
+Ce processus est l'analogue de la sélection du quadrant dans le cas de la
+ grille carrée en 
+\begin_inset Formula \( 2D \)
+\end_inset 
+
+, et de la sélection de l'octant dans la grille cubique en 
+\begin_inset Formula \( 3D \)
+\end_inset 
+
+.
+ Un problème dont la solution était triviale dans ces cas, mais qui montre
+ des aspects nouveaux dans les grilles non-orthogonales.
+ 
+\layout Standard
+
+La solution analytique consiste à appliquer le critère présenté dans les
+ paragraphes
+\protected_separator 
+
+\begin_inset LatexCommand \ref{sec:SquareQuadrantSelection}
+
+\end_inset 
+
+ et
+\protected_separator 
+
+\begin_inset LatexCommand \ref{sec:selectingHexSector}
+
+\end_inset 
+
+.
+ Nous prenons trois vecteurs 
+\begin_inset Formula \( \left\{ \mathbf{V}_{1},\mathbf{V}_{2},\mathbf{V}_{3}\right\}  \)
+\end_inset 
+
+ parmi les 14 vecteurs de 
+\begin_inset Formula \( T \)
+\end_inset 
+
+, tels que les trois forment une base vectorielle.
+ Le vecteur 
+\begin_inset Formula \( \mathbf{V}_{\mathbf{t}} \)
+\end_inset 
+
+ qui représente la ligne à tracer, doit être exprimé dans cette base vectorielle
+ avec des composantes positives mais aussi petites que possible.
+\layout Standard
+
+Une mauvaise sélection de la 
+\begin_inset Formula \( T \)
+\end_inset 
+
+-connexité peut rendre difficile l'exécution de cette procédure.
+ Il a été montré que le choix de la connexité basée sur les faces des voxels
+ offre des avantages pour la définition de la topologie discrète de la 
+ grille
+\protected_separator 
+
+\begin_inset LatexCommand \cite{HermanSimplyConnected}
+
+\end_inset 
+
+
+\begin_inset LatexCommand \cite{HermanSummerSchool}
+
+\end_inset 
+
+.
+ 
+\layout Standard
+
+Nous développons ici l'exemple du traçage d'une ligne dans la grille BCC.
+ La ligne a comme points extrêmes le point 
+\begin_inset Formula \( A \)
+\end_inset 
+
+ de coordonnées 
+\begin_inset Formula \( \left( 0,0,0\right)  \)
+\end_inset 
+
+ et le point 
+\begin_inset Formula \( B \)
+\end_inset 
+
+ avec coordonnées 
+\begin_inset Formula \( \left( 9,7,5\right)  \)
+\end_inset 
+
+.
+ Le vecteur 
+\begin_inset Formula \( \mathbf{V}_{\mathbf{t}} \)
+\end_inset 
+
+ qui représente la ligne de 
+\begin_inset Formula \( A \)
+\end_inset 
+
+ à 
+\begin_inset Formula \( B \)
+\end_inset 
+
+ a comme composantes Cartésiennes 
+\begin_inset Formula \( \left( 9,7,5\right)  \)
+\end_inset 
+
+, et peut être exprimé dans la base vectorielle de la grille BCC comme:
+\begin_inset Formula \( \mathbf{V}_{\mathbf{t}}=6\mathbf{H}_{1}+7\mathbf{H}_{2}+8\mathbf{H}_{3} \)
+\end_inset 
+
+.
+ Le meilleur ensemble de trois vecteurs pour exprimer le vecteur 
+\begin_inset Formula \( \mathbf{V}_{\mathbf{t}} \)
+\end_inset 
+
+ parmi ceux de 
+\begin_inset Formula \( T \)
+\end_inset 
+
+ est 
+\layout Standard
+
+
+\begin_inset Formula 
+\[
+\begin{array}{ccccc}
+\mathbf{V}_{1} & = & \mathbf{H}_{1}+\mathbf{H}_{3} & = & \left( 0,2,0\right) \\
+\mathbf{V}_{2} & = & \mathbf{H}_{2}+\mathbf{H}_{3} & = & \left( 2,0,0\right) \\
+\mathbf{V}_{3} & = & \mathbf{H}_{1}+\mathbf{H}_{2}+\mathbf{H}_{3} & = & \left( 1,1,1\right) 
+\end{array}\]
+
+\end_inset 
+
+
+\layout Standard
+
+Dans cette base vectorielle le vecteur 
+\begin_inset Formula \( \mathbf{V}_{\mathbf{t}} \)
+\end_inset 
+
+ s'exprime comme 
+\begin_inset Formula \( \mathbf{V}_{\mathbf{t}}=1\mathbf{V}_{1}+2\mathbf{V}_{2}+5\mathbf{V}_{3} \)
+\end_inset 
+
+.
+\layout Subsection
+
+Calcul de la base réciproque
+\layout Standard
+
+Une fois que la base vectorielle 
+\begin_inset Formula \( \left\{ \mathbf{V}_{1},\mathbf{V}_{2},\mathbf{V}_{3}\right\}  \)
+\end_inset 
+
+ est choisie, il faut trouver la base réciproque 
+\begin_inset Formula \( \left\{ \mathbf{U}_{1},\mathbf{U}_{2},\mathbf{U}_{3}\right\}  \)
+\end_inset 
+
+.
+ Nous suivons la procédure utilisée dans le paragraphe
+\protected_separator 
+
+\begin_inset LatexCommand \ref{sec:CubicReciprocalGrid}
+
+\end_inset 
+
+.
+ La matrice 
+\begin_inset Formula \( M_{v} \)
+\end_inset 
+
+ de taille 
+\begin_inset Formula \( 3\times 3 \)
+\end_inset 
+
+ est formée en prenant les vecteurs 
+\begin_inset Formula \( \left\{ \mathbf{V}_{1},\mathbf{V}_{2},\mathbf{V}_{3}\right\}  \)
+\end_inset 
+
+ comme colonnes:
+\layout Standard
+
+
+\begin_inset Formula 
+\[
+M_{v}=\left| \begin{array}{ccc}
+\mathbf{V}_{1} & \mathbf{V}_{2} & \mathbf{V}_{3}
+\end{array}\right| =\left| \begin{array}{ccc}
+0 & 2 & 1\\
+2 & 0 & 1\\
+0 & 0 & 1
+\end{array}\right| \]
+
+\end_inset 
+
+
+\layout Standard
+
+En suite, la matrice 
+\begin_inset Formula \( M_{u} \)
+\end_inset 
+
+ est calculée d'après l'équation
+\protected_separator 
+
+\begin_inset LatexCommand \ref{eqn:OrthonormalBasis}
+
+\end_inset 
+
+.
+\layout Standard
+
+
+\begin_inset Formula 
+\[
+\left| \begin{array}{ccc}
+\mathbf{U}_{1} & \mathbf{U}_{2} & \mathbf{U}_{3}
+\end{array}\right| =M_{u}=M_{v}\left( M^{T}_{v}M_{v}\right) ^{-1}=\left| \begin{array}{ccc}
+0 & \frac{1}{2} & 0\\
+\frac{1}{2} & 0 & 0\\
+-\frac{1}{2} & -\frac{1}{2} & 1
+\end{array}\right| \]
+
+\end_inset 
+
+
+\layout Standard
+
+Nous arrivons à 
+\begin_inset Formula \( \mathbf{U}_{1}=\left( 0,\frac{1}{2},-\frac{1}{2}\right)  \)
+\end_inset 
+
+, 
+\begin_inset Formula \( \mathbf{U}_{2}=\left( \frac{1}{2},0,-\frac{1}{2}\right)  \)
+\end_inset 
+
+ et 
+\begin_inset Formula \( \mathbf{U}_{3}=\left( 0,0,1\right)  \)
+\end_inset 
+
+.
+ Il est intéressant de remarquer que ces vecteurs sont en fait une base
+ vectorielle pour la grille FCC.
+ Il a été montré que dans la grille BCC, seulement 12 combinaisons de trois
+ vecteurs peuvent satisfaire les conditions que nous avons imposées pour
+ former la base vectorielle avec des vecteurs dans 
+\begin_inset Formula \( T \)
+\end_inset 
+
+
+\protected_separator 
+
+\begin_inset LatexCommand \cite{SpherePacking}
+
+\end_inset 
+
+
+\begin_inset LatexCommand \cite{TransformGeometry}
+
+\end_inset 
+
+.
+ Même si seulement un cas est étudié ici, les autres 11 sont obtenus par
+ symétrie
+\protected_separator 
+
+\begin_inset LatexCommand \cite{TransformGeometry}
+
+\end_inset 
+
+.
+\layout Subsection
+
+La détermination du sous-espace orthogonal
+\layout Standard
+
+Dans ce paragraphe nous calculons les vecteurs de base du sous-espace orthogonal.
+ Ceci est fait seulement pour montrer un exemple concrêt de concepts utilisés
+ pour la définition de l'algorithme.
+ En pratique, il n'est pas nécessaire de calculer explicitement les vecteurs
+ de base du sous-espace orthogonal, ils sont implicitement contenus dans
+ la matrice 
+\begin_inset Formula \( \Theta  \)
+\end_inset 
+
+.
+\layout Standard
+
+Le sous-espace orthogonal à la ligne euclidienne 
+\begin_inset Formula \( AB \)
+\end_inset 
+
+ sert au calcul des distances entre un point 
+\begin_inset Formula \( P \)
+\end_inset 
+
+ de la grille et la ligne 
+\begin_inset Formula \( AB \)
+\end_inset 
+
+.
+ La procédure à suivre est celle indiquée dans le paragraphe
+\protected_separator 
+
+\begin_inset LatexCommand \ref{sec:OrhogonalVectorsInCubic}
+
+\end_inset 
+
+.
+ Nous prenons le vecteur 
+\begin_inset Formula \( \mathbf{V}_{\mathbf{t}}=x_{1}\mathbf{V}_{1}+x_{2}\mathbf{V}_{2}+x_{3}\mathbf{V}_{3} \)
+\end_inset 
+
+ qui est parallèle à la ligne.
+ Nous interchangeons deux de ses composantes, changeons le signe d'une d'entre
+ elles et les utilisons comme composantes pour construire un vecteur dans
+ la base réciproque.
+ 
+\layout Standard
+
+Le vecteur 
+\begin_inset Formula \( \mathbf{U}_{\mathbf{p}1} \)
+\end_inset 
+
+ est construit avec les composantes 
+\begin_inset Formula \( x_{1} \)
+\end_inset 
+
+ et 
+\begin_inset Formula \( x_{3} \)
+\end_inset 
+
+ pour arriver à 
+\begin_inset Formula \( \mathbf{U}_{\mathbf{p}1}=x_{3}\mathbf{U}_{1}+0\mathbf{U}_{2}-x_{1}\mathbf{U}_{3} \)
+\end_inset 
+
+.
+ Le vecteur 
+\begin_inset Formula \( \mathbf{U}_{\mathbf{p}2} \)
+\end_inset 
+
+ est construit avec 
+\begin_inset Formula \( x_{2} \)
+\end_inset 
+
+ et 
+\begin_inset Formula \( x_{3} \)
+\end_inset 
+
+ comme 
+\begin_inset Formula \( \mathbf{U}_{\mathbf{p}2}=0\mathbf{U}_{1}+x_{3}\mathbf{U}_{2}-x_{2}\mathbf{U}_{3} \)
+\end_inset 
+
+.
+ 
+\layout Standard
+
+Dans notre exemple particulier où 
+\begin_inset Formula \( \mathbf{V}_{\mathbf{t}}=1\mathbf{V}_{1}+2\mathbf{V}_{2}+5\mathbf{V}_{3} \)
+\end_inset 
+
+, les vecteurs de base du sous-espace orthogonal sont: 
+\begin_inset Formula \( \mathbf{U}_{\mathbf{p}1}=5\mathbf{U}_{1}+0\mathbf{U}_{2}-1\mathbf{U}_{3} \)
+\end_inset 
+
+ et 
+\begin_inset Formula \( \mathbf{U}_{\mathbf{p}2}=0\mathbf{U}_{1}+5\mathbf{U}_{2}-2\mathbf{U}_{3} \)
+\end_inset 
+
+.
+ Ils sont exprimés en coordonnées Cartésiennes comme 
+\begin_inset Formula \( \mathbf{U}_{\mathbf{p}1}=\left( 0,\frac{5}{2},-\frac{7}{2}\right)  \)
+\end_inset 
+
+ et 
+\begin_inset Formula \( \mathbf{U}_{\mathbf{p}2}=\left( \frac{5}{2},0,-\frac{9}{2}\right)  \)
+\end_inset 
+
+.
+ Il est facile de vérifier d'après l'équation
+\protected_separator 
+
+\begin_inset LatexCommand \ref{eqn:Kroneker}
+
+\end_inset 
+
+ que 
+\begin_inset Formula \( \mathbf{U}_{\mathbf{p}1}\cdot \mathbf{V}_{\mathbf{t}}=0 \)
+\end_inset 
+
+ et 
+\begin_inset Formula \( \mathbf{U}_{\mathbf{p}2}\cdot \mathbf{V}_{\mathbf{t}}=0 \)
+\end_inset 
+
+, ainsi que 
+\begin_inset Formula \( \mathbf{U}_{\mathbf{p}1}\cdot \mathbf{V}_{2}=0 \)
+\end_inset 
+
+ et 
+\begin_inset Formula \( \mathbf{U}_{\mathbf{p}2}\cdot \mathbf{V}_{3}=0 \)
+\end_inset 
+
+.
+ 
+\layout Standard
+
+La base vectorielle 
+\begin_inset Formula \( \left\{ \mathbf{U}_{\mathbf{p}1},\mathbf{U}_{\mathbf{p}2}\right\}  \)
+\end_inset 
+
+ décrit un plan orthogonal à la ligne Euclidienne 
+\begin_inset Formula \( AB \)
+\end_inset 
+
+.
+ Cette base vectorielle a une base réciproque composée des vecteurs 
+\begin_inset Formula \( \left\{ \mathbf{W}_{\mathbf{p}1},\mathbf{W}_{\mathbf{p}2}\right\}  \)
+\end_inset 
+
+.
+\layout Subsection
+
+Projection dans le sous-espace orthogonal
+\layout Standard
+
+Le fait de projeter un point de la grille sur le sous-espace orthogonal
+ est complètement contenu dans le calcul de la matrice 
+\begin_inset Formula \( \Theta  \)
+\end_inset 
+
+.
+ Les éléments nécessaires pour calculer 
+\begin_inset Formula \( \Theta  \)
+\end_inset 
+
+ sont les matrices 
+\begin_inset Formula \( M_{v} \)
+\end_inset 
+
+ et 
+\begin_inset Formula \( M_{sp} \)
+\end_inset 
+
+.
+ 
+\layout Standard
+
+
+\begin_inset Formula 
+\[
+\left( M^{T}_{v}M_{v}\right) ^{-1}=\frac{1}{4}\left[ \begin{array}{ccc}
+2 & 1 & -2\\
+1 & 2 & -2\\
+-2 & -2 & 4
+\end{array}\right] \]
+
+\end_inset 
+
+
+\layout Standard
+
+d'après l'équation.
+ 
+\begin_inset LatexCommand \ref{eq:ThetaMatrix}
+
+\end_inset 
+
+ nous arrivons à
+\layout Standard
+
+
+\begin_inset Formula 
+\[
+\Theta =\frac{1}{155}\left[ \begin{array}{ccc}
+424 & -252 & 16\\
+-252 & 296 & -68\\
+16 & -68 & 24
+\end{array}\right] \]
+
+\end_inset 
+
+
+\layout Standard
+
+est nous pouvons vérifier que 
+\layout Standard
+
+
+\begin_inset Formula 
+\[
+\left[ \begin{array}{ccc}
+x_{1} & x_{2} & x_{3}
+\end{array}\right] \Theta \left[ \begin{array}{c}
+x_{1}\\
+x_{2}\\
+x_{3}
+\end{array}\right] =\left[ \begin{array}{ccc}
+1 & 2 & 5
+\end{array}\right] \Theta \left[ \begin{array}{c}
+1\\
+2\\
+5
+\end{array}\right] =0\]
+
+\end_inset 
+
+
+\layout Standard
+
+ce qui veut dire que le point 
+\begin_inset Formula \( B \)
+\end_inset 
+
+ est projeté sur le point 
+\begin_inset Formula \( A \)
+\end_inset 
+
+ dans le sous-espace orthogonal.
+\layout Subsection
+
+L'exécution de l'algorithme
+\layout Standard
+
+De la même façon que dans le cas de la grille cubique, nous faisons ici
+ une exécution de l'algorithme pour un exemple particulier.
+ Pour l'analyse nous pouvons ignorer la fraction 
+\begin_inset Formula \( (1/155) \)
+\end_inset 
+
+ dans la matrice 
+\begin_inset Formula \( \Theta  \)
+\end_inset 
+
+.
+\layout Standard
+
+Le tableau
+\begin_inset LatexCommand \ref{tab: MRBCC}
+
+\end_inset 
+
+ montre l'évolution de la matrice colonne 
+\begin_inset Formula \( M_{R} \)
+\end_inset 
+
+.
+ Ses éléments sont initialisés à zéro.
+ Le tableau
+\begin_inset LatexCommand \ref{tab: MTBCC}
+
+\end_inset 
+
+ montre l'évolution de la matrice colonne 
+\begin_inset Formula \( M_{T} \)
+\end_inset 
+
+.
+ Le tableau
+\begin_inset LatexCommand \ref{tab: MVectorBCC}
+
+\end_inset 
+
+ montre l'évolution des coordonnées du point 
+\begin_inset Formula \( P \)
+\end_inset 
+
+, qui est la sortie finale de l'algorithme, la suite des points qui font
+ partie de la ligne discrète.
+\layout Standard
+
+\begin_float tab 
+\layout Standard
+\added_space_top 0.5001cm \added_space_bottom 0.5001cm \align center \LyXTable
+multicol5
+5 10 0 0 -1 -1 -1 -1
+1 1 0 0
+1 1 0 0
+0 1 0 0
+0 1 0 0
+1 1 0 0
+8 1 1 "" ""
+8 1 0 "" ""
+8 1 0 "" ""
+8 1 0 "" ""
+8 1 0 "" ""
+8 1 0 "" ""
+8 1 0 "" ""
+8 1 0 "" ""
+8 1 0 "" ""
+8 1 1 "" ""
+0 8 0 1 0 0 0 "" ""
+0 8 0 1 0 0 0 "" ""
+0 8 0 1 0 0 0 "" ""
+0 8 0 1 0 0 0 "" ""
+0 8 0 1 0 0 0 "" ""
+0 8 0 1 0 0 0 "" ""
+0 8 0 1 0 0 0 "" ""
+0 8 0 1 0 0 0 "" ""
+0 8 0 1 0 0 0 "" ""
+0 8 0 1 0 0 0 "" ""
+0 8 0 1 0 0 0 "" ""
+0 8 0 1 0 0 0 "" ""
+0 8 0 1 0 0 0 "" ""
+0 8 0 1 0 0 0 "" ""
+0 8 0 1 0 0 0 "" ""
+0 8 0 1 0 0 0 "" ""
+0 8 0 1 0 0 0 "" ""
+0 8 0 1 0 0 0 "" ""
+0 8 0 1 0 0 0 "" ""
+0 8 0 1 0 0 0 "" ""
+0 8 0 1 0 0 0 "" ""
+0 8 0 1 0 0 0 "" ""
+0 8 0 1 0 0 0 "" ""
+0 8 0 1 0 0 0 "" ""
+0 8 0 1 0 0 0 "" ""
+0 8 0 1 0 0 0 "" ""
+0 8 0 1 0 0 0 "" ""
+0 8 0 1 0 0 0 "" ""
+0 8 0 1 0 0 0 "" ""
+0 8 0 1 0 0 0 "" ""
+0 8 0 1 0 0 0 "" ""
+0 8 0 1 0 0 0 "" ""
+0 8 0 1 0 0 0 "" ""
+0 8 0 1 0 0 0 "" ""
+0 8 0 1 0 0 0 "" ""
+0 8 0 1 0 0 0 "" ""
+0 8 0 1 0 0 0 "" ""
+0 8 0 1 0 0 0 "" ""
+0 8 0 1 0 0 0 "" ""
+0 8 0 1 0 0 0 "" ""
+0 8 0 1 0 0 0 "" ""
+0 8 0 1 0 0 0 "" ""
+0 8 0 1 0 0 0 "" ""
+0 8 0 1 0 0 0 "" ""
+0 8 0 1 0 0 0 "" ""
+0 8 0 1 0 0 0 "" ""
+0 8 0 1 0 0 0 "" ""
+0 8 0 1 0 0 0 "" ""
+0 8 0 1 0 0 0 "" ""
+0 8 0 1 0 0 0 "" ""
+
+
+\begin_inset Formula \( M_{R} \)
+\end_inset 
+
+
+\newline 
+0
+\newline 
+1
+\newline 
+2
+\newline 
+3
+\newline 
+4
+\newline 
+5
+\newline 
+6
+\newline 
+7
+\newline 
+8
+\newline 
+1
+\newline 
+0
+\newline 
+32
+\newline 
+64
+\newline 
+-440
+\newline 
+-408
+\newline 
+440
+\newline 
+-64
+\newline 
+-32
+\newline 
+0
+\newline 
+2
+\newline 
+0
+\newline 
+-136
+\newline 
+-272
+\newline 
+320
+\newline 
+184
+\newline 
+-320
+\newline 
+272
+\newline 
+136
+\newline 
+0
+\newline 
+3
+\newline 
+0
+\newline 
+48
+\newline 
+96
+\newline 
+-40
+\newline 
+8
+\newline 
+40
+\newline 
+-96
+\newline 
+-48
+\newline 
+0
+\newline 
+
+\begin_inset Formula \( k \)
+\end_inset 
+
+
+\newline 
+3
+\newline 
+3
+\newline 
+2
+\newline 
+3
+\newline 
+1
+\newline 
+2
+\newline 
+3
+\newline 
+3
+\newline 
+3
+\layout Caption
+
+
+\begin_inset LatexCommand \label{tab: MRBCC}
+
+\end_inset 
+
+Évolution de la matrice colonne 
+\begin_inset Formula \( M_{R} \)
+\end_inset 
+
+.
+ Les trois composantes sont rangées verticalement, les itérations sont rangées
+ de gauche à droite.
+ La dernière file montre l'indice qui a servi à déterminer la direction
+ du mouvement à chaque itération.
+ La matrice 
+\begin_inset Formula \( M_{R} \)
+\end_inset 
+
+ est mise à jour en lui ajoutant le double de la 
+\begin_inset Formula \( k \)
+\end_inset 
+
+-ème colonne de la matrice 
+\begin_inset Formula \( \Theta  \)
+\end_inset 
+
+.
+\end_float 
+\layout Standard
+
+\begin_float tab 
+\layout Standard
+\added_space_top 0.5001cm \added_space_bottom 0.5001cm \align center \LyXTable
+multicol5
+5 10 0 0 -1 -1 -1 -1
+1 1 0 0
+1 1 0 0
+0 1 0 0
+0 1 0 0
+1 1 0 0
+8 1 1 "" ""
+8 1 0 "" ""
+8 1 0 "" ""
+8 1 0 "" ""
+8 1 0 "" ""
+8 1 0 "" ""
+8 1 0 "" ""
+8 1 0 "" ""
+8 1 0 "" ""
+8 1 1 "" ""
+0 8 0 1 0 0 0 "" ""
+0 8 0 1 0 0 0 "" ""
+0 8 0 1 0 0 0 "" ""
+0 8 0 1 0 0 0 "" ""
+0 8 0 1 0 0 0 "" ""
+0 8 0 1 0 0 0 "" ""
+0 8 0 1 0 0 0 "" ""
+0 8 0 1 0 0 0 "" ""
+0 8 0 1 0 0 0 "" ""
+0 8 0 1 0 0 0 "" ""
+0 8 0 1 0 0 0 "" ""
+0 8 0 1 0 0 0 "" ""
+0 8 0 1 0 0 0 "" ""
+0 8 0 1 0 0 0 "" ""
+0 8 0 1 0 0 0 "" ""
+0 8 0 1 0 0 0 "" ""
+0 8 0 1 0 0 0 "" ""
+0 8 0 1 0 0 0 "" ""
+0 8 0 1 0 0 0 "" ""
+0 8 0 1 0 0 0 "" ""
+0 8 0 1 0 0 0 "" ""
+0 8 0 1 0 0 0 "" ""
+0 8 0 1 0 0 0 "" ""
+0 8 0 1 0 0 0 "" ""
+0 8 0 1 0 0 0 "" ""
+0 8 0 1 0 0 0 "" ""
+0 8 0 1 0 0 0 "" ""
+0 8 0 1 0 0 0 "" ""
+0 8 0 1 0 0 0 "" ""
+0 8 0 1 0 0 0 "" ""
+0 8 0 1 0 0 0 "" ""
+0 8 0 1 0 0 0 "" ""
+0 8 0 1 0 0 0 "" ""
+0 8 0 1 0 0 0 "" ""
+0 8 0 1 0 0 0 "" ""
+0 8 0 1 0 0 0 "" ""
+0 8 0 1 0 0 0 "" ""
+0 8 0 1 0 0 0 "" ""
+0 8 0 1 0 0 0 "" ""
+0 8 0 1 0 0 0 "" ""
+0 8 0 1 0 0 0 "" ""
+0 8 0 1 0 0 0 "" ""
+0 8 0 1 0 0 0 "" ""
+0 8 0 1 0 0 0 "" ""
+0 8 0 1 0 0 0 "" ""
+0 8 0 1 0 0 0 "" ""
+0 8 0 1 0 0 0 "" ""
+0 8 0 1 0 0 0 "" ""
+0 8 0 1 0 0 0 "" ""
+0 8 0 1 0 0 0 "" ""
+
+
+\begin_inset Formula \( M_{T} \)
+\end_inset 
+
+
+\newline 
+0
+\newline 
+1
+\newline 
+2
+\newline 
+3
+\newline 
+4
+\newline 
+5
+\newline 
+6
+\newline 
+7
+\newline 
+8
+\newline 
+1
+\newline 
+424
+\newline 
+456
+\newline 
+488
+\newline 
+-16
+\newline 
+16
+\newline 
+864
+\newline 
+360
+\newline 
+392
+\newline 
+424
+\newline 
+2
+\newline 
+296
+\newline 
+160
+\newline 
+24
+\newline 
+616
+\newline 
+480
+\newline 
+-24
+\newline 
+568
+\newline 
+432
+\newline 
+296
+\newline 
+3
+\newline 
+24
+\newline 
+72
+\newline 
+120
+\newline 
+-16
+\newline 
+32
+\newline 
+64
+\newline 
+-72
+\newline 
+-24
+\newline 
+24
+\newline 
+
+\begin_inset Formula \( k \)
+\end_inset 
+
+
+\newline 
+3
+\newline 
+3
+\newline 
+2
+\newline 
+3
+\newline 
+1
+\newline 
+2
+\newline 
+3
+\newline 
+3
+\newline 
+3
+\layout Caption
+
+
+\begin_inset LatexCommand \label{tab: MTBCC}
+
+\end_inset 
+
+Évolution de la matrice colonne 
+\begin_inset Formula \( M_{T} \)
+\end_inset 
+
+.
+ Les trois composantes sont rangées verticalement, les itérations sont rangées
+ de gauche à droite.
+ La dernière ligne montre l'indice qui a servi à déterminer la direction
+ du mouvement à chaque itération.
+ A chaque pas la matrice est la somme de la matrice 
+\begin_inset Formula \( M_{R} \)
+\end_inset 
+
+ avec la diagonale de 
+\begin_inset Formula \( \Theta  \)
+\end_inset 
+
+.
+ 
+\end_float 
+\layout Standard
+
+\begin_float tab 
+\layout Standard
+\added_space_top 0.5001cm \added_space_bottom 0.5001cm \align center \LyXTable
+multicol5
+5 9 0 0 -1 -1 -1 -1
+1 1 0 0
+1 1 0 0
+0 1 0 0
+0 1 0 0
+1 1 0 0
+8 1 1 "" ""
+8 1 0 "" ""
+8 1 0 "" ""
+8 1 0 "" ""
+8 1 0 "" ""
+8 1 0 "" ""
+8 1 0 "" ""
+8 1 0 "" ""
+8 1 1 "" ""
+0 8 0 1 0 0 0 "" ""
+0 8 0 1 0 0 0 "" ""
+0 8 0 1 0 0 0 "" ""
+0 8 0 1 0 0 0 "" ""
+0 8 0 1 0 0 0 "" ""
+0 8 0 1 0 0 0 "" ""
+0 8 0 1 0 0 0 "" ""
+0 8 0 1 0 0 0 "" ""
+0 8 0 1 0 0 0 "" ""
+0 8 0 1 0 0 0 "" ""
+0 8 0 1 0 0 0 "" ""
+0 8 0 1 0 0 0 "" ""
+0 8 0 1 0 0 0 "" ""
+0 8 0 1 0 0 0 "" ""
+0 8 0 1 0 0 0 "" ""
+0 8 0 1 0 0 0 "" ""
+0 8 0 1 0 0 0 "" ""
+0 8 0 1 0 0 0 "" ""
+0 8 0 1 0 0 0 "" ""
+0 8 0 1 0 0 0 "" ""
+0 8 0 1 0 0 0 "" ""
+0 8 0 1 0 0 0 "" ""
+0 8 0 1 0 0 0 "" ""
+0 8 0 1 0 0 0 "" ""
+0 8 0 1 0 0 0 "" ""
+0 8 0 1 0 0 0 "" ""
+0 8 0 1 0 0 0 "" ""
+0 8 0 1 0 0 0 "" ""
+0 8 0 1 0 0 0 "" ""
+0 8 0 1 0 0 0 "" ""
+0 8 0 1 0 0 0 "" ""
+0 8 0 1 0 0 0 "" ""
+0 8 0 1 0 0 0 "" ""
+0 8 0 1 0 0 0 "" ""
+0 8 0 1 0 0 0 "" ""
+0 8 0 1 0 0 0 "" ""
+0 8 0 1 0 0 0 "" ""
+0 8 0 1 0 0 0 "" ""
+0 8 0 1 0 0 0 "" ""
+0 8 0 1 0 0 0 "" ""
+0 8 0 1 0 0 0 "" ""
+0 8 0 1 0 0 0 "" ""
+0 8 0 1 0 0 0 "" ""
+0 8 0 1 0 0 0 "" ""
+0 8 0 1 0 0 0 "" ""
+
+
+\begin_inset Formula \( M \)
+\end_inset 
+
+
+\newline 
+0
+\newline 
+1
+\newline 
+2
+\newline 
+3
+\newline 
+4
+\newline 
+5
+\newline 
+6
+\newline 
+7
+\newline 
+1
+\newline 
+0
+\newline 
+0
+\newline 
+0
+\newline 
+0
+\newline 
+1
+\newline 
+1
+\newline 
+1
+\newline 
+1
+\newline 
+2
+\newline 
+0
+\newline 
+0
+\newline 
+1
+\newline 
+1
+\newline 
+1
+\newline 
+2
+\newline 
+2
+\newline 
+2
+\newline 
+3
+\newline 
+1
+\newline 
+2
+\newline 
+2
+\newline 
+3
+\newline 
+3
+\newline 
+3
+\newline 
+4
+\newline 
+5
+\newline 
+
+\begin_inset Formula \( k \)
+\end_inset 
+
+
+\newline 
+3
+\newline 
+3
+\newline 
+2
+\newline 
+3
+\newline 
+1
+\newline 
+2
+\newline 
+3
+\newline 
+3
+\layout Caption
+
+
+\begin_inset LatexCommand \label{tab: MVectorBCC}
+
+\end_inset 
+
+Évolution des composantes du vecteur 
+\begin_inset Formula \( \mathbf{M} \)
+\end_inset 
+
+.
+ 
+\end_float 
+\layout Section
+
+Le cas général
+\begin_inset LatexCommand \label{sec:general}
+
+\end_inset 
+
+
+\layout Standard
+
+Nous présentons ici la généralisation du processus de traçage de ligne discrète
+ pour une grille régulière de dimension 
+\begin_inset Formula \( N \)
+\end_inset 
+
+.
+\layout Subsection
+
+Définition de la grille
+\layout Standard
+
+Une grille régulière de dimension 
+\begin_inset Formula \( N \)
+\end_inset 
+
+ est complètement caractérisée par un ensemble de 
+\begin_inset Formula \( N \)
+\end_inset 
+
+ vecteurs linéairement indépendants 
+\begin_inset Formula \( \left\{ \mathbf{H}_{\mathbf{i}}\right\} ,i\in [1,N] \)
+\end_inset 
+
+, tels que 
+\begin_inset Formula \( \mathbf{H}_{\mathbf{i}}\in \mathbb {R}^{N} \)
+\end_inset 
+
+.
+ Un point 
+\begin_inset Formula \( P \)
+\end_inset 
+
+ de la grille est défini par son vecteur position 
+\begin_inset Formula \( \mathbf{P}=\sum ^{N}_{i=1}x_{pi}\mathbf{H}_{\mathbf{i}} \)
+\end_inset 
+
+, dont les coefficients 
+\begin_inset Formula \( x_{pi} \)
+\end_inset 
+
+ sont les composantes de 
+\begin_inset Formula \( \mathbf{P} \)
+\end_inset 
+
+ dans la base vectorielle 
+\begin_inset Formula \( \left\{ \mathbf{H}_{\mathbf{i}=1,N}\right\}  \)
+\end_inset 
+
+, ces composantes satisfont 
+\begin_inset Formula \( x_{pi}\in \mathbb {Z} \)
+\end_inset 
+
+, 
+\begin_inset Formula \( \forall i\in [1,N] \)
+\end_inset 
+
+.
+\layout Subsection
+
+La sélection de la connexité
+\layout Standard
+
+La connexité est un 
+\emph on 
+choix
+\emph toggle 
+ qui doit être fait avant de tracer la ligne.
+ Elle est spécifiée par un ensemble de vecteurs 
+\emph default 
+
+\begin_inset Formula \( T \)
+\end_inset 
+
+, constitué par tous les vecteurs qui représentent les positions relatives
+ des voisins dans la grille.
+ Les vecteurs dans l'ensemble 
+\begin_inset Formula \( T \)
+\end_inset 
+
+ sont, bien évidemment, des combinaisons linéaires de vecteurs 
+\begin_inset Formula \( \left\{ \mathbf{H}_{\mathbf{i}}\right\} ,i\in [1,N] \)
+\end_inset 
+
+.
+\layout Standard
+
+Le choix de l'ensemble 
+\begin_inset Formula \( T \)
+\end_inset 
+
+ n'est pas du tout trivial, les propriétés topologiques de la ligne tracée
+ sont directement fonction des vecteurs dans l'ensemble 
+\begin_inset Formula \( T \)
+\end_inset 
+
+.
+ A titre de recommandation, on peut dire que les connexités qui dérivent
+ des régions de Voronoï de la grille, montrent un bon comportement.
+ Plus précisement, deux points de la grille sont voisins si leurs régions
+ de Voronoï de dimension 
+\begin_inset Formula \( N \)
+\end_inset 
+
+ partagent une face de dimension 
+\begin_inset Formula \( (N-1) \)
+\end_inset 
+
+
+\protected_separator 
+ 
+\begin_inset LatexCommand \cite{HermanSimplyConnected}
+
+\end_inset 
+
+
+\begin_inset LatexCommand \cite{HermanSummerSchool}
+
+\end_inset 
+
+; Néanmoins, ceci n'est pas du tout nécessaire pour l'algorithme présenté
+ ici.
+\layout Standard
+
+Pour tracer une ligne discrète à partir d'un point 
+\begin_inset Formula \( A \)
+\end_inset 
+
+ à la position 
+\begin_inset Formula \( \mathbf{A}=\sum ^{N}_{i=1}x_{ai}\mathbf{H}_{\mathbf{i}} \)
+\end_inset 
+
+ jusqu'à un point 
+\begin_inset Formula \( B \)
+\end_inset 
+
+ à la position 
+\begin_inset Formula \( \mathbf{B}=\sum ^{N}_{i=1}x_{bi}\mathbf{H}_{\mathbf{i}} \)
+\end_inset 
+
+, il nous faut trouver une suite de points de la grille connectés par des
+ vecteurs appartenant à l'ensemble 
+\begin_inset Formula \( T \)
+\end_inset 
+
+.
+ Cette suite a comme premier élément le point 
+\begin_inset Formula \( A \)
+\end_inset 
+
+ et comme dernier le point 
+\begin_inset Formula \( B \)
+\end_inset 
+
+.
+ La direction de la ligne étant représentée par le vecteur 
+\begin_inset Formula \( \mathbf{V}_{\mathbf{t}}=\mathbf{B}-\mathbf{A} \)
+\end_inset 
+
+.
+\layout Subsection
+
+La sélection de la base vectorielle 
+\layout Standard
+
+La base vectorielle optimale est fonction de l'orientation de la ligne à
+ tracer.
+ Cette sélection de base est la généralisation de la sélection du quadrant
+ dans la grille carrée ou celle de l'octant dans la grille cubique.
+\layout Standard
+
+La solution consiste à prendre les 
+\begin_inset Formula \( N \)
+\end_inset 
+
+ vecteurs 
+\begin_inset Formula \( \left\{ \mathbf{V}_{\mathbf{i}}\right\} ,i\in [1,N] \)
+\end_inset 
+
+ parmi ceux de l'ensemble 
+\begin_inset Formula \( T \)
+\end_inset 
+
+, tels qu'ils forment une base vectorielle pour la grille.
+ Le vecteur 
+\begin_inset Formula \( \mathbf{V}_{\mathbf{t}} \)
+\end_inset 
+
+ qui représente la ligne doit être exprimé en fonction de ces vecteurs 
+\begin_inset Formula \( \left\{ \mathbf{V}_{\mathbf{i}}\right\}  \)
+\end_inset 
+
+ avec des coefficients 
+\begin_inset Formula \( x_{i}\geq 0,\forall i\in [1,N] \)
+\end_inset 
+
+ aussi petits que possible.
+ 
+\layout Subsection
+
+La définition du sous-espace orthogonal
+\layout Standard
+
+Une fois que la base vectorielle 
+\begin_inset Formula \( \left\{ \mathbf{V}_{\mathbf{i}}\right\} ,i\in [1,N] \)
+\end_inset 
+
+ a été choisie, il est possible de calculer la base réciproque à partir
+ de la matrice 
+\begin_inset Formula \( M_{v} \)
+\end_inset 
+
+ qui a les vecteurs 
+\begin_inset Formula \( \mathbf{V}_{\mathbf{i}} \)
+\end_inset 
+
+ placés comme colonnes.
+ La matrice 
+\begin_inset Formula \( M_{u} \)
+\end_inset 
+
+ est calculée en suivant la procédure définie par l'équation
+\protected_separator 
+
+\begin_inset LatexCommand \ref{eqn:OrthonormalBasis}
+
+\end_inset 
+
+.
+ Les colonnes de la matrice 
+\begin_inset Formula \( M_{u} \)
+\end_inset 
+
+ sont les vecteurs 
+\begin_inset Formula \( \left\{ \mathbf{U}_{\mathbf{i}}\right\} ,i\in [1,N] \)
+\end_inset 
+
+ de la base réciproque.
+\layout Standard
+
+Il faut remarquer que la procédure décrite dans leparagraphe
+\protected_separator 
+
+\begin_inset LatexCommand \ref{sec:OrhogonalVectorsInCubic}
+
+\end_inset 
+
+ n'est pas viable si le vecteur 
+\begin_inset Formula \( \mathbf{V}_{\mathbf{t}} \)
+\end_inset 
+
+ a des composantes nulles.
+ La solution dans ce cas consiste en réduire la dimension 
+\begin_inset Formula \( N \)
+\end_inset 
+
+ de l'espace jusqu'à obtenir seulement des composantes non nulles dans le
+ vecteur 
+\begin_inset Formula \( \mathbf{V}_{\mathbf{t}} \)
+\end_inset 
+
+.
+ Ensuite, il est possible de reconsidérer le problème de traçage dans une
+ grille de dimension inférieure.
+ Un exemple directe de ce cas est celui de tracer une ligne 
+\begin_inset Formula \( 3D \)
+\end_inset 
+
+ dans le plan 
+\begin_inset Formula \( XY \)
+\end_inset 
+
+, ce qui est réellement un processus 
+\begin_inset Formula \( 2D \)
+\end_inset 
+
+.
+\layout Standard
+
+La ligne Euclidienne 
+\begin_inset Formula \( AB \)
+\end_inset 
+
+ est un objet 
+\begin_inset Formula \( 1D \)
+\end_inset 
+
+.
+ Le sous-espace orthogonal à la ligne est de dimension 
+\begin_inset Formula \( (N-1) \)
+\end_inset 
+
+.
+ Pour décrire le sous-espace orthogonal, il faut 
+\begin_inset Formula \( (N-1) \)
+\end_inset 
+
+ vecteurs linéairement indépendants 
+\begin_inset Formula \( \left\{ \mathbf{V}_{\mathbf{pi}}\right\} ,i\in [1,N-1] \)
+\end_inset 
+
+ tous orthogonaux au vecteur 
+\begin_inset Formula \( \mathbf{V}_{\mathbf{t}} \)
+\end_inset 
+
+.
+ 
+\layout Standard
+
+Nous pouvons renuméroter les vecteurs 
+\begin_inset Formula \( \left\{ \mathbf{V}_{\mathbf{i}}\right\}  \)
+\end_inset 
+
+ de la base pour obtenir que les composantes de 
+\begin_inset Formula \( \mathbf{V}_{\mathbf{t}} \)
+\end_inset 
+
+ soient ordonnées de manière croissante 
+\begin_inset Formula \( x_{i}\leq x_{j},\forall i<j \)
+\end_inset 
+
+.
+ De cette façon, la direction dominante est celle associée au vecteur 
+\begin_inset Formula \( \mathbf{V}_{N} \)
+\end_inset 
+
+.
+ Les vecteurs restants 
+\begin_inset Formula \( \mathbf{V}_{\mathbf{i}},i=1,\ldots ,(N-1) \)
+\end_inset 
+
+ sont associés aux directions secondaires.
+ Les vecteurs du sous-espace orthogonal 
+\begin_inset Formula \( \left\{ \mathbf{U}_{\mathbf{pi}}\right\} ,i\in [1,N-1] \)
+\end_inset 
+
+ peuvent être définis comme
+\layout Standard
+
+
+\begin_inset Formula 
+\[
+\mathbf{U}_{\mathbf{pi}}=x_{N}\mathbf{U}_{\mathbf{i}}-x_{i}\mathbf{U}_{\mathbf{N}}\]
+
+\end_inset 
+
+
+\layout Standard
+
+Il faut remarquer ici, que le fait de choisir la direction dominante est
+ un choix convenable dans la quête de la stabilité numérique de l'algorithme.
+ Néanmoins, il n'est pas vraiment nécessaire de prendre la direction dominante
+ comme le coefficient commun pour la construction de la base du sous-espace
+ orthogonal.
+ 
+\layout Standard
+
+Nous pouvons trouver la matrice généralisée de projection dans le sous-espace
+ 
+\begin_inset Formula \( M_{sp} \)
+\end_inset 
+
+ comme la matrice de taille 
+\begin_inset Formula \( (N-1)\times N \)
+\end_inset 
+
+ formée par
+\layout Standard
+
+
+\begin_inset Formula 
+\[
+M_{sp}=\left[ \begin{array}{cccc}
+x_{N} & 0 & \cdots  & 0\\
+0 & x_{N} & \cdots  & 0\\
+0 & 0 & \ddots  & 0\\
+\vdots  & \vdots  & \vdots  & \vdots \\
+-x_{1} & -x_{2} & \cdots  & -x_{N-1}
+\end{array}\right] \]
+
+\end_inset 
+
+
+\layout Standard
+
+La base vectorielle résultante 
+\begin_inset Formula \( \left\{ \mathbf{U}_{\mathbf{pi}}\right\} ,i\in [1,N-1] \)
+\end_inset 
+
+ du sous-espace orthogonal a une base réciproque 
+\begin_inset Formula \( \left\{ \mathbf{W}_{\mathbf{pi}}\right\} ,i\in [1,N-1] \)
+\end_inset 
+
+.
+ Il n'est pas nécessaire de calculer les vecteurs 
+\begin_inset Formula \( \mathbf{W}_{\mathbf{pi}} \)
+\end_inset 
+
+ pour accomplir le traçage de la ligne.
+ Ils sont introduits ici seulement pour exprimer les projections des vecteurs
+ de la grille dans le sous-espace orthogonal.
+\layout Subsection
+
+La projection des vecteurs sur le sous-espace orthogonal
+\layout Standard
+
+Soit 
+\begin_inset Formula \( \mathbf{M} \)
+\end_inset 
+
+ un vecteur de la grille défini par 
+\begin_inset Formula \( \mathbf{M}=\sum ^{N}_{i=1}m_{i}\mathbf{V}_{\mathbf{i}} \)
+\end_inset 
+
+.
+ Soit 
+\begin_inset Formula \( \mathbf{M}_{\mathbf{p}} \)
+\end_inset 
+
+ la projection de 
+\begin_inset Formula \( \mathbf{M} \)
+\end_inset 
+
+ sur le sous-espace orthogonal.
+ Le vecteur 
+\begin_inset Formula \( \mathbf{M}_{\mathbf{p}} \)
+\end_inset 
+
+ peut être exprimé dans la base réciproque du sous-espace orthogonal comme
+\layout Standard
+
+
+\begin_inset Formula 
+\[
+\mathbf{M}_{\mathbf{p}}=\sum ^{N-1}_{i=1}m_{pi}\mathbf{W}_{\mathbf{pi}}\]
+
+\end_inset 
+
+ Les coefficients 
+\begin_inset Formula \( m_{pi} \)
+\end_inset 
+
+ sont calculés à partir des produit scalaires 
+\begin_inset Formula \( m_{pi}=\mathbf{M}\cdot \mathbf{U}_{\mathbf{pi}} \)
+\end_inset 
+
+, 
+\begin_inset Formula \( i\in [1,N-1] \)
+\end_inset 
+
+.
+ Il est facile de vérifier que la projection des vecteurs 
+\begin_inset Formula \( \mathbf{V}_{\mathbf{i}},i\in [1,N-1] \)
+\end_inset 
+
+ correspondant aux directions secondaires sont 
+\begin_inset Formula \( x_{N}\mathbf{W}_{\mathbf{pi}} \)
+\end_inset 
+
+, tandis que la projection correspondant au vecteur de la direction dominante
+ 
+\begin_inset Formula \( \mathbf{V}_{N} \)
+\end_inset 
+
+ est 
+\begin_inset Formula \( -\sum ^{N-1}_{i=1}x_{i}\mathbf{W}_{\mathbf{pi}} \)
+\end_inset 
+
+.
+\layout Standard
+
+En pratique, il suffit de calculer directement la matrice 
+\begin_inset Formula \( \Theta  \)
+\end_inset 
+
+ d'après l'équation
+\protected_separator 
+
+\begin_inset LatexCommand \ref{eq:ThetaMatrix}
+
+\end_inset 
+
+, pour ceci il nous faut seulement disposer des matrices 
+\begin_inset Formula \( Mv \)
+\end_inset 
+
+ et 
+\begin_inset Formula \( M_{sp} \)
+\end_inset 
+
+.
+\layout Subsection
+
+L'algorithme généralisé
+\layout Standard
+
+Nous présentons ici l'algorithme généralisé qui peut être utilisé sur toute
+ grille régulière de dimension quelconque.
+\layout Enumerate
+
+
+\family typewriter 
+Initialiser le point courant 
+\begin_inset Formula \( P \)
+\end_inset 
+
+ 
+\newline 
+à la position 
+\begin_inset Formula \( A \)
+\end_inset 
+
+:
+\newline 
+
+\begin_inset Formula \( x_{pi}=x_{ai} \)
+\end_inset 
+
+, 
+\begin_inset Formula \( \forall i\in [1,N] \)
+\end_inset 
+
+
+\layout Enumerate
+
+
+\family typewriter 
+Calculer la matrice 
+\family default 
+
+\begin_inset Formula \( \Theta  \)
+\end_inset 
+
+.
+\layout Enumerate
+
+
+\family typewriter 
+Initialiser la matrice colonne 
+\begin_inset Formula \( M_{R} \)
+\end_inset 
+
+ à zéro.
+\layout Enumerate
+
+
+\family typewriter 
+Calculer la matrice colonne 
+\begin_inset Formula \( M_{T} \)
+\end_inset 
+
+ comme la
+\newline 
+somme de 
+\begin_inset Formula \( M_{R} \)
+\end_inset 
+
+ et la diagonale de 
+\begin_inset Formula \( \Theta  \)
+\end_inset 
+
+.
+\layout Enumerate
+
+
+\family typewriter 
+Choisir l'indice 
+\begin_inset Formula \( k \)
+\end_inset 
+
+ correspondant
+\newline 
+à l'élément minimum de 
+\begin_inset Formula \( M_{T} \)
+\end_inset 
+
+.
+\layout Enumerate
+
+
+\family typewriter 
+Donner un pas dans la direction associée 
+\newline 
+à 
+\begin_inset Formula \( k \)
+\end_inset 
+
+, c'est à dire, augmenter 
+\family default 
+
+\begin_inset Formula \( m_{k}=m_{k}+1 \)
+\end_inset 
+
+
+\layout Enumerate
+
+
+\family typewriter 
+Mettre à jour la matrice 
+\family default 
+
+\begin_inset Formula \( M_{R} \)
+\end_inset 
+
+ 
+\family typewriter 
+
+\newline 
+en faisant 
+\family default 
+
+\begin_inset Formula \( M_{R}=M_{R}+2\cdot colonne_{k}(\Theta ) \)
+\end_inset 
+
+
+\layout Enumerate
+
+
+\family typewriter 
+Si le point 
+\begin_inset Formula \( P \)
+\end_inset 
+
+ est différent du point 
+\begin_inset Formula \( B \)
+\end_inset 
+
+, 
+\newline 
+aller au pas (4), 
+\newline 
+ou terminer dans le cas contraire.
+\layout Standard
+
+Cet algorithme trace une ligne 
+\begin_inset Formula \( N \)
+\end_inset 
+
+-D en faisant seulement 
+\begin_inset Formula \( N-1 \)
+\end_inset 
+
+ sommes pour chaque point de la ligne.
+\layout Section
+
+
+\begin_inset LatexCommand \label{sec:discusion}
+
+\end_inset 
+
+Discussion et Conclusion
+\layout Standard
+
+L'utilisation d'une approche vectorielle ouvre une nouvelle voie pour résoudre
+ des problèmes topologiques.
+ La méthode proposée ici permet de tracer des lignes dans une grille régulière
+ de dimension quelconque, même si elle n'est pas orthogonale.
+\layout Standard
+
+La bonne performance de l'algorithme est assurée par le fait qu'il n'utilise
+ que des additions.
+ Il peut être considéré comme une généralisation de l'algorithme de Bresenham
+ pour des grilles de dimension supérieure et non-orthogonales.
+\layout Standard
+
+Les lignes tracées avec cet algorithme ne sont pas invariantes à l'ordre
+ dans lequel les points
+\begin_inset Formula \( A \)
+\end_inset 
+
+ et 
+\begin_inset Formula \( B \)
+\end_inset 
+
+ sont choisis.
+ C'est à dire que la ligne discrète tracé entre 
+\begin_inset Formula \( A \)
+\end_inset 
+
+ et 
+\begin_inset Formula \( B \)
+\end_inset 
+
+, n'est pas forcément la même que la ligne tracée entre 
+\begin_inset Formula \( B \)
+\end_inset 
+
+ et 
+\begin_inset Formula \( A \)
+\end_inset 
+
+.
+ Il faut remarquer, néanmoins que la symétrie complète n'est pas possible
+ pour certaines configurations.
+ Le cas très simple en 
+\begin_inset Formula \( 2D \)
+\end_inset 
+
+ de tracer une ligne entre les points 
+\begin_inset Formula \( A=(0,0) \)
+\end_inset 
+
+ et 
+\begin_inset Formula \( B=(2,1) \)
+\end_inset 
+
+ ne peut pas avoir une solution invariante à l'ordre des points extêmes
+ sans inclure dans l'algorithme une condition qui gère explicitement le
+ choix de l'ordre des directions.
+\the_end

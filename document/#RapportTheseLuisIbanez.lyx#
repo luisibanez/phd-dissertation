@@ -1,0 +1,168 @@
+#This file was created by <ibanez> Thu Aug 24 11:12:53 2000
+#LyX 0.12 (C) 1995-1998 Matthias Ettrich and the LyX Team
+\lyxformat 2.15
+\textclass book
+\begin_preamble
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{graphics}
+\usepackage{psfrag}
+\usepackage{url}
+\end_preamble
+\language french
+\inputencoding default
+\fontscheme default
+\graphics default
+\paperfontsize default
+\spacing onehalf 
+\papersize Default
+\paperpackage a4
+\use_geometry 1
+\use_amsmath 1
+\paperorientation portrait
+\leftmargin 3.5cm
+\topmargin 3cm
+\rightmargin 2.5cm
+\bottommargin 2cm
+\secnumdepth 2
+\tocdepth 2
+\paragraph_separation indent
+\defskip medskip
+\quotes_language english
+\quotes_times 2
+\papercolumns 1
+\papersides 2
+\paperpagestyle default
+
+\layout Title
+
+
+\series medium 
+Détection, représentation et modélisation 
+\series default 
+
+\newline 
+
+\series medium 
+des surfaces des structures 3D.
+ 
+\series default 
+
+\newline 
+
+\series medium 
+Application à l'étude de la morphologie 
+\series default 
+
+\newline 
+
+\series medium 
+et la fonctionnalité des os longs.
+\layout Author
+
+Luis Eduardo Ibáñez Gómez
+\layout Standard
+
+
+\begin_inset LatexCommand \tableofcontents
+
+\end_inset 
+
+
+\layout Standard
+
+
+\begin_inset LatexCommand \listoffigures
+
+\end_inset 
+
+
+\layout Standard
+
+
+\begin_inset LatexCommand \listoftables
+
+\end_inset 
+
+
+\layout Standard
+
+
+\begin_inset Include \input{SymbolTable.tex}
+
+\end_inset 
+
+
+\layout Standard
+
+
+\begin_inset Include \input{Introduction.lyx}
+
+\end_inset 
+
+
+\layout Standard
+
+
+\begin_inset Include \input{Surfaces.lyx}
+
+\end_inset 
+
+
+\layout Standard
+
+
+\begin_inset Include \input{Topologie.lyx}
+
+\end_inset 
+
+
+\layout Standard
+
+
+\begin_inset Include \input{TracageDesLignes.lyx}
+
+\end_inset 
+
+
+\layout Standard
+
+
+\begin_inset Include \input{Morphogenese.lyx}
+
+\end_inset 
+
+
+\layout Standard
+
+
+\begin_inset Include \input{Modelation.lyx}
+
+\end_inset 
+
+
+\layout Standard
+
+
+\begin_inset Include \input{Fonctionalite.lyx}
+
+\end_inset 
+
+
+\layout Standard
+
+
+\begin_inset Include \input{Conclusions.lyx}
+
+\end_inset 
+
+
+\layout Standard
+
+
+\begin_inset LatexCommand \BibTeX[/home/ibanez/documents/these/total/these.bst]{/home/ibanez/documents/these/total/these.bib}
+
+\end_inset 
+
+
+\the_end

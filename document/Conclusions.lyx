@@ -1,0 +1,417 @@
+#LyX 1.1 created this file. For more info see http://www.lyx.org/
+\lyxformat 2.15
+\textclass book
+\begin_preamble
+\usepackage{url}
+\end_preamble
+\language french
+\inputencoding default
+\fontscheme default
+\graphics default
+\paperfontsize default
+\spacing onehalf 
+\papersize Default
+\paperpackage a4
+\use_geometry 0
+\use_amsmath 0
+\paperorientation portrait
+\secnumdepth 3
+\tocdepth 3
+\paragraph_separation indent
+\defskip medskip
+\quotes_language english
+\quotes_times 2
+\papercolumns 1
+\papersides 2
+\paperpagestyle default
+
+\layout Chapter
+
+Conclusions
+\layout Standard
+
+L'expérience acquise le long de notre travail de thèse nous permet d'arriver
+ a un ensemble de conclusions assez variées.
+ Cette variété est le résultat naturel de la diversité de sujets qui ont
+ été abordes dans cet étude.
+ 
+\layout Standard
+
+Une première conclusion de type générale concerne la méthodologie même du
+ travail de recherche dans des domaines proches de la technologie de l'informati
+on (ce qui est bien le cas de l'imagerie médicale).
+ Il a été évident vers la fin de nos études que les conditions de cette
+ méthodologie ressemblent beaucoup a celles qui se retrouvent dans les projets
+ de développement informatique de grand taille.
+ Historiquement ce type de projets on suivit l'approche bien établi par
+ les projets de construction; c'est a dire: on analyse un nécessite, on
+ propose une solution, développe une conception détaille de cette solution
+ et puis on s'attaque a la mise en oeuvre de la solution conçue, tout en
+ respectant une planification d'activités.
+\layout Standard
+
+Le concepteurs de logiciel après d'avoir passé par des expériences assez
+ dures, ont arrivé à la conclusion de que cette modèle (dit en cascade
+\begin_float footnote 
+\layout Standard
+
+
+\emph on 
+waterfall model
+\end_float 
+) résulte trop rigide pour répondre aux conditions changeantes du domaine.
+ Ils ont donc opte par accélérer le cycle de conception, mise en oeuvre
+ et évaluation, de façon a réaliser une suite rapide des cycles de même
+ nature.
+ Cela conduit à faire une conception initiale, tester rapidement une mise
+ en ouvre, l'évaluer et retourner tout suite à la table de design.
+ Tout cela dans un boucle infini, limité uniquement par des critères de
+ qualité qu'il faut satisfaire lors de l'évaluation de la version courante
+ de la mise en oeuvre.
+ Il est ainsi que on parle actuellement de la programmation extrême
+\begin_float footnote 
+\layout Standard
+
+
+\emph on 
+extreme programming
+\end_float 
+ comme une réponse à l'évolution rapide des conditions de l'environnement.
+ Dans cet approche l'activité est organisé de façon a produire des prototypes
+ assez tôt dans la phase initiale et les faire évoluer progressivement (éventuel
+lement avec des forts changements).
+\layout Standard
+
+L'utilisation des outils de prototypage et d'analyse des donnes tels que
+ PV-Wave, Matlab, Mathcad, Scilab, Analyze, IDL, AVS ou Khoros, ont depuis
+ plusieurs années, aidée à accélérer le cycle de conception, mise en oeuvre
+ et évaluation.
+ Il sont malheureusement insuffisantes pour continuer les cycles de développemen
+t vers des versions matures car ils ne permettent pas d'arriver à des applicatio
+ns finales de poids moyen et de haute performance.
+ 
+\layout Standard
+
+Une nouvelle approche se voit apparaître aujourd'hui dans la forme des jeux
+ d'outils
+\begin_float footnote 
+\layout Standard
+
+
+\emph on 
+toolkits
+\end_float 
+, tels que TNT pour les calculs mathématiques, CGAL pour la géométrie computatio
+nnelle, LEDA pour les algorithmes génériques, MTL pour l'algèbre linéaire,
+ GTK, QT et FLTK pour le développement des interfaces utilisateur, VTK pour
+ la visualisation des données, et dans un futur proche, INSIGHT
+\begin_float footnote 
+\layout Standard
+
+Developpé para la 
+\emph on 
+National Library of Medicine
+\emph default 
+ dans le cadre du projet 
+\emph on 
+Visible Human
+\emph default 
+.
+\end_float 
+ pour la segmentation et la mise en correspondance des images.
+ Ces jeux d'outils se présentent dans la forme des librairies compactes
+ et efficaces qui s'occupent des aspects assez bien définies du développement
+ informatique.
+ L'utilisation de ces jeux d'outils soulage les chercheurs de la charge
+ de mettre en oeuvre un quantité importante de code, qui malgré le fait
+ d'être fondamentale pour développer son travail, ne peut pas être considérée
+ comme une contribution valable dans son domaine de recherche.
+ Nous ne saurons pas recommander assez l'utilisation des ces jeux d'outils
+ à ceux qui débutent dans la passionnante expérience de la recherche.
+ Sans décourager en rien, l'utilisation des outils de prototypage, il faut
+ insister sur le fait de que les jeux d'outils permettront de réaliser des
+ mises en oeuvre préliminaires, aussi bien que d'arriver a des versions
+ finales qui puissent satisfaire des exigences usuelles de performance.
+ Tout cela en gardant une séparation naturelle entre la contribution qui
+ fait le chercheur au domaine particulier et les méthodes déjà bien établis
+ para des travaux précédentes d'autres chercheurs.
+\layout Standard
+
+Revenons maintenant sur les les aspects plus académiques de notre travail.
+ Considérons d'abord notre étude du comportements des différents détecteurs
+ de surfaces.
+ L'analyse comparatif détaillé que nous avons réalisé nous a montré que
+ bien si les différents détecteurs montrent des caractéristiques particulières,
+ aucun d'entre eux n'est suffisant pour détecter une surface à l'intérieur
+ d'un volume de données médicales où le contraste ainsi que la plage des
+ valeurs de niveaux de gris présentent des variabilités locales qui sont
+ liées aux caractéristiques des tissus.
+ Les détecteurs doivent être considérés comme une couche initiale de bas
+ niveaux qui apporte des informations pertinentes conduisant à la détection
+ d'un objet dans l'image, mais ils nécessitent certainement d'une couche
+ ou plusieurs, dans lesquelles soit possible d'introduire des connaissances
+ propres au domaine particulier.
+ 
+\layout Standard
+
+La surestimation de la capacité des détecteurs des contours (et de surfaces)
+ est le résultat malheureux du distanciation entre les traiteurs des signaux
+ et ses 
+\begin_inset Quotes eld
+\end_inset 
+
+clients
+\begin_inset Quotes erd
+\end_inset 
+
+ dans les domaines d'applications spécifiques, soient eux les géographes,
+ les médecins ou les ingénieurs des processus.
+ La tendance à montrer dans les publications des images binaires comme le
+ résultat des processus de détection empêche d'identifier les limitations
+ de ces méthodes quand-t-il s'agit de retrouver des objets avec des critères
+ de qualité permettant de satisfaire les besoins réels d'autres professionnels.
+\layout Standard
+
+De façon parallèle à notre analyse des détecteurs des surfaces, nous avons
+ approfondit dans les aspects de la topologie discrète.
+ Nous sommes partis à la recherche des solutions permettant de garantir
+ la continuité des surfaces.
+ La discipline de la topologie discrète à la désavantageuse caractéristique
+ de donner une apparence de simplicité, et de réserver sa complexité seulement
+ pour ceux qui s'occupent sérieusement des détails de son utilisation.
+ Ceci fait que le visiteur occasionnel part avec le faux sentiment de que
+ la topologie discrète est triviale et que la 4-connexité et la 8-connexité
+ est tout ce qu'il faut savoir pour continuer son voyage dans des domaines
+ tels que le traitement des images.
+\layout Standard
+
+Notre étude de la topologie discrète nous a montré que la grille d'échantillonna
+ge cubique 
+\begin_inset Formula \( \mathbb {Z}^{n} \)
+\end_inset 
+
+ est loin d'être un bon choix pour représenter des volumes de données.
+ Des meilleurs résultats peuvent être obtenus en utilisant la famille des
+ grilles 
+\begin_inset Formula \( A^{*} \)
+\end_inset 
+
+, dont la grille hexagonale est le cas 
+\begin_inset Formula \( 2D \)
+\end_inset 
+
+, et la grille BCC le cas 
+\begin_inset Formula \( 3D \)
+\end_inset 
+
+.
+\layout Standard
+
+Malgré nos efforts dans ce domaine, nous partons un peu avec le sentiment
+ d'avoir prêché dans le désert, et d'avoir joue les avocats du diable.
+ Car les grilles 
+\begin_inset Formula \( \mathbb {Z}^{n} \)
+\end_inset 
+
+ se trouvent tellement ancrées dans l'éducation et dans le savoir-faire
+ des programmeurs, ingénieurs et chercheurs, que même les voix claires et
+ visionnaires des autorités comme J.
+ Serra au G.T.
+ Herman n'ont pas arrivée encore a convaincre à la communauté des traiteurs
+ des signaux de que les avantages des grilles 
+\begin_inset Formula \( A^{*} \)
+\end_inset 
+
+ ne sont simplement des curiosités des textes des cours, mais tout au contraire
+ des faites qu'on ne devrait pas ignorer dans des domaines où la quête de
+ la performance et la consistance sont toujours une obligation.
+\layout Standard
+
+Nous gardons quand même l'espoir de que les nouvelles générations des ingénieurs
+ et des chercheurs recevront dans son éducation les notions que leur permettront
+ de comprendre que la simplicité cartésienne n'est pas toujours une avantage.
+ Il ne faut pas voir de l'amertume dans ces conclusions, tout au contraire,
+ notre exploration de la topologie discrète a été pour nous énormément enrichiss
+ante et productive.
+ Nos paroles reflètent simplement la frustration de n'avoir pu partager
+ d'avantage nos trouvailles avec nos compagnons de voyage.
+ 
+\layout Standard
+
+Le résultat le plus remarquable de nos travaux dans la topologie discrète
+ est la définition de l'algorithme de traçage des lignes discrètes.
+ Cette algorithme permettant de tracer des lignes dans tout type des grilles
+ régulières est une généralisation complète de l'algorithme de Bresenham
+ pour des grilles non-orthogonales de dimension 
+\begin_inset Formula \( N \)
+\end_inset 
+
+.
+ L'approche vectoriel que nous avons suivi nous a permit d'exprimer de façon
+ claire et cohérente le problème du traçage, et par la même voie, nous a
+ conduit à obtenir une solution par une procédure très efficace.
+ Curieusement la dernière optimisation de cette algorithme a été le résultat
+ de la fermeté de un des reviewers d'une publication, qui n'as pas laissée
+ passer inaperçues certaines faiblesses de la version initiale, pour lui,
+ nos remerciements.
+\layout Standard
+
+Dans le même domaine de la topologie discrète, la définition que nous avons
+ faite d'une topologie dans les grilles 
+\begin_inset Formula \( A^{*} \)
+\end_inset 
+
+ n'est pas de moindre importance.
+ Nous avons suivit le même approche vectoriel pour représenter les éléments
+ nécessaires à l'analyse de la topologie.
+ Le fait essentiel qu'il faut retenir sur ce sujet est que le graphe de
+ connexité des grilles 
+\begin_inset Formula \( A^{*} \)
+\end_inset 
+
+ est un K-simplex.
+ Toutes les propriétés intéressantes de cette famille de grilles sont conséquenc
+e directe ou indirecte de ce fait.
+\layout Standard
+
+En suivant la séquence de nos travaux, après avoir reconnu l'insuffisance
+ des détecteurs de contours, et d'avoir confronté la complexité anatomique
+ des organes, nous avons arrivé a la conclusion de que pour segmenter des
+ images médicales il est indispensable d'utiliser des modèles de structures
+ anatomiques auxquelles on s'intéresse.
+ Ces modèles doivent être paramétrés pour leur permettre de s'adapter aux
+ caractéristiques individuelles de chaque patient ainsi qu'à ses variations
+ dans le temps.
+ Dans ce cadre, les détecteurs de surfaces sont simplement une couche de
+ bas niveau qui fournit les informations de base nécessaires à l'optimisation
+ des paramètres d'un modèle géométrique.
+ Différentes approches ont été utilisés par nombreux groupes de chercheurs
+ pour définir des modèles de formes biologiques.
+\layout Standard
+
+Dans notre cas, il a été évidente que la meilleure façon de définir des
+ modèles de formes biologiques consiste en étudier le processus naturel
+ de la morphogenèse.
+ S'il faudrait retenir un seul résultat parmi tous ceux de nos travaux,
+ ceci serait sans aucune doute le choix à prendre.
+ La compréhension de la morphogenèse apporte les éléments fondamentaux qui
+ doivent être pris en compte au moment d'élaborer des modèles anatomiques.
+ Une émulation simplifiée de la morphogenèse conduit à la construction de
+ modèles efficaces qui génèrent des formes assez proches de celles correspondant
+ aux organes réels.
+\layout Standard
+
+L'étude de la morphogenèse, avec ses divers aspects traités par des disciplines
+ telles que la paléontologie, l'embryologie, l'évolution des espèces et
+ la génétique, a été l'expérience la plus satisfaisante de tout notre travail
+ de thèse.
+ Pour nous traiteurs des images, intéressés para la modélisation, la représentat
+ion et le reconnaissance des formes, les textes de morphogenèse sont une
+ lecture fondamentale et révélatrice.
+ L'évolution de l'embryon est un exemple fabuleux de la magnifique ingéniosité
+ et subtilité de la nature.
+ Étudier la morphogenèse avec des yeux d'ingénieur, la génétique et son
+ codage avec des yeux de traiteur de l'information, et l'embryologie avec
+ des yeux de mathématicien sont des expériences qui nous ont permis de retrouver
+ l'esprit même de la recherche scientifique, qui est l'effort pour comprendre
+ qui sommes nous et quel est notre place dans l'organisation de la nature.
+\layout Standard
+
+Tout est à faire dans ce domaine, où les biologistes ont déjà gratté la
+ surface pour décrire de façon détaillé les changements subis para l'embryon.
+ Le grand pas donné récemment de réussir à baliser le génome humain est
+ a peine l'obtention du code source du programme qui a fait possible la
+ vie sur la terre.
+ De la plus haute importance est maintenant l'étude de la décodification
+ de l'ADN est le procédures qu'il utilise pour instantier la morphologie
+ et la fonctionnalité d'un organisme vivant.
+ Celte tache peut seulement être attaqué sérieusement par des équipes fortement
+ multidisciplinaires dans lesquelles des traiteurs de l'information sont
+ des membres indispensables.
+ 
+\layout Standard
+
+De plus, Les pionniers de la théorie des catastrophes, ou plutôt théorie
+ des singularités, on bien reconnu que les transformations successives des
+ premiers stades e l'embryon doivent être approches par les méthodes de
+ la topologie avancée.
+ Cela nous fait comprendre que une nouvelle mathématique est à développer
+ pour répondre aux demandes de la recherche fondamentale de la morphogenèse.
+\layout Standard
+
+Notre effort destiné a modéliser la morphogenèse osseuse en utilisant les
+ fonctions implicites, dans la forme des metaballs a été un pas modeste
+ mais fondamentale.
+ Il a été toujours pour nous en cause l'équilibre entre la réalité de la
+ nature est ce qui est réalisable pour nous avec les outils que l'informatique
+ actuelle met à notre disposition.
+ Malheureusement les limitations sont trop grands pour la tache, est des
+ efforts majeurs seront nécessaires pour fournir des techniques de modélisation
+ plus réalistes.
+\layout Standard
+
+Nous avons trouvé néanmoins que les fonctions implicites s'avèrent bien
+ adaptées pour modéliser des structures biologiques.
+ Parmi leurs principales avantages il faut remarquer la facilité avec laquelle
+ elles peuvent simuler des processus de développement et sa disposition
+ pour fournir une interprétation naturelle de leurs paramètres mathématiques.
+ Elles sont sans doute une première voie approprié pour l'étude des formes
+ simples.
+ Par contre, ils sont limitées au processus homotopiques où la topologie
+ de la forme est conservé et seulement des changements des proportions relatives
+ sont à attendre.
+ 
+\layout Standard
+
+Il faudra chercher dans les variétés de dimension supérieure, en utilisant
+ comme guide les éléments de la théorie de singularités pour trouver des
+ modèles adaptés à la représentation des processus morphologiques plus complexes
+ comme ceux qui ont lieu lors de la gastrulation.
+\layout Standard
+
+Dans notre parcours a travers les divers aspects de la morphogenèse nous
+ avons été toujours fascinés par le fait remarquable de que les organismes
+ se développent sous la contrainte d'être continuellement fonctionnelles.
+ Et plus encore, pour la constatation de que la mis en route d'un organisme
+ soit elle même, un facteur majeur dans le processus de morphogenèse.
+ C'est à dire, que c'est l'activité même de l'organisme celle qui se charge
+ de finir les détails de la morphologie qui ne sont pas explicitement codés
+ par la génétique.
+ Il est claire pour nous que l'étude de la forme ne peut être complète sans
+ une compréhension de la physiologie des organes.
+\layout Standard
+
+Dans le cas spécifique des articulation osseuses, notre contribution à la
+ compréhension des relations entre la morphologie et la fonctionnalité a
+ été basée sur l'étude des propriétés des évolutes des surfaces.
+ L'étroite relation existante entre la forme des surfaces et ses comportement
+ mécanique est révélée de façon cristalline para les méthodes de la cinématique
+ géométrique.
+ Quand les courbes de mouvement sont déduites directement de la transformation
+ géométrique produit par les évolutes, il devient évident que la spécification
+ de la morphologie et celle de la fonctionnalité sont un seule et même chose.
+\layout Standard
+
+Nous sommes convaincus de que on peut arriver à trouver des descriptions
+ de la morphogenèse données en termes de la fonctionnalité mécanique finale.
+ Au niveau même du codage génétique il est claire que ce qui est spécifié
+ dans le génome n'est pas directement la morphologie osseuse mais les exigences
+ du comportement finale des ses mouvements.
+\layout Standard
+
+Notre travail de thèse à été caractérisé par l'exploration des domaines
+ qui semblent, a première vue, assez séparés.
+ Nous trouvons avec satisfaction que cette variété à permit de fermer le
+ cercle conceptuel qui donne une aperçu globale complet de notre sujet d'étude.
+ Dans une époque où les spécialistes sont concentrés d'avantage sur les
+ domaines propres a sa formation, il fait toujours du bien, lever la vue
+ et s'aventurer dans les territoires d'autres disciplines.
+ Tout cela pour trouver avec énorme satisfaction, que la compréhension de
+ la nature ne pourrait jamais être accomplie par des solitaires mégalomanes
+ mais par des groupes hétérogènes qui travaillent ensemble en respectant
+ et valorisant les atouts de ses collègues.
+ C'est comme si la nature, aurait mis en place un de plus de ses multiples
+ processus autorégulateurs pour garantir que ses secrets seulement seront
+ révèles a ceux qui formées dans la solidarité seront en capacité de les
+ utiliser pour le meilleur.
+\the_end

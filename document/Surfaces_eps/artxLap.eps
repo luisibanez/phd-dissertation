@@ -1,0 +1,466 @@
+%!PS-Adobe-3.0 EPSF-3.0
+%%Creator: (ImageMagick)
+%%Title: (artxLap.eps)
+%%CreationDate: (Sun Sep  6 15:06:09 1998)
+%%BoundingBox: 0 0 80 80
+%%DocumentData: Clean7Bit
+%%LanguageLevel: 1
+%%Pages: 0
+%%EndComments
+
+%%BeginDefaults
+%%PageOrientation: Portrait
+%%EndDefaults
+
+%%BeginProlog
+%
+% Display a color image.  The image is displayed in color on
+% Postscript viewers or printers that support color, otherwise
+% it is displayed as grayscale.
+%
+/buffer 512 string def
+/byte 1 string def
+/color_packet 3 string def
+/pixels 768 string def
+
+/DirectClassPacket
+{
+  %
+  % Get a DirectClass packet.
+  %
+  % Parameters:
+  %   red.
+  %   green.
+  %   blue.
+  %   length: number of pixels minus one of this color (optional).
+  %
+  currentfile color_packet readhexstring pop pop
+  compression 0 gt
+  {
+    /number_pixels 3 def
+  }
+  {
+    currentfile byte readhexstring pop 0 get
+    /number_pixels exch 1 add 3 mul def
+  } ifelse
+  0 3 number_pixels 1 sub
+  {
+    pixels exch color_packet putinterval
+  } for
+  pixels 0 number_pixels getinterval
+} bind def
+
+/DirectClassImage
+{
+  %
+  % Display a DirectClass image.
+  %
+  systemdict /colorimage known
+  {
+    columns rows 8
+    [
+      columns 0 0
+      rows neg 0 rows
+    ]
+    { DirectClassPacket } false 3 colorimage
+  }
+  {
+    %
+    % No colorimage operator;  convert to grayscale.
+    %
+    columns rows 8
+    [
+      columns 0 0
+      rows neg 0 rows
+    ]
+    { GrayDirectClassPacket } image
+  } ifelse
+} bind def
+
+/GrayDirectClassPacket
+{
+  %
+  % Get a DirectClass packet;  convert to grayscale.
+  %
+  % Parameters:
+  %   red
+  %   green
+  %   blue
+  %   length: number of pixels minus one of this color (optional).
+  %
+  currentfile color_packet readhexstring pop pop
+  color_packet 0 get 0.299 mul
+  color_packet 1 get 0.587 mul add
+  color_packet 2 get 0.114 mul add
+  cvi
+  /gray_packet exch def
+  compression 0 gt
+  {
+    /number_pixels 1 def
+  }
+  {
+    currentfile byte readhexstring pop 0 get
+    /number_pixels exch 1 add def
+  } ifelse
+  0 1 number_pixels 1 sub
+  {
+    pixels exch gray_packet put
+  } for
+  pixels 0 number_pixels getinterval
+} bind def
+
+/GrayPseudoClassPacket
+{
+  %
+  % Get a PseudoClass packet;  convert to grayscale.
+  %
+  % Parameters:
+  %   index: index into the colormap.
+  %   length: number of pixels minus one of this color (optional).
+  %
+  currentfile byte readhexstring pop 0 get
+  /offset exch 3 mul def
+  /color_packet colormap offset 3 getinterval def
+  color_packet 0 get 0.299 mul
+  color_packet 1 get 0.587 mul add
+  color_packet 2 get 0.114 mul add
+  cvi
+  /gray_packet exch def
+  compression 0 gt
+  {
+    /number_pixels 1 def
+  }
+  {
+    currentfile byte readhexstring pop 0 get
+    /number_pixels exch 1 add def
+  } ifelse
+  0 1 number_pixels 1 sub
+  {
+    pixels exch gray_packet put
+  } for
+  pixels 0 number_pixels getinterval
+} bind def
+
+/PseudoClassPacket
+{
+  %
+  % Get a PseudoClass packet.
+  %
+  % Parameters:
+  %   index: index into the colormap.
+  %   length: number of pixels minus one of this color (optional).
+  %
+  currentfile byte readhexstring pop 0 get
+  /offset exch 3 mul def
+  /color_packet colormap offset 3 getinterval def
+  compression 0 gt
+  {
+    /number_pixels 3 def
+  }
+  {
+    currentfile byte readhexstring pop 0 get
+    /number_pixels exch 1 add 3 mul def
+  } ifelse
+  0 3 number_pixels 1 sub
+  {
+    pixels exch color_packet putinterval
+  } for
+  pixels 0 number_pixels getinterval
+} bind def
+
+/PseudoClassImage
+{
+  %
+  % Display a PseudoClass image.
+  %
+  % Parameters:
+  %   class: 0-PseudoClass or 1-Grayscale.
+  %
+  currentfile buffer readline pop
+  token pop /class exch def pop
+  class 0 gt
+  {
+    currentfile buffer readline pop
+    token pop /depth exch def pop
+    /grays columns 8 add depth sub depth mul 8 idiv string def
+    columns rows depth
+    [
+      columns 0 0
+      rows neg 0 rows
+    ]
+    { currentfile grays readhexstring pop } image
+  }
+  {
+    %
+    % Parameters:
+    %   colors: number of colors in the colormap.
+    %   colormap: red, green, blue color packets.
+    %
+    currentfile buffer readline pop
+    token pop /colors exch def pop
+    /colors colors 3 mul def
+    /colormap colors string def
+    currentfile colormap readhexstring pop pop
+    systemdict /colorimage known
+    {
+      columns rows 8
+      [
+        columns 0 0
+        rows neg 0 rows
+      ]
+      { PseudoClassPacket } false 3 colorimage
+    }
+    {
+      %
+      % No colorimage operator;  convert to grayscale.
+      %
+      columns rows 8
+      [
+        columns 0 0
+        rows neg 0 rows
+      ]
+      { GrayPseudoClassPacket } image
+    } ifelse
+  } ifelse
+} bind def
+
+/DisplayImage
+{
+  %
+  % Display a DirectClass or PseudoClass image.
+  %
+  % Parameters:
+  %   x & y translation.
+  %   x & y scale.
+  %   label pointsize.
+  %   image label.
+  %   image columns & rows.
+  %   class: 0-DirectClass or 1-PseudoClass.
+  %   compression: 0-RunlengthEncodedCompression or 1-NoCompression.
+  %   hex color packets.
+  %
+  gsave
+  currentfile buffer readline pop
+  token pop /x exch def
+  token pop /y exch def pop
+  x y translate
+  currentfile buffer readline pop
+  token pop /x exch def
+  token pop /y exch def pop
+  currentfile buffer readline pop
+  token pop /pointsize exch def pop
+  /NewCenturySchlbk-Roman findfont pointsize scalefont setfont
+  x y scale
+  currentfile buffer readline pop
+  token pop /columns exch def
+  token pop /rows exch def pop
+  currentfile buffer readline pop
+  token pop /class exch def pop
+  currentfile buffer readline pop
+  token pop /compression exch def pop
+  class 0 gt { PseudoClassImage } { DirectClassImage } ifelse
+  grestore
+} bind def
+%%EndProlog
+%%Page:  1 1
+%%PageBoundingBox: 0 0 80 80
+userdict begin
+%%BeginData:
+DisplayImage
+0 0
+81 81
+18
+81 81
+1
+1
+1
+8
+b1b0b1b3b4b3b0b3b3b1b4b4b1b3b5b4b1adb3b7b4b1b1b1b0b1b4b5b3b0b1b1b1b3b3b1
+aeb0b1b0b1b1b1b3b5b1b0aeb1b5b0aeb4b3b1b1b1b4b5b1b1aeb3b6b5b4b3b5b1b0b3b0
+b0b1b1b1ffb1b1b0b0b4b3b1b4b3b0b0b3b3b1b3b1b1b3b3b3b0aeb5b6b1b0b3b5b3b3b3
+b1b3b1b1b3b4b1b0b5b1b0b3b3b4b1b3b4b5b1b1b5b3b4b1b3b6b4b3b4b6b5b5b5b1b3b4
+b1b1b0b1b5b0b1b8b5b0b1b3b0ffb3b1b0b1b5b1b1b1b1b3b3b3b1b3b3b0b1b1b0b3b0b1
+b5b1aeb0b4b5b5b3aeb0b3b0b1b5b3aeb1b9b3b3b6b4b4b1b1b6b5b0b3b6b1b1b3b5b7b5
+b4b4b7b8babababab5b5b5b1b3b3b1b6b7b0b1b6b4b3ffb1b1b4b1b1b0b1b1b4b6b1aeb0
+b5b6b1b1b3b1b3b1b3b1adb3b5b4b3b1aeb0b3b1b0b1b3b0aeb5b6b1b3b5b3b0adb3b7b3
+b0b7b7b1b5bcc0c4c3c4c6c7c9c8c7c8c7c4c7c6c3c4bdb9bab3b0b5b5b3b4ffb0b3b4b1
+b0b1b3b5b5b3aeaeb1b3b5b3b1b4b5b3b3b3b0b1b6b4b3b3aeaeb3b3b3b5b4b1b0b3b5b3
+b0b1b5b3b1b0b3b5b5babdbec1c4c7c7c4c1c0bab7b5aeaeb3b4b5b9b9bcc3c0c0c0babd
+bdb7b3b3ffb1b5b4b3b1b4b3b3b1b1b3b4b3b1b0b3b3b1b3b3b1b1b1b3b3b1b4b3b0b3b4
+b3b3b6b3b1b6b5b1b1b1b3b0b3b8b4b4bcc7cac2c0c0b5a99f9387827d7474747b818283
+8084919ca4b0b7b8bec2c3c0bcffb7b4b1b1b1b3b1b1b1b1b5b5b1b0b1b4b4b1b4b3b0b0
+b1b1b4b3b3b1b3b5b3b0b1b3b0b0b5b4aeb3b6b0aebabec0c7cac8c0aea198877d79797d
+899392989f9c9a98918d93918f93928d91a0aeb6b9bcffc3beb5b4b1b4b1b1b3b0b1b4b0
+b0b1b3b1b1b3b3b0b0b3b7b3aeaeb0b6b5aeadb1b5b1b0b5b1acb5bab7c0c8c5c2baa493
+867684979aa1a7acbcc3c6c6c7c7c6c4bebdc1c1b5aea99c939193938d93a4ffbcc2c1c3
+b5b5b4b3b0b0b1b1b1b1b3b5b1b0b1b1b1b3b6b5adadb1b5b8b3adb0b5b7b4b3b8b3b1bc
+c6cac7bcaa93806a6a7f8da7bac2cbcbcfd5d3cfcdc9c8ccc7c2c6c7c2bdbebdbcbcb9b0
+a0959397ff98a4b0bab3b3b5b3b1b3b3b4b4b0b1b8b4b1b0b0b5b3b3b0b0b5b5b1b3b3b0
+b3b8b8b6b5bcc0c3c8c7b9a191807690a4b3c6d4dadde4e4dfe4e5e4e2e1e3e4e2d8d7d7
+ccc2babac0c3bec1c4bdb6b0a6ff95928d89b3b3b1b1b3b1b3b4b4b0b1b7b3b0b1b6b5b0
+b0b3b4b1b1b0b3b6b1b5babdc3c4c7c8c1b39f86818f9cb3d0e3edf0edf0ede7e0dadad9
+d4ced1d8dadadae4e6e2e1d6cecdc0b3b7c0c0bdbab8ffb3a79892b3b1aeb0b0b3b3b1b1
+b3b5b5b3b1b1b5b0b0b3b1b0b0b3b6b6b5b8c2c6c5c7c0b7b1977b7b8fb1c7d4e9f4f0e6
+d6c9c6b5a0989189837d797980838d9caab4c7dae1e8ebe1d6d1c8bdbabec1ffc0b5b6be
+b3b1adb1b4b3b5b5aeb0b1b1b6b1b0b1b1b4b6b3b4b6b4b3b1b5bdc7c7b5a695817d7d90
+b5d3ebf2ebe8d9baa18b7b72625d676a67656f76706c6f726c6567798da1bacfdce1e4e7
+ddd1d1c8ffbeb1bac8b5b5b0b5b7aeb4b6adb0b0adb0aeb1b5b3b5b5b3b7b7b1b3bcbeba
+bdb79c89827d97c0e0eef4edd5b79f7f626f727487918d98a3a0a3adada4a3a6a195908b
+7967626c7b8391b0d1dee1e7e4ffd6c6c4c0b1b4b1b5b4b0b7b3adb5b3acadb1b7b4b3b5
+adacb4b6b3bdcfc7aa98918691adcde9faf6e2c6a176606a79869297a6b6b7b6b3b3b8ba
+bab6adaeb5adadb1aea6a09a8d796260768790a0bad3ffe5e5e5dab0b0b1b3b3b1b5b3b1
+b4b0b1b5b5b3adb1b3acb4bdb9c0d0cdab6a5080a4c6eaf8eddcba8d6f6a747f98aeb1b1
+b4b5aeb3bcaeb1bebaaeb4b3aeb8b1b4b7b1b0b4b9aba3a49c93815d536a7dffacc4dae7
+b0b3b7b4b0aeaeb3b7b1aeb5b7b7b1abb4b5b1bdbdb5c2ba98796090d6f3f5edcc987965
+6082a0a7a9b1b5b1b6bdb5aab5b5aeb9b9adabb5b4b1b7b4b8b7aeaeb0b4b4b3b9b3a6a7
+9d89877bff677486a3aeb3b7b3b0b1b1b3b7b3b0b3b5b7b4b3bab9b8bdb4aca07b7ba4c3
+e5fff2cc9d706072879cadb3b0b4bab6aab1bab5b0b3b9b3aca9a9b0b3b3b6b4b3b7b3ab
+b0b4b5bab4b1b4b1babaaeb1a4ff93866265aeb0b3b3b5b6b3b1b4b1aeb5b7b0b1babab7
+b7b9b5ae9c98c3e4eae3c6956f677491adbab1adb7b5b1bab7acaeb1b3aaaab7aea7b1b1
+b0b5b6b3adb1b6b1aeb1b3b7b3a9adb3b7beb7b6b9a6ffbaae9c98b0b3b3b1b1b3b3b3b4
+aeb0b7b3adb6b8ada9a6adb3b3bcd0e9e3c5a17b657f98a4b1bcb9adb3bab0b0b9b0a7aa
+b3b7adaeaeadb9bdaeadbab6aeaeb0b3b3b0b1b4b5b1adadadaeb1b3bab3aaffc1aeb3b7
+b1b6b3b1b5b1b3b1aeb3b5b1adb5b7aaa1a1a4b3b6bed1d7cbad847d8995adb3b1b7b5ae
+b4b7acadb5b1adaaaebcb8aeb3b3b5b9b3abb1b9aeaeb8b3b1b3b0b4b5b1b6b7b1aeaaa7
+b3b8abaeffb5adb7b7b3b5b7b4b9b4b1adabb5b1aeb3aaaaaeb1b6c2ccced9d5b18f7d7d
+98adabaeb6bab5aeb1b3b0b1bcb6aab6b3b0b9b6b5b5b1b5b3b4b7aeaeb3b6b6aeadb0b7
+b8aaa7b5b6b6b7aeabb5b7b0aeffaab5b6acb5b5b6acb0b3acabadb3b0b5b5a3b3c1becc
+dadfded0a7817f879ab7b9abacb8bcb3b0b0acb6bcbab3b0bcb4aab7b8b1b4b5aeb0bdb6
+a9b0bab9aea7aab4bab7a4a9bab4b1b8aeadb8b7b5adffbcb9acaaaeabaaa4b0b3a9adb4
+b6b3b1b1b1bec7d1e0ded3ba8b74909aa4b7beb5aeb8b6b0b7b7aeaeb5b0b4b3aebcb5ad
+b8aea1b5bca4aab7aaaeb3b1b3b3b4b3b3b4b4abb4beadadbab3aab3b8b1adffbdaeadb3
+b0a6abb0b6b5adb5bcb7b1b0bcc1c6d9e6dcbc9774658baeb0bac2b5a7b0bcb1b1b1aab1
+b6b4b1b5b1adb7b1adaea9aebcb4a1b1b0b1bcacadb3b4babaacaab8b4b1b0a9babeadaa
+b8b7aab3ffabadb8aebab1b6b9b7b7b1b6bab3b5c3d3d9dfe0cba37f707692aab4b3bcbd
+b0a4adbcb5b1ada7bab8b5b7a9acb3b1aeaeadb4bab5b1abb7b6b9bcaeb3b1b3b6b7aba6
+bcb9aaaab4bcaea6b8c2b4adb4ffadbab6acb6b3b6b5b1b9b5b1b5b8c9d9dcddd3ae846a
+7692a6b7b7adaaaeb4b1aeaebab6a7b3b6b8b3b0b0a1b7beabaeb7b9b7b1b1b5aeb1b3ad
+b7baaeaaaeb3b6abb1c0b5aab0baaea6b1b4b7b1b1b3ffb1d0dcc4b3b3b3b0b0bab7b3c2
+d3dfd3bcae93706a84a0adb0beb8aaaeaab0b9b5abb7baa4aeb1aeb5b3b0a6c2c1a1b3b7
+b4b3aebab4b0b6a4a1bac0adadadb0baaeb8b7abb1b3b9b3b9b0a0aeadb1baffadb5baad
+b1b5b1b0b3b4b6c9e0e1cc9d74767b8493a6b6b1acbeb7a7b1b5bebeada7bab3a4b4b0b4
+bcb7b0a3b5b9aab0b0b0b3aeb7b9b4b1aaabb7bcaeb7bdb5b5b0b0a7aeb8b0b6b8bdb0a6
+b7b0aebaffaa203c9ab3ffffffffffffffffffffffffffffffffffffffffffffffffffff
+ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
+ffffffffffffffffffffffffffffffffb6e0b4b3b5b7bcc8d0c290727484a4b0b3b0b1b9
+b8b7b5b8b5a3b1baadaeadb5bab1b8b7aaa9b3b8aeaac0bda9b8b3a4acb5bcb1abb5b7b0
+b1b3b6b1a0aab6aeb3c6b39ab8bca4b4baa3aebdb8b6ffa795e2deb0aeb9c7d6dac08b5a
+81a7adb5b5b3b6aeaeb7b1abaeb4b1b3b3abb1b0aeb4b5adb0b7b0b0a9b1b7b1adb3b7a3
+aebdb8b1a7b6bab3b5b1aeb4aeb1bab7b6aeada6aec2b5a3b1baaeadb7b1aeffabb5baa6
+b1b3c7ddeae1b68784aabeb3aeb3b3b6b1aeb9b1a7aab4b7b5adb1b8abaebaaba4b8c0b5
+aaa9b1b1a7aebdada0bcbeb5a6a7c0b7b3b5b0ababb7b7b8b7b3a3a6b6bcbaada6b0bdb6
+a6adb7b5ffb0b4aea6b7c2d3d8c3a07d7f9eb9b7aaadb7b3b3b1b0babaaaa7b1b5b3aab5
+b1a4bac2aaadbcb0adb6b4aaadb7babcaaa9bcb3b1aab5c2aaadadb1b6b1bab5b4aeaba9
+b6c3bab1adb0b1b8b8adacb5bcffa9b1b3b6c8d6d1b1795d7b98aeb7b0a6b3b9acb1b1a7
+b6baaeb1b4b6b3b1b7aaabb9b6adb5b1a1bec8a7a0babdb3bdb0a9bab1adb5b8aeaab3ae
+bab7aab5beb7a9b5bab7baaea6b4b7aeb6c0b7a6b0b6ffa7c0b6bcdeddb5745d87adbeba
+aeaeb1bab1a1b7b8a7aeb5b4b5b1b6bab7bab5adb4b3a9acb0b4c0baa3abc2b5aabaaea3
+b4b1babc9fa1c1c2b5b1a9aab4b4a7a7bab8bab79aa0b9b5b3b6b0a7a9b8b0ffb8bcb4b6
+e4c4806c8ba9bcbdb4adb8b7b1b1abbabaaaadb4b6aba7b4b3adbcb9a7b9b7ada7b1c0ad
+acb1b0bdb1adbaa3a1b5b5bab5a4acbcc2b5aaaeb0b7aca3b3beadb3b3a4b3b8b5b7b0a1
+abb7b3b3ffc0b5aea7d4916a98adb0b6aeaeb8b8aaadb7aeb8b7aab6bab5a4a9b9adadb7
+acabbcb8b6abaabcaeb3b7a4b5b4acc0b0a3bab7b1beb3a9b0b3aeb5b3acb6aeb3c0b9a6
+a6b3b8b6b1b0b3b8abbebda0b0ffbcb4a4a7aa5d84b0b4aeb0b3b3b3abadb8b4a9b7bdae
+b6bab0acb3b9b4b3b3b1abb3c2b7a0adc4aea4bab7b5b6a9b0b5adbcb5b9bca0b1b3acba
+b3a3acbababaaeadb1aebdb6a7abaab7bcadbab095abffb9a0a9b97d74a3b7b3b3b3b6b3
+adb1b8b3aaadb9bdb1aeabb0bdb7aab0b0babea1adc5b0a3b9c3ac9db7c0b8b5a9aab3b4
+b5b0bcaca6bdabb3c0a49fb6c0bdb1a0babaa6bdb7b0b4a9b4b8b1aaa6b4bdffb0a1b7ac
+7995a9b5b5b3aab1bab5b5b7adaab3b3b8b7aaaab1b4aeb0b3b3c0b197b9c1abb0b6b8b0
+a7b3b9b7aea1bdc9aea4b3b8aeb7baadb1b1a3b1c6b7acaeaabdb09cb6b1b7bca4b4c4b3
+a0b1c8b5ffb3b3b7a1869aaab7b5adaab7baaeb3b9aeaeb1a9b8bcb1b5a7a7b0b8bab6ba
+a69ab9b7adb1aeb5b1b1bcbaaea1a4c4c19fa4bab9b0b6b3b1b0a6aec1c5b0acb0b1b7a3
+a4b6aeb1b5aebec2a9a4bab598ffc1aeb0b797adbebcaeaeb7b7aaaab5b0acb6b3adb4b3
+b7b1a7b6bcb5adb6baa4adb7a6b3b6adb3b0b5b9aeada7aab7ada3b5baadb1baa6adb1b1
+c2baacaaadb6baaea3adc0b9abb5b7aeadb3b7b3a6b1ffb0a0babeacbac2b7aeb3b9b5ae
+b6b1a3b3bdb7b5a9aab1aeb3b4b7aea3b7b5aac0bca7babaabbab3a6adaebcb7a4b0bab6
+bdb7a0b0b6a7b0b5bec1a79ca9b7c5b9a1aab3beb8aab5aea7adb9beaba7bcffabaebdb3
+b3b0b8b0aab1babcbab6b1aab3b9b3b0abb3b4b7b7adb3aeb5b6acb3b1adb5b6aab0c0b3
+abb5b8baaaacbebcb3b7ada6b3bcb6b0b3bab3a0a4bcc6b8a6a4b1b7bcb3a9b4b3b1aeae
+bab3abacffb8b0aeaeaea4b3aba3b3babab4acb3b4b7b8adabb5b6b4b7b0b1bab6babaad
+a4a7b6bcaaa1bac1abb0b9b9b1a1b1bcb6b1ada7b0bac2baa0a7bdb5a4aeb7b5a9a6b9b7
+b1beb0a3bab7aab0b5b7bcaea7ffb1a6b7b7b0a6b4b3b5baadaeada6aeb5b9b4b1b1aeae
+b1b7b7b0b0adadbaaea3c0c5aca4b5bdb9aaa4adbabaa7aeb9b6a7aabcb6b0baab97b5c6
+b7b0ada9acb8bcbaabb1bcadaeb8a7aec2bab3bda69dffb8b1c0b1baabb1bebcb5aaacb3
+acacb3b6b5b9b1abb0adbabeb0aba6aab7acaebeb6a3aabdb7aeb3adabbab1a6c3c6ac9d
+b3c6b0b1c1a99fbcbca7b0b1b0babeb6aaaabab3a6b8b8a3b1baadb3bdaaa4ffbeabb0a6
+baabaebcaeadaeaebdb0a6b7bdbcb3aeb7b3a6b7b6aeb7b0b7baaaaeb1b1b3adb4adadb8
+b1b7baa3abc9b0a3b7bab19ebacbada6b5aa9fbdbda6b9bea9aebdb3a4aebabcb5aaaaa6
+b0c0b6b4ffa9a4aeadb1b4b6b6acaeb1b0b9b0a7b7baaca4b1baaea6bab7adbcb6b1b3b0
+aeb3beaea4baaeadb7b3b6b7b5b4aea3b5baaea6a6bcbaa7aab7b0aac7be9cadbab1b9b7
+a6a4bcb7b1bdb4b7aca4b4b6b8ffa1b7b1b0adb4b9b4b3b7b6aeb1b7aeaeb0a6acb6b9ae
+abb9b3b3bcaea1a9b8b0aec0a7a4beb5a7b3b7a9b3bdadadbdb9a3b0b7b0bdb3adaeb8ba
+adc3baa1b1b5b1b3aea4aebda3a1b9bdbda7a3b0bab3ffbabcb1b9adadb3abaebab8aab3
+bdb0aeb7b7b6b3bab5aeaeaab7b7aab1b5b6ada6b9b7aeb6b5adb6baa7b4b5a1b7c4aeaa
+c0b3acc0b3a3adc5baa1bab4a6b5bab1aeb0aac2be95a7c2c1ae9db5bab3b4ffb8adb0bc
+b3b0b1aab0bdb4aab3b6aeb3bab4b3b6b4b0aeadadb3b5b1babaababaeb7b9b1bab8b1b4
+b5aab3b9a0aebca6adb4b0bcb6a49cb5c8ac9daeb3b8b7b3b4b6aaacc1b8aab8c3b39cad
+c3aea6c0ffa6a9b4b9b9b1adb3b8b8acacb0b1b8b5adacb6b7aaaeb8b4adb3b8b1b7baad
+b3b4b3b5b1c1b9a6a4abaebabdadbab4a1adb0b1b3b5b7aeb1b6aaa7b1babaaea7babea0
+a9b7b5bebab09da7c8c3a4a4b5ffb0adbdbdb3abaab1aeaab1b1aeb8bdb0aab0b7b0a9b3
+bdb6aeb3b1aebabdaeb6b0aab5b4bcb9a3a6b8b6b7b4b8c4b0aababaa6a4bdb7acaeaeb0
+acbcbda3a1bdc2b09faec0b9b0a9b3b3b4beb8aea6a9ffbca3b7b8b4b0aeaeb1b1b5b4ae
+b3b3abaeb5b3b1aeb1bab8b3a7adb4b3b1a9b8b0a9b7aab0b7adb7c6b5a3b1b5abadb8ba
+b0b1b8b5adb5bab0a7b5c7b3a0b1c2aa98babdb7b6a4a1c4bda1b1b7b7b5b5ffb698adba
+b9b5adb5c2b7a7b3b1aabab5acb8b5b3acacb7b8b0aab9b6a9b0b3b5aeb0b3a7b1b3aeba
+bdb0aab7b4a9aab5b4aebcaea4b9c3beaba7c0c0a0a7bab19daacbb4a4baadaec4a79dbd
+beb6b0abffbaa6aabdb1aeb1bcbaaaa6b9b7b3c1b1a7bcb7aaaaaaadb4b4b3b7adaec2ba
+aab1b1a9b6b9adb7baa6a4b7b7b3bdb0acb5b8b4a0acb6b3bcaaa3b4b0adb1b7bcb0b8ba
+9da6b3adb8b3aababdb0adabaaffb7aea7bcb0adb3b4aba4b3bab4b4ada3adc0b5a7b4b3
+adb5b5b3b3acb3bdb1adb6abb0bcb8b5bab4a0a3b9b6a7b5bab0b1b6b1b5baa9aabaaaa3
+b5b7b6b7c0c4b0adb3abb3b5b1adadbabeaba0b1bcb9ffaeacaabeb3b0b3aeacb3b9b0b1
+b6abb0babcb1aab9b9acaeb3b8b8adb1b1aab7b1a9bab5b3bab4aeabb3bcb1a4b3bdaba6
+b5b7bdae9dbac0b0b0b6b6aab3bdb6aca7bebcaebcb6abb7b5aaa3adb7b3b1ffb7b9b1ba
+b0b3b9b0b3b3abadb6b7b1b5b7b4b1b4b8b8aaaababdb3a4b1b7aeb7b1aeb8b0adb3b3b7
+b0b0b8b0abbdc0aaa7babcb7a19cbac5b7aab0b1a6abb1b3aea6b7b1a6b5b1bdbea7abba
+baa9aeb4ffb9b9b5bcaeb3b4b0b4adadb4b7b3aeaeb0b3b7b8b3b3b1b1bab7aeaab0bab7
+b1b3aeb3b4aaabb1b6b1adb3b0aebcbdaea3aec4b7a6aeb1bcb4a4b7b9aaabb7b6b0b0b0
+b0b4aaabc3b1a4bac0b1a4bcbaffb1b5adb0b0abaab1bababab6b1b5b1b1b1b1b4b0aaa9
+adb4b6b6baada7bab5adb0a7adb7abaab7b4b1b3b0b0b1bdb9aaa0adc4aeabb8abb7b8b0
+bab3a7b6b7aab3b1b7c2b09fbac4a3aab7b1aab1c2b4ffb3b3a6b0aaa9b1b9baaeb1b0aa
+b4b4b7b1a7abaeb3b0b1bab1b0baa6a9b6adb5b8aeb0b1b3b7bab5b5aaaab8b6bab5a7a9
+bcc2a7aaaea7babcb5b7a9aabdb5a7b3aeb5bea9aac2b7a6aeb0b0aab6bcb0ffb7b0b1bc
+b0b7c1bcb1a4acaeabb5b6b7b9aeaab3bcbcb7b8aba4b0b5b7aeb0bdbab5b0b0bab5aeb8
+baa4abbdb0b3b7aaaac2c4a9a6b4b6b4b3b1acacb5bcbeb1acb6b5b3b5b5b0adaab5bdad
+a6b1b1b4ffb0b1b7b6babcb6aeaeb1b3b1b3b1adb5c2b3aab7b9b8adb0b7aaadbeb7a3ab
+b9b1aeaab3baaab0bab6aeb3b1a4b5bcada7b5b8aab1c2b8adaea3aabcb3b7beabaab6b0
+b3baabaebaaebdbda7b3bab7aeffadb3bdb1b7b3aaaaadb8bab5b3a7acbcb6a6b1b6b0b7
+adb0beb0acbab3a4adb5b3b1a9b6baa4aeb7b7bab7a7a6bab7b3aaa6b1b1b6b8aab4b5a0
+bcc2a4b1b7aeb1aeadb9aea4bebcaab5aeb1bdb8ada0ffadb3c6a7adb6b7abb1bebcb4aa
+a6b9b8aab0b5a6a9b7b0b0b9b1aab7bdb6b4b6beb6a7bab39cadbcb8adb1aeb1c0b7b5ae
+a6b5bab3aaabbab7aebeb5a3adb9c0b1a7b1b1adadbeb9a7acaab4b1adb3b5ffa7adbaad
+aeb8b1a6b3bdb5b0abb1baaab1bcaea7b0b5b3b9b8aaa9babeb5abb0bdb1b0bca7aac1ba
+aba6adabbac7b3aaadb0b9bab1b1b0b5bab1b5b1aeaebac7a7a3b1aebaaeacbcb0b0b1a1
+aabcc0bcffadb1b1bcb7adaab1b3b6aeaaaeb1b3aeb7b7b1b7b7b3b4bcada1b5b7aeb3aa
+aab9b1b1b4aab7bdabadb5aca7bcbea7aab7b7b5b3b0b4a4a4bab4b0b7ada4b8bca1abba
+bcbca7acbaadb8bca1b7c0a7adffb5b9b0b8b5acb9bcb5b0adb0b3b0b4b1b3b1b0b7b7a9
+aeb3a4b0bdaeaebaaeb0bab0a7acb4b5aeabb6bdb0b0b7b3a9adbcb8b5b6b3b0a3a7b8b8
+b5b3a7a3b4b8aab5bcbab3a7beb6a6bab4b0c4b6a0abffbeb7a3adb1b5b7b0aeadb5bcb6
+b8b4a6b3b4aebdb8a6b0b8acb5b7aeb9b7adb8b9a6a3b3bdb7b5b1b1b7b0b6b7aea6a3b1
+b9b1aeb9b7aabcbaabbcb5b3b7abbcb6aeb0abadb8b8a0aabcb0b1bdb1a6b0ffb7adaeb5
+adadadb3aeb0b9b1acbab6b0b7a9b0c0b5acb0b7b5b8b5aebab0a7b7b1a3acbdb9acb7b7
+b0b0b0b4b4b0a9adb7bda7a1beb9a6b7b0a6bebabdb5a4bdc1a9a1aebabda197b1bec1b8
+a4a4b7b5ffa1aac8b1a7a6b0beaeb1b9a6a4babdb7ada0b0b5adb0aab5bdb5adaab4b1b1
+b7aeadb6bab1a9b3b7adb3b6b1adaab1babebcabb0beb9aeaca4aeb9b4b3a4a6bcbdacad
+babab0a7b5b3b1c4bc95a1c1aaffbcbac19db7b6b6b7aab6bdadb0bab7b1abb0b6aeb1ba
+b1b8b7a7a6abb1b7b7b8bab3adaab3b5b5b0aabab8b3b0adbab0abbcb3acb9bcb7abadbe
+b5a7ada9a4b4b8b5bcb0aebab4b8acaec0ada6babaa0ffc0bdb595bcb4b7b7aeb6b3abb5
+b6aeb0b7b8b0aeb5bdb7b0b3b0b1b1aebab5b0b7b1a9a4b7c0b4adb3bcb3abb4bab8a0a0
+b9b1a4b6b8a9a4b7c4aeabbaaea7babcb0b1aab1c0aea4aeb8b1a9b9bcb3a0ffb0bdbe98
+aba0b8b7aab4aaa7b5b6adadb9b1aab1b3adabaebabdb5adb3baaeaab1b5b7aeb6c2b3ae
+b8b4a6adb6b0b3b0adabb4b9b4b4aeadb7b0a1bcbaa6b9bdaea1a4aeb7b9a4adbdadaab8
+b7acb1a1ffcabcaa97a3adc6b1a6b7b4b0b8b1a4b1b6b0b4b9b1a0a9bebeb3acb1bcb5a7
+b0b5aeb5b3aebcb5acb5ada3b5baadbcc2aaa6b8bdb0abb7bab7a7a4bdb1a9b8aeadacb0
+babdb7a6b8bdb0b4aeacb5bdadffc7a79da4aeb5c2b0abbabab3b3b0adb5b4b7b6b0b0a4
+b4c7b4a0b0beb1adb8b7b1aaaab1b1b6b0abacaab5bdb9aab8c1aaaab5b4aeabb1bab8ae
+b0bab1a7adbac0b0b4c0b5b5b5b1b3c0b597b0c6b7b1ffb1adb3b1b7aab3b0abb5b4aeb1
+bdb5a4b3b7a6a9b7b0b5bea6a1b8baa6aabab3b4b1a4b5b7abadada7b4bebcb59fa4b7b5
+b3b9b1aab0b1b3aeb4bdb7adaebabab7a7a7b0a7bebaa4b0bcad9fb7baadb3ffb3b6b0ac
+b7acb4b5b0aea9abb8beaba4c0b7a6b3bab4b5b1a1abb9b5b0abb0b1bab3a9b8b1aeb4ad
+b0bdb6b0b9a6a3babab0b7b7adb1b8ada9bdbdaeaec0b798aab8b4abadc1b5a4aca9aab8
+b4acbcb0ffc2b5a9b3
+%%EndData
+end
+%%PageTrailer
+%%Trailer
+%%BoundingBox: 0 0 80 80
+%%EOF

@@ -1,0 +1,160 @@
+#LyX 1.1 created this file. For more info see http://www.lyx.org/
+\lyxformat 2.15
+\textclass article
+\language american
+\inputencoding default
+\fontscheme default
+\graphics default
+\paperfontsize default
+\spacing single 
+\papersize Default
+\paperpackage a4
+\use_geometry 0
+\use_amsmath 0
+\paperorientation portrait
+\secnumdepth 3
+\tocdepth 3
+\paragraph_separation indent
+\defskip medskip
+\quotes_language english
+\quotes_times 2
+\papercolumns 1
+\papersides 1
+\paperpagestyle default
+
+\layout Title
+
+
+\series medium 
+D
+\series default 
+e
+\series medium 
+tection, repr
+\series default 
+e
+\series medium 
+sentation 
+\series default 
+and
+\series medium 
+ mod
+\series default 
+e
+\series medium 
+l
+\series default 
+ing
+\series medium 
+ 
+\series default 
+
+\newline 
+of
+\series medium 
+ surfaces 
+\series default 
+from 3D
+\series medium 
+ structures.
+ 
+\series default 
+
+\newline 
+
+\series medium 
+Application 
+\series default 
+to the study of long bones 
+\newline 
+morphology and functionality
+\series medium 
+.
+\layout Author
+
+Luis Ibáñez
+\layout Section*
+
+Abstract
+\layout Standard
+
+The aim of this Ph.D.
+ dissertation is to make a contribution to the understanding of bone joint
+ functionality and its relation with morphology-based constrains.
+\layout Standard
+
+\i \={I}
+n order to get a representation of bone morphology we started by extracting
+ surfaces from medical data volumes.
+ In this direction we studied several methods for surface detection and
+ reconstruction.
+\layout Standard
+
+From this study we concluded that the local nature of surface detectors
+ make impossible for them to provide information about the global morphology
+ of an anatomical structure contained in a medical image.
+ On the other hand, the surface reconstruction methods can not guarantee
+ the topological correctness of the resulting surface, nor grant that they
+ correspond to the real anatomical structure wanted.
+ 
+\layout Standard
+
+Our analysis of surface extraction methods leaded us to a deep study on
+ discrete topology.
+ As a result of this study we found that the optimal grid for sampling 3D
+ data volumes is the BCC grid.
+ This optimality being valid from the signal processing point of view, as
+ well as from the discrete topology point of view.
+ We have designed and implemented a set of methods for manipulating this
+ kind of grid.
+ The most important among them are: a variation of the 
+\emph on 
+marching cubes
+\emph default 
+ algorithm and a 
+\emph on 
+line tracing
+\emph default 
+ algorithm for non-orthogonal grid of dimension N.
+\layout Standard
+
+Given that low level methods proved to be insufficient for the detection
+ and extraction of surfaces we reoriented our work toward a model-based
+ image processing approach.
+ It was clear that an understanding of bone morphology from the anatomical
+ point of view was needed.
+ We have studied the bone morphogenesis with an special interest in the
+ upper limbs.
+ This study included aspects from fields as diverse as paleontology, embryology
+ and genetics.
+\layout Standard
+
+From these elements we developed a procedure for performing image segmentation
+ using deformable models.
+ Our model was built by emulating the main factors involved in real morphogenesi
+s.
+ The implemented model uses a triangular mesh for representing the surface
+ and a 3D function from which an iso-value implicitly define the position
+ of the triangular mesh.
+ This dual model allows to take advantage of the particular properties of
+ each representation.
+ Of particular interest is the facility with which collisions between structures
+ can be evaluated.
+ Segmentation is performed by fitting the deformable model parameters to
+ a real medical image.
+ This is done by using an optimization method that update the parameters
+ of the implicit function.
+\layout Standard
+
+Once having the deformable models we have studied the functionality of bone
+ joints.
+ This problem is equivalent to the problem of mobility between two structures
+ in contact, each one having a particular surface shape.
+ The basic elements needed to analyze this problem can be found in the domain
+ of geometric kinematics.
+ Using concepts from Screw theory we have analysed the mechanical behavior
+ of bone joints by studying the evolutes of articular surfaces.
+ Our deformable model representation allows easily evaluate these evolutes,
+ and from them to stablish the constrains imposed by the joint morphology
+ to the movement.
+\the_end

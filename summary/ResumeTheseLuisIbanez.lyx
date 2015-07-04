@@ -1,0 +1,124 @@
+#This file was created by <ibanez> Mon Jul  3 22:34:42 2000
+#LyX 0.12 (C) 1995-1998 Matthias Ettrich and the LyX Team
+\lyxformat 2.15
+\textclass article
+\language french
+\inputencoding default
+\fontscheme default
+\graphics default
+\paperfontsize default
+\spacing single 
+\papersize Default
+\paperpackage a4
+\use_geometry 0
+\use_amsmath 0
+\paperorientation portrait
+\secnumdepth 3
+\tocdepth 3
+\paragraph_separation indent
+\defskip medskip
+\quotes_language english
+\quotes_times 2
+\papercolumns 1
+\papersides 1
+\paperpagestyle default
+
+\layout Title
+
+
+\series medium 
+Détection, représentation et modélisation 
+\series default 
+
+\newline 
+
+\series medium 
+des surfaces des structures 3D.
+ 
+\series default 
+
+\newline 
+
+\series medium 
+Application à l'étude de la morphologie 
+\series default 
+
+\newline 
+
+\series medium 
+et la fonctionnalité des os longs.
+\layout Author
+
+Luis Ibáñez
+\layout Section*
+
+Résumé
+\layout Standard
+
+Notre travail de thèse a eu comme objectif celui de faire une contribution
+ à la compréhension de la fonctionalité des articulations osseuses, et de
+ sa relation avec les contraintes imposées par sa morphologie.
+\layout Standard
+
+A fin de saisir la morphologie osseuse, nous avons commencé par essayer
+ de l'extraire depuis des volumes des données médicaux.
+ Dans cet effort nous avons étudié des méthodes de détection des contours,
+ suivis par de méthodes de reconstruction des surfaces.
+\layout Standard
+
+Cet étude nous a montré que le caractère local des détecteurs de contours
+ ne leur permet pas de fournir des informations sur la morphologie globale
+ d'une structure anatomique dans un volume des donnes.
+ A son tour, les méthodes de bas niveau de reconstruction de surfaces ne
+ peuvent pas offrir aucune garantie de que la surface extraite sera topologiquem
+ent correcte, ni de qu'elle correspondra à la réalité anatomique recherchée.
+\layout Standard
+
+L'analyse des méthodes d'extraction de surfaces nous à conduit a effectuer
+ une étude approfondie de la topologie discrète.
+ Cet étude à donnée comme résultat la constatation de que la grille BCC
+ est la grille optimale pour représenter un volume de données 3D échantillonné,
+ aussi bien du point de vue du traitement de signal que du point de vue
+ de la topologie discrète.
+ Nous avons produit divers méthodes pour manipuler cette type de grille.
+ Les plus importantes parmi eux étant : une variation de la méthode de 
+\emph on 
+Marching Cubes 
+\emph toggle 
+adapté a la grille BCC, et un algorithme de traçage des lignes dans grilles
+ régulières de dimension quelconque.
+\layout Standard
+
+Il nous a parut évidente que une compréhension de la morphologie du point
+ de vue anatomique était indispensable.
+ Nous avons donc aborde l'étude de la morphogenèse osseuse, avec un intérêt
+ particulier pour les membres supérieures.
+ Cet étude comprends des notions appartenant a des domaines aussi varies
+ que la paléontologie, l'embryologie et la génétique.
+\layout Standard
+
+Forts de ses éléments, nous avons suivi une procédure de segmentation par
+ modèles déformables.
+ Notre modèle étant construit comme une émulation des facteurs participant
+ dans la morphogenèse, il contient un maillage triangulaire pour représenter
+ la surface, et une fonction implicite dont un isovaleur définit la position
+ de la surface.
+ Ce modèle duel permet de tirer partie des propriétés de chaque représentation.
+ De particulier intérêt est la facilite avec laquelle il est possible d'évaluer
+ des collision entre structures.
+ La segmentation est effectué en ajustant le modèle déformable à une image
+ médicale réelle.
+ Cet ajustement est mis en oeuvre par une méthode d'optimisation qui s'applique
+ sur les valeurs des paramètres de la fonction implicite sous-jacent.
+\layout Standard
+
+Finalement nous avons réalisé une étude de la fonctionalité articularie.
+ Ce qui est équivalent au problème de la mobilité entre deux structures
+ qui sont confrontées par des surfaces de forme spécifique.
+ La cinématique fournit les éléments fondamentaux pour la compréhension
+ de cettes relations.
+ La théorie des vis permet de monter que le comportement des structures
+ est spécifie par les évolutes des surfaces articulaires.
+ La représentation utilisée dans notre modèle permet d'évaluer ces évolutes
+ avec relative simplicité.
+\the_end

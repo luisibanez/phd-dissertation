@@ -1,0 +1,6709 @@
+head	1.2;
+access;
+symbols;
+locks
+	ibanez:1.2; strict;
+comment	@# @;
+
+
+1.2
+date	2000.07.15.19.36.04;	author ibanez;	state Exp;
+branches;
+next	1.1;
+
+1.1
+date	2000.07.11.15.25.25;	author ibanez;	state Exp;
+branches;
+next	;
+
+
+desc
+@Chapitre de Detection des Surfaces
+@
+
+
+1.2
+log
+@apres consolidation avec Chafiaa Juillet 15 2000
+@
+text
+@#LyX 1.1 created this file. For more info see http://www.lyx.org/
+\lyxformat 2.15
+\textclass book
+\language american
+\inputencoding default
+\fontscheme default
+\graphics default
+\paperfontsize default
+\spacing onehalf 
+\papersize Default
+\paperpackage a4
+\use_geometry 0
+\use_amsmath 0
+\paperorientation portrait
+\secnumdepth 3
+\tocdepth 3
+\paragraph_separation indent
+\defskip medskip
+\quotes_language english
+\quotes_times 2
+\papercolumns 1
+\papersides 2
+\paperpagestyle default
+
+\layout Chapter
+
+Détection de surfaces 
+\begin_inset LatexCommand \label{sec: DetectionSurfaces}
+
+\end_inset 
+
+
+\layout Section
+
+Généralités
+\layout Standard
+
+La détection de surfaces dans les volumes de données est basée sur la généralisa
+tion de méthodes utilisées en imagerie bidimensionnelle.
+ Le concept de contour relève le caractère de transition ou changement de
+ l'intensité de niveaux de gris dans l'image.
+ La généralité de cette définition fait que la sortie d'un processus de
+ détection de contours ne rend pas toujours les résultats escomptés.
+\layout Standard
+
+Nous présentons dans ce chapitre notre étude concernant divers types de
+ détecteurs de contours appliqués au problème de la détection de surfaces
+ dans les volumes de données.
+ Les détecteurs que nous avons choisis ont été mis dans un cadre comparatif
+ permettant d'évaluer leurs performances aussi bien du point de vue temps
+ de calcul que du point de vue précision de la détection.
+ Ils ont tous un paramètre à régler associé au lissage qui s'appl\i \.{\i}
+que préalableme
+nt à la détection du contour.
+ Ce lissage adapte d'une certaine manière l'échelle à laquelle le contour
+ est cherché.
+ Les tests ont été réalisés en prenant pour chaque détecteur la valeur optimale
+ de son paramètre.
+\layout Subsection
+
+Les types de profil
+\layout Standard
+
+La notion de transition dans les niveaux de gris, étant très vague, elle
+ peut se présenter de diverses manières 
+\begin_inset LatexCommand \cite{Heath}
+
+\end_inset 
+
+.
+ La figure
+\protected_separator 
+
+\begin_inset LatexCommand \ref{fig:profiles}
+
+\end_inset 
+
+ illustre différents profils de niveaux de gris extraits le long d'une ligne
+ dans des volumes de données Scanner X.
+ La ligne tracée dans les images représente la région où le profil a été
+ pris.
+\layout Standard
+
+\begin_float fig 
+\layout Standard
+\align center 
+
+\begin_inset Figure size 124 124
+file Surfaces_eps/profile1img.eps
+subcaption Articulation du coude
+width 1 4.40
+height 1 4.40
+flags 12
+subfigure
+
+\end_inset 
+
+ 
+\begin_inset Figure size 155 124
+file Surfaces_eps/profile1.eps
+subcaption Profil de niveaux de gris
+width 1 5.50
+height 1 4.40
+flags 12
+subfigure
+
+\end_inset 
+
+ 
+\layout Standard
+\align center 
+
+\begin_inset Figure size 124 124
+file Surfaces_eps/profile2img.eps
+subcaption Articulation Scapulo-Humérale
+width 1 4.40
+height 1 4.40
+flags 12
+subfigure
+
+\end_inset 
+
+ 
+\begin_inset Figure size 155 124
+file Surfaces_eps/profile2.eps
+subcaption Profil de niveux de gris
+width 1 5.50
+height 1 4.40
+flags 12
+subfigure
+
+\end_inset 
+
+ 
+\layout Standard
+\align center 
+
+\begin_inset Figure size 124 124
+file Surfaces_eps/profile3img.eps
+subcaption Articulation Coxo-Fémorale
+width 1 4.40
+height 1 4.40
+flags 12
+subfigure
+
+\end_inset 
+
+ 
+\begin_inset Figure size 155 124
+file Surfaces_eps/profile3.eps
+subcaption Profil de niveaux de gris
+width 1 5.50
+height 1 4.40
+flags 12
+subfigure
+
+\end_inset 
+
+
+\layout Caption
+
+
+\begin_inset LatexCommand \label{fig:profiles}
+
+\end_inset 
+
+Le contour comme changement d'intensité du signal.
+\end_float 
+ 
+\layout Standard
+
+Ces profils illustrent un des problèmes importants de la détection de surfaces
+ : le fait de constater que 
+\emph on 
+visuellement
+\emph default 
+ l'observateur humain n'éprouve aucune difficulté à la détermination des
+ contours tandis que les algorithmes de traitement d'image ont souvent des
+ performances insatisfaisantes.
+ La facilité avec laquelle l'observateur réalise cette tâche, conduit souvent
+ à sous-estimer la complexité de son automatisation.
+\layout Subsection
+
+La notion de multi-échelle
+\begin_inset LatexCommand \label{sec:multi-echelle}
+
+\end_inset 
+
+
+\layout Standard
+
+Le changement d'intensité peut être considéré aussi bien à un niveau très
+ local qu'entre des régions éloignées.
+ La différence entre les deux cas étant simplement une relation d'échelle
+ spatiale considérée.
+ Tout processus de détection de contours doit d'une façon ou d'une autre
+ s'ajuster à la grandeur de la zone de transition.
+\layout Standard
+
+En général, il ne suffit pas de choisir une échelle particulière, au contraire,
+ il faut considérer et analyser toute une suite d'échelles.
+ L'introduction du concept de multi-échelle a été faite par Marr et Hildreth
+ suite à l'étude du système visuel humain 
+\begin_inset LatexCommand \cite{Marr80}
+
+\end_inset 
+
+
+\begin_inset LatexCommand \cite{Marr83}
+
+\end_inset 
+
+.
+\layout Standard
+
+Les approches multi-échelle se réalisent en trois étapes :
+\layout Itemize
+
+Filtrage passe-bas pour choisir l'échelle d'intêret
+\layout Itemize
+
+Détection de contours par des opérateurs dérivatifs
+\layout Itemize
+
+Analyse de l'ensemble des échelles pour interpréter l'information.
+\layout Standard
+
+Dans ce travail de thèse, seulement les deux premières étapes ont été retenues,
+ car la troisième s'est montrée insuffisante pour résoudre nos besoins d'extract
+ion de formes.
+ Notamment au niveau articulaire où les distances qui séparent les surfaces
+ des pièces osseuses confrontées sont de l'ordre de la taille du voxel.
+ 
+\layout Standard
+
+L'application du filtrage passe bas a aussi pour effet une réduction du
+ bruit dans l'image, sous l'hypothèse que le bruit a un spectre principalement
+ riche en hautes fréquences.
+\layout Subsection
+
+Les artéfacts en Tomographie
+\layout Standard
+
+Nous sommes particulièrement concernés ici par l'extraction de surface à
+ partir des images tomographiques.
+ Ces images ont des caractéristiques qui leurs sont propres et qui doivent
+ être prises en compte au moment de s'engager dans un processus de détection
+ de surfaces.
+\layout Standard
+
+Une des caractéristiques importantes des images de tomographie est le fait
+ qu'elles sont obtenues suite au processus de reconstruction à partir de
+ projections 
+\begin_inset LatexCommand \cite{Udupa}
+
+\end_inset 
+
+
+\begin_inset LatexCommand \cite{Herman80}
+
+\end_inset 
+
+.
+ Les méthodes de reconstruction ont des limitations liées au nombre réduit
+ de projections réellement utilisées pour récupérer le volume de données.
+ Les artéfacts typiques dans les images de tomographie sont:
+\layout Itemize
+
+la décorrélation dans l'axe de balayage du scanner
+\layout Itemize
+
+les lignes résiduelles de projections
+\layout Standard
+
+Le premier est la conséquence du fait que le volume de données est reconstruit
+ coupe par coupe.
+ Les coupes ne sont pas toujours cohérentes entre elles dans l'axe de balayage.
+ La constatation la plus directe de cette décorrélation est la variabilité
+ d'artéfacts linéaires entre les coupes voisines.
+ 
+\layout Standard
+
+Le second artéfact provient du fait d'utiliser l'information d'une projection
+ dans une direction pour la redistribuer sur tous les voxels qui ont dû
+ intervenir dans l'absorption de la radiation au moment de l'acquisition
+ de la projection.
+ La figure (
+\begin_inset LatexCommand \ref{fig:artefacts}
+
+\end_inset 
+
+) montre un ensemble de coupes avec leurs Laplaciens respectifs.
+ Les lignes rouges démarquent les endroits d'où les coupes des deux autres
+ axes ont été prises.
+ 
+\layout Standard
+
+Ces artéfacts sont souvent interprétés comme du bruit, particulièrement
+ quand ils sont vus dans les coupes des axes perpendiculaires à l'axe de
+ balayage (à cause de la décorrélation entre coupes), mais cette interprétation
+ s'avère incorrecte dans la mesure où, les notions de décorrélation spatiale
+ propres au bruit ne sont pas satisfaites, et ne peuvent pas être décrites
+ correctement par des distributions statistiques.
+ Les artéfacts ont un caractère non-linéaire dans la mesure où leurs orientation
+s et intensités dépendent directement du contenu du volume des données.
+\layout Standard
+
+\begin_float fig 
+\layout Standard
+\align center 
+
+\begin_inset Figure size 127 127
+file Surfaces_eps/artx.eps
+subcaption Coupe axe X
+width 1 4.50
+height 1 4.50
+flags 8
+subfigure
+
+\end_inset 
+
+ 
+\begin_inset Figure size 127 127
+file Surfaces_eps/artxLap.eps
+subcaption Laplacian X
+width 1 4.50
+height 1 4.50
+flags 8
+subfigure
+
+\end_inset 
+
+
+\layout Standard
+\align center 
+
+\begin_inset Figure size 127 127
+file Surfaces_eps/arty.eps
+subcaption Coupe axe Y
+width 1 4.50
+height 1 4.50
+flags 8
+subfigure
+
+\end_inset 
+
+ 
+\begin_inset Figure size 127 127
+file Surfaces_eps/artyLap.eps
+subcaption Laplacian  Y
+width 1 4.50
+height 1 4.50
+flags 8
+subfigure
+
+\end_inset 
+
+
+\layout Standard
+\align center 
+
+\begin_inset Figure size 127 127
+file Surfaces_eps/artz.eps
+subcaption Coupe Z
+width 1 4.50
+height 1 4.50
+flags 8
+subfigure
+
+\end_inset 
+
+ 
+\begin_inset Figure size 127 127
+file Surfaces_eps/artzLap.eps
+subcaption Laplacian Z
+width 1 4.50
+height 1 4.50
+flags 8
+subfigure
+
+\end_inset 
+
+
+\layout Caption
+
+
+\begin_inset LatexCommand \label{fig:artefacts}
+
+\end_inset 
+
+Artéfacts linéaires et décorrélation des coupes selon l'axe z (axe de balayage
+ du tomographe).
+\end_float 
+Les artéfacts linéaires peuvent être appréciés sur l'image (
+\begin_inset LatexCommand \ref{fig:artefacts}
+
+\end_inset 
+
+f) comme irradiant depuis une source située à droite 
+\begin_inset Info hamitou Thu Oct 14 15:52:10 1999
+Que veux-tu dire par irradiant depuis la droite
+
+ibanez Oct 20 1999
+si tu regarde l'image, les estructures lignes
+convergent vers un point situe quelque par
+dans la region a droite de l'image.  Ce point
+se trouve au centre de rotation du tomographe.
+\end_inset 
+
+.
+ Ces structures linéaires sont vues comme du bruit dans l'image (
+\begin_inset LatexCommand \ref{fig:artefacts}
+
+\end_inset 
+
+b) correspondant à la coupe selon l'axe X.
+ L'image (
+\begin_inset LatexCommand \ref{fig:artefacts}
+
+\end_inset 
+
+d) correspondant à la ligne blanche horizontale de l'image (
+\begin_inset LatexCommand \ref{fig:artefacts}
+
+\end_inset 
+
+f) où les structures linéaires sont parallèles à la coupe et peuvent être
+ considérées comme telles au lieu de donner l'apparence de bruit.
+\layout Section
+
+Les méthodes de détection de surfaces
+\begin_inset LatexCommand \label{sec:CadreDetection}
+
+\end_inset 
+
+
+\layout Standard
+
+Parmi les multiples méthodes de détection de frontières, quatre ont retenu
+ notre attention pour une application sur les volumes des données.
+ Les principes de ces méthodes sont présentés dans cette partie.
+ Ces méthodes ont été modifiées afin de pouvoir comparer leurs performances
+ en les appliquant dans les mêmes conditions; chacune d'entre elles est
+ en mesure de fournir les volumes de données suivants:
+\layout Itemize
+
+un volume de données lissées
+\layout Itemize
+
+un volume de données de gradients (modules et composantes)
+\layout Itemize
+
+un volume de données de les Laplaciens.
+\layout Standard
+
+Le volume lissé est utilisé uniquement comme référence pour vérifier l'effet
+ du filtrage passe-pas propre à chaque méthode.
+ En particulier, le compromis entre réduction du bruit et lissage des contours.
+\layout Standard
+
+Le volume de données de gradients sert comme indicateur de la présence de
+ contours importants, tandis que le volume de Laplaciens permet de localiser
+ avec précision la position des surfaces comme l'endroit où se trouve le
+ maximum du gradient, donc le passage par zéro du Laplacien.
+\layout Subsection
+
+L'opérateur basé sur les moments géométriques
+\layout Standard
+
+L'opérateur basé sur les moment géométriques est un opérateur non-linéaire
+ proposé en 2D 
+\begin_inset LatexCommand \cite{Lyvers89}
+
+\end_inset 
+
+ et généralise en 3D 
+\begin_inset LatexCommand \cite{Luo93}
+
+\end_inset 
+
+
+\begin_inset LatexCommand \cite{Hamitouche95}
+
+\end_inset 
+
+.
+ Cet opérateur s'applique localement dans un voisinage sphérique défini
+ par un certain rayon.
+ A l'intérieur de ce voisinage, les moments géométriques 
+\begin_inset Formula \( m_{ijk} \)
+\end_inset 
+
+ sont évalués jusqu'à l'ordre deux.
+ Le volume de données étant assimilé à une fonction scalaire 3D, 
+\begin_inset Formula \( I(x,y,z) \)
+\end_inset 
+
+.
+\layout Standard
+
+
+\begin_inset Formula 
+\[
+m_{ijk}=\int \int \int I(x,y,z)x^{i}y^{j}z^{k}dxdydz\]
+
+\end_inset 
+
+
+\layout Standard
+
+Les profils des contours à détecter sont supposés de la forme échelon.
+ Les valeurs des dix moments 
+\begin_inset Formula \( m_{000} \)
+\end_inset 
+
+, 
+\begin_inset Formula \( m_{100} \)
+\end_inset 
+
+, 
+\begin_inset Formula \( m_{010} \)
+\end_inset 
+
+, 
+\begin_inset Formula \( m_{001} \)
+\end_inset 
+
+, 
+\begin_inset Formula \( m_{110} \)
+\end_inset 
+
+, 
+\begin_inset Formula \( m_{101} \)
+\end_inset 
+
+, 
+\begin_inset Formula \( m_{011} \)
+\end_inset 
+
+, 
+\begin_inset Formula \( m_{200} \)
+\end_inset 
+
+, 
+\begin_inset Formula \( m_{020} \)
+\end_inset 
+
+, 
+\begin_inset Formula \( m_{002} \)
+\end_inset 
+
+, calculés dans le voisinage sont utilisés pour estimer les paramètres propres
+ au modèle du profil échelon (figure 
+\begin_inset LatexCommand \ref{fig:EchellonSigmoide}
+
+\end_inset 
+
+a).
+ Notamment :
+\layout Itemize
+
+la hauteur 
+\begin_inset Formula \( b \)
+\end_inset 
+
+ de l'échelon qui représente une mesure du contraste
+\layout Itemize
+
+l'orientation dans l'espace, correspondant à la normale à la surface.
+\layout Standard
+
+L'estimation pratique du moment 
+\begin_inset Formula \( m_{ijk} \)
+\end_inset 
+
+, dans le voisinage d'un voxel, se fait par corrélation avec un masque précalcul
+é, dont les coefficients en chaque voxel correspondent à l'intégration de
+ la fonction 
+\begin_inset Formula \( x^{i}y^{j}z^{k} \)
+\end_inset 
+
+ à l'intérieur du voxel 
+\begin_inset LatexCommand \cite{Luo93}
+
+\end_inset 
+
+.
+\layout Subsubsection
+
+les modèles de profil
+\layout Standard
+
+Le choix du profil échelon étant restrictif, des types de profils plus généraux,
+ notamment, les profils composés ont été étudiés et pris en compte avec
+ les moments géométriques
+\begin_inset LatexCommand \cite{Ghosal97}
+
+\end_inset 
+
+
+\begin_inset LatexCommand \cite{Ghosal94}
+
+\end_inset 
+
+.
+ 
+\layout Standard
+
+Il est clair qu'un profil échelon est trop brusque pour représenter la réalité
+ physique.
+ Même si les images sont d'une haute qualité, le processus de discrétisation
+ fait que l'on dispose toujours de contours progressifs (le spectre du signal
+ doit être réduit à un support fini avant de l'échantillonner).
+ 
+\layout Standard
+
+Un modèle plus réaliste de profil est la fonction sigmoïde (figure 
+\begin_inset LatexCommand \ref{fig:EchellonSigmoide}
+
+\end_inset 
+
+b), mais comme c'est souvent le cas, quand les modèles s'approchent de la
+ réalité, la complexité de son calcul la rend impossible en pratique.
+ L'observation de cette fonction à une échelle assez réduite donne l'aspect
+ d'un échelon, tandis qu'à une grande échelle, elle laissera la place pour
+ différentes régions à l'intérieur 
+\begin_inset LatexCommand \cite{Elder98}
+
+\end_inset 
+
+.
+ La figure (
+\begin_inset LatexCommand \ref{fig:EchellonSigmoide}
+
+\end_inset 
+
+) illustre ce concept.
+ Le modèle d'échelon (figure 
+\begin_inset LatexCommand \ref{fig:EchellonSigmoide}
+
+\end_inset 
+
+a) avec ses paramètres 
+\begin_inset Formula \( (a,b,h) \)
+\end_inset 
+
+ est visiblement artificiel.
+ Le modèle sigmoïde (figure 
+\begin_inset LatexCommand \ref{fig:EchellonSigmoide}
+
+\end_inset 
+
+b) par contre est d'une complexité plus importante.
+ Pour simplifier son analyse, ses diverses régions peuvent être cataloguées
+ selon qu'elles soient dominées par un terme (C) constante, (Q-) quadratique
+ négative, (L) linéaire ou (Q+) quadratique positive.
+ Dans cette optique, nous avons remplacé l'estimation des paramètres du
+ modèle d'échelon à partir des moments, par la décomposition de la fonction
+ de l'image en composantes
+\protected_separator 
+:
+\begin_float fig 
+\layout Standard
+\align center 
+
+\begin_inset Figure size 113 113
+file Surfaces_eps/echellon.eps
+subcaption Echelon
+width 1 4.00
+height 1 4.00
+flags 8
+subfigure
+
+\end_inset 
+
+ 
+\begin_inset Figure size 141 113
+file Surfaces_eps/sigmoide.eps
+subcaption Sigmoide
+width 1 5.00
+height 1 4.00
+flags 8
+subfigure
+
+\end_inset 
+
+
+\layout Caption
+
+
+\begin_inset LatexCommand \label{fig:EchellonSigmoide}
+
+\end_inset 
+
+Modèle de profil de ligne en niveaux de gris.
+\end_float 
+\layout Itemize
+
+constantes
+\layout Itemize
+
+linéaires
+\layout Itemize
+
+quadratiques
+\layout Subsubsection
+
+L'opérateur adapté
+\layout Standard
+
+La fonction 
+\begin_inset Formula \( I(x,y,z) \)
+\end_inset 
+
+ représentant l'image est décomposée dans une base vectorielle orthogonale.
+ Les composantes 
+\begin_inset Formula \( m_{000} \)
+\end_inset 
+
+, 
+\begin_inset Formula \( m_{100} \)
+\end_inset 
+
+, 
+\begin_inset Formula \( m_{010} \)
+\end_inset 
+
+, 
+\begin_inset Formula \( m_{001} \)
+\end_inset 
+
+ sont naturellement orthogonales entre elles.
+ Les trois composantes d'ordre 
+\begin_inset Formula \( 1 \)
+\end_inset 
+
+ : 
+\begin_inset Formula \( \left\{ m_{100},m_{010},m_{001}\right\}  \)
+\end_inset 
+
+ sont considérées comme des estimations des composantes du vecteur gradient
+ de la fonction 
+\begin_inset Formula \( I(x,y,z) \)
+\end_inset 
+
+.
+ Le moment d'ordre 1, dans la direction du gradient est 
+\begin_inset Formula \( m^{'}_{1}=\sqrt{m_{100}^{2}+m_{010}^{2}+m_{001}^{2}} \)
+\end_inset 
+
+.
+ Le moment d'ordre 2 
+\begin_inset Formula \( m^{'}_{2} \)
+\end_inset 
+
+le long de la direction du gradient, est calculé selon les principes présentés
+ dans 
+\begin_inset LatexCommand \cite{Lyvers89}
+
+\end_inset 
+
+
+\begin_inset LatexCommand \cite{Luo93}
+
+\end_inset 
+
+.
+ Ce moment n'étant pas indépendant de la composante 
+\begin_inset Formula \( m_{000} \)
+\end_inset 
+
+, une orthogonalisation simple s'avère nécessaire pour obtenir un terme
+ 
+\begin_inset Formula \( m_{2} \)
+\end_inset 
+
+ qui puisse être interprété comme quadratique et indépendant des termes
+ linéaires 
+\begin_inset Formula \( m_{1}' \)
+\end_inset 
+
+ et constant 
+\begin_inset Formula \( m_{000} \)
+\end_inset 
+
+:
+\layout Standard
+
+
+\begin_inset Formula 
+\[
+m_{2}=5m^{'}_{2}-R^{2}m_{000}\]
+
+\end_inset 
+
+ 
+\layout Standard
+
+
+\begin_inset Formula \( R \)
+\end_inset 
+
+ représente le rayon du voisinage considéré pour le calcul des moments.
+ Cette présentation de la méthode des moments permet de l'assimiler au cadre
+ général des détecteurs de contour décrit précédemment 
+\begin_inset LatexCommand \ref{sec:CadreDetection}
+
+\end_inset 
+
+, le moment d'ordre zéro est utilisé comme volume lissé, le moment d'ordre
+ 1 est interprété comme module du gradient et le moment d'ordre 2 orthogonalisé,
+ est considéré comme Laplacien
+\begin_inset Info hamitou Fri Oct 15 11:39:01 1999
+
+Je pense que ca manque un peu de preuves : pourquoi le moment
+d'ordre deux orthogonalisé peut être assimilé à un Laplacien
+
+ibanez Oct 20 1999
+La raison est que au moment de deroter la
+composante M2, on reduit le probleme de 3D a un
+probleme 1D car on obtien un nouveau sisteme de
+coordonnees qui est alignee avec le contour.
+
+Le laplacien pres d'un contour est equivalent a
+un derive seconde dans la direction normale au
+contour.
+
+Si on prends une fonction 1D et on la
+decompose en series de Taylor. la composante
+cuadratique de la serie est associe a la derivee
+seconde a condition de que la fonction soit nulle
+dans le point autour du quel on fait le developpement.
+
+Orthogonaliser le terme M2 equivaut a enlever la
+composante constante de la fonction (M0 qui est une
+sorte de moyenne). Ce qui fait que la 'nouvelle' fonction
+soit nulle dans le point central (le centre de la sphere
+dans laquelle nous evaluons les moments).
+
+Le moment d'ordre 2 derote et orthogonalise,
+etant le terme cuadratique de la de composition
+de l'image en un serie de taylor, est proportional
+a la derive seconde,...
+donc dans notre cas :   au laplacien.
+
+Tout cela grace a que nous somme dans le voisinage
+du contour.
+
+Cela ne marcherait pas, bien evidement, dans les
+regions de la fonction qui sont loins d'un contour.
+
+Comme la proportionalite n'est parfait due a que la
+decomposition a ete fait par correlation avec des
+masques qui ne sont pas infinitesimales, nous nous
+limitons a dire que le la composante d'ordre deux
+est "asoccie" au laplacian, pour dire qu'ils sont
+fortement dependantes.
+\end_inset 
+
+.
+\layout Subsubsection
+
+Caractéristiques
+\layout Standard
+
+L'opérateur basé sur les moments a un seul paramètre à régler : le rayon
+ 
+\begin_inset Formula \( R \)
+\end_inset 
+
+ de la sphère qui détermine le voisinage pour le calcul des moments autour
+ de chaque voxel.
+ Cette méthode est adaptée de façon intrinsèque à l'anisotropie propre des
+ volumes de données car le voisinage sphérique est évalué dans l'espace
+ continu au lieu d'être mesuré en voxels.
+ Néanmoins, les estimations fournies par cet opérateur sont biaisées par
+ rapport à l'orientation, ce qui a été étudié dans 
+\begin_inset LatexCommand \cite{Luo93}
+
+\end_inset 
+
+.
+\layout Standard
+
+Cet opérateur s'adapte facilement à l'anisotropie des volumes de données
+ car la taille du voxel est prise en compte au moment de générer les masques
+ de corrélation utilisés pour estimer les moments.
+\layout Standard
+
+Une caractéristique assez intéressante de ce détecteur est l'élimination
+ des effets de moiré ou recouvrement spectral dans l'image associée au Laplacien.
+ Les opérateurs appliqués par des procédures séparables ont une tendance
+ plus importante à générer des effets de recouvrement, conséquence normale
+ du fait de donner plus d'importance aux informations provenant des voisins
+ verticaux et horizontaux.
+\layout Standard
+
+Il a été montré que les méthodes qui utilisent des convolutions anisotropes
+ ne sont pas optimales pour détecter des contours linéaires, car seulement
+ une partie réduite du détecteur est sensible à cette surface particulière.
+ Il s'agit d'un compromis entre la généralité et la sensibilité du détecteur.
+ En revanche, les détecteurs basés sur l'utilisation de modèles de contours
+ peuvent s'orienter pour maximiser sa sensibilité dans la direction du contour
+ en chaque point du signal 
+\begin_inset LatexCommand \cite{Qian96}
+
+\end_inset 
+
+.
+ L'opérateur des moments suit ce type d'approche.
+\layout Standard
+
+Le principal inconvénient de cette méthode est son temps de calcul qui dépasse
+ largement celui de ses concurrents.
+ Des méthodes mathématiques particulières peuvent être utilisées pour accélérer
+ le calcul des moments dans les images 
+\begin_inset LatexCommand \cite{Yang97}
+
+\end_inset 
+
+, mais cela ne suffit pas pour rattraper les méthodes basées sur les filtres
+ récursifs.
+\layout Subsection
+
+Le Laplacien d'une Gaussienne (LOG)
+\layout Subsubsection
+
+le modèle de la vision humaine
+\layout Standard
+
+La performance du système visuel humain a inspiré un certain nombre de chercheur
+s pour essayer de comprendre son fonctionnement afin de l'émuler et de pouvoir
+ construire des algorithmes aussi efficaces.
+\layout Standard
+
+La première de ses approches a été effectuée par Marr et Hildreth 
+\begin_inset LatexCommand \cite{Marr80}
+
+\end_inset 
+
+
+\begin_inset LatexCommand \cite{Marr83}
+
+\end_inset 
+
+.
+ L'analyse de la réponse des cônes et bâtonnets dans la rétine humaine se
+ présente comme une zone centrale sensible entourée d'une région d'inhibition.
+ L'hypothèse indique que ces structures dans la rétine étaient spécialisées
+ dans la détection des contours en utilisant le passage par zéro de la réponse
+ de sa fonction de sensibilité.
+\layout Standard
+
+\begin_float fig 
+\layout Standard
+\align center 
+
+\begin_inset Figure size 226 170
+file Surfaces_eps/LoG1D.eps
+width 1 8.00
+height 1 6.00
+flags 12
+
+\end_inset 
+
+
+\layout Caption
+
+
+\begin_inset LatexCommand \label{fig:Gaussian1D}
+
+\end_inset 
+
+La fonction Gaussienne, sa première et seconde dérivées.
+\end_float 
+\layout Standard
+
+\begin_float fig 
+\layout Standard
+\align center 
+
+\begin_inset Figure size 170 170
+file Surfaces_eps/LoG2D.eps
+subcaption La fonction Gaussienne
+width 1 6.00
+height 1 6.00
+flags 8
+subfigure
+
+\end_inset 
+
+ 
+\begin_inset Figure size 170 170
+file Surfaces_eps/LoG2DL.eps
+subcaption Laplacien d'une Gaussienne
+width 1 6.00
+height 1 6.00
+flags 8
+subfigure
+
+\end_inset 
+
+
+\layout Standard
+\align center 
+
+\begin_inset Figure size 170 170
+file Surfaces_eps/LoG2Dx.eps
+subcaption D\'{e}riv\'{e}e en X de la Gaussienne
+width 1 6.00
+height 1 6.00
+flags 8
+subfigure
+
+\end_inset 
+
+ 
+\begin_inset Figure size 170 170
+file Surfaces_eps/LoG2Dy.eps
+subcaption D\'{e}riv\'{e}e en Y de la Gaussienne
+width 1 6.00
+height 1 6.00
+flags 8
+subfigure
+
+\end_inset 
+
+
+\layout Caption
+
+
+\begin_inset LatexCommand \label{fig:Gaussian2D}
+
+\end_inset 
+
+La fonction Gaussienne bidimensionelle
+\end_float 
+\layout Standard
+
+Une des caractéristiques remarquables de la rétine humaine est le fait d'utilise
+r un détecteur assez étendu.
+ Tandis que la grande majorité des méthodes de détection de contours se
+ limitent à un voisinage du pixel (typiquement 3x3, 5x5, 7x7 pixels, par
+ souci de performance).
+ Le système de vision semble utiliser des filtres de l'ordre de 150 éléments
+ (cellules), ce qui est possible grâce à la haute densité des récepteurs
+ dans la région centrale de la rétine.
+\layout Subsubsection
+
+Le modèle mathématique
+\layout Standard
+
+La fonction de sensibilité des récepteurs de la rétine fut modélisée comme
+ le Laplacien d'une fonction Gaussienne, figure
+\protected_separator 
+
+\begin_inset LatexCommand \ref{fig:Gaussian1D}
+
+\end_inset 
+
+.
+ 
+\layout Standard
+
+
+\begin_inset Formula 
+\[
+G\left( x\right) =\frac{1}{\sigma \sqrt{2\pi }}\exp \left( -\frac{x^{2}}{2\sigma ^{2}}\right) \]
+
+\end_inset 
+
+
+\layout Standard
+
+
+\begin_inset Formula 
+\[
+\frac{\partial }{\partial x}G\left( x\right) =-\frac{x}{\sigma ^{3}\sqrt{2\pi }}\exp \left( -\frac{x^{2}}{2\sigma ^{2}}\right) \]
+
+\end_inset 
+
+
+\layout Standard
+
+
+\begin_inset Formula 
+\[
+\frac{\partial ^{2}}{\partial x^{2}}G\left( x\right) =\frac{\left( x^{2}-\sigma ^{2}\right) }{\sigma ^{5}\sqrt{2\pi }}\exp \left( -\frac{x^{2}}{2\sigma ^{2}}\right) \]
+
+\end_inset 
+
+
+\layout Standard
+
+La fonction Gaussienne en 2D et ses dérivées sont illustrées dans la figure
+\protected_separator 
+
+\begin_inset LatexCommand \ref{fig:Gaussian2D}
+
+\end_inset 
+
+.
+ Il faut remarquer que le Laplacien de la Gaussienne est négatif à l'origine.
+ Il est fréquent de le retrouver avec le signe inverse dans la litérature
+ 
+\begin_inset LatexCommand \cite{Huertas86}
+
+\end_inset 
+
+
+\begin_inset LatexCommand \cite{Babaud86}
+
+\end_inset 
+
+.
+ 
+\layout Standard
+
+La mise en oeuvre de la méthode implique : 
+\layout Itemize
+
+Le lissage de l'image par une convolution avec un filtre Gaussien.
+ 
+\layout Itemize
+
+L'application d'un opérateur dérivatif dans chacune des directions des axes
+ de coordonnées pour obtenir le gradient.
+ 
+\layout Itemize
+
+Une deuxième application des opérateurs dérivatifs pour d'obtenir le Laplacien
+ de l'image.
+ 
+\layout Standard
+
+Cette procédure est équivalente à appliquer des convolutions avec des dérivées
+ de la fonction Gaussienne 
+\begin_inset LatexCommand \cite{Hummel86}
+
+\end_inset 
+
+:
+\layout Standard
+
+
+\begin_inset Formula 
+\[
+\frac{\partial }{\partial x}\left( G\star I\right) =\frac{\partial G}{\partial x}\star I=G\star \frac{\partial }{\partial x}I\]
+
+\end_inset 
+
+ 
+\layout Standard
+
+
+\begin_inset Formula 
+\[
+\nabla \left( G\star I\right) =\nabla G\star I=G\star \nabla I\]
+
+\end_inset 
+
+
+\layout Standard
+
+Il est plus intéressant de générer d'abord les filtres équivalents à la
+ fonction Gaussienne et ses dérivées et convoluer ensuite avec l'image.
+\layout Subsubsection
+
+L'espace échelle
+\layout Standard
+
+L'approche de Marr et Hildreth a été à l'origine de l'étude des approches
+ multi-échelle.
+ Comme il a été signalé dans la partie
+\protected_separator 
+
+\begin_inset LatexCommand \ref{sec:multi-echelle}
+
+\end_inset 
+
+, la généralité du concept de contour oblige à chercher des transitions
+ de niveaux de gris à plusieurs échelles, sauf bien évidemment, dans le
+ cas où une information a priori est disponible sur le contenu de l'image.
+\layout Standard
+
+La fonction Gaussienne s'avère être la seule à satisfaire les conditions
+ nécessaires pour une approche multi-échelles, quand elles est conçue sur
+ des fonctions continues 
+\begin_inset LatexCommand \cite{Babaud86}
+
+\end_inset 
+
+.
+ Néanmoins, le fait de devoir reproduire le processus de détection à chaque
+ échelle implique un temps de calcul prohibitif.
+ Des approches dans le domaine des ondelettes se révèlent plus efficaces,
+ car d'une part, elles échantillonnent l'espace à des valeurs discrètes
+ (puissances de deux) et d'autre part produisent des informations décorrélées
+ à chaque échelle (orthogonalité).
+\layout Standard
+
+Un processus d'interprétation de l'information présente s'avère nécessaire
+ dans l'espace échelle, car l'apparition de nombreux passages par zéro gène
+ l'identification des contours importants.
+ La proximité des surfaces introduit aussi des passages par zéro qui ne
+ correspondent pas au maximum d'un gradient 
+\begin_inset LatexCommand \cite{Clark89}
+
+\end_inset 
+
+
+\begin_inset LatexCommand \cite{Bischof88}
+
+\end_inset 
+
+.
+\layout Subsubsection
+
+La performance
+\layout Standard
+
+Par souci de temps de calcul, certains travaux ont porté sur l'approximation
+ du Laplacien de la Gaussienne (LoG) par la différence de deux Gaussiennes
+ (DoG) 
+\begin_inset LatexCommand \cite{Marr80}
+
+\end_inset 
+
+
+\begin_inset LatexCommand \cite{Huertas86}
+
+\end_inset 
+
+, ce qui réduit le nombre d'opérations à effectuer, mais en pratique, le
+ filtre est de toute manière tronqué, car le calcul doit être effectué sur
+ un support fini.
+ Cette troncature est habituellement de l'ordre de 
+\begin_inset Formula \( 3\sigma  \)
+\end_inset 
+
+ ou 
+\begin_inset Formula \( 4\sigma  \)
+\end_inset 
+
+ de l'origine.
+\layout Standard
+
+Les difficultés de performance dans l'application des filtres Gaussiens
+ peuvent être surmontées grâce à l'utilisation de filtres récursifs qui
+ approchent le profil Gaussien.
+ Dans notre cas, la méthode implantée est celle proposée par Deriche avec
+ un filtre récursif d'ordre 4 
+\begin_inset LatexCommand \cite{Deriche93}
+
+\end_inset 
+
+.
+ 
+\layout Standard
+
+La précision de la localisation des surfaces est biaisée par la forme des
+ contours.
+ La convexité ou concavité de la surface déplace le passage par zéro du
+ Laplacien par rapport à la vrai position du contour 
+\begin_inset LatexCommand \cite{Sengupta95}
+
+\end_inset 
+
+.
+ Il est raisonnable de s'attendre à des biais similaires pour les autres
+ détecteurs de contours, d'autant plus forts que la taille du détecteur
+ est importante.
+\layout Standard
+
+Pour faire face à l'anisotropie du volume de données, les valeurs de 
+\begin_inset Formula \( \sigma  \)
+\end_inset 
+
+ sont pondérés par la taille du voxel en chaque direction.
+ De cette manière une valeur 
+\begin_inset Formula \( \sigma  \)
+\end_inset 
+
+ au sens physique est spécifiée par l'utilisateur, mais trois valeurs 
+\begin_inset Formula \( (\sigma _{x},\sigma _{y},\sigma _{z}) \)
+\end_inset 
+
+ au sens discret, sont utilisées au moment d'appliquer le filtre récursif
+ dans chaque direction.
+\layout Subsection
+
+L'opérateur de Canny et Deriche
+\layout Subsubsection
+
+Le concept d'optimisation
+\layout Standard
+
+L'opérateur de Canny a été développé comme la solution d'un problème d'optimisat
+ion sous contraintes 
+\begin_inset LatexCommand \cite{Canny86}
+
+\end_inset 
+
+.
+ Cet opérateur fournit un compromis optimal entre les critères suivants
+ :
+\layout Itemize
+
+Localisation
+\layout Itemize
+
+Détection
+\layout Itemize
+
+Unicité de la réponse
+\layout Standard
+
+Il faut remarquer que le détecteur est optimisé sous l'hypothèse que le
+ bruit présent dans la signal est additif, blanc, gaussien et centré.
+ Ce qui n'est malheureusement pas le cas dans les volumes de données provenant
+ de Scanner X ou d'IRM.
+ L'opérateur développé initialement par Canny est un filtre à Réponse impulsionn
+elle finie (RIF), une version utilisant un filtre à réponse impulsionnelle
+ infinie (avec une implantation récursive) a été développé par Deriche.
+ C'est cette version que nous avons implantée et comparée avec les autres
+ détecteurs de contours 
+\begin_inset LatexCommand \cite{Deriche90}
+
+\end_inset 
+
+.
+\layout Subsubsection
+
+Le modèle mathématique
+\layout Standard
+
+L'opérateur optimal suivant ces critères utilise une fonction de lissage
+ définie par:
+\layout Standard
+
+
+\begin_inset Formula 
+\[
+S(x)=k_{1}\left( \alpha \left| x\right| +1\right) e^{\left( -\alpha \left| x\right| \right) }\]
+
+\end_inset 
+
+
+\layout Standard
+
+avec :
+\layout Standard
+
+
+\begin_inset Formula 
+\[
+k_{1}=\frac{\left( 1-e^{-\alpha }\right) ^{2}}{\left( 1+2\alpha e^{-\alpha }-e^{-2\alpha }\right) }\]
+
+\end_inset 
+
+
+\layout Standard
+
+Le paramètre 
+\begin_inset Formula \( \alpha  \)
+\end_inset 
+
+ permet de régler le niveau de lissage à appliquer à l'image, plus il est
+ faible, plus le lissage est important.
+ Le filtre de dérivation correspond à la fonction :
+\layout Standard
+
+
+\begin_inset Formula 
+\[
+D(x)=k_{2}xe^{-\alpha \left| x\right| }\]
+
+\end_inset 
+
+
+\layout Standard
+
+avec :
+\layout Standard
+
+
+\begin_inset Formula 
+\[
+k_{2}=-\frac{\left( 1-e^{-\alpha }\right) ^{2}}{e^{-\alpha }}\]
+
+\end_inset 
+
+
+\layout Standard
+
+Le filtre Laplacien est :
+\layout Standard
+
+
+\begin_inset Formula 
+\[
+L(x)=\left( 1-k_{3}\alpha \left| x\right| \right) e^{-\alpha \left| x\right| }\]
+
+\end_inset 
+
+
+\layout Standard
+
+avec :
+\layout Standard
+
+
+\begin_inset Formula 
+\[
+k_{3}=\frac{\left( 1-e^{-2\alpha }\right) }{2\alpha e^{-\alpha }}\]
+
+\end_inset 
+
+
+\layout Subsubsection
+
+Mise en oeuvre
+\layout Standard
+
+La mise en oeuvre récursive de cet opérateur permet d'augmenter ses performances
+ de façon très importante 
+\begin_inset LatexCommand \cite{Deriche90}
+
+\end_inset 
+
+.
+ Le filtre récursif équivalent est d'ordre 2, ce qui donne à la méthode
+ les temps de calcul les plus faibles par rapport aux autres méthodes.
+\layout Standard
+
+En 2D et 3D le filtre est implanté de façon séparable en réutilisant le
+ filtre 1D : 
+\begin_inset Formula \( F_{2D}(x,y)=F_{1D}(x)F_{1D}(y) \)
+\end_inset 
+
+ et 
+\begin_inset Formula \( F_{3D}(x,y)=F_{1D}(x)F_{1D}(y)F_{1D(z)} \)
+\end_inset 
+
+.
+ Une approche plus formelle aurait impliqué la reproduction du processus
+ d'optimisation posé en 2D et 3D pour obtenir des filtres de symétrie circulaire
+ et sphérique respectivement.
+ Ce choix de la séparabilité introduit des anisotropies dans le comportement
+ de la sensibilité du filtre, notamment réduisant sa fiabilité dans les
+ orientations écartés des axes de coordonnées 
+\begin_inset LatexCommand \cite{Monga92}
+
+\end_inset 
+
+
+\begin_inset LatexCommand \cite{Monga90}
+
+\end_inset 
+
+.
+\layout Standard
+
+Nous avons pris en compte l'anisotropie du volume de données en appliquant
+ une pondération à la valeur de 
+\begin_inset Formula \( \alpha  \)
+\end_inset 
+
+ par la taille du voxel.
+ L'utilisateur spécifie une valeur de 
+\begin_inset Formula \( \alpha  \)
+\end_inset 
+
+ au sens physique (en millimètres), qui est ensuite utilisée pour créer
+ trois valeurs 
+\begin_inset Formula \( (\alpha _{x},\alpha _{y},\alpha _{z}) \)
+\end_inset 
+
+ correspondant aux filtres récursifs dans chaque axe de coordonnées.
+\layout Standard
+
+Il faut remarquer que la 
+\emph on 
+séparabilité 
+\emph default 
+en général est une grave erreur quand il s'agit de transposer les résultats
+ obtenus en 1D vers le 2D ou le 3D.
+ Il s'avère être un choix de la facilité, qui permet d'obtenir des résultats
+ rapidement; mais à long terme conduit à des erreurs de conception et d'interpré
+tation.
+ Des approches ont été proposées pour construire des détecteurs 2D à partir
+ de détecteurs 1D sans le concept de séparabilité, tout en optimisant la
+ réponse directionnelle du détecteur 
+\begin_inset LatexCommand \cite{Papliinski98}
+
+\end_inset 
+
+.
+\layout Standard
+
+Seulement dans le cas de la gaussienne, la séparabilité conduit à un résultat
+ similaire, car le produit de gaussiennes implique la somme des carrés de
+ variables.
+ Ce même problème se retrouvera également, au moment d'aborder la définition
+ de la topologie dans les espaces discrets et lors de la paramétrisation
+ des surfaces pour la modélisation et visualisation de formes.
+ 
+\layout Standard
+
+Ce qui semble une astuce, devient finalement un piège; tout simplement parcequ'à
+ chaque fois que l'on passe d'un espace de dimension 
+\begin_inset Formula \( n \)
+\end_inset 
+
+ vers un autre de dimension 
+\begin_inset Formula \( (n+1) \)
+\end_inset 
+
+, la description cohérente de l'espace nécessite 
+\begin_inset Formula \( (n+1) \)
+\end_inset 
+
+ directions additionnelles au lieu d'une seule.
+ 
+\layout Subsection
+
+L'opérateur de Shen et Castan
+\layout Subsubsection
+
+Le principe de conception
+\layout Standard
+
+L'opérateur de Shen et Castan peut être considéré comme une variante de
+ l'opérateur de Canny-Deriche.
+ Ce filtre linéaire optimal est basé sur le modèle d'une frontière échelon
+ avec un bruit blanc additif.
+\layout Standard
+
+Un critère plus exigeant dans la précision de la localisation de la surface
+ a amené à utiliser un filtre exponentiel qui se met en oeuvre aussi de
+ façon récursive, donc efficace 
+\begin_inset LatexCommand \cite{Castan90}
+
+\end_inset 
+
+
+\begin_inset LatexCommand \cite{Shen86}
+
+\end_inset 
+
+.
+\layout Subsubsection
+
+Le modèle mathématique
+\layout Standard
+
+L'opérateur applique un lissage avec une fonction exponentielle définie
+ par
+\protected_separator 
+:
+\layout Standard
+
+
+\begin_inset Formula 
+\[
+S(x)=k_{1}e^{-\alpha \left| x\right| }\]
+
+\end_inset 
+
+
+\layout Standard
+
+avec :
+\layout Standard
+
+
+\begin_inset Formula 
+\[
+k_{1}=\frac{1-e^{-\alpha }}{1+e^{-\alpha }}\]
+
+\end_inset 
+
+
+\layout Standard
+
+La détection de la surface est effectuée par le filtre dérivatif :
+\layout Standard
+
+
+\begin_inset Formula 
+\[
+D(x)=-sign(x)\frac{\left( 1-e^{-\alpha }\right) }{e^{-\alpha }}e^{-\alpha \left| x\right| }\]
+
+\end_inset 
+
+
+\layout Standard
+
+Le Laplacien est défini par :
+\layout Standard
+
+
+\begin_inset Formula 
+\[
+L(x)=k_{1}e^{-\alpha \left| x\right| }-1\]
+
+\end_inset 
+
+
+\layout Subsubsection
+
+La mise en oeuvre
+\layout Standard
+
+Les convolutions avec les réponses impulsionnelles de ce détecteur se mettent
+ en oeuvre en utilisant deux filtres récursifs d'ordre 1.
+ La mise en oeuvre en 2D et 3D se fait par l'application d'un produit tensoriel,
+ qui rend des filtres séparables.
+\layout Standard
+
+Cet opérateur génère des Laplaciens de haute définition, avec une localisation
+ très nette de la surface.
+ Son inconvénient est la forte tendance à sur-estimer les directions des
+ axes de coordonnées, car le filtre réalisé n'est pas anisotrope.
+ Il se comporte très bien en détection de surfaces dans des images des objets
+ 
+\emph on 
+faits par l'homme
+\emph default 
+ puisque les surfaces les plus importantes se trouvent dans les directions
+ verticale et horizontale, des images de bâtiments ou d'espaces meublés
+ par exemple.
+\layout Standard
+
+Le réglage du paramètre 
+\begin_inset Formula \( \alpha  \)
+\end_inset 
+
+ permet de contrôler la sensibilité du détecteur à plusieurs échelles différente
+s.
+ Notamment, il est lié au facteur de lissage, donc, à la réduction du bruit
+ 
+\begin_inset LatexCommand \cite{Deriche90}
+
+\end_inset 
+
+.
+ Ce paramètre est pondéré par la taille du voxel afin de compenser l'anisotropie
+ du volume de données.
+ L'utilisateur choisit une valeur de 
+\begin_inset Formula \( \alpha  \)
+\end_inset 
+
+ avec un sens physique en millimètres, qui est convertie en trois valeurs
+ 
+\begin_inset Formula \( (\alpha _{x},\alpha _{y},\alpha _{z}) \)
+\end_inset 
+
+ pour le filtre récursif à appliquer dans chacune des directions du système
+ de coordonnées.
+\layout Section
+
+La performance des méthodes de détection de surfaces
+\layout Standard
+
+Le but du processus d'extraction de surfaces est la construction d'une représent
+ation géométrique de la surface à partir de l'information fournie par le
+ processus de détection.
+ L'extraction de surfaces peut être décomposée en trois étapes: 
+\layout Enumerate
+
+Détermination des couples de voxels entre lesquels passe la surface.
+ 
+\layout Enumerate
+
+Estimation de la position de passage de la surface avec précision sous-voxel.
+\layout Enumerate
+
+Construction d'une triangulation qui reconstitue la connexité topologique
+ entre les points de la surface.
+\layout Standard
+
+Le processus d'extraction de surface que nous avons développé ici, est inspiré
+ de
+\protected_separator 
+: 
+\layout Itemize
+
+La méthode classique de 
+\begin_inset Quotes eld
+\end_inset 
+
+
+\emph on 
+marching cubes
+\begin_inset Quotes erd
+\end_inset 
+
+
+\emph default 
+ 
+\begin_inset LatexCommand \cite{MarchingCubes}
+
+\end_inset 
+
+ en ce qui concerne la connexité topologique entre points appartenant à
+ la surface.
+ 
+\layout Itemize
+
+L'estimation de position de points de la surface avec précision sous-voxel
+ proposée dans les méthodes du filtrage LoG 
+\begin_inset LatexCommand \cite{Huertas86}
+
+\end_inset 
+
+
+\begin_inset LatexCommand \cite{Clark89}
+
+\end_inset 
+
+
+\begin_inset LatexCommand \cite{Elder98}
+
+\end_inset 
+
+
+\layout Standard
+
+Nous avons adapté cette méthode à la grille BCC 
+\begin_inset LatexCommand \cite{Ibanez96b}
+
+\end_inset 
+
+.
+ Dans la grille BCC, les voxels sont définis comme étant les polyèdres correspon
+dant à la figure de Voronoï de la grille.
+ Ce type de voxel a l'avantage de permettre la définition d'une topologie
+ dans laquelle deux voxels sont voisins s'ils partagent une facette.
+ Un voxel a donc, quatorze voisins, dont huit à une distance de 
+\begin_inset Formula \( \sqrt{3} \)
+\end_inset 
+
+ et six à une distance de 
+\begin_inset Formula \( 2 \)
+\end_inset 
+
+ 
+\begin_inset LatexCommand \cite{Ibanez96}
+
+\end_inset 
+
+
+\begin_inset LatexCommand \cite{HermanSummerSchool}
+
+\end_inset 
+
+.
+ 
+\layout Subsection
+
+Détection de la surface
+\layout Standard
+
+Pour déterminer la position de la surface il ne suffit pas d'appliquer une
+ des méthodes de détection.
+ Il faut en plus, analyser les volumes de données fournis par ces méthodes
+ pour déterminer le lieu de passage de la surface entre les voxels.
+ Parmi ces volumes des données nous avons une estimation du Laplacien et
+ du module du gradient, évalués en tout les voxel du volume.
+\layout Standard
+
+Le module du gradient est associé à l'importance du changement de niveau
+ de gris dans l'image.
+ Le passage par zéro du Laplacien est associé au maximum d'intensité du
+ gradient.
+ Typiquement ce passage par zéro se produit entre deux voxels tels que un
+ a un valeur positive du Laplacien et l'autre une valeur négative.
+ Il est donc naturel de placer les points de la surface entre les voxels
+ dont les Laplaciens sont de signes opposés.
+ Le critère de passage par zéro du Laplacien permet de garantir la cohérence
+ topologique puisque il partitionne le volume de données en deux populations,
+ une avec Laplacien positif et l'autre avec Laplacien négatif.
+ 
+\layout Standard
+
+Il est néanmoins, possible de trouver des passages par zéro dans toutes
+ les régions du volume de données.
+ Il faut donc se limiter à ceux correspondant aux valeurs importantes du
+ module du gradient.
+ Nous considérons seulement les couples de voxels tels que: 
+\layout Itemize
+
+Le module du gradient dans les deux voxels est supérieur à un seuil 
+\begin_inset Formula \( S_{g} \)
+\end_inset 
+
+.
+\layout Itemize
+
+Les signes de leurs Laplacien sont opposés.
+\layout Subsection
+
+Estimation de la position sous-voxel
+\layout Standard
+
+Une fois qu'un couple de voxels 
+\begin_inset Formula \( a \)
+\end_inset 
+
+ et 
+\begin_inset Formula \( b \)
+\end_inset 
+
+ a été trouvé, tels que leurs gradients 
+\begin_inset Formula \( G(a) \)
+\end_inset 
+
+ et 
+\begin_inset Formula \( G(b) \)
+\end_inset 
+
+ sont supérieurs au seuil 
+\begin_inset Formula \( S_{g} \)
+\end_inset 
+
+ et leurs Laplaciens 
+\begin_inset Formula \( L(a) \)
+\end_inset 
+
+ et 
+\begin_inset Formula \( L(b) \)
+\end_inset 
+
+ de signes contraires, nous plaçons un point de la surface le long de la
+ ligne qui relie les deux voxels.
+ La position exacte dans la ligne est estimée par simple interpolation linéaire
+ entre les valeurs du Laplacien, sachant que le point doit être placé dans
+ l'isosurface de valeur 
+\begin_inset Formula \( 0 \)
+\end_inset 
+
+ du Laplacien.
+ 
+\layout Standard
+
+Pour le cas de deux voxels 
+\begin_inset Formula \( a \)
+\end_inset 
+
+ et 
+\begin_inset Formula \( b \)
+\end_inset 
+
+ voisins, placés en positions 
+\begin_inset Formula \( \overrightarrow{V(a)} \)
+\end_inset 
+
+ et 
+\begin_inset Formula \( \overrightarrow{V(b)} \)
+\end_inset 
+
+ respectivement, avec des valeurs de Laplacien 
+\begin_inset Formula \( L(a)\geq 0 \)
+\end_inset 
+
+ et 
+\begin_inset Formula \( L(b)<0 \)
+\end_inset 
+
+, la position 
+\begin_inset Formula \( \overrightarrow{P} \)
+\end_inset 
+
+ du point de la surface est estimée par:
+\layout Standard
+
+
+\begin_inset Formula 
+\[
+\overrightarrow{P}=\frac{L(a)\overrightarrow{V(b)}-L(b)\overrightarrow{V(a)}}{L(a)-L(b)}\]
+
+\end_inset 
+
+
+\layout Subsection
+
+Connexion des voisins
+\layout Standard
+
+Maintenant que les points de la surface on été détectés et leurs positions
+ estimées, il est nécessaire de construire une triangulation entre eux pour
+ représenter la structure topologique de la surface.
+\layout Standard
+
+\begin_float fig 
+\layout Standard
+\align center 
+
+\begin_inset Figure size 171 129
+file Surfaces_eps/star.eps
+flags 8
+
+\end_inset 
+
+
+\layout Caption
+
+
+\begin_inset LatexCommand \label{fig:Star}
+
+\end_inset 
+
+Codage des relations de voisinage dans la surface extraite.
+\end_float 
+\layout Subsubsection
+
+La représentation des voisinages
+\layout Standard
+
+Comme représentation des connexions entre les points de la surfaces nous
+ avons retenu la notion des 
+\emph on 
+étoiles
+\emph default 
+ de la théorie topologique des graphes 
+\begin_inset LatexCommand \cite{Gross87}
+
+\end_inset 
+
+.
+ Cette représentation simplifie les processus topologiques et augmente la
+ performance de leur exécution.
+ Des actions telles que l'insertion et l'enlèvement de noeuds, la vérification
+ de genus de la surface et l'évaluation de la courbure discrète sont facilement
+ réalisées dans cette représentation, contrairement à ce qui arrive avec
+ une représentation basée sur la description des polygones de la surface,
+ comme celle qui a été développée dans la méthode de 
+\emph on 
+marching cubes
+\emph default 
+ et en général dans les méthodes qui sont concernées uniquement par la visualisa
+tion et non par la manipulation et l'analyse des surfaces.
+ 
+\layout Standard
+
+La figure 
+\begin_inset LatexCommand \ref{fig:Star}
+
+\end_inset 
+
+ illustre le mécanisme de codage des relations de voisinage dans la surface.
+ Le noeud numéro 
+\begin_inset Formula \( 15 \)
+\end_inset 
+
+ a comme voisins la suite de noeuds {45, 67, 58, 23, 8, 74, 35 }.
+ Cette suite est ordonnée dans le sens contraire des aiguilles d'une montre
+ quand elle est vue de l'extérieur de la surface.
+ Chaque noeud possède une liste des voisins.
+ De plus, un drapeau est utilisé en chaque noeud pour indiquer s'il est
+ un point de frontière ou pas.
+\layout Subsubsection
+
+La détermination des voisins
+\layout Standard
+
+\begin_float fig 
+\layout Standard
+\align center 
+
+\begin_inset Figure size 177 77
+file Surfaces_eps/association.eps
+flags 8
+
+\end_inset 
+
+
+\layout Caption
+
+
+\begin_inset LatexCommand \label{fig:AssociationSurfaceKcomplex}
+
+\end_inset 
+
+ Association de voisinages dans la grille hexagonale.
+ A gauche: la structure topologique des pixels.
+ A droite: le contour détecté entre points de la grille.
+\end_float 
+\layout Standard
+
+Pour réaliser les connexions entre les points de la surface, une association
+ est faite entre les notions de grille d'échantillonnage et celles de structure
+ polygonale.
+ La figure 
+\begin_inset LatexCommand \ref{fig:AssociationSurfaceKcomplex}
+
+\end_inset 
+
+ illustre ces associations pour le cas d'une grille hexagonale.
+ A gauche on trouve trois pixels hexagonaux 
+\begin_inset Formula \( A \)
+\end_inset 
+
+, 
+\begin_inset Formula \( B \)
+\end_inset 
+
+ et 
+\begin_inset Formula \( C \)
+\end_inset 
+
+.
+ Dans la grille hexagonale deux pixels sont voisins s'ils partagent une
+ arête.
+ Dans le cas de la figure, les pixels 
+\begin_inset Formula \( A \)
+\end_inset 
+
+ et 
+\begin_inset Formula \( B \)
+\end_inset 
+
+ sont voisins car ils partagent l'arête 
+\begin_inset Formula \( F1 \)
+\end_inset 
+
+, de façon analogue les pixels 
+\begin_inset Formula \( A \)
+\end_inset 
+
+ et 
+\begin_inset Formula \( C \)
+\end_inset 
+
+ sont voisins car ils partagent l'arête 
+\begin_inset Formula \( F2 \)
+\end_inset 
+
+.
+ 
+\layout Standard
+
+A droite dans la figure 
+\begin_inset LatexCommand \ref{fig:AssociationSurfaceKcomplex}
+
+\end_inset 
+
+ on trouve les points 
+\begin_inset Formula \( A \)
+\end_inset 
+
+, 
+\begin_inset Formula \( B \)
+\end_inset 
+
+ et 
+\begin_inset Formula \( C \)
+\end_inset 
+
+ de la grille hexagonale 
+\emph on 
+associés
+\emph default 
+ aux pixels de gauche.
+ Les signes du Laplacien sont indiqués à l'intérieur des points de la grille.
+ Notre méthode placera un point de contour sur la ligne qui relie deux pixels
+ avec des Laplaciens de signes contraires.
+ Il y a donc un point de contour 
+\begin_inset Formula \( P1 \)
+\end_inset 
+
+ entre les points de la grille 
+\begin_inset Formula \( A \)
+\end_inset 
+
+ et 
+\begin_inset Formula \( B \)
+\end_inset 
+
+, ainsi qu' un point de contour 
+\begin_inset Formula \( P2 \)
+\end_inset 
+
+ entre les points de la grille 
+\begin_inset Formula \( A \)
+\end_inset 
+
+ et 
+\begin_inset Formula \( C \)
+\end_inset 
+
+.
+ Le point de contour 
+\begin_inset Formula \( P1 \)
+\end_inset 
+
+ est associé à la facette 
+\begin_inset Formula \( F1 \)
+\end_inset 
+
+, tandis que le point de contour 
+\begin_inset Formula \( P2 \)
+\end_inset 
+
+ est associé à la facette 
+\begin_inset Formula \( F2 \)
+\end_inset 
+
+.
+ Les deux points de contour seront connexes dans le contour si et seulement
+ si les deux facettes 
+\begin_inset Formula \( F1 \)
+\end_inset 
+
+ et 
+\begin_inset Formula \( F2 \)
+\end_inset 
+
+ qui leur sont associées partagent un sommet 
+\begin_inset Formula \( V \)
+\end_inset 
+
+.
+ Dans ce cas, le sommet 
+\begin_inset Formula \( V \)
+\end_inset 
+
+ est associé à la ligne 
+\begin_inset Formula \( L \)
+\end_inset 
+
+ qui connecte les deux points de contour 
+\begin_inset Formula \( P1 \)
+\end_inset 
+
+ et 
+\begin_inset Formula \( P2 \)
+\end_inset 
+
+.
+\layout Standard
+
+\begin_float fig 
+\layout Standard
+\align center 
+
+\begin_inset Figure size 282 157
+file Surfaces_eps/associatonBCC.eps
+flags 8
+
+\end_inset 
+
+
+\layout Caption
+
+
+\begin_inset LatexCommand \label{fig:ConstructionTriangulationEnBCC}
+
+\end_inset 
+
+Relations d'association dans la grille BCC entre les éléments de la grille
+ et ceux de la structure polyèdrale des voxels.
+\end_float 
+\layout Standard
+
+Nous avons appliqué ce concept à la grille BCC (qui sera étudiée de façon
+ détaillée dans le chapitre suivant) et la structure polyèdrale composée
+ de figures de Voronoï avec ses facettes, arêtes et sommets.
+ La figure 
+\begin_inset LatexCommand \ref{fig:ConstructionTriangulationEnBCC}
+
+\end_inset 
+
+ illustre les associations correspondantes.
+ Les points 
+\begin_inset Formula \( A \)
+\end_inset 
+
+, 
+\begin_inset Formula \( B \)
+\end_inset 
+
+ et 
+\begin_inset Formula \( C \)
+\end_inset 
+
+ de la grille (à droite) sont associés aux voxels (polyèdre de Voronoï)
+ 
+\begin_inset Formula \( A \)
+\end_inset 
+
+, 
+\begin_inset Formula \( B \)
+\end_inset 
+
+ et 
+\begin_inset Formula \( C \)
+\end_inset 
+
+ (à gauche).
+ Un point de surface 
+\begin_inset Formula \( P1 \)
+\end_inset 
+
+ est placé sur la ligne qui relie les deux points 
+\begin_inset Formula \( B \)
+\end_inset 
+
+ et 
+\begin_inset Formula \( C \)
+\end_inset 
+
+, et un autre point de surface 
+\begin_inset Formula \( P2 \)
+\end_inset 
+
+ est placé sur la ligne entre 
+\begin_inset Formula \( A \)
+\end_inset 
+
+ en 
+\begin_inset Formula \( B \)
+\end_inset 
+
+.
+ Les points 
+\begin_inset Formula \( P1 \)
+\end_inset 
+
+ et 
+\begin_inset Formula \( P2 \)
+\end_inset 
+
+ de la surface sont associés aux facettes 
+\begin_inset Formula \( F1 \)
+\end_inset 
+
+ et 
+\begin_inset Formula \( F2 \)
+\end_inset 
+
+ de la structure polyèdrale.
+ Finalement, la ligne 
+\begin_inset Formula \( L \)
+\end_inset 
+
+ reliant les points de surface 
+\begin_inset Formula \( P1 \)
+\end_inset 
+
+ et 
+\begin_inset Formula \( P2 \)
+\end_inset 
+
+, est associée à l'arête 
+\begin_inset Formula \( E \)
+\end_inset 
+
+ partagée par les deux facettes 
+\begin_inset Formula \( F1 \)
+\end_inset 
+
+ et 
+\begin_inset Formula \( F2 \)
+\end_inset 
+
+.
+\layout Standard
+
+Les relations possibles de voisinage entre les points de la surface corresponden
+t aux configurations géométriques possibles des arêtes et facettes dans
+ les polyèdres.
+ Autrement dit, dans la surface 
+\begin_inset Formula \( S \)
+\end_inset 
+
+ il y aura une ligne qui relie deux points de surface, si, dans la structure
+ géométrique formée par le polyèdres existe une arête qui connecte les deux
+ facettes.
+\layout Standard
+
+Les inconvénients de l'extraction de surface avec cette approche sont:
+\layout Itemize
+
+Le grand nombre de triangles qu'elle génère 
+\layout Itemize
+
+L'apparition abondante des triangles allongés
+\layout Standard
+
+Inconvénients qui sont partagés avec la méthode de marching cubes.
+ 
+\layout Section
+
+Comparaison des performances des méthodes de détection de surfaces 
+\layout Standard
+
+La qualité du processus de détection doit être évaluée en fonction de sa
+ contribution au bon déroulement de l'extraction.
+ Il est courant de juger la performance des méthodes de détection par des
+ critères visuels 
+\begin_inset LatexCommand \cite{Heath}
+
+\end_inset 
+
+, mais, ce type de comparaison est rarement juste car il est difficile,
+ sinon impossible, d'établir visuellement la cohérence topologique au niveau
+ pixel.
+ Néanmoins, comme c'est le cas dans la plupart des activités liées au traitement
+ de l'image, la validité d'une méthode dépend de l'application envisagée.
+ 
+\layout Standard
+
+La comparaison objective des performances des différentes méthodes de détection
+ de contours implique le test des critères suivants:
+\layout Itemize
+
+Précision de la localisation
+\layout Itemize
+
+Précision de l'orientation de la normale
+\layout Itemize
+
+Sensibilité au bruit
+\layout Itemize
+
+Temps de calcul
+\layout Standard
+
+Pour évaluer ces différents critères, un volume de données synthétiques
+ contenant une sphère a été utilisé pour les tests.
+ Les différentes méthodes de détection ont été appliquées sur ce même volume,
+ est la surface extraite a été analysée.
+\layout Subsection
+
+Construction du volume de données test
+\layout Standard
+
+Le rayon de la sphère a été choisi de 50 voxels de façon à pouvoir considérer
+ la région concernée par le voisinage du filtrage comme approximativement
+ plan.
+ Cette taille représente bien un cas réel d'acquisition d'image d'une articulati
+on à une résolution proche du millimètre.
+ Une taille totale de 128x128x128 (puissance de 2) a été retenue pour pouvoir
+ appliquer directement l'algorithme de transformation de Fourier rapide
+ (FFT) 
+\begin_inset LatexCommand \cite{Elliot82}
+
+\end_inset 
+
+.
+ 
+\layout Subsubsection
+
+La fonction et son spectre
+\layout Standard
+
+La fonction continue de la sphère est définie par :
+\layout Standard
+
+
+\begin_inset Formula 
+\[
+f(\overrightarrow{x})=\left\{ \begin{array}{lcr}
+A & si & \left\Vert \overrightarrow{x}\right\Vert <R\\
+0 & si & \left\Vert \overrightarrow{x}\right\Vert \geq R
+\end{array}\right. \]
+
+\end_inset 
+
+
+\layout Standard
+
+Le spectre de ce signal est donné par la transformation de Fourier :
+\layout Standard
+
+
+\begin_inset Formula 
+\[
+F(\overrightarrow{w})=\int \int \int f(\overrightarrow{x})e^{\left( -2\pi i\left( \overrightarrow{w}\cdot \overrightarrow{x}\right) \right) }d\overrightarrow{x}\]
+
+\end_inset 
+
+ 
+\layout Standard
+
+En prenant en compte la symétrie sphérique de la fonction, telle que :
+\layout Standard
+
+
+\begin_inset Formula 
+\[
+\overrightarrow{w}\cdot \overrightarrow{x}=\left\Vert \overrightarrow{w}\right\Vert \left\Vert \overrightarrow{x}\right\Vert \cos (\kappa )\]
+
+\end_inset 
+
+
+\layout Standard
+
+où 
+\begin_inset Formula \( \kappa  \)
+\end_inset 
+
+ est l'angle formé entre le vecteur de position 
+\begin_inset Formula \( \overrightarrow{x} \)
+\end_inset 
+
+ et le vecteur d'orientation de la fréquence 
+\begin_inset Formula \( \overrightarrow{w} \)
+\end_inset 
+
+.
+ L'intégrale pour une valeur particulière de 
+\begin_inset Formula \( \left\Vert \overrightarrow{w}\right\Vert  \)
+\end_inset 
+
+ se réalise sur les domaines de 
+\begin_inset Formula \( \left\Vert \overrightarrow{x}\right\Vert  \)
+\end_inset 
+
+ et de 
+\begin_inset Formula \( \kappa  \)
+\end_inset 
+
+, pour devenir :
+\layout Standard
+
+
+\begin_inset Formula 
+\[
+F(\omega )=2\pi A\int ^{\pi }_{0}\int ^{R}_{0}e^{\left( -2\pi i(\omega \cdot r\cos (\kappa ))\right) }r^{2}\sin \kappa d\kappa dr\]
+
+\end_inset 
+
+
+\layout Standard
+
+où 
+\begin_inset Formula \( r=\left\Vert \overrightarrow{x}\right\Vert  \)
+\end_inset 
+
+ et 
+\begin_inset Formula \( \omega =\left\Vert \overrightarrow{w}\right\Vert  \)
+\end_inset 
+
+.
+ L'intégration sur 
+\begin_inset Formula \( \kappa  \)
+\end_inset 
+
+ conduit à :
+\layout Standard
+
+
+\begin_inset Formula 
+\[
+F(\omega )=2\pi A\int ^{R}_{0}\frac{r}{2\omega \pi }\sin \left( 2r\omega \pi \right) dr\]
+
+\end_inset 
+
+
+\layout Standard
+
+et l'intégration sur 
+\begin_inset Formula \( r \)
+\end_inset 
+
+ produit finalement :
+\layout Standard
+
+
+\begin_inset Formula 
+\begin{equation}
+\label{eqn:TransfFourierSphere}
+F(\omega )=\frac{A}{2\omega ^{3}\pi ^{2}}\left[ \sin (2R\omega \pi )-2R\omega \pi \cos (2R\omega \pi )\right] 
+\end{equation}
+
+\end_inset 
+
+
+\layout Standard
+
+Cette analyse a été effectuée à l'aide du logicielle de mathématique symbolique
+ MuPAD 
+\begin_inset LatexCommand \cite{Mupad}
+
+\end_inset 
+
+.
+ La valeur de la fonction pour 
+\begin_inset Formula \( \omega =0 \)
+\end_inset 
+
+ doit être évaluée en tant que la limite :
+\layout Standard
+
+
+\begin_inset Formula 
+\[
+\lim _{\omega \rightarrow 0}F(\omega )=\frac{4\pi AR^{3}}{3}\]
+
+\end_inset 
+
+
+\layout Standard
+
+La figure (
+\begin_inset LatexCommand \ref{fig:FTSphere}
+
+\end_inset 
+
+) montre le profil radial de cette fonction.
+ L'échelle horizontale est présentée en multiples de 
+\begin_inset Formula \( \frac{1}{R} \)
+\end_inset 
+
+.
+ Ce spectre est bien évidemment de support infini.
+ Il doit être limité pour satisfaire les critères de Shannon 
+\begin_inset LatexCommand \cite{Rosenfeld82}
+
+\end_inset 
+
+
+\begin_inset LatexCommand \cite{MultidimensionalDSP}
+
+\end_inset 
+
+.
+ 
+\layout Standard
+
+\begin_float fig 
+\layout Standard
+\align center 
+
+\begin_inset Figure size 170 113
+file Surfaces_eps/FTSphere.eps
+width 1 6.00
+height 1 4.00
+flags 8
+
+\end_inset 
+
+
+\layout Caption
+
+
+\begin_inset LatexCommand \label{fig:FTSphere}
+
+\end_inset 
+
+ Profil radial de la transformation de Fourier d'une sphère solide
+\end_float 
+\layout Subsubsection
+
+Limitation du spectre
+\layout Standard
+
+La réduction du support du spectre d'un signal consiste, traditionnellement
+ à multiplier son spectre par une fonction échelon de symétrie sphérique.
+ La conséquence de cette multiplication est de faire subir au signal d'entrée
+ une convolution avec la transformée de Fourier inverse de la fonction choisie
+ pour tronquer le spectre.
+ 
+\layout Standard
+
+Nous profitons ici, du fait d'avoir déjà établi le couple de fonctions 
+\begin_inset Formula \( f(\overrightarrow{x})\rightleftharpoons F(\overrightarrow{w}) \)
+\end_inset 
+
+ comme liées par une transformation de Fourier.
+ La fonction de fenêtrage (ou réponse fréquentielle) 
+\begin_inset Formula \( H\left( \overrightarrow{w}\right)  \)
+\end_inset 
+
+ étant une sphère de rayon 
+\begin_inset Formula \( \Omega  \)
+\end_inset 
+
+ dans le domaine fréquentiel, la réponse impulsionelle 
+\begin_inset Formula \( h\left( r\right)  \)
+\end_inset 
+
+ dans l'espace signal est :
+\layout Standard
+
+
+\begin_inset Formula 
+\[
+h(r)=\frac{1}{2r^{3}\pi ^{2}}\left[ \sin (2\Omega r\pi )-2\Omega r\pi \cos (2\Omega r\pi )\right] \]
+
+\end_inset 
+
+
+\layout Standard
+
+En conclusion, pour remettre le signal d'entrée dans les conditions exigées
+ par le critère de Shannon il faut convoluer la fonction sphérique 
+\begin_inset Formula \( f(\overrightarrow{x}) \)
+\end_inset 
+
+ par la fonction 
+\begin_inset Formula \( h\left( r\right)  \)
+\end_inset 
+
+ avant d'effectuer la discrétisation (échantillonnage).
+\layout Standard
+
+La valeur de 
+\begin_inset Formula \( \Omega  \)
+\end_inset 
+
+ détermine la fréquence maximale que nous voulons retenir du signal original.
+ L'observation de la figure (
+\begin_inset LatexCommand \ref{fig:FTSphere}
+
+\end_inset 
+
+) conduit à conclure qu'une fréquence de 
+\begin_inset Formula \( \Omega =3/R \)
+\end_inset 
+
+ semble suffisante.
+ La fonction de convolution dans ce cas serait :
+\layout Standard
+
+
+\begin_inset Formula 
+\[
+h(r)=\frac{1}{2r^{3}\pi ^{2}}\left[ \sin (6\pi r/R)-(6\pi r/R)\cos (6\pi r/R)\right] \]
+
+\end_inset 
+
+
+\layout Standard
+
+Sachant que le spectre de cette nouvelle fonction est limité à la fréquence
+ 
+\begin_inset Formula \( \Omega  \)
+\end_inset 
+
+, le pas d'échantillonnage 
+\begin_inset Formula \( \delta  \)
+\end_inset 
+
+ doit satisfaire 
+\begin_inset Formula \( \delta \leq \frac{1}{2\Omega } \)
+\end_inset 
+
+ ce qui implique, pour notre choix de troncature que : 
+\begin_inset Formula \( \delta \leq \frac{R}{6} \)
+\end_inset 
+
+.
+ Néanmoins, notre choix de construire une sphère de rayon 50 voxels dépasse
+ largement la restriction de 
+\begin_inset Formula \( \Omega =3/R \)
+\end_inset 
+
+.
+ Nous pouvons donc inverser les considérations pour chercher à partir du
+ pas d'échantillonage 
+\begin_inset Formula \( \delta \leq \frac{R}{50} \)
+\end_inset 
+
+ quelle est la fréquence maximale à retenir et en conséquence quelle serait
+ la fonction de convolution 
+\begin_inset Formula \( h\left( r\right)  \)
+\end_inset 
+
+.
+ Le calcul conduit immédiatement à une valeur de 
+\begin_inset Formula \( \Omega =25/R \)
+\end_inset 
+
+ et une fonction de convolution :
+\layout Standard
+
+
+\begin_inset Formula 
+\[
+h(r)=\frac{1}{2r^{3}\pi ^{2}}\left[ \sin (50\pi r/R)-(50\pi r/R)\cos (50\pi r/R)\right] \]
+
+\end_inset 
+
+
+\layout Standard
+
+La valeur de 
+\begin_inset Formula \( h \)
+\end_inset 
+
+ pour 
+\begin_inset Formula \( r=0 \)
+\end_inset 
+
+ est:
+\layout Standard
+
+
+\begin_inset Formula 
+\[
+h(0)=\frac{62500\pi }{3R^{3}}\]
+
+\end_inset 
+
+
+\layout Standard
+
+Notre sphère 
+\begin_inset Formula \( f(\overrightarrow{x}) \)
+\end_inset 
+
+ doit être convoluée avec la réponse impulsionnelle 
+\begin_inset Formula \( h(\overrightarrow{x}) \)
+\end_inset 
+
+, pour obtenir une fonction de test 
+\begin_inset Formula \( f_{S}(\overrightarrow{x}) \)
+\end_inset 
+
+ avec spectre à bande limitée, adapté pour l'échantillonnage :
+\layout Standard
+
+
+\begin_inset Formula 
+\begin{equation}
+\label{eqn:ConvolutionSphereSphere}
+f_{s}(\overrightarrow{x})=\int h(\overrightarrow{y})f(\overrightarrow{x}-\overrightarrow{y})d\overrightarrow{y}
+\end{equation}
+
+\end_inset 
+
+
+\layout Standard
+
+Dans le processus de détection de surfaces, nous nous sommes intéressés
+ à la forme de la fonction 
+\begin_inset Formula \( f_{s}(r) \)
+\end_inset 
+
+ pour des valeurs de 
+\begin_inset Formula \( r \)
+\end_inset 
+
+ autour de 
+\begin_inset Formula \( R \)
+\end_inset 
+
+.
+ C'est à dire, sachant que la surface de notre objet synthétique est une
+ sphère de rayon 
+\begin_inset Formula \( R \)
+\end_inset 
+
+, nous devons nous concentrer sur la région de transition de la fonction
+ 
+\begin_inset Formula \( f_{s}(r) \)
+\end_inset 
+
+, 
+\begin_inset Formula \( r\rightarrow R \)
+\end_inset 
+
+ car elle correspond au voisinage de la surface à détecter puis extraire.
+ 
+\layout Subsubsection
+
+Le profil de la frontière 
+\layout Standard
+
+Pour caractériser le profil théorique du niveau de gris dans le voisinage
+ de la surface, la convolution entre les fonctions 
+\begin_inset Formula \( f(\overrightarrow{x}) \)
+\end_inset 
+
+ et 
+\begin_inset Formula \( h(\overrightarrow{x}) \)
+\end_inset 
+
+, doit être calculée selon l'équation 
+\begin_inset LatexCommand \ref{eqn:ConvolutionSphereSphere}
+
+\end_inset 
+
+.
+ En prenant en compte la symétrie sphérique de 
+\begin_inset Formula \( h(\overrightarrow{x}) \)
+\end_inset 
+
+ et le fait que 
+\begin_inset Formula \( f(\overrightarrow{x}) \)
+\end_inset 
+
+ est équivalente à une fonction indicatrice, l'intégrale peut être réduite
+ à une intégrale linéaire.
+ 
+\layout Standard
+
+La figure 
+\begin_inset LatexCommand \ref{fig:convolution}
+
+\end_inset 
+
+ illustre les relations géométriques de cette intégrale, le cercle à gauche
+ représente la fonction 
+\begin_inset Formula \( h \)
+\end_inset 
+
+ tandis que le cercle à droite représente le support de la fonction 
+\begin_inset Formula \( f \)
+\end_inset 
+
+.
+ La valeur de 
+\begin_inset Formula \( f(r) \)
+\end_inset 
+
+ est constante à l'intérieur de la sphère de rayon 
+\begin_inset Formula \( R \)
+\end_inset 
+
+ et nulle ailleurs.
+ Pour évaluer La fonction 
+\begin_inset Formula \( f_{s} \)
+\end_inset 
+
+ au point 
+\begin_inset Formula \( C_{1} \)
+\end_inset 
+
+, les valeurs de 
+\begin_inset Formula \( h(\overrightarrow{x}) \)
+\end_inset 
+
+ doivent être intégrées à l'intérieur de la sphère de rayon 
+\begin_inset Formula \( R \)
+\end_inset 
+
+ centrée au point 
+\begin_inset Formula \( C_{2} \)
+\end_inset 
+
+.
+ La symétrie sphérique de 
+\begin_inset Formula \( h \)
+\end_inset 
+
+ implique que tous les points dans la calotte sphérique 
+\begin_inset Formula \( C_{s} \)
+\end_inset 
+
+ ont la même valeur que le point 
+\begin_inset Formula \( P \)
+\end_inset 
+
+.
+ L'intégrale se réduit donc, à la somme des valeurs de 
+\begin_inset Formula \( h(a) \)
+\end_inset 
+
+ pondérées par le volume différentiel de la calotte sphérique 
+\begin_inset Formula \( C_{s} \)
+\end_inset 
+
+.
+ 
+\begin_inset Formula \( C_{s} \)
+\end_inset 
+
+ est composée de tous les points situés à la distance 
+\begin_inset Formula \( r\in [a,a+dr] \)
+\end_inset 
+
+, du point 
+\begin_inset Formula \( C_{1} \)
+\end_inset 
+
+, à l'intérieur de la sphère de 
+\begin_inset Formula \( f \)
+\end_inset 
+
+.
+\layout Standard
+
+\begin_float fig 
+\layout Standard
+\align center 
+
+\begin_inset Figure size 237 186
+file Surfaces_eps/convolution.eps
+flags 8
+
+\end_inset 
+
+
+\layout Caption
+
+
+\begin_inset LatexCommand \label{fig:convolution}
+
+\end_inset 
+
+Relations géométriques de la convolution de l'image synthétique avec la
+ réponse impulsionnelle.
+\end_float 
+\layout Standard
+
+La surface de la calotte sphérique d'angle interne 
+\begin_inset Formula \( A \)
+\end_inset 
+
+ sur une sphère de rayon 
+\begin_inset Formula \( a \)
+\end_inset 
+
+ est:
+\layout Standard
+
+
+\begin_inset Formula 
+\[
+2\pi a^{2}\left( 1-\cos A\right) \]
+
+\end_inset 
+
+
+\layout Standard
+
+La relation entre les angles 
+\begin_inset Formula \( A \)
+\end_inset 
+
+ et 
+\begin_inset Formula \( B \)
+\end_inset 
+
+ est :
+\layout Standard
+
+
+\begin_inset Formula 
+\[
+D=a\cos A+b\cos B\]
+
+\end_inset 
+
+
+\layout Standard
+
+Le volume de la calotte sphérique dans la figure 
+\begin_inset LatexCommand \ref{fig:convolution}
+
+\end_inset 
+
+ est donné par : 
+\layout Standard
+
+
+\begin_inset Formula 
+\[
+dV=2\pi \left( a^{2}-a\left( D-R\cos B\right) \right) da\]
+
+\end_inset 
+
+
+\layout Standard
+
+
+\begin_inset Formula 
+\[
+da=\frac{DR}{a}\sin BdB\]
+
+\end_inset 
+
+
+\layout Standard
+
+
+\begin_inset Formula 
+\[
+dV=2\pi DR\left( a-\left( D-R\cos B\right) \right) \sin BdB\]
+
+\end_inset 
+
+
+\layout Standard
+
+
+\begin_inset Formula 
+\[
+a=\left( D^{2}-2DR\cos B+R^{2}\right) ^{\frac{1}{2}}\]
+
+\end_inset 
+
+
+\layout Standard
+
+La convolution devient :
+\layout Standard
+
+
+\begin_inset Formula 
+\[
+f_{s}\left( D\right) =2\pi DR\int ^{\pi }_{0}h(a)\left[ \left( a-\left( D-R\cos B\right) \right) \sin B\right] dB\]
+
+\end_inset 
+
+
+\layout Standard
+
+L'évaluation de 
+\begin_inset Formula \( h \)
+\end_inset 
+
+ pour des valeurs de 
+\begin_inset Formula \( B \)
+\end_inset 
+
+, entraîne l'apparition de fonctions de type 
+\begin_inset Formula \( cos(cos(x)) \)
+\end_inset 
+
+ qui ne sont pas solubles par des méthodes analytiques.
+ Une évaluation par des méthodes numériques s'impose.
+ La figure (
+\begin_inset LatexCommand \ref{fig:ReponseIndicielle}
+
+\end_inset 
+
+) montre le résultat d'une évaluation de 
+\begin_inset Formula \( f_{s} \)
+\end_inset 
+
+ par une méthode numérique d'intégration.
+ L'échelle horizontale est mesurée en échantillons (voxels).
+ 
+\layout Standard
+
+\begin_float fig 
+\layout Standard
+\align center 
+
+\begin_inset Figure size 170 113
+file Surfaces_eps/prof_contour.eps
+width 1 6.00
+height 1 4.00
+flags 8
+
+\end_inset 
+
+
+\layout Caption
+
+
+\begin_inset LatexCommand \label{fig:ReponseIndicielle}
+
+\end_inset 
+
+Réponse indicielle d'une fenêtre sphérique.
+\end_float 
+\layout Standard
+
+La fonction présente des ondulations qui sont typiques des fonctions qui
+ ont un spectre avec des transitions rapides.
+ Ces ondulations ne sont pas convenables dans le contexte de la détection
+ de surfaces.
+ Elles peuvent être évitées en utilisant une fonction de troncature à transition
+ douce comme celle de Hamming ou celle de Hanning 
+\begin_inset LatexCommand \cite{MultidimensionalDSP}
+
+\end_inset 
+
+.
+ Parmi ces fonctions, nous avons retenu la fonction gaussienne.
+ 
+\layout Subsubsection
+
+Utilisation d'une fonction gaussienne 
+\layout Standard
+
+\begin_float fig 
+\layout Standard
+\align center 
+
+\begin_inset Figure size 226 170
+file Surfaces_eps/FTSphereGauss.eps
+width 1 8.00
+height 1 6.00
+flags 8
+
+\end_inset 
+
+
+\layout Caption
+
+
+\begin_inset LatexCommand \label{fig:tfSphere_Gaussian}
+
+\end_inset 
+
+Spectre de la fonction sphérique avec une gaussienne de taille adaptée.
+ L'échelle horizontale est exprimée en multiples de 1/R.
+\end_float 
+\layout Standard
+
+Une bonne alternative est l'utilisation d'une gaussienne comme fonction
+ de transfert.
+ L'atténuation rapide du spectre 
+\begin_inset Formula \( F\left( \overrightarrow{w}\right)  \)
+\end_inset 
+
+ permet de considérer la gaussienne comme suffisamment plate dans la région
+ où le contenu énergétique du spectre est important.
+ La figure 
+\begin_inset LatexCommand \ref{fig:tfSphere_Gaussian}
+
+\end_inset 
+
+ montre le choix d'une fonction gaussienne de taille adéquate pour filtrer
+ la fonction sphérique 
+\begin_inset Formula \( f\left( \overrightarrow{x}\right)  \)
+\end_inset 
+
+.
+ La valeur de 
+\begin_inset Formula \( \sigma  \)
+\end_inset 
+
+ doit être choisie pour atténuer les fréquences supérieures à 
+\begin_inset Formula \( 50/R \)
+\end_inset 
+
+.
+ Dans ce cas, la valeur retenue est 
+\begin_inset Formula \( \sigma =0.1/R \)
+\end_inset 
+
+.
+ Les perturbations de la région centrale du spectre peuvent être évaluées
+ en prenant la différence :
+\layout Standard
+
+
+\begin_inset Formula 
+\[
+F\left( \overrightarrow{w}\right) -F\left( \overrightarrow{w}\right) \cdot G\left( \overrightarrow{w}\right) \]
+
+\end_inset 
+
+
+\layout Standard
+
+La figure 
+\begin_inset LatexCommand \ref{fig:DiffSpectreFiltre}
+
+\end_inset 
+
+ illustre les résultats de cette évaluation pour la valeur de 
+\begin_inset Formula \( \sigma  \)
+\end_inset 
+
+ retenue .
+\layout Standard
+
+\begin_float fig 
+\layout Standard
+\align center 
+
+\begin_inset Figure size 226 170
+file Surfaces_eps/FTSphereGaussDiff.eps
+width 1 8.00
+height 1 6.00
+flags 8
+
+\end_inset 
+
+
+\layout Caption
+
+
+\begin_inset LatexCommand \label{fig:DiffSpectreFiltre}
+
+\end_inset 
+
+Changement subi par le spectre de la fonction sphérique après le filtrage
+ gaussien.
+\end_float 
+\layout Standard
+
+\begin_float fig 
+\layout Standard
+\align center 
+
+\begin_inset Figure size 226 170
+file Surfaces_eps/FTSphereBord.eps
+width 1 8.00
+height 1 6.00
+flags 12
+
+\end_inset 
+
+
+\layout Caption
+
+
+\begin_inset LatexCommand \label{fig:SphereGaussianBord}
+
+\end_inset 
+
+Réponse impulsionnelle du filtre gaussien et profil de surface résultant
+ (échelle horizontale en voxels).
+\end_float 
+\layout Standard
+
+La réponse impulsionnelle correspondant au filtre gaussien choisi, ainsi
+ que le profil de surface qui apparaît après le filtrage sont illustrés
+ dans la figure 
+\begin_inset LatexCommand \ref{fig:SphereGaussianBord}
+
+\end_inset 
+
+.
+ Ce profil étant tout simplement la fonction :
+\layout Standard
+
+
+\begin_inset Formula 
+\begin{equation}
+\label{eqn:ProfilSphereGaussienne}
+p(x)=\frac{1}{2}\left( erf\left( \frac{x}{\sigma \sqrt{2}}\right) +1\right) 
+\end{equation}
+
+\end_inset 
+
+
+\layout Standard
+
+Soumis à l'approximation de considérer la fonction sphérique 
+\begin_inset Formula \( f\left( \overrightarrow{x}\right)  \)
+\end_inset 
+
+ comme un front plat par rapport à la taille de la fonction de réponse impulsion
+nelle.
+ Il est important de remarquer que pour des objets de rayon inférieur le
+ profil de contour présentera une transition plus forte.
+ La fonction d'équation 
+\begin_inset LatexCommand \ref{eqn:ProfilSphereGaussienne}
+
+\end_inset 
+
+ est utilisée ici pour synthétiser une sphère de rayon 50 voxels.
+\layout Subsection
+
+Tests de détection et d'extraction de surfaces
+\layout Standard
+
+Pour chacune des méthodes de détection, des tests ont été effectués en faisant
+ varier les valeurs du paramètre de filtrage.
+ Les critères retenus comme pertinents pour la comparaison sont les suivants
+ : 
+\layout Itemize
+
+Le décalage du centre de la sphère 
+\layout Itemize
+
+L'estimation du rayon moyen
+\layout Itemize
+
+L'écart type du rayon 
+\layout Itemize
+
+L'erreur quadratique entre le rayon et sa valeur théorique de 50 voxels
+\layout Itemize
+
+L'erreur moyenne du rayon (permettant de déterminer si les points sont détectés
+ du côté externe ou interne de la surface théorique)
+\layout Itemize
+
+L'écart type de l'erreur du rayon (mesure de la rugosité de la surface ou
+ des déformations globales comme l'excentricité par exemple)
+\layout Itemize
+
+Le décalage du centre qui représente d'éventuelles réponses anisotropes
+ (par rapport à la direction), auquel on peut s'attendre dans le cas des
+ méthodes de filtrage récursif.
+\layout Itemize
+
+Le nombre de points et le nombre de triangles sont plutôt indicatifs de
+ la méthode d'extraction de surface.
+\layout Itemize
+
+La corrélation entre l'estimation de la normale et sa valeur théorique.
+\layout Standard
+
+Toutes les valeurs reportées sont mesurées en millimètres pour les dimensions
+ et en degrés pour les angles.
+\layout Subsubsection
+
+Le détecteur gaussien
+\layout Standard
+
+Le filtre gaussien a été appliqué pour diverses valeurs de 
+\begin_inset Formula \( \sigma  \)
+\end_inset 
+
+ à la sphère de test.
+ Les principales caractéristiques de la surface extraite sont présentées
+ dans le tableau 
+\begin_inset LatexCommand \ref{tab:GaussianTests}
+
+\end_inset 
+
+.
+ Les valeurs de 
+\begin_inset Formula \( \sigma <0.3 \)
+\end_inset 
+
+ donnent en sortie un module du gradient qui est une copie de l'image, puisque
+ la discrétisation, fait que ce fitrage soit équivalent à une convolution
+ par une impulsion Dirac.
+\begin_inset Info ibanez Mon Sep  7 18:03:32 1998
+
+A commenter avec Chafiaa
+\end_inset 
+
+ Pour la valeur de 
+\begin_inset Formula \( \sigma =0.40 \)
+\end_inset 
+
+ le résultat du module du gradient est satisfaisant à l'oeil, mais la distributi
+on des niveaux de gris rend impossible une segmentation complète puisque
+ le filtre produit un niveau de gris de valeur non nulle dans les régions
+ uniformes.
+ Les valeurs affichées dans le tableau correspondent donc à une surface
+ incomplète.
+ 
+\layout Standard
+
+Les valeurs du gradient dépendent des valeurs de 
+\begin_inset Formula \( \sigma  \)
+\end_inset 
+
+.
+ Pour illustrer cette dépendance, la valeur maximale du gradient est présentée
+ pour chaque 
+\begin_inset Formula \( \sigma  \)
+\end_inset 
+
+ dans le tableau 
+\begin_inset LatexCommand \ref{tab:GaussianTests}
+
+\end_inset 
+
+.
+ Cette relation est la conséquence de la généralité de la notion de surface
+ en tant que 
+\emph on 
+transition
+\emph default 
+ de niveau de gris dans une certaine distance.
+ 
+\layout Standard
+
+La figure 
+\begin_inset LatexCommand \ref{fig:EstimationRayonGauss}
+
+\end_inset 
+
+ illustre les relations entre la valeur 
+\begin_inset Formula \( \sigma  \)
+\end_inset 
+
+ et l'erreur d'estimation du rayon.
+ La ligne centrale représente la valeur moyenne du rayon tandis que les
+ barres d'erreur représentent les valeurs minimale et maximale.
+ Le rayon est toujours surestimé.
+ Les meilleurs résultats ont été obtenus pour les valeurs de 
+\begin_inset Formula \( \sigma \approx 0.9 \)
+\end_inset 
+
+.
+ Pour 
+\begin_inset Formula \( \sigma >1.0 \)
+\end_inset 
+
+ le résultat est très uniforme sur la sphère, comme le montre la valeur
+ de l'écart-type dans le tableau, mais le rayon reste toujours surestimé.
+ Remarquons que du point de vue du détecteur de surfaces, les erreurs d'estimati
+on du rayon dans notre cas, traduisent simplement une erreur d'estimation
+ de la 
+\emph on 
+position
+\emph default 
+ de la surface, qui résulte être biaisée dans la direction externe à la
+ courbure de la surface en considération.
+ Les surfaces extraites présenteront, en conséquence, des courbures plus
+ importantes que celles de la surface réelle.
+\layout Standard
+
+\begin_float fig 
+\layout Standard
+\align center 
+
+\begin_inset Figure size 227 77
+file Surfaces_eps/OverUnderStimated.eps
+flags 8
+
+\end_inset 
+
+
+\layout Caption
+
+
+\begin_inset LatexCommand \label{fig:OverUnderStimated}
+
+\end_inset 
+
+Changement de forme d'un contour comme conséquence du biais dans l'estimation
+ de la position des points détectés.
+ La ligne en pointillée représente la sous-estimation.
+ La ligne en tirets représente la sur-estimation.
+\end_float 
+\layout Standard
+
+La figure montre l'effet du biais de position dans l'aspect des surfaces
+ extraites.
+\layout Subsubsection
+
+Le détecteur de Canny et Deriche
+\layout Standard
+
+Le coefficient 
+\begin_inset Formula \( \alpha  \)
+\end_inset 
+
+ de l'opérateur de Canny et Deriche présente un comportement inverse à celui
+ de 
+\begin_inset Formula \( \sigma  \)
+\end_inset 
+
+ du détecteur gaussien.
+\layout Standard
+
+Les résultats montrent que le détecteur de Canny et Deriche est très stable
+ par rapport au choix du paramètre 
+\begin_inset Formula \( \alpha  \)
+\end_inset 
+
+.
+ Les valeurs élevées, minimisent l'erreur d'estimation sans augmenter la
+ variabilité de l'estimation.
+ Les valeurs testées pour ce détecteur ont été choisies de manière à produire
+ des filtres passe-bas d'étendue similaire à ceux utilisées pour les tests
+ du filtre gaussien.
+ La plage de variation des valeurs des deux paramètres peut être considérée
+ comme comparable.
+\layout Subsubsection
+
+Le détecteur de Shen et Castan
+\layout Standard
+
+Le filtre de Shen et Castan utilise le paramètre 
+\begin_inset Formula \( \alpha  \)
+\end_inset 
+
+ correspondant à la puissance de la fonction exponentielle du filtrage passe-bas.
+ Plus la valeur de 
+\begin_inset Formula \( \alpha  \)
+\end_inset 
+
+ est importante, plus le filtre est étroit.
+ Le rôle du paramètre est équivalent à celui du détecteur de Canny et Deriche.
+ La plage des valeurs pour le paramètre 
+\begin_inset Formula \( \alpha  \)
+\end_inset 
+
+ a été choisie pour produire des filtres passe-bas similaires à ceux des
+ autres méthodes.
+\layout Standard
+
+Les résultats montrent que le détecteur de Shen et Castan, fournit une estimatio
+n plus précise de la position de la surface que celle de Canny et Deriche.
+ La précision s'améliore pour les valeurs importantes de 
+\begin_inset Formula \( \alpha  \)
+\end_inset 
+
+.
+ La position est décalée vers l'extérieur de la surface.
+\layout Subsubsection
+
+Le détecteur basé sur les Moments Géométriques
+\layout Standard
+
+Le détecteur basé sur les moments géométriques a été appliqué pour une suite
+ de valeurs de rayon de sa sphère de référence.
+ Les valeurs du rayon de la sphère de test ont tendance à être sous-estimées
+ comme l'illustrent le tableau 
+\begin_inset LatexCommand \ref{tab:MomentsTests}
+
+\end_inset 
+
+ et la figure 
+\begin_inset LatexCommand \ref{fig:EstimationRayonMoments}
+
+\end_inset 
+
+, ce qui se traduit par un biais dans l'estimation de la position de la
+ surface vers la région interne de la surface.
+ La tendance à la sous estimation ne semble pas converger, ce qui nous empêche
+ d'envisager la recherche d'une valeur optimale du paramètre.
+ Les bornes des valeurs extrêmes sont de l'ordre de ceux de la méthode du
+ filtre gaussien pour ses meilleurs valeurs de 
+\begin_inset Formula \( \sigma  \)
+\end_inset 
+
+.
+ Les valeurs élevées de l'erreur pour les petits rayons indiquent une faible
+ capacité à éliminer l'effet d'aliasing naturel avec les voxels de l'image,
+ conséquence logique de la taille réduite des masques de convolution, cubes
+ de l'ordre de 3 à 7 de côté.
+\layout Standard
+
+Le temps de calcul de cette méthode est fonction de la taille de la sphère
+ de référence (voisinage), des valeurs illustratives sont présentées dans
+ le tableau 
+\begin_inset LatexCommand \ref{tab:TempsCalculMoments}
+
+\end_inset 
+
+.
+\layout Standard
+
+\begin_float tab 
+\layout Standard
+\align center \LyXTable
+multicol5
+2 7 0 0 -1 -1 -1 -1
+1 0 0 0
+1 1 0 0
+8 1 0 "" ""
+8 1 0 "" ""
+8 1 0 "" ""
+8 1 0 "" ""
+8 1 0 "" ""
+8 1 0 "" ""
+8 1 1 "" ""
+0 8 1 0 0 0 0 "" ""
+0 8 1 0 0 0 0 "" ""
+0 8 1 0 0 0 0 "" ""
+0 8 1 0 0 0 0 "" ""
+0 8 1 0 0 0 0 "" ""
+0 8 1 0 0 0 0 "" ""
+0 8 1 0 0 0 0 "" ""
+0 8 1 0 0 0 0 "" ""
+0 8 1 0 0 0 0 "" ""
+0 8 1 0 0 0 0 "" ""
+0 8 1 0 0 0 0 "" ""
+0 8 1 0 0 0 0 "" ""
+0 8 1 0 0 0 0 "" ""
+0 8 1 0 0 0 0 "" ""
+
+Rayon
+\newline 
+1.0
+\newline 
+1.5
+\newline 
+2.5
+\newline 
+3.5
+\newline 
+4.5
+\newline 
+5.5
+\newline 
+Temps (secs)
+\newline 
+182
+\newline 
+182
+\newline 
+446
+\newline 
+1066
+\newline 
+2053
+\newline 
+3469
+\layout Caption
+
+
+\begin_inset LatexCommand \label{tab:TempsCalculMoments}
+
+\end_inset 
+
+Temps de calcul du processus de détection de surfaces avec l'opérateur basé
+ sur les Moments Géométriques, en fonction du rayon de la sphère de référence.
+\end_float 
+\layout Subsubsection
+
+Le biais d'estimation en fonction de la courbure
+\layout Standard
+
+Il a été prouvé analytiquement que l'estimation de la position de la surface
+ fournie par le détecteur gaussien est biaisée en fonction de la courbure
+ de la surface 
+\begin_inset LatexCommand \cite{Clark89}
+
+\end_inset 
+
+.
+ Des effets similaires ont été observés dans d'autres types de détecteurs
+ de surfaces 
+\begin_inset LatexCommand \cite{Steger98}
+
+\end_inset 
+
+.
+ Nous avons effectué un test pour analyser ce comportement pour les quatre
+ détecteurs de surfaces étudiés ici.
+ Des sphères ont été synthétisées suivant le procédé décrit précédemment,
+ mais avec une suite de valeurs de rayons.
+ Pour chacune de ses sphères le processus de détection de surface a été
+ appliqué avec chacune des méthodes.
+ Comme le comportement de chaque méthode de détection de surface dépend
+ du choix de la valeur du paramètre, nous avons retenu pour chacun des détecteur
+s la valeur de son paramètre qui a fournit la meilleure estimation du rayon
+ pour la sphère de 50 millimètres.
+ Ces paramètres doivent, en principe, être également optimaux pour les nouvelles
+ images.
+ Ils sont présentés dans le tableau 
+\begin_inset LatexCommand \ref{tab:MeilleursParametres}
+
+\end_inset 
+
+.
+\layout Standard
+
+La conséquence de ce comportement dans l'extraction de formes serait, pour
+ le détecteur des moments géométriques une réduction des détails conduisant
+ à un lissage de la surface, tandis que pour les autres détecteurs, apparaîtra
+ une augmentation fictive des détails de la surface, les courbures seront
+ plus accentuées dans les surfaces extraites par le détecteur gaussien.
+ Il faut retenir que dans toute cette analyse, l'objet dans l'image est
+ considéré être la région de niveau de gris le plus élevé.
+\layout Standard
+
+\begin_float tab 
+\layout Standard
+\align center \LyXTable
+multicol5
+5 3 0 0 -1 -1 -1 -1
+1 1 0 0
+1 0 0 0
+1 0 0 0
+1 0 0 0
+1 1 0 0
+8 1 0 "" ""
+8 1 0 "" ""
+8 1 1 "" ""
+0 8 1 0 0 0 0 "" ""
+0 8 1 0 0 0 0 "" ""
+0 8 1 0 0 0 0 "" ""
+0 8 1 0 0 0 0 "" ""
+0 8 1 0 0 0 0 "" ""
+0 8 1 0 0 0 0 "" ""
+0 8 1 0 0 0 0 "" ""
+0 8 1 0 0 0 0 "" ""
+0 8 1 0 0 0 0 "" ""
+0 8 1 0 0 0 0 "" ""
+0 8 1 0 0 0 0 "" ""
+0 8 1 0 0 0 0 "" ""
+0 8 1 0 0 0 0 "" ""
+0 8 1 0 0 0 0 "" ""
+0 8 1 0 0 0 0 "" ""
+
+Méthode
+\newline 
+paramètre
+\newline 
+valeur
+\newline 
+Laplacien d'une gaussienne
+\newline 
+
+\begin_inset Formula \( \sigma  \)
+\end_inset 
+
+
+\newline 
+0.8
+\newline 
+Canny et Deriche
+\newline 
+
+\begin_inset Formula \( \alpha  \)
+\end_inset 
+
+
+\newline 
+4.0
+\newline 
+Shen et Castan
+\newline 
+
+\begin_inset Formula \( \alpha  \)
+\end_inset 
+
+
+\newline 
+2.0
+\newline 
+Moments Géométriques
+\newline 
+
+\begin_inset Formula \( R \)
+\end_inset 
+
+
+\newline 
+2.5
+\layout Caption
+
+
+\begin_inset LatexCommand \label{tab:MeilleursParametres}
+
+\end_inset 
+
+Valeurs retenues comme optimales pour les tests de performance des méthodes
+ de détection sur des sphères synthétiques.
+\end_float 
+ Les résultats de la valeur moyenne du rayon pour chaque détecteur sont
+ présentés dans la figure 
+\begin_inset LatexCommand \ref{fig:BiaisCourbureDetecteurs}
+
+\end_inset 
+
+.
+ Nous pouvons remarquer que tous les détecteurs sont d'autant plus biaisés
+ que le rayon de courbure de la surface est petit.
+ L'erreur d'estimation s'approche de la taille du voxel (1 millimètre dans
+ notre cas) quand le rayon de courbure tend vers 1, c'est à dire le détail
+ minimum de l'image (sa résolution).
+ 
+\layout Standard
+
+Le détecteur gaussien surestime le rayon, donc, déplace la position de la
+ surface vers l'extérieur.
+ Le détecteur basé sur les moments géométriques sous estime le rayon, ce
+ qui équivaut à déplacer la position de la surface vers l'intérieur.
+ Le détecteur de Canny et Deriche montre un comportement assez similaire
+ à celui du détecteur de Shen et Castan, en sur estimant la valeur du rayon,
+ mais avec un résultat supérieur à celui du détecteur gaussien.
+\layout Standard
+
+La figure 
+\begin_inset LatexCommand \ref{fig:BiaisCourbureStd}
+
+\end_inset 
+
+ montre les écart-types des valeurs du rayon estimé pour chacun des détecteurs
+ en fonction du rayon de courbure de la surface.
+ Cet écart-type peut être interprété comme une mesure de l'anisotropie de
+ la réponse du détecteur.
+ Nous pouvons remarquer la stabilité du détecteur des moments, sauf pour
+ le plus petit rayon.
+ Le détecteur gaussien présente la stabilité la plus haute, tandis que le
+ détecteur de Canny et Deriche présente la variabilité la plus importante.
+\layout Standard
+
+\begin_float wide-tab 
+\layout Standard
+\align center \LyXTable
+multicol5
+12 7 0 0 -1 -1 -1 -1
+1 0 0 0
+1 0 0 0
+1 0 0 0
+1 0 0 0
+1 0 0 0
+1 0 0 0
+1 0 0 0
+1 0 0 0
+1 0 0 0
+1 0 0 0
+1 0 0 0
+1 1 0 0
+8 1 0 "" ""
+8 1 0 "" ""
+8 1 0 "" ""
+8 1 0 "" ""
+8 1 1 "" ""
+8 0 1 "" ""
+8 0 1 "" ""
+0 8 1 0 0 0 0 "" ""
+0 8 1 0 0 0 0 "" ""
+0 8 1 0 0 0 0 "" ""
+0 8 1 0 0 0 0 "" ""
+0 8 1 0 0 0 0 "" ""
+0 8 1 0 0 0 0 "" ""
+0 8 1 0 0 0 0 "" ""
+0 8 1 0 0 0 0 "" ""
+0 8 1 0 0 0 0 "" ""
+0 8 1 0 0 0 0 "" ""
+0 8 1 0 0 0 0 "" ""
+0 8 1 0 0 0 0 "" ""
+0 8 1 0 0 0 0 "" ""
+0 8 1 0 0 0 0 "" ""
+0 8 1 0 0 0 0 "" ""
+0 8 1 0 0 0 0 "" ""
+0 8 1 0 0 0 0 "" ""
+0 8 1 0 0 0 0 "" ""
+0 8 1 0 0 0 0 "" ""
+0 8 1 0 0 0 0 "" ""
+0 8 1 0 0 0 0 "" ""
+0 8 1 0 0 0 0 "" ""
+0 8 1 0 0 0 0 "" ""
+0 8 1 0 0 0 0 "" ""
+0 8 1 0 0 0 0 "" ""
+0 8 1 0 0 0 0 "" ""
+0 8 1 0 0 0 0 "" ""
+0 8 1 0 0 0 0 "" ""
+0 8 1 0 0 0 0 "" ""
+0 8 1 0 0 0 0 "" ""
+0 8 1 0 0 0 0 "" ""
+0 8 1 0 0 0 0 "" ""
+0 8 1 0 0 0 0 "" ""
+0 8 1 0 0 0 0 "" ""
+0 8 1 0 0 0 0 "" ""
+0 8 1 0 0 0 0 "" ""
+0 8 1 0 0 0 0 "" ""
+0 8 1 0 0 0 0 "" ""
+0 8 1 0 0 0 0 "" ""
+0 8 1 0 0 0 0 "" ""
+0 8 1 0 0 0 0 "" ""
+0 8 1 0 0 0 0 "" ""
+0 8 1 0 0 0 0 "" ""
+0 8 1 0 0 0 0 "" ""
+0 8 1 0 0 0 0 "" ""
+0 8 1 0 0 0 0 "" ""
+0 8 1 0 0 0 0 "" ""
+0 8 1 0 0 0 0 "" ""
+0 8 1 0 0 0 0 "" ""
+0 8 1 0 0 0 0 "" ""
+0 8 1 0 0 0 0 "" ""
+0 8 1 0 0 0 0 "" ""
+0 8 1 0 0 0 0 "" ""
+0 8 1 0 0 0 0 "" ""
+0 8 1 0 0 0 0 "" ""
+0 8 1 0 0 0 0 "" ""
+0 8 1 0 0 0 0 "" ""
+0 8 1 0 0 0 0 "" ""
+0 8 1 0 0 0 0 "" ""
+0 8 1 0 0 0 0 "" ""
+0 8 1 0 0 0 0 "" ""
+0 8 1 0 0 0 0 "" ""
+0 8 1 0 0 0 0 "" ""
+0 8 1 0 0 0 0 "" ""
+0 8 1 0 0 0 0 "" ""
+0 8 1 0 0 0 0 "" ""
+0 8 1 0 0 0 0 "" ""
+0 8 1 0 0 0 0 "" ""
+0 8 1 0 0 0 0 "" ""
+0 8 1 0 0 0 0 "" ""
+0 8 1 0 0 0 0 "" ""
+0 8 1 0 0 0 0 "" ""
+0 8 1 0 0 0 0 "" ""
+0 8 1 0 0 0 0 "" ""
+0 8 1 0 0 0 0 "" ""
+0 8 1 0 0 0 0 "" ""
+0 8 1 0 0 0 0 "" ""
+0 8 1 0 0 0 0 "" ""
+0 8 1 0 0 0 0 "" ""
+0 8 1 0 0 0 0 "" ""
+0 8 1 0 0 0 0 "" ""
+0 8 1 0 0 0 0 "" ""
+0 8 1 0 0 0 0 "" ""
+0 8 1 0 0 0 0 "" ""
+
+
+\begin_inset Formula \( \sigma  \)
+\end_inset 
+
+
+\newline 
+0.40
+\newline 
+0.60
+\newline 
+0.80
+\newline 
+1.00
+\newline 
+2.00
+\newline 
+4.00
+\newline 
+Rayon moyen
+\newline 
+52.1267
+\newline 
+50.3794
+\newline 
+50.0709
+\newline 
+50.0784
+\newline 
+50.1346
+\newline 
+50.3641
+\newline 
+Écart type du rayon
+\newline 
+0.1065
+\newline 
+0.0290
+\newline 
+0.0115
+\newline 
+0.0091
+\newline 
+0.0047
+\newline 
+0.0055
+\newline 
+Erreur quadratique
+\newline 
+4.5341
+\newline 
+0.1448
+\newline 
+0.0051
+\newline 
+0.0062
+\newline 
+0.0181
+\newline 
+0.1326
+\newline 
+Erreur moyenne
+\newline 
+2.1267
+\newline 
+0.3794
+\newline 
+0.0708
+\newline 
+0.0784
+\newline 
+0.1346
+\newline 
+0.3641
+\newline 
+Écart type de l'erreur
+\newline 
+0.1065
+\newline 
+0.0290
+\newline 
+0.0115
+\newline 
+0.0091
+\newline 
+0.0047
+\newline 
+0.0055
+\newline 
+Décalage du centre (
+\begin_inset Formula \( 10^{-6} \)
+\end_inset 
+
+)
+\newline 
+43182
+\newline 
+1.173
+\newline 
+1.028
+\newline 
+2.086
+\newline 
+0.017
+\newline 
+0.2865
+\newline 
+Nombre de points
+\newline 
+174468
+\newline 
+206294
+\newline 
+203360
+\newline 
+203630
+\newline 
+204014
+\newline 
+206294
+\newline 
+Nombre de triangles
+\newline 
+277434
+\newline 
+412584
+\newline 
+407256
+\newline 
+407256
+\newline 
+408024
+\newline 
+412584
+\newline 
+Maximum
+\newline 
+52.5405
+\newline 
+50.4759
+\newline 
+50.1160
+\newline 
+50.1143
+\newline 
+50.1503
+\newline 
+50.3788
+\newline 
+Minimum
+\newline 
+51.9031
+\newline 
+50.3176
+\newline 
+50.0335
+\newline 
+50.0520
+\newline 
+50.1230
+\newline 
+50.3489
+\newline 
+Maximum du Gradient
+\newline 
+1004.23
+\newline 
+390.92
+\newline 
+146.42
+\newline 
+65.29
+\newline 
+4.69
+\newline 
+0.30
+\layout Caption
+
+
+\begin_inset LatexCommand \label{tab:GaussianTests}
+
+\end_inset 
+
+Caractéristiques de l'estimation du rayon avec le détecteur Gaussien
+\end_float 
+\layout Standard
+
+\begin_float wide-tab 
+\layout Standard
+\align center \LyXTable
+multicol5
+12 7 0 0 -1 -1 -1 -1
+1 0 0 0
+1 0 0 0
+1 0 0 0
+1 0 0 0
+1 0 0 0
+1 0 0 0
+1 0 0 0
+1 0 0 0
+1 0 0 0
+1 0 0 0
+1 0 0 0
+1 1 0 0
+8 1 0 "" ""
+8 1 0 "" ""
+8 1 0 "" ""
+8 1 1 "" ""
+8 0 1 "" ""
+8 0 1 "" ""
+8 0 1 "" ""
+0 8 1 0 0 0 0 "" ""
+0 8 1 0 0 0 0 "" ""
+0 8 1 0 0 0 0 "" ""
+0 8 1 0 0 0 0 "" ""
+0 8 1 0 0 0 0 "" ""
+0 8 1 0 0 0 0 "" ""
+0 8 1 0 0 0 0 "" ""
+0 8 1 0 0 0 0 "" ""
+0 8 1 0 0 0 0 "" ""
+0 8 1 0 0 0 0 "" ""
+0 8 1 0 0 0 0 "" ""
+0 8 1 0 0 0 0 "" ""
+0 8 1 0 0 0 0 "" ""
+0 8 1 0 0 0 0 "" ""
+0 8 1 0 0 0 0 "" ""
+0 8 1 0 0 0 0 "" ""
+0 8 1 0 0 0 0 "" ""
+0 8 1 0 0 0 0 "" ""
+0 8 1 0 0 0 0 "" ""
+0 8 1 0 0 0 0 "" ""
+0 8 1 0 0 0 0 "" ""
+0 8 1 0 0 0 0 "" ""
+0 8 1 0 0 0 0 "" ""
+0 8 1 0 0 0 0 "" ""
+0 8 1 0 0 0 0 "" ""
+0 8 1 0 0 0 0 "" ""
+0 8 1 0 0 0 0 "" ""
+0 8 1 0 0 0 0 "" ""
+0 8 1 0 0 0 0 "" ""
+0 8 1 0 0 0 0 "" ""
+0 8 1 0 0 0 0 "" ""
+0 8 1 0 0 0 0 "" ""
+0 8 1 0 0 0 0 "" ""
+0 8 1 0 0 0 0 "" ""
+0 8 1 0 0 0 0 "" ""
+0 8 1 0 0 0 0 "" ""
+0 8 1 0 0 0 0 "" ""
+0 8 1 0 0 0 0 "" ""
+0 8 1 0 0 0 0 "" ""
+0 8 1 0 0 0 0 "" ""
+0 8 1 0 0 0 0 "" ""
+0 8 1 0 0 0 0 "" ""
+0 8 1 0 0 0 0 "" ""
+0 8 1 0 0 0 0 "" ""
+0 8 1 0 0 0 0 "" ""
+0 8 1 0 0 0 0 "" ""
+0 8 1 0 0 0 0 "" ""
+0 8 1 0 0 0 0 "" ""
+0 8 1 0 0 0 0 "" ""
+0 8 1 0 0 0 0 "" ""
+0 8 1 0 0 0 0 "" ""
+0 8 1 0 0 0 0 "" ""
+0 8 1 0 0 0 0 "" ""
+0 8 1 0 0 0 0 "" ""
+0 8 1 0 0 0 0 "" ""
+0 8 1 0 0 0 0 "" ""
+0 8 1 0 0 0 0 "" ""
+0 8 1 0 0 0 0 "" ""
+0 8 1 0 0 0 0 "" ""
+0 8 1 0 0 0 0 "" ""
+0 8 1 0 0 0 0 "" ""
+0 8 1 0 0 0 0 "" ""
+0 8 1 0 0 0 0 "" ""
+0 8 1 0 0 0 0 "" ""
+0 8 1 0 0 0 0 "" ""
+0 8 1 0 0 0 0 "" ""
+0 8 1 0 0 0 0 "" ""
+0 8 1 0 0 0 0 "" ""
+0 8 1 0 0 0 0 "" ""
+0 8 1 0 0 0 0 "" ""
+0 8 1 0 0 0 0 "" ""
+0 8 1 0 0 0 0 "" ""
+0 8 1 0 0 0 0 "" ""
+0 8 1 0 0 0 0 "" ""
+0 8 1 0 0 0 0 "" ""
+0 8 1 0 0 0 0 "" ""
+0 8 1 0 0 0 0 "" ""
+0 8 1 0 0 0 0 "" ""
+0 8 1 0 0 0 0 "" ""
+0 8 1 0 0 0 0 "" ""
+0 8 1 0 0 0 0 "" ""
+0 8 1 0 0 0 0 "" ""
+0 8 1 0 0 0 0 "" ""
+0 8 1 0 0 0 0 "" ""
+
+
+\begin_inset Formula \( \alpha  \)
+\end_inset 
+
+
+\newline 
+0.50
+\newline 
+0.80
+\newline 
+1.00
+\newline 
+2.00
+\newline 
+4.00
+\newline 
+8.00
+\newline 
+Rayon moyen
+\newline 
+50.2248
+\newline 
+50.1062
+\newline 
+50.0787
+\newline 
+50.0426
+\newline 
+50.0349
+\newline 
+50.0341
+\newline 
+Écart type du rayon
+\newline 
+0.0783
+\newline 
+0.0330
+\newline 
+0.0230
+\newline 
+0.0141
+\newline 
+0.0156
+\newline 
+0.0161
+\newline 
+Erreur quadratique
+\newline 
+0.0567
+\newline 
+0.0124
+\newline 
+0.0067
+\newline 
+0.0020
+\newline 
+0.0015
+\newline 
+0.0014
+\newline 
+Erreur moyenne
+\newline 
+0.2248
+\newline 
+0.1062
+\newline 
+0.0787
+\newline 
+0.0426
+\newline 
+0.0349
+\newline 
+0.0341
+\newline 
+Écart type de l'erreur
+\newline 
+0.0783
+\newline 
+0.0330
+\newline 
+0.0230
+\newline 
+0.0141
+\newline 
+0.0156
+\newline 
+0.0161
+\newline 
+Décalage du centre (
+\begin_inset Formula \( 10^{-6} \)
+\end_inset 
+
+)
+\newline 
+0.3910
+\newline 
+1.177
+\newline 
+1.448
+\newline 
+0.384
+\newline 
+0.145
+\newline 
+2.726
+\newline 
+Nombre de points
+\newline 
+204830
+\newline 
+203606
+\newline 
+203486
+\newline 
+203486
+\newline 
+203294
+\newline 
+203294
+\newline 
+Nombre de triangles
+\newline 
+409656
+\newline 
+407208
+\newline 
+406968
+\newline 
+406968
+\newline 
+406584
+\newline 
+406584
+\newline 
+Maximum
+\newline 
+50.3221
+\newline 
+50.1556
+\newline 
+50.1196
+\newline 
+50.0794
+\newline 
+50.0827
+\newline 
+50.0845
+\newline 
+Minimum
+\newline 
+49.9668
+\newline 
+49.9941
+\newline 
+49.9952
+\newline 
+49.9794
+\newline 
+49.9654
+\newline 
+49.9626
+\newline 
+Maximum du Gradient
+\newline 
+191.39
+\newline 
+188.95
+\newline 
+186.42
+\newline 
+176.66
+\newline 
+192.20
+\newline 
+203.09
+\layout Caption
+
+
+\begin_inset LatexCommand \label{tab:CannyDericheTests}
+
+\end_inset 
+
+Caractéristiques de l'estimation du rayon avec le détecteur de Canny et
+ Deriche
+\end_float 
+\layout Standard
+
+\begin_float wide-tab 
+\layout Standard
+\align center \LyXTable
+multicol5
+12 7 0 0 -1 -1 -1 -1
+1 0 0 0
+1 0 0 0
+1 0 0 0
+1 0 0 0
+1 0 0 0
+1 0 0 0
+1 0 0 0
+1 0 0 0
+1 0 0 0
+1 0 0 0
+1 0 0 0
+1 1 0 0
+8 1 0 "" ""
+8 1 0 "" ""
+8 1 0 "" ""
+8 1 0 "" ""
+8 1 1 "" ""
+8 0 1 "" ""
+8 0 1 "" ""
+0 8 1 0 0 0 0 "" ""
+0 8 1 0 0 0 0 "" ""
+0 8 1 0 0 0 0 "" ""
+0 8 1 0 0 0 0 "" ""
+0 8 1 0 0 0 0 "" ""
+0 8 1 0 0 0 0 "" ""
+0 8 1 0 0 0 0 "" ""
+0 8 1 0 0 0 0 "" ""
+0 8 1 0 0 0 0 "" ""
+0 8 1 0 0 0 0 "" ""
+0 8 1 0 0 0 0 "" ""
+0 8 1 0 0 0 0 "" ""
+0 8 1 0 0 0 0 "" ""
+0 8 1 0 0 0 0 "" ""
+0 8 1 0 0 0 0 "" ""
+0 8 1 0 0 0 0 "" ""
+0 8 1 0 0 0 0 "" ""
+0 8 1 0 0 0 0 "" ""
+0 8 1 0 0 0 0 "" ""
+0 8 1 0 0 0 0 "" ""
+0 8 1 0 0 0 0 "" ""
+0 8 1 0 0 0 0 "" ""
+0 8 1 0 0 0 0 "" ""
+0 8 1 0 0 0 0 "" ""
+0 8 1 0 0 0 0 "" ""
+0 8 1 0 0 0 0 "" ""
+0 8 1 0 0 0 0 "" ""
+0 8 1 0 0 0 0 "" ""
+0 8 1 0 0 0 0 "" ""
+0 8 1 0 0 0 0 "" ""
+0 8 1 0 0 0 0 "" ""
+0 8 1 0 0 0 0 "" ""
+0 8 1 0 0 0 0 "" ""
+0 8 1 0 0 0 0 "" ""
+0 8 1 0 0 0 0 "" ""
+0 8 1 0 0 0 0 "" ""
+0 8 1 0 0 0 0 "" ""
+0 8 1 0 0 0 0 "" ""
+0 8 1 0 0 0 0 "" ""
+0 8 1 0 0 0 0 "" ""
+0 8 1 0 0 0 0 "" ""
+0 8 1 0 0 0 0 "" ""
+0 8 1 0 0 0 0 "" ""
+0 8 1 0 0 0 0 "" ""
+0 8 1 0 0 0 0 "" ""
+0 8 1 0 0 0 0 "" ""
+0 8 1 0 0 0 0 "" ""
+0 8 1 0 0 0 0 "" ""
+0 8 1 0 0 0 0 "" ""
+0 8 1 0 0 0 0 "" ""
+0 8 1 0 0 0 0 "" ""
+0 8 1 0 0 0 0 "" ""
+0 8 1 0 0 0 0 "" ""
+0 8 1 0 0 0 0 "" ""
+0 8 1 0 0 0 0 "" ""
+0 8 1 0 0 0 0 "" ""
+0 8 1 0 0 0 0 "" ""
+0 8 1 0 0 0 0 "" ""
+0 8 1 0 0 0 0 "" ""
+0 8 1 0 0 0 0 "" ""
+0 8 1 0 0 0 0 "" ""
+0 8 1 0 0 0 0 "" ""
+0 8 1 0 0 0 0 "" ""
+0 8 1 0 0 0 0 "" ""
+0 8 1 0 0 0 0 "" ""
+0 8 1 0 0 0 0 "" ""
+0 8 1 0 0 0 0 "" ""
+0 8 1 0 0 0 0 "" ""
+0 8 1 0 0 0 0 "" ""
+0 8 1 0 0 0 0 "" ""
+0 8 1 0 0 0 0 "" ""
+0 8 1 0 0 0 0 "" ""
+0 8 1 0 0 0 0 "" ""
+0 8 1 0 0 0 0 "" ""
+0 8 1 0 0 0 0 "" ""
+0 8 1 0 0 0 0 "" ""
+0 8 1 0 0 0 0 "" ""
+0 8 1 0 0 0 0 "" ""
+0 8 1 0 0 0 0 "" ""
+0 8 1 0 0 0 0 "" ""
+0 8 1 0 0 0 0 "" ""
+0 8 1 0 0 0 0 "" ""
+0 8 1 0 0 0 0 "" ""
+0 8 1 0 0 0 0 "" ""
+
+
+\begin_inset Formula \( \alpha  \)
+\end_inset 
+
+
+\newline 
+0.30
+\newline 
+0.40
+\newline 
+0.50
+\newline 
+1.00
+\newline 
+2.00
+\newline 
+4.00
+\newline 
+Rayon moyen
+\newline 
+50.0955
+\newline 
+50.0755
+\newline 
+50.0638
+\newline 
+50.0422
+\newline 
+50.0337
+\newline 
+50.0313
+\newline 
+Écart type du rayon
+\newline 
+0.0213
+\newline 
+0.0184
+\newline 
+0.0167
+\newline 
+0.0144
+\newline 
+0.0159
+\newline 
+0.0176
+\newline 
+Erreur quadratique
+\newline 
+0.0096
+\newline 
+0.0060
+\newline 
+0.0043
+\newline 
+0.0020
+\newline 
+0.0014
+\newline 
+0.0013
+\newline 
+Erreur moyenne
+\newline 
+0.0955
+\newline 
+0.0755
+\newline 
+0.0638
+\newline 
+0.0422
+\newline 
+0.0337
+\newline 
+0.0313
+\newline 
+Écart type de l'erreur
+\newline 
+0.0213
+\newline 
+0.0184
+\newline 
+0.0166
+\newline 
+0.0144
+\newline 
+0.0159
+\newline 
+0.0176
+\newline 
+Décalage du centre (
+\begin_inset Formula \( 10^{-6} \)
+\end_inset 
+
+)
+\newline 
+1.658
+\newline 
+0.5221
+\newline 
+0.0111
+\newline 
+0.3928
+\newline 
+0.2697
+\newline 
+0.4547
+\newline 
+Nombre de points
+\newline 
+203822
+\newline 
+203726
+\newline 
+203678
+\newline 
+203390
+\newline 
+203342
+\newline 
+203294
+\newline 
+Nombre de triangles
+\newline 
+407640
+\newline 
+407448
+\newline 
+407352
+\newline 
+406776
+\newline 
+406680
+\newline 
+406584
+\newline 
+Maximum
+\newline 
+50.1862
+\newline 
+50.1565
+\newline 
+50.1386
+\newline 
+50.1077
+\newline 
+50.1028
+\newline 
+50.1041
+\newline 
+Minimum
+\newline 
+50.0535
+\newline 
+50.0362
+\newline 
+50.0258
+\newline 
+50.0041
+\newline 
+49.9889
+\newline 
+49.9785
+\newline 
+Maximum du Gradient
+\newline 
+182.75
+\newline 
+184.72
+\newline 
+184.73
+\newline 
+179.52
+\newline 
+192.55
+\newline 
+202.03
+\layout Caption
+
+
+\begin_inset LatexCommand \label{tab:ShenCastanTests}
+
+\end_inset 
+
+Caractéristiques de l'estimation du rayon avec le détecteur de Shen et Castan.
+\end_float 
+\layout Standard
+
+\begin_float wide-tab 
+\layout Standard
+\align center \LyXTable
+multicol5
+12 7 0 0 -1 -1 -1 -1
+1 0 0 0
+1 0 0 0
+1 0 0 0
+1 0 0 0
+1 0 0 0
+1 0 0 0
+1 0 0 0
+1 0 0 0
+1 0 0 0
+1 0 0 0
+1 0 0 0
+1 1 0 0
+8 1 0 "" ""
+8 1 0 "" ""
+8 1 0 "" ""
+8 1 0 "" ""
+8 1 1 "" ""
+8 0 1 "" ""
+8 0 1 "" ""
+0 8 1 0 0 0 0 "" ""
+0 8 1 0 0 0 0 "" ""
+0 8 1 0 0 0 0 "" ""
+0 8 1 0 0 0 0 "" ""
+0 8 1 0 0 0 0 "" ""
+0 8 1 0 0 0 0 "" ""
+0 8 1 0 0 0 0 "" ""
+0 8 1 0 0 0 0 "" ""
+0 8 1 0 0 0 0 "" ""
+0 8 1 0 0 0 0 "" ""
+0 8 1 0 0 0 0 "" ""
+0 8 1 0 0 0 0 "" ""
+0 8 1 0 0 0 0 "" ""
+0 8 1 0 0 0 0 "" ""
+0 8 1 0 0 0 0 "" ""
+0 8 1 0 0 0 0 "" ""
+0 8 1 0 0 0 0 "" ""
+0 8 1 0 0 0 0 "" ""
+0 8 1 0 0 0 0 "" ""
+0 8 1 0 0 0 0 "" ""
+0 8 1 0 0 0 0 "" ""
+0 8 1 0 0 0 0 "" ""
+0 8 1 0 0 0 0 "" ""
+0 8 1 0 0 0 0 "" ""
+0 8 1 0 0 0 0 "" ""
+0 8 1 0 0 0 0 "" ""
+0 8 1 0 0 0 0 "" ""
+0 8 1 0 0 0 0 "" ""
+0 8 1 0 0 0 0 "" ""
+0 8 1 0 0 0 0 "" ""
+0 8 1 0 0 0 0 "" ""
+0 8 1 0 0 0 0 "" ""
+0 8 1 0 0 0 0 "" ""
+0 8 1 0 0 0 0 "" ""
+0 8 1 0 0 0 0 "" ""
+0 8 1 0 0 0 0 "" ""
+0 8 1 0 0 0 0 "" ""
+0 8 1 0 0 0 0 "" ""
+0 8 1 0 0 0 0 "" ""
+0 8 1 0 0 0 0 "" ""
+0 8 1 0 0 0 0 "" ""
+0 8 1 0 0 0 0 "" ""
+0 8 1 0 0 0 0 "" ""
+0 8 1 0 0 0 0 "" ""
+0 8 1 0 0 0 0 "" ""
+0 8 1 0 0 0 0 "" ""
+0 8 1 0 0 0 0 "" ""
+0 8 1 0 0 0 0 "" ""
+0 8 1 0 0 0 0 "" ""
+0 8 1 0 0 0 0 "" ""
+0 8 1 0 0 0 0 "" ""
+0 8 1 0 0 0 0 "" ""
+0 8 1 0 0 0 0 "" ""
+0 8 1 0 0 0 0 "" ""
+0 8 1 0 0 0 0 "" ""
+0 8 1 0 0 0 0 "" ""
+0 8 1 0 0 0 0 "" ""
+0 8 1 0 0 0 0 "" ""
+0 8 1 0 0 0 0 "" ""
+0 8 1 0 0 0 0 "" ""
+0 8 1 0 0 0 0 "" ""
+0 8 1 0 0 0 0 "" ""
+0 8 1 0 0 0 0 "" ""
+0 8 1 0 0 0 0 "" ""
+0 8 1 0 0 0 0 "" ""
+0 8 1 0 0 0 0 "" ""
+0 8 1 0 0 0 0 "" ""
+0 8 1 0 0 0 0 "" ""
+0 8 1 0 0 0 0 "" ""
+0 8 1 0 0 0 0 "" ""
+0 8 1 0 0 0 0 "" ""
+0 8 1 0 0 0 0 "" ""
+0 8 1 0 0 0 0 "" ""
+0 8 1 0 0 0 0 "" ""
+0 8 1 0 0 0 0 "" ""
+0 8 1 0 0 0 0 "" ""
+0 8 1 0 0 0 0 "" ""
+0 8 1 0 0 0 0 "" ""
+0 8 1 0 0 0 0 "" ""
+0 8 1 0 0 0 0 "" ""
+0 8 1 0 0 0 0 "" ""
+0 8 1 0 0 0 0 "" ""
+0 8 1 0 0 0 0 "" ""
+0 8 1 0 0 0 0 "" ""
+
+
+\begin_inset Formula \( R \)
+\end_inset 
+
+ sphère de référence
+\newline 
+1.0
+\newline 
+1.5
+\newline 
+2.5
+\newline 
+3.5
+\newline 
+4.5
+\newline 
+5.5
+\newline 
+Rayon moyen
+\newline 
+49.9785
+\newline 
+49.9662
+\newline 
+49.9492
+\newline 
+49.9204
+\newline 
+49.881
+\newline 
+49.831
+\newline 
+Écart type du rayon
+\newline 
+0.0526
+\newline 
+0.0476
+\newline 
+0.0195
+\newline 
+0.0117
+\newline 
+0.0077
+\newline 
+0.0054
+\newline 
+Erreur quadratique
+\newline 
+0.0032
+\newline 
+0.0035
+\newline 
+0.0030
+\newline 
+0.0065
+\newline 
+0.0142
+\newline 
+0.0286
+\newline 
+Erreur moyenne
+\newline 
+-0.0215
+\newline 
+-0.0358
+\newline 
+-0.0508
+\newline 
+-0.0796
+\newline 
+-0.1190
+\newline 
+-0.1690
+\newline 
+Écart type de l'erreur
+\newline 
+0.0526
+\newline 
+0.0476
+\newline 
+0.0195
+\newline 
+0.0117
+\newline 
+0.0077
+\newline 
+0.0054
+\newline 
+Décalage du centre (
+\begin_inset Formula \( 10^{-6} \)
+\end_inset 
+
+)
+\newline 
+1.094
+\newline 
+0.3735
+\newline 
+0.5735
+\newline 
+0.4671
+\newline 
+0.7886
+\newline 
+0.6463
+\newline 
+Nombre de points
+\newline 
+202742
+\newline 
+202598
+\newline 
+202598
+\newline 
+202358
+\newline 
+202166
+\newline 
+201974
+\newline 
+Nombre de triangles
+\newline 
+405480
+\newline 
+405192
+\newline 
+405192
+\newline 
+404712
+\newline 
+404328
+\newline 
+403944
+\newline 
+Maximum
+\newline 
+50.1562
+\newline 
+50.1465
+\newline 
+50.0176
+\newline 
+49.9599
+\newline 
+49.9077
+\newline 
+49.8505
+\newline 
+Minimum
+\newline 
+49.7708
+\newline 
+49.7698
+\newline 
+49.8785
+\newline 
+49.8813
+\newline 
+49.8553
+\newline 
+49.8138
+\newline 
+Maximum du Gradient
+\newline 
+26.33
+\newline 
+33.30
+\newline 
+42.06
+\newline 
+45.60
+\newline 
+47.24
+\newline 
+48.11
+\layout Caption
+
+
+\begin_inset LatexCommand \label{tab:MomentsTests}
+
+\end_inset 
+
+Caractéristiques de l'estimation du rayon avec le détecteur basé sur les
+ moments géométriques.
+\end_float 
+\layout Standard
+
+\begin_float fig 
+\layout Standard
+\align center 
+
+\begin_inset Figure size 226 170
+file Surfaces_eps/LoGEstimationRayon.eps
+width 1 8.00
+height 1 6.00
+flags 8
+
+\end_inset 
+
+
+\layout Caption
+
+
+\begin_inset LatexCommand \label{fig:EstimationRayonGauss}
+
+\end_inset 
+
+Erreur d'estimation du rayon de la sphère avec le détecteur gaussien en
+ fonction du paramètre sigma.
+ Les barres représentent les valeurs minimale et maximale de l'estimation
+ (les valeurs sont prises du tableau 
+\begin_inset LatexCommand \ref{tab:GaussianTests}
+
+\end_inset 
+
+).
+\end_float 
+\layout Standard
+
+\begin_float fig 
+\layout Standard
+\align center 
+
+\begin_inset Figure size 226 170
+file Surfaces_eps/CannyDericheEstimationRayon.eps
+width 1 8.00
+height 1 6.00
+flags 8
+
+\end_inset 
+
+
+\layout Caption
+
+
+\begin_inset LatexCommand \label{fig:EstimationRayonCannyDeriche}
+
+\end_inset 
+
+Erreur d'estimation du rayon de la sphère avec le détecteur de Canny et
+ Deriche en fonction du paramètre 
+\begin_inset Formula \( \alpha  \)
+\end_inset 
+
+.
+ Les barres représentent les valeurs minimale et maximale de l'estimation
+ (les valeurs sont prises du tableau 
+\begin_inset LatexCommand \ref{tab:CannyDericheTests}
+
+\end_inset 
+
+).
+\end_float 
+\layout Standard
+
+\begin_float fig 
+\layout Standard
+\align center 
+
+\begin_inset Figure size 226 170
+file Surfaces_eps/ShenCastanEstimationRayon.eps
+width 1 8.00
+height 1 6.00
+flags 8
+
+\end_inset 
+
+
+\layout Caption
+
+
+\begin_inset LatexCommand \label{fig:EstimationRayonShenCastan}
+
+\end_inset 
+
+Erreur d'estimation du rayon de la sphère avec le détecteur de Shen et Castan
+ en fonction du paramètre 
+\begin_inset Formula \( \alpha  \)
+\end_inset 
+
+.
+ Les barres représentent les valeurs minimale et maximale de l'estimation
+ (les valeurs sont prises du tableau 
+\begin_inset LatexCommand \ref{tab:ShenCastanTests}
+
+\end_inset 
+
+).
+\end_float 
+\layout Standard
+
+\begin_float fig 
+\layout Standard
+\align center 
+
+\begin_inset Figure size 226 170
+file Surfaces_eps/MomentsEstimationRayon.eps
+width 1 8.00
+height 1 6.00
+flags 8
+
+\end_inset 
+
+
+\layout Caption
+
+
+\begin_inset LatexCommand \label{fig:EstimationRayonMoments}
+
+\end_inset 
+
+Erreur d'estimation du rayon avec le détecteur de Moments Géométriques en
+ fonction du rayon de la sphère de référence (voisinage).
+ Les barres représentent les valeurs minimale et maximale de l'estimation
+ (les valeurs sont prises du tableau 
+\begin_inset LatexCommand \ref{tab:MomentsTests}
+
+\end_inset 
+
+).
+\end_float 
+\begin_float fig 
+\layout Standard
+\align center 
+
+\begin_inset Figure size 226 170
+file Surfaces_eps/BiaisCourbure.eps
+width 1 8.00
+height 1 6.00
+flags 8
+
+\end_inset 
+
+
+\layout Caption
+
+
+\begin_inset LatexCommand \label{fig:BiaisCourbureDetecteurs}
+
+\end_inset 
+
+Erreur d'estimation de la position de la surface en fonction de son rayon
+ de courbure pour chacun des détecteurs.
+\end_float 
+\begin_float fig 
+\layout Standard
+\align center 
+
+\begin_inset Figure size 226 170
+file Surfaces_eps/BiaisCourbureStd.eps
+width 1 8.00
+height 1 6.00
+flags 8
+
+\end_inset 
+
+
+\layout Caption
+
+
+\begin_inset LatexCommand \label{fig:BiaisCourbureStd}
+
+\end_inset 
+
+Écart type de l'erreur d'estimation de la position de la surface en fonction
+ de son rayon de courbure pour chacun des détecteurs.
+\end_float 
+\layout Standard
+
+\layout Subsubsection
+
+Comparaison des temps de calcul
+\layout Standard
+
+Les tests ont été effectués sur un plateforme hors réseaux, avec les caractérist
+iques suivantes :
+\layout Itemize
+
+Pentium MMX 200 MHz
+\layout Itemize
+
+128 Mega Octets RAM
+\layout Itemize
+
+Disque swap 64 Mega Octets, bus IDE
+\layout Itemize
+
+Disque data 6 Giga Octets, bus IDE
+\layout Itemize
+
+Carte graphique 3Dfx Voodoo2
+\layout Itemize
+
+Système Opératif Linux 2.0.18
+\layout Itemize
+
+Compilateur GNU C++, egcs 1.0.3
+\layout Standard
+
+Les temps ont été chronométrés par l'utilisateur.
+ Ils sont approximatifs car certains processus ont nécessité du swapping
+ de la mémoire en disque.
+ Ils sont en tout cas représentatifs du temps (humain) qu'un utilisateur
+ doit dédier à cette tâche.
+ 
+\layout Standard
+
+Les temps de filtrage de chaque méthode sont reportés dans le tableau 
+\begin_inset LatexCommand \ref{tab:TempsDetectionFilters}
+
+\end_inset 
+
+.
+ Pour la méthode des moments géométriques ils comprennent la génération
+ des masques de corrélation.
+ Dans ce cas, le temps de calcul dépend de la taille du voisinage choisi,
+ plus précisement du rayon de la sphère de référence.
+ Pour les autres méthodes, ces temps ne dépendent pas de la valeur du paramètre
+ grâce à leur mise en oeuvre récursive.
+\layout Standard
+
+Le temps de calcul du processus global de traitement d'un volume de données,
+ comprenant: lecture du volume de données, détection, extraction, sauvegarde
+ et affichage de la surface, est détaillé dans le tableau 
+\begin_inset LatexCommand \ref{tab:DetectionTimming}
+
+\end_inset 
+
+.
+ Comme le temps du filtrage dépend de la méthode utilisée, le temps du filtrage
+ gaussian a été utilisée ici comme représentatif.
+\layout Standard
+
+\begin_float tab 
+\layout Standard
+\align center \LyXTable
+multicol5
+5 2 0 0 -1 -1 -1 -1
+1 1 0 0
+1 0 0 0
+1 0 0 0
+1 0 0 0
+1 1 0 0
+8 1 0 "" ""
+8 1 1 "" ""
+0 8 1 0 0 0 0 "" ""
+0 8 1 0 0 0 0 "" ""
+0 8 1 0 0 0 0 "" ""
+0 8 1 0 0 0 0 "" ""
+0 8 1 0 0 0 0 "" ""
+0 8 1 0 0 0 0 "" ""
+0 8 1 0 0 0 0 "" ""
+0 8 1 0 0 0 0 "" ""
+0 8 1 0 0 0 0 "" ""
+0 8 1 0 0 0 0 "" ""
+
+Méthode
+\newline 
+temps (secs)
+\newline 
+Laplacien d'une Gaussienne
+\newline 
+80
+\newline 
+Canny et Deriche
+\newline 
+52
+\newline 
+Shen et Castan
+\newline 
+32
+\newline 
+Moments Géométriques
+\newline 
+
+\begin_inset Formula \( \approx  \)
+\end_inset 
+
+1000
+\layout Caption
+
+
+\begin_inset LatexCommand \label{tab:TempsDetectionFilters}
+
+\end_inset 
+
+Temps de calcul des méthodes de détection.
+\end_float 
+ 
+\layout Standard
+
+\begin_float tab 
+\layout Standard
+\align center \LyXTable
+multicol5
+13 2 0 0 -1 -1 -1 -1
+1 1 0 0
+1 0 0 0
+1 0 0 0
+1 0 0 0
+1 0 0 0
+1 0 0 0
+1 0 0 0
+1 0 0 0
+1 0 0 0
+1 0 0 0
+1 0 0 0
+1 1 0 0
+1 1 0 0
+8 1 0 "" ""
+8 1 1 "" ""
+0 8 1 0 0 0 0 "" ""
+0 8 1 0 0 0 0 "" ""
+0 8 1 0 0 0 0 "" ""
+0 8 1 0 0 0 0 "" ""
+0 8 1 0 0 0 0 "" ""
+0 8 1 0 0 0 0 "" ""
+0 8 1 0 0 0 0 "" ""
+0 8 1 0 0 0 0 "" ""
+0 8 1 0 0 0 0 "" ""
+0 8 1 0 0 0 0 "" ""
+0 8 1 0 0 0 0 "" ""
+0 8 1 0 0 0 0 "" ""
+0 8 1 0 0 0 0 "" ""
+0 8 1 0 0 0 0 "" ""
+0 8 1 0 0 0 0 "" ""
+0 8 1 0 0 0 0 "" ""
+0 8 1 0 0 0 0 "" ""
+0 8 1 0 0 0 0 "" ""
+0 8 1 0 0 0 0 "" ""
+0 8 1 0 0 0 0 "" ""
+0 8 1 0 0 0 0 "" ""
+0 8 1 0 0 0 0 "" ""
+0 8 1 0 0 0 0 "" ""
+0 8 1 0 0 0 0 "" ""
+0 8 1 0 0 0 0 "" ""
+0 8 1 0 0 0 0 "" ""
+
+Tâches
+\newline 
+temps (secs)
+\newline 
+Lecture du volume de données
+\newline 
+2
+\newline 
+Filtrage de détection (filtre Gaussien)
+\newline 
+80
+\newline 
+conversion BCC Gradient
+\newline 
+9
+\newline 
+conversion BCC Laplacien
+\newline 
+9
+\newline 
+Seuillage bas (test utilisateur)
+\newline 
+3
+\newline 
+Préparation extraction
+\newline 
+8
+\newline 
+Détection de points (BCC marching cubes)
+\newline 
+62
+\newline 
+Vérifications topologiques
+\newline 
+45
+\newline 
+Sauvegarde en disque
+\newline 
+20
+\newline 
+Lecture du disque
+\newline 
+25
+\newline 
+Rendu de surface 
+\newline 
+9
+\newline 
+Total
+\newline 
+272
+\layout Caption
+
+
+\begin_inset LatexCommand \label{tab:DetectionTimming}
+
+\end_inset 
+
+Temps de calcul détaillé des processus de détection et d'extraction de surface.
+\end_float 
+L'évaluation du temps de calcul doit être considérée comme purement indicative,
+ car il dépend de la qualité de la programmation et de la bonne configuration
+ de la plateforme utilisée.
+\layout Subsection
+
+L'estimation de la normale à la surface
+\layout Standard
+
+Les détecteurs de surfaces utilisés dans notre étude peuvent fournir une
+ estimation de la direction de la normale à la surface.
+ Pour l'analyser, chaque détecteur a été appliqué avec la valeur du paramètre
+ considérée comme optimale pour la sphère de rayon 50 millimètres.
+ 
+\layout Standard
+
+\begin_float fig 
+\layout Standard
+\align center 
+
+\begin_inset Figure size 226 170
+file Surfaces_eps/VerifyNormal.eps
+width 1 8.00
+height 1 6.00
+flags 8
+
+\end_inset 
+
+
+\layout Caption
+
+
+\begin_inset LatexCommand \label{fig:VerifyNormalMax}
+
+\end_inset 
+
+Valeurs extrêmes de l'erreur d'estimation de la normale à la surface en
+ fonction du rayon de courbure.
+\end_float 
+\begin_float fig 
+\layout Standard
+\align center 
+
+\begin_inset Figure size 226 170
+file Surfaces_eps/VerifyNormalStd.eps
+width 1 8.00
+height 1 6.00
+flags 8
+
+\end_inset 
+
+
+\layout Caption
+
+
+\begin_inset LatexCommand \label{fig:VerifyNormalStd}
+
+\end_inset 
+
+Valeurs moyennes de l'erreur d'estimation de la normale à la surface en
+ fonction du rayon de courbure.
+\end_float 
+\layout Standard
+
+L'estimation de la normale est faite au centre de chaque voxel.
+ Pour obtenir un résultat représentatif pour l'ensemble de la sphère, une
+ bande autour de la surface a été définie.
+ Cette bande est formée par tous les points dont le module du gradient excède
+ 
+\begin_inset Formula \( \frac{1}{10} \)
+\end_inset 
+
+ de la valeur maximale du module du gradient.
+ Le vecteur normal à la surface a été normalisé pour tous les voxels à l'intérie
+ur de cette bande et le produit scalaire avec le vecteur théorique a été
+ calculé.
+ L'erreur d'orientation du vecteur normal en degrés est estimée à partir
+ de la valeur du produit scalaire.
+ Les valeurs maximale et moyenne de ces angles sont reportées ici comme
+ mesure représentative de la bonne ou mauvaise corrélation de l'orientation
+ de l'ensemble des vecteurs normales.
+ 
+\layout Standard
+
+La figure 
+\begin_inset LatexCommand \ref{fig:VerifyNormalMax}
+
+\end_inset 
+
+ présente les valeurs extrêmes de l'erreur d'orientation de la normale.
+ La figure 
+\begin_inset LatexCommand \ref{fig:VerifyNormalStd}
+
+\end_inset 
+
+ illustre les valeurs moyennes.
+ Le détecteur basé sur les moments géométriques est le plus performant et
+ se montre relativement insensible à la courbure de la surface.
+ Le détecteur gaussien suit un comportement similaire mais à partir des
+ rayons de courbures de 10 millimètres.
+ La réponse du détecteur de Shen et Castan paraît similaire à celle du détecteur
+ de Canny et Deriche.
+ Ces deux derniers ont de faibles performances quant à l'estimation de l'orienta
+tion de la surface.
+ Ceci est dû au fait d'avoir été construit comme le produit tensoriel de
+ filtres 
+\begin_inset Formula \( 1D \)
+\end_inset 
+
+.
+\layout Standard
+
+Comme l'estimation de la normale est faite pour chacun des voxels, elle
+ sera plus ou moins exacte en fonction de la distance du voxel à la surface.
+ La bonne orientation du vecteur est associée ici à une polarisation, à
+ l'image de l'aiguille d'une boussole.
+ En faisant varier la largeur de la bande il est possible d'étudier la perte
+ de polarisation du détecteur en fonction de la distance à la surface.
+ Nous avons trouvé que l'estimation est acceptable pour des seuils de l'ordre
+ de 0.01 de la valeur maximale.
+ 
+\layout Subsection
+
+La précision de la détection
+\layout Standard
+
+L'évaluation des performances des différentes méthodes de détection de surfaces
+ n'est pas une tâche simple, car la validité d'une méthode est fonction
+ de l'utilisation envisagée pour la surface.
+\layout Standard
+
+A l'heure actuelle, la plupart des études comparatives des méthodes de détection
+ de contours reposent sur le critère d'observateurs humains 
+\begin_inset LatexCommand \cite{Pernozzoli}
+
+\end_inset 
+
+
+\begin_inset LatexCommand \cite{Heath}
+
+\end_inset 
+
+.
+ Ce qui implique une orientation à la perception visuelle plus qu'à l'utilisatio
+n pour de futurs traitements informatiques.
+ Notre approche ici, prétend être plus objective, car elle est basée sur
+ l'évaluation de paramètres quantitatifs indépendants de l'observateur.
+\layout Standard
+
+Il est à regretter néanmoins, dans la majorité des cas, l'absence d'une
+ connaissance de la réalité physique (géométrique) des objets analysés.
+ Les comparaisons sont donc réalisées sur des images synthétiques, dont
+ le lien avec la réalité peut difficilement être établi.
+ C'est bien le cas dans la plupart des méthodologies d'imagerie médicale
+ où la 
+\emph on 
+vérité du terrain
+\emph default 
+ n'est presque jamais accessible.
+\layout Section
+
+Discussion
+\layout Subsection
+
+La relation entre l'objet et l'image
+\layout Standard
+
+L'utilisation des détecteurs de surfaces comme mécanismes de mise en évidence
+ de la présence d'un objet physique, suppose l'existence d'une relation
+ directe entre la nature de l'objet réel et le paramètre physique qui a
+ été mesuré pour le convertir en niveau de gris dans l'image.
+ Cette relation est souvent oubliée, au point de confondre l'image discrète
+ avec l'objet physique.
+ Il faut donc, remarquer : 
+\emph on 
+l'image n'est pas l'objet
+\emph default 
+ 
+\begin_inset LatexCommand \cite{Webb88}
+
+\end_inset 
+
+.
+\layout Standard
+
+Il a été bien établi que la performance des méthodes de détection de surfaces
+ dépend du contenu de l'image.
+ Le choix des paramètres optimaux du détecteur, ainsi que la signification
+ même de ce qu'est une surface et ce qui ne l'est pas, sont fonction du
+ type d'information cherchée dans l'image.
+ La qualité de la détection de surface ne peut être, par conséquent, un
+ objectif à atteindre en soi, tout au contraire, sa qualité doit être évaluée
+ dans une chaîne de traitement d'information dans le cadre d'une application
+ précise 
+\begin_inset LatexCommand \cite{Heath}
+
+\end_inset 
+
+.
+\layout Subsection
+
+L'application en imagerie de structures osseuses
+\layout Standard
+
+Les structures osseuses sont été étudiées à l'aide de rayons X car les substance
+s inorganiques minérales présentes dans les tissus osseux sont fortement
+ absorbantes des radiations dans ce domaine d'énergie.
+ Strictement, ce qu'on observe dans l'image de rayons X est une estimation
+ du coefficient d'absorption du matériau.
+ 
+\layout Standard
+
+Néanmoins, l'os en tant que structure anatomique n'est pas seulement le
+ tissu minéralisé, il comporte aussi des zones cartilagineuses est fibreuses
+ non minéralisées.
+ Dans ce contexte, le contenu d'information du volume de données est loin
+ d'être suffisant pour déterminer la forme d'une structure osseuse fonctionnelle.
+ La reconstruction d'une telle structure à partir d'une image, doit prendre
+ en compte des connaissances anatomiques (particulièrement hystologiques)
+ relatives à sa constitution et à sa morphologie.
+ Les méthodes de détection de surfaces aident à obtenir des informations
+ pertinentes pour la reconstruction de l'objet, mais en aucune manière,
+ ces informations sont suffisantes pour servir de définition de l'objet.
+\layout Section
+
+La partialité de l'information
+\layout Standard
+
+Une des difficultés rencontrées lors du développement de procédures de détection
+ de surfaces est la grande séparation existant entre les notions intuitives
+ définissant le concept de surface et la véritable réalisation du signal.
+\layout Standard
+
+L'aspect plus caractéristique dans les cas des images médicales est la variation
+ progressive et continue du contraste qui fait disparaître une surface noyée
+ dans le niveau de bruit du signal.
+ Typiquement, cette difficulté est surmontée avec l'approche du seuillage
+ par hystérésis.
+ Bien que ce seuillage permette d'augmenter considérablement la netteté
+ des surfaces et d'étendre leur suivi, il ne peut pas se substituer à la
+ conception de l'objet au delà de l'information contenue dans l'image.
+\layout Standard
+
+Notre conclusion concernant ce point est tout simplement, que l'image et
+ loin d'être complète.
+ Pour cette raison nous dirigeons nos efforts en direction de la modélisation
+ des structures osseuses afin de disposer des informations anatomiques indispens
+ables pour la compréhension de l'information partielle contenue dans les
+ volumes des données.
+\the_end
+@
+
+
+1.1
+log
+@Initial revision
+@
+text
+@d1 1
+a1 2
+#This file was created by <ibanez> Wed May 24 16:42:12 2000
+#LyX 0.12 (C) 1995-1998 Matthias Ettrich and the LyX Team
+d38 2
+a39 2
+La détection de surfaces dans les volumes des données est basée sur la généralis
+ation des méthodes utilisées en imagerie bidimensionnelle.
+d42 2
+a43 2
+ La généralité de cette définition conduit au fait la sortie d'un processus
+ de détection de contours ne rend pas toujours les résultats escomptés.
+d47 1
+a47 1
+ détecteurs de contours appliqués au problème de la détection des surfaces
+d49 4
+a52 4
+ Les détecteurs que nous avons choisi ont été mis dans un cadre comparatif
+ permettant d'évaluer sa performance aussi bien du point de vue de temps
+ de calcul que de précision de la détection.
+ Ils ont tous un paramètre a régler associé au lissage qui s'appl\i \.{\i}
+d57 1
+a57 1
+ Le test à été fait en utilisant pour chaque détecteur la valeur optimale
+d64 2
+a65 2
+La notion de transition des niveaux de gris, étant très vague, elle peut
+ se présenter de diverses manières 
+d71 1
+a71 1
+ la figure
+d80 1
+a80 1
+ La ligne tracée dans les images signale la région d'où le profil a été
+d91 2
+a92 2
+width 1 4.4
+height 1 4.4
+d102 2
+a103 2
+width 1 5.5
+height 1 4.4
+d115 3
+a117 3
+subcaption Articulation Scapulo-Humerale
+width 1 4.4
+height 1 4.4
+d126 3
+a128 3
+subcaption Profile de niveux de gris
+width 1 5.5
+height 1 4.4
+d140 3
+a142 3
+subcaption Articulation Coxo-Femorale
+width 1 4.4
+height 1 4.4
+d151 3
+a153 3
+subcaption Profile de niveaux de gris
+width 1 5.5
+height 1 4.4
+d177 3
+a179 3
+ l'observateur humain n'éprouve aucune difficulté pour la détermination
+ des contours tandis que les algorithmes de traitement d'image ont souvent
+ des performances insatisfaisantes.
+d181 1
+a181 1
+ à sous-estimer la complication de son automatisation.
+d193 1
+a193 1
+ local qu'entre des regions éloignées.
+d228 1
+a228 1
+Dans notre travail, seulement les deux premières étapes ont été retenues,
+d232 1
+a232 1
+ des pieces osseuses confrontées sont de l'ordre de la taille du voxel.
+d246 2
+a247 2
+ Cettes images ont des caractéristiques qui leur sont propres et qui doivent
+ être prises en compte au moment de s'engager dans un procès de détection
+d266 1
+a266 1
+ Les artéfacts typiques en images des tomographie sont:
+d269 1
+a269 1
+la décorrelation dans l'axe de balayage du scanner
+d301 2
+a302 2
+ s'avere incorrecte dans la mesure où, les notions de décorrelation spatiale
+ propres au bruit ne sont pas satisfaites, et ne peuvent pas être décrits
+d304 2
+a305 2
+ Les artéfacts ont un caractère non-linéaire dans la mesure ou leur orientations
+ et intensités dépendent directement du contenu du volume des données.
+d315 2
+a316 2
+width 1 4.5
+height 1 4.5
+d326 2
+a327 2
+width 1 4.5
+height 1 4.5
+d340 2
+a341 2
+width 1 4.5
+height 1 4.5
+d351 2
+a352 2
+width 1 4.5
+height 1 4.5
+d365 2
+a366 2
+width 1 4.5
+height 1 4.5
+d376 2
+a377 2
+width 1 4.5
+height 1 4.5
+d391 1
+a391 1
+Artéfacts linéaires et décorrélation des coupes dans l'axe z (axe du balayage
+d394 1
+a394 1
+Les artéfacts linéaires peuvent être appréciés dans l'image (
+d416 1
+a416 1
+b) correspondant à la coupe de l'axe X.
+d422 1
+a422 1
+d) correspondant à la ligne blanche horizontal de l'image (
+d428 1
+a428 1
+ considérées comme telles au lieu de donner l'apparance de bruit.
+d440 3
+a442 3
+ notre attention pour les appliquer sur les volumes des données.
+ Les principes de cettes méthodes sont présentes dans cette section.
+ Cettes méthodes ont été modifiées afin de pouvoir comparer leur performances
+d444 1
+a444 1
+ en mesure de fournir les volumes des données suivantes:
+d447 1
+a447 1
+un volume de données lissé
+d450 1
+a450 1
+un volume de données gradient (module et composantes)
+d453 1
+a453 1
+un volume de données représentant le Laplaciens.
+d458 1
+a458 2
+ Particulièrement le compromis entre élimination du bruit et lissage des
+ contours.
+d461 4
+a464 4
+Le volume de données du gradient sert comme indicateur de la présence de
+ contours importantes, tandis que le volume des données du Laplacien permet
+ de localiser avec précision la position des surfaces, comme l'endroit où
+ se trouve le maximum du gradient, donc le passage par zéro du Laplacien.
+d482 1
+a482 1
+\begin_inset LatexCommand \cite{Hamitouche995}
+d493 2
+a494 2
+ sont évalués jusqu'a l'ordre deux.
+ Le volume de données étant assimile à une fonction scalaire en 3D, 
+d553 1
+a553 1
+ au modèle du profil d'échelon (figure 
+d566 1
+a566 1
+ de l'echelon qui représente une mesure du contraste
+d576 3
+a578 3
+, dans le voisinage d'un voxel, se fait par correlation avec un masque precalcul
+ée, dont les coefficients de chaque voxel correspondent à l'intégration
+ de la fonction 
+d593 3
+a595 3
+Le choix du profil d'échelon étant restrictif, des types de profils plus
+ généraux, notamment, les profils composés ont été étudiés et pris en compte
+ avec les moments géométriques
+d611 1
+a611 1
+ Même si les images ont une si haute qualité, le processus de discrétisation
+d617 1
+a617 1
+Un modèle plus réaliste du profil est la fonction sigmoïde (figure 
+d622 1
+a622 1
+b), mais comme il est souvent le cas quand les modèles s'approchent de la
+d626 1
+a626 1
+ différentes regions à l'intérieur 
+d657 1
+a657 1
+ Dans cette optique, nous avons remplacé l' estimation des paramètres du
+d669 2
+a670 2
+width 1 4
+height 1 4
+d680 2
+a681 2
+width 1 5
+height 1 4
+d695 1
+a695 1
+Modèle de profil de niveau de gris.
+d741 1
+a741 1
+ sont considérés comme des estimations des composantes du vecteur gradient
+d752 1
+a752 1
+ Le moment d'ordre 2 le long de la direction du gradient 
+d756 2
+a757 1
+, est calculé selon les principes présentés en 
+d777 2
+a778 2
+ qui puisse être interprété comme quadratique et indépendante des termes
+ linéaire 
+d805 1
+a805 1
+ général de détecteurs de contour décrit dans la section 
+d885 3
+a887 3
+L'opérateur de moments s'adapte fácilement à l'anisotropie des volumes des
+ données car la taille du voxel est prise en compte au moment de générer
+ les masques de corrélation utilisées pour estimer les moments.
+d890 3
+a892 4
+Une caracteristique assez intéressante de l'opérateur de moments est l'éliminati
+on des effets de moiré ou recouvrement spectral dans l'image associée au
+ Laplacien.
+ Les opérateurs appliqués par des procédures séparable ont une tendance
+d900 1
+a900 1
+ une partie réduite du détecteur est sensible a la surface en particulier.
+d902 1
+a902 1
+ En revanche les détecteurs basés sur l'utilisations de modèles de contours
+d904 1
+a904 1
+ à chaque point du signal 
+d915 1
+a915 1
+ Des méthodes mathématiques particulières peuvent être utilisées pour accelerer
+d921 1
+a921 1
+, mais il ne suffisent pas pour rattraper les méthodes basées sur filtres
+d947 3
+a949 3
+ L'analyse de la réponse des cônes et battonets dans la rétine humaine se
+ présente comme une zone centrale sensible entourée d'un region d'inhibition.
+ L'hypotèse indique que ces structures dans la rétine étaient spécialisées
+d960 2
+a961 2
+width 1 8
+height 1 6
+d984 3
+a986 3
+subcaption La fonction Gaussien
+width 1 6
+height 1 6
+d996 2
+a997 2
+width 1 6
+height 1 6
+d1010 2
+a1011 2
+width 1 6
+height 1 6
+d1021 2
+a1022 2
+width 1 6
+height 1 6
+d1036 1
+a1036 1
+La fonction Gaussienne bidimensionel
+d1103 1
+a1103 1
+ Il faut remarquer que le Laplacien de la Gaussienne est négative à l'origine.
+d1136 2
+a1137 2
+Il a été prouvé que cette procédure est équivalente à appliquer des convolutions
+ avec des dérivées de la fonction Gaussienne 
+d1166 1
+a1166 1
+ fonction Gaussienne et ses dérivées pour les convoluer ensuite avec l'image.
+d1174 1
+a1174 1
+ Comme il a été signalé dans la section
+d1182 1
+a1182 1
+ des niveaux de gris à plusieurs échelles, sauf bien évidemment, dans les
+d1198 2
+a1199 2
+ (puissances de deux) et d'autre part produisent des informations décorrelées
+ a chaque échelle (orthogonalité).
+d1284 1
+a1284 1
+ au sens physique est spécifié par l'utilisateur, mais trois valeurs 
+d1299 1
+a1299 1
+ion avec contraintes 
+d1315 1
+a1315 1
+Unicite de la réponse
+d1318 3
+a1320 3
+Il faut remarquer que le détecteur est optimisé sous l'hypotèse que le bruit
+ présent dans la signal est additif, blanc, gaussian et centré.
+ Ce qui n'est malheureusement pas le cas dans les volumes des données provenant
+d1368 2
+a1369 2
+ permet de régler le niveau de lissage à appliquer sur l'image, plus il
+ est faible, plus le lissage est important.
+d1436 2
+a1437 2
+En 2D et 3D le filtre est implanté implanté de façon séparable en réutilisant
+ le filtre 1D : 
+d1446 1
+a1446 1
+ Une approche plus formelle aurait impliquée la reproduction du processus
+d1486 2
+a1487 2
+en général est une grave erreur quand-il s'agit de transposer les résultats
+ obtenus en 1D vers 2D ou 3D.
+d1491 3
+a1493 3
+ Des approches ont été proposées pour construire détecteurs 2D à partir
+ des détecteurs 1D sans le concept de separabilité, tout en optimisant la
+ réponse directionelle du détecteur 
+d1501 2
+a1502 2
+Seulement dans le cas de la Gaussienne, la séparabilité conduit à un résultat
+ similaire, car le produit de Gaussiennes implique la somme des carrés de
+d1505 2
+a1506 2
+ de la topologie dans les espaces discrets et lors de la parametrisation
+ des surfaces pour la modélisation et visualisation des formes.
+d1510 2
+a1511 3
+Ce qui semble une astuce, devient finalement une piège.
+ Tout simplement parce que chaque fois que l'on passe d'un espace de dimension
+ 
+d1515 1
+a1515 1
+ vers une autre de dimension 
+d1523 1
+a1523 1
+ directions additionnels au lieu d'une seule.
+d1534 1
+a1534 1
+ l'opérateur de Canny et Deriche.
+d1536 1
+a1536 1
+ avec un bruit blanc additionnel.
+d1539 1
+a1539 1
+Un critère plus exigent dans la précision de la localisation de la surface
+d1616 1
+a1616 1
+ en oeuvre en utilisant de filtres récursifs d'ordre 1.
+d1621 3
+a1623 3
+Cet opérateur génère des Laplaciens de haute définition, dont la localisation
+ de la surface est très nette.
+ Son inconvénient est la forte tendance à surestimer les directions des
+d1631 1
+a1631 1
+ verticale et horizontal, des images des bâtiments ou des espaces mueblés
+d1641 2
+a1642 2
+ Notamment, il est relié au facteur de lissage, donc, à la réduction du
+ bruit 
+d1649 1
+a1649 1
+ du volume des données.
+d1663 1
+a1663 1
+La performance des méthodes de détection de contours
+d1666 4
+a1669 4
+Le but du processus de extraction de contours est la construction d'une
+ représentation géométrique du contour à partir de l'information fournie
+ par le processus de détection.
+ L'extraction de surface peut être décomposée en trois étapes: 
+d1672 1
+a1672 1
+Détermination des couples de voxels entre lesquels passe le contour.
+d1676 1
+a1676 1
+Estimation de la position de passage du contour avec précision sous-voxel.
+d1679 2
+a1680 2
+Construction d'un triangulation qui reconstitue la connexité topologique
+ entre les points du contour.
+d1683 2
+a1684 2
+Le processus d'extraction de surface que nous avons développée ici, est
+ inspiré de
+d1712 1
+a1712 1
+ proposé dans les méthodes du filtrage LoG 
+d1730 1
+a1730 1
+Nous avons adapté cettes méthodes à la grille BCC 
+d1737 1
+a1737 1
+dants à la figure de Voronoï de la grille.
+d1740 1
+a1740 1
+ Un voxel a donc, quatorze voisins, dont huit a distance 
+d1744 1
+a1744 1
+ et six a distance 
+d1767 2
+a1768 3
+ Il faut, additionellement, analyser les volumes de données fournis par
+ ces méthodes pour déterminer le lieu de passage de la surface entre les
+ voxels.
+d1770 1
+a1770 1
+ du module du gradient, évalués dans tous les voxels de l'image.
+d1773 1
+a1773 1
+Le module du gradient est associée à l'importance du changement de niveau
+d1778 1
+a1778 1
+ a un valeur positive du Laplacien et l'autre un valeur négative.
+d1780 1
+a1780 1
+ dont le Laplacien a un signe contraire.
+d1782 1
+a1782 1
+ topologique puisque il partitione le volume des données en deux populations,
+d1787 1
+a1787 1
+Il est, néanmoins, possible de trouver des passages par zéro dans toutes
+d1789 2
+a1790 2
+ Il faut donc se limiter à ceux correspondant au valeurs importants du module
+ du gradient.
+d1801 1
+a1801 1
+Le signe du Laplacien est différent dans chaque voxel.
+d1807 1
+a1807 1
+Une fois que une couple de voxels 
+d1815 1
+a1815 1
+ a été trouve, tels que ses gradients 
+d1823 1
+a1823 1
+ soient supérieures au seuil 
+d1827 1
+a1827 1
+ et ses Laplaciens 
+d1835 2
+a1836 2
+ soient de signe contraire, nous plaçons un point de la surface le long
+ de la ligne qui relie les deux voxels.
+d1891 3
+a1893 3
+Maintenant que les points de la surface on été détectés et ses position
+ estimées, il est nécessaire de construire un triangulation entre eux pour
+ représenter l'estructure topologique de la surface.
+d1918 1
+a1918 1
+La représentation des voisinage
+d1933 6
+a1938 7
+ performance de son exécution.
+ Actions tels que l'insertion et l'enlèvement des noeuds, la vérification
+ de genus de la surface et l'évaluation de la courbure discrète sont réalises
+ facilement dans cette représentation.
+ Contrairement à ce qui arrive avec une représentation basé sur la description
+ des polygones de la surface, comme celle qui a été développée dans la méthode
+ de 
+d1942 1
+a1942 1
+ et en générale dans les méthodes qui sont concernés uniquement par la visualisa
+d1958 2
+a1959 2
+ Cette suite est ordonnée dans le sens anti-horaire quand elle est vue depuis
+ l'extérieur de la surface.
+d1961 2
+a1962 2
+ Additionellement, un drapeau est utilisé dans chaque noeud pour indiquer
+ s'il est un point de frontière ou pas.
+d1986 3
+a1988 3
+ Association de voisinage dans la grille hexagonale.
+ A gauche: structure topologique des pixels.
+ A droite: contour détecté entre points de la grille.
+d1992 2
+a1993 2
+Pour réaliser les connexion entre les points de la surface, une association
+ est faite entre les notions de grille d'échantillonnage et celles d'estructure
+d2067 3
+a2069 3
+ Notre méthode placera un point de contour dans la ligne qui relie deux
+ pixels avec Laplacien de signe contraire.
+ Il y en a, donc un point de contour 
+d2081 1
+a2081 1
+, ainsi que un point de contour 
+d2133 1
+a2133 1
+ qui connecte les deux point de contour 
+d2167 3
+a2169 2
+Nous avons appliqué ce concept à la grille BCC et la structure polyèdrale
+ composée des figures de Voronoï avec ses facettes, arêtes et sommets.
+d2175 1
+a2175 1
+ illustre les association correspondantes.
+d2188 1
+a2188 1
+ de la grille (a droite) sont associés aux voxels (polyèdre de Voronoï)
+d2201 1
+a2201 1
+ (a gauche).
+d2206 1
+a2206 1
+ est placé dans la ligne que relie deux points 
+d2214 1
+a2214 1
+, ainsi que un point de surface 
+d2218 1
+a2218 1
+ est placé dans la ligne entre 
+d2243 1
+a2243 1
+ de la structure polyherale.
+d2256 1
+a2256 1
+, est associée à l'arete 
+d2260 1
+a2260 1
+ partagé par les deux voxels facettes 
+d2271 4
+a2274 4
+Les possibles relations de voisinage entre points de la surface correspondent
+ aux possibles configurations géométriques des arêtes et facettes dans les
+ polyèdres.
+ Cette à dire, dans la surface 
+d2278 1
+a2278 1
+ il y aura un ligne qui relie deux points de surfaces, si, dans la structure
+d2283 1
+a2283 1
+Les desavantages de la surface extraite avec cet approche sont:
+d2286 1
+a2286 1
+Le grand nombre de triangles qu'il génère 
+d2292 1
+a2292 1
+Défauts qui sont partagé avec la méthode de marching cubes.
+d2296 1
+a2296 1
+Comparaison de performance des méthodes de détection de contours 
+d2310 2
+a2311 2
+ Néanmoins, comme il est le cas dans la plupart d'activités liées au traitement
+ de l'image, la validité d'une méthode dépends de l'application envisagée.
+d2315 2
+a2316 2
+La comparaison objective des performances des différents méthodes de détection
+ de contour implique le test des critères suivants:
+d2331 4
+a2334 4
+Pour évaluer ces différents critères, un volume de données synthétique contenant
+ une sphère a été utilisé comme patron.
+ Les différentes méthodes de détection ont été appliquées sur cette même
+ volume, est la surface extraite a été analysée.
+d2342 1
+a2342 1
+ plane.
+d2405 1
+a2405 1
+ est l'angle forme entre le vecteur de position 
+d2513 1
+a2513 1
+) montre le profil radiale de cette fonction.
+d2540 2
+a2541 2
+width 1 6
+height 1 4
+d2554 1
+a2554 1
+ Profil radiale de la transformation de Fourier de un sphère solide
+d2564 1
+a2564 1
+ une convolution avec la transformée de Fourier inverse de la fonction choisi
+d2569 1
+a2569 2
+Nous profitons ici, du fait d'avoir établie déjà le couple de fonctions
+ 
+d2573 1
+a2573 1
+ comme reliées par une transformation de Fourier.
+d2582 1
+a2582 1
+ dans le domaine de la fréquence, la réponse impulsionelle 
+d2586 1
+a2586 1
+ dans le espace de la signal est :
+d2608 1
+a2608 1
+ avant d'effectuer la discrétisation (d'échantillonnage).
+d2625 1
+a2625 1
+ semblerait suffisante.
+d2652 1
+a2652 1
+ ce qui implique, pour notre choix de truncature que : 
+d2668 1
+a2668 1
+ quelle est la fréquence maximale à retenir et en conséquence quel serait
+d2716 1
+a2716 1
+ doit être convoluée avec la réponse impulsionelle 
+d2724 1
+a2724 1
+ avec spectre à bande limité, suitable pour l'échantillonnage :
+d2739 2
+a2740 2
+Dans le procès de détection de surfaces, nous sommes interesés à la forme
+ de la fonction 
+d2744 1
+a2744 1
+ pour de valeurs de 
+d2753 1
+a2753 1
+ Cette à dire, sachant que la surface de notre objet synthétique est une
+d2767 1
+a2767 1
+ car elle corresponds au voisinage de la surface à détecter et extraire.
+d2774 1
+a2774 1
+Pour caracteriser le profile théorique du niveau de gris dans le voisinage
+d2783 1
+a2783 1
+, doit être calculé selon l'équation 
+d2807 1
+a2807 1
+ illustré les relations géométriques de cette intégrale, le cercle a gauche
+d2812 1
+a2812 1
+ tandis que le cercle a droite représente le support de la fonction 
+d2830 1
+a2830 1
+ dans le point 
+d2851 1
+a2851 1
+ implique que tous les points dans le casquette sphérique 
+d2860 1
+a2860 1
+ L'intégral se réduit donc, a la somme des valeurs de 
+d2864 1
+a2864 1
+ ponderées par le volume différentielle du casquette sphérique 
+d2869 1
+a2869 1
+ Le casquette 
+d2873 1
+a2873 1
+ est composée de tous les points situées à distance 
+d2881 1
+a2881 1
+, étant à l'intérieur de la sphère de 
+d2906 2
+a2907 2
+Relations géométriques de la convolution de l'image synthétique et la réponse
+ impulsionnelle.
+d2911 1
+a2911 1
+La surface du casquette sphérique d'angle interne 
+d2953 1
+a2953 1
+Le volume du casquette sphérique dans la figure 
+d3022 1
+a3022 1
+, entraîne l'apparition des fonctions de type 
+d3027 1
+a3027 1
+ Une évaluation par de méthodes numériques s'impose.
+d3038 1
+a3038 1
+ L'échelle horizontal est mesuré en échantillons (voxels).
+d3048 2
+a3049 2
+width 1 6
+height 1 4
+d3066 1
+a3066 1
+La fonction présente les ondulations qui sont typiques des fonctions qui
+d3071 1
+a3071 1
+ progressive comme celle de Hamming ou celle de Hannig 
+d3077 1
+a3077 1
+ Nous avons retenu parmi elles, le choix d'une fonction Gaussienne.
+d3081 1
+a3081 1
+Filtrage par une fonction Gaussienne 
+d3090 2
+a3091 2
+width 1 8
+height 1 6
+d3104 1
+a3104 1
+Spectre de la fonction sphérique avec une Gaussienne de taille adapté.
+d3109 1
+a3109 1
+Une bonne alternative est l'utilisation d'une Gaussienne comme fonction
+d3115 1
+a3115 1
+ permet de considérer la Gaussienne comme suffisamment plate dans la région
+d3122 1
+a3122 1
+ montre le choix d'une fonction Gaussienne de taille adéquate pour filtrer
+d3137 1
+a3137 1
+ Dans le cas de la figure, la valeur retenue est 
+d3174 2
+a3175 2
+width 1 8
+height 1 6
+d3189 1
+a3189 1
+ Gaussien.
+d3199 2
+a3200 2
+width 1 8
+height 1 6
+d3213 2
+a3214 2
+Réponse impulsionelle du filtre Gaussian et profil de surface résultant.
+ Échelle horizontale en voxels.
+d3218 1
+a3218 1
+La réponse impulsionnelle correspondant au filtre Gaussien choisi, ainsi
+d3245 2
+a3246 2
+ comme un front plat par rapport a la taille de la fonction de réponse impulsion
+elle.
+d3248 1
+a3248 1
+ profil de contour présentera un transition plus forte.
+d3254 1
+a3254 1
+ est utilisée ici pour synthétiser un sphère de rayon 50 voxels.
+d3257 1
+a3257 1
+Tests de détection et extraction de surfaces
+d3260 2
+a3261 2
+Pour chacune des méthodes de détection, des tests ont été effectués en variant
+ les valeurs du paramètre de filtrage.
+d3278 2
+a3279 2
+L'erreur moyenne du rayon (permettant de déterminer si les points sont détectes
+ du coté externe ou interne de la surface théorique)
+d3286 3
+a3288 3
+Décalage du centre, il représente des éventuelles réponses anisotropiques
+ (par rapport à la direction) qu'on peut s'attendre des méthodes de filtrage
+ récursives.
+d3292 1
+a3292 1
+ la méthode de extraction de surface.
+d3295 1
+a3295 1
+La correlation entre l'estimation de la normale et son valeur théorique.
+d3302 1
+a3302 1
+Détecteur Gaussien
+d3305 1
+a3305 1
+Le filtre Gaussien a été appliqué pour diverses valeurs de 
+d3335 1
+a3335 1
+ le filtre produit un niveau de gris de valeur non nul dans les régions
+d3337 2
+a3338 2
+ Les valeurs affichés dans le tableau correspondent donc à une surface incomplèt
+e.
+d3390 1
+a3390 1
+ de l'ecart type dans le tableau, mais le rayon est toujours surestimé.
+d3399 1
+a3399 1
+ Les surfaces extraits présenteront, en conséquence, des courbures plus
+d3423 1
+a3423 1
+ La ligne pointillée représente la sous-estimation.
+d3432 1
+a3432 1
+Canny et Deriche
+d3457 1
+a3457 1
+ du filtre Gaussian.
+d3462 1
+a3462 1
+Shen et Castan
+d3476 1
+a3476 1
+ La plage de valeurs pour le paramètre 
+d3494 1
+a3494 1
+Moments Géométriques
+d3497 3
+a3499 3
+Le détecteur des moments géométriques a été appliqué pour une suite de valeurs
+ de rayon de sa sphère de référence.
+ Les valeurs du rayon de la sphère de test ont tendance a être sous-estimées
+d3514 2
+a3515 2
+ Les bornes de valeurs extrêmes sont de l'ordre de ceux de la méthode du
+ filtre Gaussien pour ses meilleurs valeurs de 
+d3608 1
+a3608 1
+ fournie par le détecteur Gaussien est biaisé en fonction de la courbure
+d3622 2
+a3623 2
+ Nous avons effectue une test pour analyser ce comportement pour les quatre
+ détecteurs des surfaces étudiés ici.
+d3627 1
+a3627 1
+ appliqué avec chacun des méthodes.
+d3643 4
+a3646 4
+ le détecteur des Moments une réduction de détails conduisant à un lissage
+ de la surface, tandis que pour les autres détecteurs, apparaîtra un augmentatio
+n fictive des détails de la surface, les courbures seront plus accentuées
+ dans les surfaces extraites par le détecteur Gaussien.
+d3686 1
+a3686 1
+Laplacien d'une Gaussienne
+d3736 1
+a3736 1
+ présentes dans la figure 
+d3745 1
+a3745 1
+ notre cas) quand le rayon de courbure tend vers 1, cet à dire le détail
+d3750 1
+a3750 1
+Le détecteur Gaussien surestime le rayon, donc, déplace la position de la
+d3752 2
+a3753 2
+ Le détecteur de Moments Géométriques sous estime le rayon, ce qui équivaut
+ à déplacer la position de la surface vers l'intérieur.
+d3756 1
+a3756 1
+ mais avec un résultat supérieur à celui du détecteur Gaussian.
+d3766 1
+a3766 1
+ Cet écart type peut être interprété comme une mesure de l'anisotropie de
+d3770 2
+a3771 2
+ Le détecteur Gaussien présente la stabilité la plus haute, tandis que les
+ détecteurs de Canny et Deriche présente la variabilité la plus importante.
+d3943 1
+a3943 1
+Erreur moyen
+d4065 1
+a4065 1
+Caractéristiques de l'estimation du rayon avec le détecteur Gaussian
+d4238 1
+a4238 1
+Erreur moyen
+d4534 1
+a4534 1
+Erreur moyen
+d4829 1
+a4829 1
+Erreur moyen
+d4951 2
+a4952 2
+Caractéristiques de l'estimation du rayon avec le détecteur de Moments Géométriq
+ues.
+d4962 2
+a4963 2
+width 1 8
+height 1 6
+d4976 1
+a4976 1
+Erreur d'estimation du rayon de la sphère avec le détecteur Gaussien en
+d4994 2
+a4995 2
+width 1 8
+height 1 6
+d5030 2
+a5031 2
+width 1 8
+height 1 6
+d5066 2
+a5067 2
+width 1 8
+height 1 6
+d5096 2
+a5097 2
+width 1 8
+height 1 6
+d5119 2
+a5120 2
+width 1 8
+height 1 6
+d5140 1
+a5140 1
+Temps de calcul
+d5143 1
+a5143 1
+Les tests ont été effectués sur un plateforme hors réseaux, avec les caracterist
+d5162 1
+a5162 1
+Système Operative Linux 2.0.18
+d5184 2
+a5185 2
+ Dans ce cas, le temps de calcul dépends de la taille du voisinage choisi,
+ plus précisement du cube du rayon de la sphère de référence.
+d5192 1
+a5192 1
+ et affichage de la surface, est détaille dans la table 
+d5198 2
+a5199 2
+ Comme le temps du filtrage dépendant de la méthode utilisé, le temps du
+ filtrage Gaussian a été utilisée ici comme représentatif.
+d5367 1
+a5367 1
+L'évaluation de temps de calcul doit être considéré comme purement indicatif,
+d5369 1
+a5369 1
+ de la plateforme utilisé.
+d5378 1
+a5378 1
+ trouvée comme optimale pour la sphère de rayon 50 millimètres.
+d5388 2
+a5389 2
+width 1 8
+height 1 6
+d5411 2
+a5412 2
+width 1 8
+height 1 6
+d5445 1
+a5445 1
+ mesure représentative de la bonne ou mauvaise correlation de l'orientation
+d5462 3
+a5464 3
+ Le détecteur de Moments Géométriques est le plus performant et se montre
+ relativement insensible à la courbure de la surface.
+ Le détecteur Gaussien suit un comportement similaire mais à partir des
+d5466 1
+a5466 1
+ La réponse du détecteur de Shen et Castan parait similaire à celle du détecteur
+d5468 3
+a5470 3
+ Ces deux derniers ont de faibles performances en l'estimation de l'orientation
+ de la surface.
+ Ceci est dû au fait d'avoir été construit comme le produit tensoriel des
+d5478 2
+a5479 3
+Étant donnée que l'estimation de la normale est faite pour chacun des voxels,
+ elle sera plus ou moins exacte en fonction de la distance du voxel à la
+ surface.
+d5484 1
+a5484 1
+ Nous avons trouvée que l'estimation est acceptable pour des seuils de l'ordre
+d5494 1
+a5494 1
+ de l'utilisation envisagée pour le surface.
+d5497 1
+a5497 1
+A l'heure actuelle, la plupart d'études comparatives des méthodes de détection
+d5509 4
+a5512 4
+ Ce qui implique une orientation à la perception visuelle plus que à l'utilisati
+on pour de subséquents traitements informatiques.
+ Notre approche ici, prétend être plus objective, car il est basée en l'évaluati
+on de paramètres quantitatives independents d'un observateur particulier.
+d5517 4
+a5520 4
+ Les comparaisions sont donc réalisées sur des images synthétiques, dont
+ la liason avec la réalité peut difficilement être établie.
+ A l'égale que dans la plupart des méthodologies d'imagerie médical, c'est
+ bien notre cas ici, car la 
+d5522 1
+a5522 1
+vérité de du terrain
+d5533 4
+a5536 4
+L'utilisation des détecteurs de surfaces comme des mécanismes de mis en
+ évidence de la présence d'un objet physique, suppose l'existence d'une
+ relation directe entre la nature de l'objet réel et le paramètre physique
+ qui a été mesuré pour le convertir en niveau de gris dans l'image.
+d5554 6
+a5559 10
+ même de ce qu'est un surface et ce qui ne l'est pas, sont fonction du type
+ d'information cherchée dans l'image.
+ La qualité de la détection de surface ne peut être, en conséquence, un
+ objectif a atteindre 
+\emph on 
+per se
+\emph default 
+, tout au contraire, sa qualité doit être évaluée dans le contexte d'une
+ chaîne de traitement d'information encadré dans une application précise
+ 
+d5567 1
+a5567 1
+L'application a l'imagerie osseuse
+d5570 1
+a5570 1
+Les structures osseuses sont été étudies à l'aide des rayons X car les substance
+d5573 1
+a5573 1
+ Strictement ce qu'on observe dans l'image de rayon X est une estimation
+d5578 3
+a5580 3
+Néanmoins, l'os en tant que structure anatomique n'est seulement le tissu
+ minéralisé, il comporte aussi des zones cartilagineuses est fibreuses non
+ minéralisés.
+d5582 1
+a5582 1
+ d'être suffisant pour déterminer la forme d'une structure osseuse fonctionelle.
+d5588 1
+a5588 1
+ ces information sont suffisantes pour servir de définition de l'objet.
+d5595 1
+a5595 1
+ de surfaces est la grande séparation existante entre les notions intuitives
+d5599 2
+a5600 2
+L'aspect plus caracteristique dans les cas des images médicales est la variation
+ progressive et continue du contraste qui fait disparaître un surface noyé
+d5603 4
+a5606 4
+ par hystéresis.
+ Bien si ce seuillage permet d'aumenter considérablement la netteté des
+ surfaces et d'étendre son suivi, il ne peut pas se substituer la conception
+ de l'objet au déla de l'information contenue dans l'image.
+d5609 1
+a5609 1
+Notre conclusion dans ce point là, est toute simplement, que l'image et
+d5612 3
+a5614 3
+ des structures osseuses afin de disposer des ces informations anatomiques
+ indispensables pour la compréhension de l'information partielle contenue
+ dans les volumes des données.
+@

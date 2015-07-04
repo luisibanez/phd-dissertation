@@ -1,0 +1,4525 @@
+#LyX 1.1 created this file. For more info see http://www.lyx.org/
+\lyxformat 2.15
+\textclass book
+\begin_preamble
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{graphics}
+\usepackage{psfrag}
+\end_preamble
+\language french
+\inputencoding default
+\fontscheme default
+\graphics default
+\paperfontsize default
+\spacing onehalf 
+\papersize Default
+\paperpackage a4
+\use_geometry 0
+\use_amsmath 1
+\paperorientation portrait
+\secnumdepth 4
+\tocdepth 4
+\paragraph_separation indent
+\defskip medskip
+\quotes_language english
+\quotes_times 2
+\papercolumns 1
+\papersides 2
+\paperpagestyle default
+
+\layout Chapter
+
+Fonctionnalité des articulations osseuses
+\begin_inset LatexCommand \label{sec: Fonctionalite}
+
+\end_inset 
+
+
+\layout Section
+
+Justification de notre démarche
+\layout Standard
+
+Notre étude de la relation entre la morphologie et la fonctionnalité s'est
+ consacrée initialement à déterminer comment la forme de la surface des
+ structures articulaires était un facteur déterminant de l'éventail des
+ degrés de liberté du mouvement.
+ Une révision de certaines notions d'anatomie a rapidement modifié cette
+ vision initiale; les raisons sont less suivantes: 
+\layout Standard
+
+\begin_float fig 
+\layout Standard
+\align center 
+
+\begin_inset Figure size 476 200
+file Fonctionalite_eps/mopho_function.eps
+width 3 80.00
+flags 8
+
+\end_inset 
+
+
+\layout Caption
+
+
+\begin_inset LatexCommand \label{fig: MophFunction}
+
+\end_inset 
+
+Relation entre la morphologie et la fonctionnalité dans les structures biologiqu
+es.
+\end_float 
+\layout Itemize
+
+la fonctionnalité et la morphologie sont interdépendantes.
+\layout Itemize
+
+la morphologie articulaire n'est pas suffisante pour déterminer le mouvement.
+\layout Subsection
+
+Interdépendance
+\layout Standard
+
+Nous avons montré dans le chapitre concernant la morphogenèse que la morphologie
+ de la plupart des structures organiques n'est pas complètement déterminée
+ par le génome.
+ Le système musculo-squelettal, en particulier, est modelé depuis la gestation
+ par la pratique quotidienne même.
+ Sans les exercices que le foetus fait dans l'utérus, son squelette ne réussirai
+t pas à se former de façon normale.
+ Sans les exercices progressifs d'agitation des membres dans les quatre
+ premiers mois du nouveau né, ses structures osseuses et articulaires ne
+ seront pas suffisamment fortes pour affronter la marche à quatre pattes.
+ Les structures articulaires sont modelées à long terme par la confrontation
+ résultante des mouvements des membres.
+ 
+\layout Standard
+
+Il y a donc une interconnexion mutuelle entre la morphologie et la fonctionnalit
+é.
+ La fonctionnalité instantanée, c'est à dire, les capacités de mouvement
+ d'une structure à un instant donné, est bien soumise à la forme des surfaces
+ articulaires, mais, d'autre part, l'exécution fréquente d'activités légèrement
+ éloignées de cette fonctionnalité introduit des modifications dans la morpholog
+ie 
+\begin_inset LatexCommand \cite{Huiskes}
+
+\end_inset 
+
+.
+ La figure 
+\begin_inset LatexCommand \ref{fig: MophFunction}
+
+\end_inset 
+
+ illustre cette interaction.
+ La morphologie devient donc, une sorte de mémoire de l'activité physique
+ de l'individu, qui s'optimise pour mieux lui permettre de réaliser le type
+ d'activité qu'il a exercé tout au long de son histoire.
+ Ce qui peut également s'interpréter comme si la morphologie était développée
+ par apprentissage, à partir d'un grand nombre d'exemples de mouvements
+ exercés.
+ 
+\layout Standard
+
+La notion affirmant que la forme des structures osseuses est soumise aux
+ exigeances de sa fonctionnalité fut proposée pour la première fois par
+ Wolff en 1892 
+\begin_inset LatexCommand \cite{Wolff1892}
+
+\end_inset 
+
+.
+ Les études de Wolff ont donné les bases pour la compréhension de l'adaptation
+ de la forme des os aux besoins mécaniques.
+ Cette adaptation comprend, aussi bien la forme externe de l'os cortical
+ que la structure interne de l'os spongieux.
+ Des travaux plus récents ont profité des développements technologiques
+ tels que les simulations par éléments finis 
+\begin_inset LatexCommand \cite{Weinans}
+
+\end_inset 
+
+
+\begin_inset LatexCommand \cite{Huiskes}
+
+\end_inset 
+
+, l'imagerie par micro-CT 
+\begin_inset LatexCommand \cite{Laval}
+
+\end_inset 
+
+
+\begin_inset LatexCommand \cite{Muller}
+
+\end_inset 
+
+ et l'IRM de haute résolution 
+\begin_inset LatexCommand \cite{Majumdar}
+
+\end_inset 
+
+.
+\layout Standard
+
+Un modelage à plus long terme se réalise au niveau de l'espèce par les mécanisme
+s d'évolution naturelle.
+ Les modifications de comportement que subissent les espèces pour mieux
+ s'adapter aux conditions changeantes d'environnement se reflètent dans
+ les modifications de leurs morphologies.
+ Ces modifications morphologiques leur permettent de mieux répondre aux
+ nouvelles exigences fonctionnelles; c'est le cas dans l'alongement des
+ os des membres dans les espèces qui se sont adaptées à la course au lieu
+ de la marche.
+\layout Standard
+
+Le fait que ces adaptations sont contraintes à se réaliser à partir de l'état
+ précédent de la morphologie, font que la structure résultante n'est pas
+ toujours parfaitement adaptée pour la nouvelle fonctionnalité.
+ C'est simplement le mieux qu'on pouvait faire avec la morphologie précédente.
+ La faiblesse de certaines adaptations se manifeste sous la forme de:
+\layout Itemize
+
+malformations génétiques fréquentes
+\layout Itemize
+
+tendance majeure a subir des luxations
+\layout Standard
+
+La variabilité de la formation du tendon du biceps par rapport à la capsule
+ articulaire gléno-humérale est un exemple de la première manifestation.
+ Les fréquentes pathologies des vertèbres lombaires est un exemple de l'imperfec
+tion de l'adaptation du squelette humain à la position debout.
+\layout Subsection
+
+Insufissance
+\layout Standard
+
+La morphologie des articulations est considérablement insuffisante pour
+ déterminer les restrictions du mouvement.
+ Il y a tout un ensemble d'éléments qui doivent être pris en compte pour
+ avoir une description complète de la pièce articulaire.
+ La fonctionnalité des structures osseuses est déterminée par son interaction
+ avec les muscles, tendons et ligaments qui lui sont connexes.
+ 
+\layout Standard
+
+Malgré ces limitations, il est clair que même si la morphologie articularie
+ n'est pas suffisante pour déterminer complètement les caractéristiques
+ du mouvement, elle constitue une pièce nécessaire et fondamentale pour
+ mieux comprendre les mécanismes impliqués.
+\layout Section
+
+Anatomie articulaire
+\layout Standard
+
+\begin_float fig 
+\layout Standard
+\align center 
+
+\begin_inset Figure size 476 281
+file Fonctionalite_eps/articulation.eps
+width 3 80.00
+flags 0
+
+\end_inset 
+
+
+\layout Caption
+
+
+\begin_inset LatexCommand \label{fig: ElementsArticulaires}
+
+\end_inset 
+
+Éléments de la capsule articulaire : Membrane synoviale, ligament collatéral,
+ ligament intra-articulaire, cartilage, os trabéculaire, os compact, gaine
+ synoviale et liquide synovial.
+\end_float 
+ 
+\layout Standard
+
+La figure 
+\begin_inset LatexCommand \ref{fig: ElementsArticulaires}
+
+\end_inset 
+
+ présente les éléments fondamentaux d'une structure articulaire typique
+ où deux pièces osseuses sont confrontées.
+ Chacune d'entre elles a une structure composée d'une couche d'os compact
+ à l'extérieur et une d'os trabéculaire à l'intérieur.
+ Les surfaces confrontées sont recouvertes de cartilage.
+ Les deux surfaces cartilagineuses sont connectées entre elles par la membrane
+ synoviale se trouvant aux deux extrémités.
+ La combinaison des cartilages et membrane synoviale forme une cavité fermée
+ remplie de liquide synovial.
+ Ce liquide fournit la lubrification nécessaire pour garantir la liberté
+ de mouvement entre les deux cartilages.
+\layout Standard
+
+Le liquide synovial est imbibé dans le tissu cartilagineux, qui se comporte
+ comme une éponge.
+ Quand le cartilage est soumis à pression, il libère une portion de liquide
+ synovial.
+ Cette portion de liquide est résorbée par le cartilage quand la pression
+ s'arrête 
+\begin_inset LatexCommand \cite{Wright93}
+
+\end_inset 
+
+.
+ Étant donnée que la capsule est fermée, il y a toujours une pellicule de
+ liquide synovial entre les deux cartilages.
+ Le cartilage est un tissu constitué de fibres collagènes qui s'entrelacent
+ dans un millieu composé de cellules écartées et une matrice intercellulaire.
+ Il est élastique et se déforme sous pression, ce qui permet une meilleure
+ distribution de la force transmise entre les pièces osseuses.
+ Le cartilage n'est pas vascularisé, il est nourri par les substances présentes
+ dans le liquide synovial de la cavité articulaire 
+\begin_inset LatexCommand \cite{Trueta}
+
+\end_inset 
+
+.
+\layout Section
+
+Cinématique
+\layout Standard
+
+\begin_float fig 
+\layout Standard
+\align center 
+
+\begin_inset Figure size 476 230
+file Fonctionalite_eps/pole.eps
+width 3 80.00
+flags 8
+
+\end_inset 
+
+
+\layout Caption
+
+
+\begin_inset LatexCommand \label{fig: Pole}
+
+\end_inset 
+
+Centre virtuel de rotation.
+\end_float 
+\layout Standard
+
+\begin_float fig 
+\layout Standard
+\align center 
+
+\begin_inset Figure size 476 290
+file Fonctionalite_eps/polodes_fixed_mobile.eps
+width 3 80.00
+flags 8
+
+\end_inset 
+
+
+\layout Caption
+
+
+\begin_inset LatexCommand \label{fig: PolodeFixeMobile}
+
+\end_inset 
+
+Tout mouvement planaire est complètement décrit par le roulement de la polode
+ mobile le long de la polode fixe.
+ Les points 
+\begin_inset Formula \( P_{1} \)
+\end_inset 
+
+, 
+\begin_inset Formula \( P_{2} \)
+\end_inset 
+
+ et 
+\begin_inset Formula \( P_{3} \)
+\end_inset 
+
+ représentent des pôles successifs correspondants aux points de contact
+ entre les deux polodes au fur et à mesure que la polode mobile roule sur
+ la polode fixe.
+\end_float 
+ 
+\layout Standard
+
+Pour étudier la fonctionnalité des structures osseuses, il est nécessaire
+ de prendre en compte les notions fondamentales de la cinématique.
+ Nous considérons ici, tout d'abord les mouvements dans le plan.
+\layout Subsection
+
+Mouvement dans le plan
+\layout Standard
+
+Soient 
+\begin_inset Formula \( S_{1} \)
+\end_inset 
+
+ et 
+\begin_inset Formula \( S_{2} \)
+\end_inset 
+
+ deux structures planaires rigides, l'une se déplaçant par rapport à l'autre.
+ Pour l'analyse du mouvement nous pouvons considérer que 
+\begin_inset Formula \( S_{1} \)
+\end_inset 
+
+ reste fixe tandis que 
+\begin_inset Formula \( S_{2} \)
+\end_inset 
+
+ est en mouvement.
+ Le passage de cette situation vers celle où 
+\begin_inset Formula \( S_{2} \)
+\end_inset 
+
+ reste fixe tandis que 
+\begin_inset Formula \( S_{1} \)
+\end_inset 
+
+ se déplace, est connu comme inversion cinématique et constitue l'objet
+ de l'étude de la 
+\emph on 
+cinématique inverse
+\emph toggle 
+.
+\layout Standard
+
+Étant donné que 
+\begin_inset Formula \( S_{2} \)
+\end_inset 
+
+ est rigide, il suffit de considérer deux de ses points pour analyser son
+ mouvement.
+ Le mouvement de 
+\begin_inset Formula \( S_{2} \)
+\end_inset 
+
+ dans le cas général est une combinaison de rotations et de translations.
+ Ici, nous ne nous intéressons pas aux translations pures car elles sont
+ triviales.
+ Dans notre analyse, il y a donc toujours une composante de rotation dans
+ le mouvement.
+\layout Subsubsection
+
+Le pôle instantané
+\layout Standard
+
+Soient 
+\begin_inset Formula \( A \)
+\end_inset 
+
+ et 
+\begin_inset Formula \( B \)
+\end_inset 
+
+ deux points de 
+\begin_inset Formula \( S_{2} \)
+\end_inset 
+
+, qui décrivent des trajectoires dans l'espace comme conséquence du mouvement
+ de 
+\begin_inset Formula \( S_{2} \)
+\end_inset 
+
+ par rapport à 
+\begin_inset Formula \( S_{1} \)
+\end_inset 
+
+.
+ La figure 
+\begin_inset LatexCommand \ref{fig: Pole}
+
+\end_inset 
+
+ montre les positions des ces points à deux instants du déplacement.
+ Le point 
+\begin_inset Formula \( A \)
+\end_inset 
+
+ se déplace vers la position 
+\begin_inset Formula \( A' \)
+\end_inset 
+
+, et le point 
+\begin_inset Formula \( B \)
+\end_inset 
+
+ vers la position 
+\begin_inset Formula \( B' \)
+\end_inset 
+
+ .
+ La trajectoire précise suivie par les points pour se déplacer entre les
+ deux positions importe peu, et le mouvement global peut être considéré
+ comme une rotation autour du point 
+\begin_inset Formula \( P \)
+\end_inset 
+
+.
+ Ce point peut être trouvé facilement comme l'intersection des lignes médianes
+ de 
+\begin_inset Formula \( \overline{AA'} \)
+\end_inset 
+
+ et 
+\begin_inset Formula \( \overline{BB'} \)
+\end_inset 
+
+.
+ Une fois ce point 
+\begin_inset Formula \( P \)
+\end_inset 
+
+ identifié, le déplacement de tout autre point 
+\begin_inset Formula \( C \)
+\end_inset 
+
+ peut être calculé comme la rotation de 
+\begin_inset Formula \( C \)
+\end_inset 
+
+ autour de 
+\begin_inset Formula \( P \)
+\end_inset 
+
+ par un angle 
+\begin_inset Formula \( \alpha  \)
+\end_inset 
+
+, pour arriver à la position 
+\begin_inset Formula \( C' \)
+\end_inset 
+
+.
+ Le point 
+\begin_inset Formula \( P \)
+\end_inset 
+
+ est connu comme le centre virtuel de rotation.
+ 
+\layout Standard
+
+Quand le déplacement est infinitésimal, le point 
+\begin_inset Formula \( P \)
+\end_inset 
+
+ est dit le 
+\emph on 
+pôle
+\emph toggle 
+ du mouvement pour cet instant.
+ Les rayons 
+\begin_inset Formula \( \overline{PA} \)
+\end_inset 
+
+, 
+\begin_inset Formula \( \overline{PB} \)
+\end_inset 
+
+ et 
+\begin_inset Formula \( \overline{PC} \)
+\end_inset 
+
+ sont respectivement perpendiculaires aux trajectoires des points 
+\begin_inset Formula \( A \)
+\end_inset 
+
+, 
+\begin_inset Formula \( B \)
+\end_inset 
+
+ et 
+\begin_inset Formula \( C \)
+\end_inset 
+
+.
+ Comme le pôle change à chaque instant, il faut considérer le lieu géométrique
+ de tous les pôles successifs.
+ Ce lieu est connu comme la courbe 
+\emph on 
+polode
+\begin_float footnote 
+\layout Standard
+
+
+\emph on 
+Hode
+\emph toggle 
+ signifie 
+\begin_inset Quotes eld
+\end_inset 
+
+chemin
+\begin_inset Quotes erd
+\end_inset 
+
+ en grec, polode est donc le chemin des pôles.
+\end_float 
+.
+ La figure 
+\begin_inset LatexCommand \ref{fig: Pole}
+
+\end_inset 
+
+ montre une section de polode autour du point 
+\begin_inset Formula \( P \)
+\end_inset 
+
+, ainsi que des sections de trajectoires 
+\begin_inset Formula \( T_{A} \)
+\end_inset 
+
+, 
+\begin_inset Formula \( T_{B} \)
+\end_inset 
+
+ et 
+\begin_inset Formula \( T_{C} \)
+\end_inset 
+
+ correspondantes aux points 
+\begin_inset Formula \( A \)
+\end_inset 
+
+, 
+\begin_inset Formula \( B \)
+\end_inset 
+
+ et 
+\begin_inset Formula \( C \)
+\end_inset 
+
+.
+\layout Standard
+
+Quand la courbe polode est construite dans le système de référence de la
+ structure fixe 
+\begin_inset Formula \( S_{1} \)
+\end_inset 
+
+ elle est la 
+\emph on 
+polode fixe
+\emph toggle 
+.
+ Quand la courbe polode est construite dans le système de référence de la
+ structure en mouvement 
+\begin_inset Formula \( S_{2} \)
+\end_inset 
+
+ elle est la 
+\emph on 
+polode mobile
+\emph toggle 
+.
+ A tout instant, le pôle 
+\begin_inset Formula \( P \)
+\end_inset 
+
+ est le point de contact entre la polode fixe et la polode mobile.
+ Le mouvement de 
+\begin_inset Formula \( S_{2} \)
+\end_inset 
+
+ par rapport à 
+\begin_inset Formula \( S_{1} \)
+\end_inset 
+
+ est complètement décrit comme le roulement de la polode mobile (attachée
+ à la structure 
+\begin_inset Formula \( S_{2} \)
+\end_inset 
+
+) le long de la polode fixe (attachée à la structure 
+\begin_inset Formula \( S_{1} \)
+\end_inset 
+
+) 
+\begin_inset LatexCommand \cite{Dijksman}
+
+\end_inset 
+
+
+\begin_inset LatexCommand \cite{Pottman2000}
+
+\end_inset 
+
+.
+ Ce qui est illustré dans la figure 
+\begin_inset LatexCommand \ref{fig: PolodeFixeMobile}
+
+\end_inset 
+
+.
+ Si maintenant la structure 
+\begin_inset Formula \( S_{2} \)
+\end_inset 
+
+ est prise comme référence et nous considérons que la structure 
+\begin_inset Formula \( S_{1} \)
+\end_inset 
+
+ se déplace par rapport à 
+\begin_inset Formula \( S_{2} \)
+\end_inset 
+
+, les rôles de la polode fixe et mobile s'interchangent 
+\begin_inset LatexCommand \cite{Hunt90}
+
+\end_inset 
+
+.
+\layout Subsubsection
+
+Le cercle d'inflexion
+\begin_inset LatexCommand \label{sec: CercleInflection}
+
+\end_inset 
+
+
+\layout Standard
+
+\begin_float fig 
+\layout Standard
+\align center 
+
+\begin_inset Figure size 476 167
+file Fonctionalite_eps/cercle_d_inflection.eps
+width 3 80.00
+flags 8
+
+\end_inset 
+
+
+\layout Caption
+
+
+\begin_inset LatexCommand \label{fig: CercleInflection}
+
+\end_inset 
+
+Le cercle d'inflexion est le lieu géométrique de tous les points qui à un
+ instant donné passent par un point d'inflexion de sa trajectoire.
+ Le cercle d'inflexion peut être utilisé pour déterminer le centre de courbure
+ de la trajectoire d'un point de la structure en mouvement.
+\end_float 
+\layout Standard
+
+Au cours du mouvement de 
+\begin_inset Formula \( S_{2} \)
+\end_inset 
+
+ le pôle change de position le long de la polode fixe.
+ Soit 
+\begin_inset Formula \( v_{p} \)
+\end_inset 
+
+ la vitesse à laquelle le pôle se déplace, et 
+\begin_inset Formula \( w \)
+\end_inset 
+
+ la vitesse angulaire à laquelle la structure 
+\begin_inset Formula \( S_{2} \)
+\end_inset 
+
+ tourne à cet instant.
+ La tangente de la courbe polode en 
+\begin_inset Formula \( P \)
+\end_inset 
+
+ définit la 
+\emph on 
+tangente au pôle
+\emph toggle 
+ 
+\begin_inset Formula \( T_{p} \)
+\end_inset 
+
+, ainsi que la 
+\emph on 
+normale au pôle
+\emph toggle 
+ 
+\begin_inset Formula \( N_{p} \)
+\end_inset 
+
+.
+ 
+\layout Standard
+
+Il est donc possible de définir un cercle tangente à 
+\begin_inset Formula \( T_{p} \)
+\end_inset 
+
+ en 
+\begin_inset Formula \( P \)
+\end_inset 
+
+, dont le diamètre 
+\begin_inset Formula \( \delta  \)
+\end_inset 
+
+ est donné par 
+\begin_inset Formula \( \delta =-v_{p}/w \)
+\end_inset 
+
+, comme c'est est illustré dans la figure 
+\begin_inset LatexCommand \ref{fig: CercleInflection}
+
+\end_inset 
+
+.
+ Tous les points dans ce cercle passent par un point d'inflexion de sa trajectoi
+re.
+ Ce cercle est différent à chaque instant du mouvement de 
+\begin_inset Formula \( S_{2} \)
+\end_inset 
+
+.
+ Le cercle d'inflexion est utile pour déterminer de façon très simple le
+ centre de courbure de la trajectoire de n'importe quel point de la structure
+ en mouvement 
+\begin_inset Formula \( S_{2} \)
+\end_inset 
+
+.
+ 
+\layout Standard
+
+Pour un point 
+\begin_inset Formula \( X \)
+\end_inset 
+
+ arbitraire de 
+\begin_inset Formula \( S_{2} \)
+\end_inset 
+
+, nous traçons un rayon depuis 
+\begin_inset Formula \( P \)
+\end_inset 
+
+ en passant par 
+\begin_inset Formula \( X \)
+\end_inset 
+
+.
+ Soit 
+\begin_inset Formula \( X_{w} \)
+\end_inset 
+
+ le point d'intersection de ce rayon avec le cercle d'inflexion.
+ Le centre de courbure 
+\begin_inset Formula \( X_{o} \)
+\end_inset 
+
+ de la trajectoire de 
+\begin_inset Formula \( X \)
+\end_inset 
+
+ est déterminé par :
+\layout Standard
+
+
+\begin_inset Formula 
+\[
+\frac{\overline{PX}}{\overline{XX_{o}}}=\frac{\overline{XX_{w}}}{\overline{PX}}\]
+
+\end_inset 
+
+
+\layout Standard
+
+On peut également utiliser l'équation d'Euler-Savary pour trouver le point
+ 
+\begin_inset Formula \( X_{o} \)
+\end_inset 
+
+ 
+\begin_inset LatexCommand \cite{Dijksman}
+
+\end_inset 
+
+
+\layout Standard
+
+
+\begin_inset Formula 
+\[
+\frac{1}{\overline{PX}}-\frac{1}{\overline{PX_{o}}}=\frac{1}{\overline{PX_{w}}}=\frac{1}{\delta \sin (\theta )}\]
+
+\end_inset 
+
+
+\layout Standard
+
+Le point 
+\begin_inset Formula \( W \)
+\end_inset 
+
+ qui est diamétralement opposé au pôle 
+\begin_inset Formula \( P \)
+\end_inset 
+
+ dans le cercle d'inflexion nommé le 
+\emph on 
+point d'ondulation
+\emph toggle 
+ ou 
+\emph on 
+point de Ball
+\begin_float footnote 
+\layout Standard
+
+En honneur à Sir Robert S.
+ Ball (1871), auteur de 
+\emph on 
+
+\begin_inset Quotes eld
+\end_inset 
+
+Traité de la théorie des vis
+\begin_inset Quotes erd
+\end_inset 
+
+
+\end_float 
+ 
+\begin_inset LatexCommand \cite{Porteous94}
+
+\end_inset 
+
+.
+\layout Subsubsection
+
+La théorie des enveloppes
+\begin_inset LatexCommand \label{sec: Envelopes}
+
+\end_inset 
+
+
+\layout Standard
+
+Les considérations précédentes n'impliquaient aucun contact entre les structures
+ 
+\begin_inset Formula \( S_{1} \)
+\end_inset 
+
+ et 
+\begin_inset Formula \( S_{2} \)
+\end_inset 
+
+, ni aucune notion de forme de ces structures.
+ Elles caractérisent simplement le mouvement de 
+\begin_inset Formula \( S_{2} \)
+\end_inset 
+
+ par rapport à 
+\begin_inset Formula \( S_{1} \)
+\end_inset 
+
+.
+ Nous adressons maintenant le cas où les deux structures ont des bords courbes
+ 
+\begin_inset Formula \( C_{1} \)
+\end_inset 
+
+ et 
+\begin_inset Formula \( C_{2} \)
+\end_inset 
+
+ respectivement, qui sont en contact en un point.
+ Dans le cas général la courbe 
+\begin_inset Formula \( C_{2} \)
+\end_inset 
+
+ glisse et roule simultanément le long de la courbe 
+\begin_inset Formula \( C_{1} \)
+\end_inset 
+
+ en gardant toujours un point de contact.
+\layout Standard
+
+\begin_float fig 
+\layout Standard
+\align center 
+
+\begin_inset Figure size 476 187
+file Fonctionalite_eps/notion_envelope.eps
+width 3 80.00
+flags 8
+
+\end_inset 
+
+
+\layout Caption
+
+
+\begin_inset LatexCommand \label{fig: TheorieEnveloppes}
+
+\end_inset 
+
+Mouvement généré par deux structures planaires 
+\begin_inset Formula \( S_{1} \)
+\end_inset 
+
+ et 
+\begin_inset Formula \( S_{2} \)
+\end_inset 
+
+ en contact.
+ La courbe 
+\begin_inset Formula \( C_{1} \)
+\end_inset 
+
+ est le bord de la structure 
+\begin_inset Formula \( S_{1} \)
+\end_inset 
+
+, la courbe 
+\begin_inset Formula \( C_{2} \)
+\end_inset 
+
+ est le bord de la structure 
+\begin_inset Formula \( S_{2} \)
+\end_inset 
+
+.
+ La structure 
+\begin_inset Formula \( S_{2} \)
+\end_inset 
+
+ se déplace autour de 
+\begin_inset Formula \( S_{1} \)
+\end_inset 
+
+ en glissant et en roulant la courbe 
+\begin_inset Formula \( C_{2} \)
+\end_inset 
+
+ sur la courbe 
+\begin_inset Formula \( C_{1} \)
+\end_inset 
+
+.
+ Les points 
+\begin_inset Formula \( P_{1} \)
+\end_inset 
+
+, 
+\begin_inset Formula \( P_{2} \)
+\end_inset 
+
+, 
+\begin_inset Formula \( P_{3} \)
+\end_inset 
+
+et 
+\begin_inset Formula \( P_{4} \)
+\end_inset 
+
+, sont les points de contact successifs entre les courbes 
+\begin_inset Formula \( C_{1} \)
+\end_inset 
+
+ et 
+\begin_inset Formula \( C_{2} \)
+\end_inset 
+
+.
+ A gauche le cas d'une structure convexe.
+ A droite le cas d'une structure concave.
+\end_float 
+\layout Standard
+
+La figure 
+\begin_inset LatexCommand \ref{fig: TheorieEnveloppes}
+
+\end_inset 
+
+ présente les éléments nécessaires pour cette analyse.
+ La structure 
+\begin_inset Formula \( S_{2} \)
+\end_inset 
+
+ roule et glisse autour de 
+\begin_inset Formula \( S_{1} \)
+\end_inset 
+
+, les points 
+\begin_inset Formula \( P_{1} \)
+\end_inset 
+
+, 
+\begin_inset Formula \( P_{2} \)
+\end_inset 
+
+, 
+\begin_inset Formula \( P_{3} \)
+\end_inset 
+
+et 
+\begin_inset Formula \( P_{4} \)
+\end_inset 
+
+, sont les points de contact successifs entre les courbes 
+\begin_inset Formula \( C_{1} \)
+\end_inset 
+
+ et 
+\begin_inset Formula \( C_{2} \)
+\end_inset 
+
+.
+\layout Standard
+
+En absence de glissement, c'est à dire, si la courbe 
+\begin_inset Formula \( C_{2} \)
+\end_inset 
+
+ ne fait que rouler sur la courbe 
+\begin_inset Formula \( C_{1} \)
+\end_inset 
+
+, le point de contact entre les deux courbes est le pôle instantané.
+ Par conséquent, la courbe 
+\begin_inset Formula \( C_{1} \)
+\end_inset 
+
+ est identique à la polode fixe, tandis que la courbe 
+\begin_inset Formula \( C_{2} \)
+\end_inset 
+
+ est identique à la polode mobile.
+ Ce cas, néanmoins, est sans intérêt pour l'étude de la fonctionnalité des
+ structures articulaires car la plupart des articulations sont fortement
+ lubrifiées et dans l'interaction entre les surfaces articulaires le glissement
+ dépasse largement le roulement.
+\layout Standard
+
+\begin_float fig 
+\layout Standard
+\align center 
+
+\begin_inset Figure size 476 401
+file Fonctionalite_eps/envelope_theorie.eps
+width 3 80.00
+flags 8
+
+\end_inset 
+
+
+\layout Caption
+
+
+\begin_inset LatexCommand \label{fig: GeneralEnvelope}
+
+\end_inset 
+
+Illustration des enveloppes en mouvement de glissement et roulement.
+\end_float 
+La figure 
+\begin_inset LatexCommand \ref{fig: GeneralEnvelope}
+
+\end_inset 
+
+ illustre les relations entre les structures 
+\begin_inset Formula \( S_{1} \)
+\end_inset 
+
+ et 
+\begin_inset Formula \( S_{2} \)
+\end_inset 
+
+.
+ Les courbes 
+\begin_inset Formula \( C_{1} \)
+\end_inset 
+
+ et 
+\begin_inset Formula \( C_{2} \)
+\end_inset 
+
+ sont les bords de ces structures.
+ Le point 
+\begin_inset Formula \( Q \)
+\end_inset 
+
+ est le point de contact entre les deux.
+ En 
+\begin_inset Formula \( Q \)
+\end_inset 
+
+ les deux courbes 
+\begin_inset Formula \( C_{1} \)
+\end_inset 
+
+ et 
+\begin_inset Formula \( C_{2} \)
+\end_inset 
+
+ partagent la même ligne tangente 
+\begin_inset Formula \( T_{q} \)
+\end_inset 
+
+ et la même normale 
+\begin_inset Formula \( N_{q} \)
+\end_inset 
+
+.
+\layout Standard
+
+Les courbes 
+\begin_inset Formula \( E_{1} \)
+\end_inset 
+
+ et 
+\begin_inset Formula \( E_{2} \)
+\end_inset 
+
+ sont respectivement les évolutes de 
+\begin_inset Formula \( C_{1} \)
+\end_inset 
+
+ et 
+\begin_inset Formula \( C_{2} \)
+\end_inset 
+
+.
+ L'évolute d'une courbe étant le lieu géométrique des centres de courbure
+ de la courbe.
+ La normale à une courbe est toujours tangente à l'évolute de la courbe
+ 
+\begin_inset LatexCommand \cite{Porteous94}
+
+\end_inset 
+
+
+\begin_inset LatexCommand \cite{Giblin92}
+
+\end_inset 
+
+.
+ La ligne 
+\begin_inset Formula \( N_{q} \)
+\end_inset 
+
+ est donc tangente aux deux évolutes 
+\begin_inset Formula \( E_{1} \)
+\end_inset 
+
+ et 
+\begin_inset Formula \( E_{2} \)
+\end_inset 
+
+.
+ Le point de contact 
+\begin_inset Formula \( P_{1} \)
+\end_inset 
+
+ entre la ligne 
+\begin_inset Formula \( N_{q} \)
+\end_inset 
+
+ et l'évolute 
+\begin_inset Formula \( E_{1} \)
+\end_inset 
+
+ est le centre de courbure de la courbe 
+\begin_inset Formula \( C_{1} \)
+\end_inset 
+
+ en 
+\begin_inset Formula \( Q \)
+\end_inset 
+
+.
+ Le point 
+\begin_inset Formula \( P_{2} \)
+\end_inset 
+
+ est le centre de courbure de 
+\begin_inset Formula \( C_{2} \)
+\end_inset 
+
+ en 
+\begin_inset Formula \( Q \)
+\end_inset 
+
+.
+ La distance entre le point 
+\begin_inset Formula \( Q \)
+\end_inset 
+
+ et le point 
+\begin_inset Formula \( P_{1} \)
+\end_inset 
+
+ est le rayon de courbure de la courbe 
+\begin_inset Formula \( C_{1} \)
+\end_inset 
+
+ en 
+\begin_inset Formula \( Q \)
+\end_inset 
+
+.
+ De façon analogue, la distance entre 
+\begin_inset Formula \( Q \)
+\end_inset 
+
+ et 
+\begin_inset Formula \( P_{2} \)
+\end_inset 
+
+ est le rayon de courbure de 
+\begin_inset Formula \( C_{2} \)
+\end_inset 
+
+ en 
+\begin_inset Formula \( Q \)
+\end_inset 
+
+.
+ Ces relations concernent directement la forme des courbes 
+\begin_inset Formula \( C_{1} \)
+\end_inset 
+
+ et 
+\begin_inset Formula \( C_{2} \)
+\end_inset 
+
+, et non leurs mouvement relatifs.
+\layout Standard
+
+Pour analyser leur mouvement, nous considérons maintenant une troisième
+ structure 
+\begin_inset Formula \( S_{3} \)
+\end_inset 
+
+ attachée au point 
+\begin_inset Formula \( Q \)
+\end_inset 
+
+, qui suit l'orientation de la normale 
+\begin_inset Formula \( N_{q} \)
+\end_inset 
+
+.
+ Le pôle du mouvement de 
+\begin_inset Formula \( S_{3} \)
+\end_inset 
+
+ par rapport à 
+\begin_inset Formula \( S_{1} \)
+\end_inset 
+
+ est le point 
+\begin_inset Formula \( P_{1} \)
+\end_inset 
+
+.
+ La polode fixe de son déplacement, est donc la courbe 
+\begin_inset Formula \( C_{1} \)
+\end_inset 
+
+, tandis que la polode mobile est la ligne droite 
+\begin_inset Formula \( N_{q} \)
+\end_inset 
+
+.
+ Si en revanche, nous considérons le déplacement de 
+\begin_inset Formula \( S_{3} \)
+\end_inset 
+
+ par rapport à la structure 
+\begin_inset Formula \( S_{2} \)
+\end_inset 
+
+, la polode fixe est la courbe 
+\begin_inset Formula \( C_{2} \)
+\end_inset 
+
+ et la polode mobile est la ligne droite 
+\begin_inset Formula \( N_{q} \)
+\end_inset 
+
+.
+ Le mouvement de 
+\begin_inset Formula \( S_{2} \)
+\end_inset 
+
+ par rapport à 
+\begin_inset Formula \( S_{1} \)
+\end_inset 
+
+ corresponds donc à faire rouler l'évolute 
+\begin_inset Formula \( E_{2} \)
+\end_inset 
+
+ sur la ligne 
+\begin_inset Formula \( N_{q} \)
+\end_inset 
+
+, au fur et à mesure que la ligne 
+\begin_inset Formula \( N_{q} \)
+\end_inset 
+
+ roule sur l'évolute 
+\begin_inset Formula \( E_{1} \)
+\end_inset 
+
+ 
+\begin_inset LatexCommand \cite{Dijksman}
+
+\end_inset 
+
+
+\begin_inset LatexCommand \cite{Pottman2000}
+
+\end_inset 
+
+.
+\layout Standard
+
+La consequence la plus remarquable de cette analyse est que dans ces conditions
+ le point 
+\begin_inset Formula \( P_{1} \)
+\end_inset 
+
+ est le centre de courbure de la trajectoire du point 
+\begin_inset Formula \( P_{2} \)
+\end_inset 
+
+.
+ Cette conclusion relie finalement 
+\emph on 
+forme et mouvement
+\emph toggle 
+.
+ Les évolutes 
+\begin_inset Formula \( E_{1} \)
+\end_inset 
+
+ et 
+\begin_inset Formula \( E_{2} \)
+\end_inset 
+
+ sont représentatives de la forme de 
+\begin_inset Formula \( C_{1} \)
+\end_inset 
+
+ et 
+\begin_inset Formula \( C_{2} \)
+\end_inset 
+
+, tandis que la trajectoire de 
+\begin_inset Formula \( P_{2} \)
+\end_inset 
+
+ est une pure représentation du mouvement.
+\layout Subsubsection
+
+Example d'un profil articulaire
+\layout Standard
+
+Pour mieux comprendre les mécanismes impliqués dans le mouvement des courbes,
+ nous présentons dans la figure 
+\begin_inset LatexCommand \ref{fig: EvoluteTournant}
+
+\end_inset 
+
+ le cas où 
+\begin_inset Formula \( C_{1} \)
+\end_inset 
+
+ est une ligne droite.
+ La courbe 
+\begin_inset Formula \( C_{2} \)
+\end_inset 
+
+ est le profil de courbure de l'articulation distale du fémur.
+ Un profil très similaire se trouve dans les articulations distales des
+ phalanges.
+ Bien évidement, dans les cas de ces articulations, la courbe confrontée
+ n'est pas une ligne droite comme nous présentons ici 
+\begin_inset Formula \( C_{1} \)
+\end_inset 
+
+.
+ Nous analysons le cas plus réel dans le paragraphe suivant, mais pour y
+ arriver nous avons besoin des certains concepts introduits dans cette partie.
+\layout Standard
+
+\begin_float fig 
+\layout Standard
+\align center 
+
+\begin_inset Figure size 595 691
+file Fonctionalite_eps/evolute_rolling.eps
+width 3 100.00
+flags 8
+
+\end_inset 
+
+
+\layout Caption
+
+
+\begin_inset LatexCommand \label{fig: EvoluteTournant}
+
+\end_inset 
+
+Illustration du rôle de l'évolute 
+\begin_inset Formula \( E_{2} \)
+\end_inset 
+
+ de la courbe 
+\begin_inset Formula \( C_{2} \)
+\end_inset 
+
+ dans le mouvement.
+ La séquence de figures montre comment au fur et à mesure que la courbe
+ 
+\begin_inset Formula \( C_{2} \)
+\end_inset 
+
+ tourne en glissant sur la courbe (ligne droite ici) 
+\begin_inset Formula \( C_{1} \)
+\end_inset 
+
+ , l'évolute 
+\begin_inset Formula \( E_{2} \)
+\end_inset 
+
+ roule (sans aucun glissement) le long de la normale 
+\begin_inset Formula \( N_{q} \)
+\end_inset 
+
+.
+ Le point de contact 
+\begin_inset Formula \( P_{2} \)
+\end_inset 
+
+ entre l'évolute 
+\begin_inset Formula \( E_{2} \)
+\end_inset 
+
+ et la normale 
+\begin_inset Formula \( N_{q} \)
+\end_inset 
+
+ étant le pôle à chaque instant.
+ La distance 
+\begin_inset Formula \( \overline{P_{2}Q} \)
+\end_inset 
+
+ est le rayon de courbure de 
+\begin_inset Formula \( C_{2} \)
+\end_inset 
+
+ au point 
+\begin_inset Formula \( Q \)
+\end_inset 
+
+.
+\end_float 
+\layout Standard
+
+La courbe 
+\begin_inset Formula \( C_{2} \)
+\end_inset 
+
+ glisse sur 
+\begin_inset Formula \( C_{1} \)
+\end_inset 
+
+ en tournant.
+ Les deux courbes ont toujours un seul point de contact 
+\begin_inset Formula \( Q \)
+\end_inset 
+
+ où elles partagent la tangente 
+\begin_inset Formula \( T_{q} \)
+\end_inset 
+
+ et la normale
+\begin_inset Formula \( N_{q} \)
+\end_inset 
+
+ (comme 
+\begin_inset Formula \( C_{1} \)
+\end_inset 
+
+ est une ligne droite, elle est identique à sa tangente, donc à 
+\begin_inset Formula \( N_{q} \)
+\end_inset 
+
+).
+ Le point de contact 
+\begin_inset Formula \( P_{2} \)
+\end_inset 
+
+ entre l'évolute 
+\begin_inset Formula \( E_{2} \)
+\end_inset 
+
+ et la normale 
+\begin_inset Formula \( N_{q} \)
+\end_inset 
+
+ est le pôle du mouvement pour cet instant, et au même temps il est le centre
+ de courbure de 
+\begin_inset Formula \( C_{2} \)
+\end_inset 
+
+ en 
+\begin_inset Formula \( Q \)
+\end_inset 
+
+.
+ 
+\layout Standard
+
+\begin_float fig 
+\layout Standard
+\align center 
+
+\begin_inset Figure size 476 190
+file Fonctionalite_eps/evolute_inflection.eps
+width 3 80.00
+flags 8
+
+\end_inset 
+
+
+\layout Caption
+
+
+\begin_inset LatexCommand \label{fig:CercleInflectionArticulaire}
+
+\end_inset 
+
+Illustration des relations entre le centre d'inflexion et l'évolute de la
+ courbe.
+ Le cercle d'inflexion a pour diamètre le segment 
+\begin_inset Formula \( \overline{WP_{2}} \)
+\end_inset 
+
+, où 
+\begin_inset Formula \( W \)
+\end_inset 
+
+ est le point de Ball, et 
+\begin_inset Formula \( P_{2} \)
+\end_inset 
+
+ est le pôle.
+\end_float 
+\layout Standard
+
+Quand le mouvement progresse, 
+\begin_inset Formula \( P_{2} \)
+\end_inset 
+
+ se déplace vers le bas, car le point 
+\begin_inset Formula \( Q \)
+\end_inset 
+
+ se déplace vers les régions de 
+\begin_inset Formula \( C_{2} \)
+\end_inset 
+
+ avec une courbure plus importante.
+ Comme l'évolute 
+\begin_inset Formula \( E_{2} \)
+\end_inset 
+
+ roule sur la ligne 
+\begin_inset Formula \( N_{q} \)
+\end_inset 
+
+, il y a une relation stricte entre la vitesse à laquelle le point 
+\begin_inset Formula \( P_{2} \)
+\end_inset 
+
+ se déplace et la vitesse angulaire 
+\begin_inset Formula \( w \)
+\end_inset 
+
+ de la courbe 
+\begin_inset Formula \( C_{2} \)
+\end_inset 
+
+ au même instant.
+ Le déplacement 
+\begin_inset Formula \( dP_{2} \)
+\end_inset 
+
+ est égal au différentiel de largeur d'arc 
+\begin_inset Formula \( dl \)
+\end_inset 
+
+ de l'évolute 
+\begin_inset Formula \( E_{2} \)
+\end_inset 
+
+.
+ Pendant que 
+\begin_inset Formula \( P_{2} \)
+\end_inset 
+
+ se déplace de cette distance, toute la structure 
+\begin_inset Formula \( S_{2} \)
+\end_inset 
+
+ tourne d'un différentiel d'angle 
+\begin_inset Formula \( d\theta =\omega dt \)
+\end_inset 
+
+.
+ La vitesse 
+\begin_inset Formula \( v_{p} \)
+\end_inset 
+
+ du point 
+\begin_inset Formula \( P_{2} \)
+\end_inset 
+
+ étant 
+\begin_inset Formula \( v_{p}=dP_{2}/dt=dl/dt \)
+\end_inset 
+
+.
+ La relation entre la vitesse linéaire 
+\begin_inset Formula \( v_{p} \)
+\end_inset 
+
+ et la vitesse angulaire 
+\begin_inset Formula \( w \)
+\end_inset 
+
+ est donnée par :
+\layout Standard
+
+
+\begin_inset Formula 
+\[
+\frac{v_{p}}{w}=\frac{dl/dt}{d\theta /dt}=\frac{dl}{d\theta }\]
+
+\end_inset 
+
+
+\layout Standard
+
+La fraction 
+\begin_inset Formula \( dl/d\theta  \)
+\end_inset 
+
+ est justement le rayon de courbure de l'évolute 
+\begin_inset Formula \( E_{2} \)
+\end_inset 
+
+ au point 
+\begin_inset Formula \( P_{2} \)
+\end_inset 
+
+.
+ Nous nous intéressons à cette proportion car elle nous donne le diamètre
+ 
+\begin_inset Formula \( \delta  \)
+\end_inset 
+
+ du cercle d'inflexion (décrit dans la section 
+\begin_inset LatexCommand \ref{sec: CercleInflection}
+
+\end_inset 
+
+).
+ 
+\layout Standard
+
+La figure 
+\begin_inset LatexCommand \ref{fig:CercleInflectionArticulaire}
+
+\end_inset 
+
+ montre la position du cercle d'inflexion pour l'exemple du mouvement présenté
+ dans la figure 
+\begin_inset LatexCommand \ref{fig: EvoluteTournant}
+
+\end_inset 
+
+.
+ Le point de Ball pour une position de la structure 
+\begin_inset Formula \( S_{2} \)
+\end_inset 
+
+ est justement le centre de courbure de l'évolute 
+\begin_inset Formula \( E_{2} \)
+\end_inset 
+
+ au point 
+\begin_inset Formula \( P_{2} \)
+\end_inset 
+
+ (le pôle).
+ Le diamètre 
+\begin_inset Formula \( \delta  \)
+\end_inset 
+
+ du cercle d'inflexion est donc égal au rayon de courbure de l'évolute au
+ pôle.
+ Le cercle d'inflexion change pour chaque position de la structure 
+\begin_inset Formula \( S_{2} \)
+\end_inset 
+
+, mais à chacun de ces instants, le diamètre du cercle est toujours le segment
+ de ligne entre le pôle et le centre de courbure de l'évolute 
+\begin_inset Formula \( E_{2} \)
+\end_inset 
+
+.
+ Le lieu géométrique des centres de courbure de l'évolute 
+\begin_inset Formula \( E_{2} \)
+\end_inset 
+
+ est justement 
+\begin_inset Formula \( F_{2} \)
+\end_inset 
+
+, l'évolute de la courbe 
+\begin_inset Formula \( E_{2} \)
+\end_inset 
+
+.
+ 
+\layout Standard
+
+Pour récapituler nos conclusions :
+\layout Itemize
+
+la courbe 
+\begin_inset Formula \( C_{2} \)
+\end_inset 
+
+ est le bord de la structure 
+\begin_inset Formula \( S_{2} \)
+\end_inset 
+
+
+\layout Itemize
+
+le point 
+\begin_inset Formula \( Q \)
+\end_inset 
+
+ est le contact entre le bord 
+\begin_inset Formula \( C_{2} \)
+\end_inset 
+
+ et la courbe confrontée 
+\begin_inset Formula \( C_{1} \)
+\end_inset 
+
+
+\layout Itemize
+
+la courbe 
+\begin_inset Formula \( E_{2} \)
+\end_inset 
+
+ est l'évolute de la courbe 
+\begin_inset Formula \( C_{2} \)
+\end_inset 
+
+
+\layout Itemize
+
+la courbe 
+\begin_inset Formula \( F_{2} \)
+\end_inset 
+
+ est l'évolute de la courbe 
+\begin_inset Formula \( E_{2} \)
+\end_inset 
+
+
+\layout Itemize
+
+le pôle 
+\begin_inset Formula \( P_{2} \)
+\end_inset 
+
+ est le centre de courbure de 
+\begin_inset Formula \( C_{2} \)
+\end_inset 
+
+ au point 
+\begin_inset Formula \( Q \)
+\end_inset 
+
+
+\layout Itemize
+
+le point de Ball 
+\begin_inset Formula \( W \)
+\end_inset 
+
+ est le centre de courbure de 
+\begin_inset Formula \( E_{2} \)
+\end_inset 
+
+ au point 
+\begin_inset Formula \( P_{2} \)
+\end_inset 
+
+
+\layout Itemize
+
+le point de Ball 
+\begin_inset Formula \( W \)
+\end_inset 
+
+ et le pôle 
+\begin_inset Formula \( P_{2} \)
+\end_inset 
+
+ définissent le diamètre du cercle d'inflexion
+\layout Standard
+
+Une fois que le cercle d'inflexion est identifié, il est possible de déterminer
+ les directions de déplacement et les centres de courbure de la trajectoire
+ en tout point de la structure 
+\begin_inset Formula \( S_{2} \)
+\end_inset 
+
+.
+ La figure 
+\begin_inset LatexCommand \ref{fig:CercleInflectionArticulaire}
+
+\end_inset 
+
+ à droite montre comment le cercle d'inflexion est utilisé pour trouver
+ le centre de courbure 
+\begin_inset Formula \( X_{o} \)
+\end_inset 
+
+ de la trajectoire d'un point 
+\begin_inset Formula \( X \)
+\end_inset 
+
+ arbitraire.
+ La procédure utilise la loi d'Euler-Savary présentée dans la section 
+\begin_inset LatexCommand \ref{sec: CercleInflection}
+
+\end_inset 
+
+.
+\layout Subsubsection
+
+Concavité-Convexité
+\layout Standard
+
+Nous avons maintenant les éléments nécessaires pour analyser le cas plus
+ réel où les courbes 
+\begin_inset Formula \( C_{1} \)
+\end_inset 
+
+ et 
+\begin_inset Formula \( C_{2} \)
+\end_inset 
+
+ forment un paire concave-convexe, ce qui représente la configuration de
+ la plupart des articulations osseuses.
+\begin_float fig 
+\layout Standard
+\align center 
+
+\begin_inset Figure size 476 350
+file Fonctionalite_eps/envelope_concave.eps
+width 3 80.00
+flags 8
+
+\end_inset 
+
+
+\layout Caption
+
+
+\begin_inset LatexCommand \label{fig: envelopeConcave}
+
+\end_inset 
+
+Configuration correspondant à une courbe convexe et une courbe concave en
+ contact.
+\end_float 
+\layout Standard
+
+La figure 
+\begin_inset LatexCommand \ref{fig: envelopeConcave}
+
+\end_inset 
+
+ illustre la configuration pour ce cas particulier.
+ Des restrictions additionnelles apparaîssent dans cette configuration.
+ Les deux courbes sont en contact au point 
+\begin_inset Formula \( Q \)
+\end_inset 
+
+ et partagent la tangente 
+\begin_inset Formula \( T_{q} \)
+\end_inset 
+
+ et la normale 
+\begin_inset Formula \( N_{q} \)
+\end_inset 
+
+.
+ Les évolutes respectives 
+\begin_inset Formula \( E_{1} \)
+\end_inset 
+
+ et 
+\begin_inset Formula \( E_{2} \)
+\end_inset 
+
+ sont en contact avec la ligne normale 
+\begin_inset Formula \( N_{q} \)
+\end_inset 
+
+.
+ La distance 
+\begin_inset Formula \( \overline{QP_{1}} \)
+\end_inset 
+
+ est le rayon de courbure de la courbe 
+\begin_inset Formula \( C_{1} \)
+\end_inset 
+
+ en 
+\begin_inset Formula \( Q \)
+\end_inset 
+
+, tandis que la distance 
+\begin_inset Formula \( \overline{QP_{2}} \)
+\end_inset 
+
+ est le rayon de courbure de la courbe 
+\begin_inset Formula \( C_{2} \)
+\end_inset 
+
+ en 
+\begin_inset Formula \( Q \)
+\end_inset 
+
+.
+\layout Standard
+
+La courbe 
+\begin_inset Formula \( C_{2} \)
+\end_inset 
+
+ glisse et roule sur la courbe 
+\begin_inset Formula \( C_{1} \)
+\end_inset 
+
+, mais elle se maintient toujours à l'intérieur de la courbe 
+\begin_inset Formula \( C_{1} \)
+\end_inset 
+
+ car cette courbe est le bord d'un structure solide.
+ Pour être toujours à l'intérieur de 
+\begin_inset Formula \( C_{1} \)
+\end_inset 
+
+, la courbe 
+\begin_inset Formula \( C_{2} \)
+\end_inset 
+
+ ne doit jamais prendre une position dans laquelle le rayon de courbure
+ 
+\begin_inset Formula \( \overline{QP_{2}} \)
+\end_inset 
+
+ soit supérieur au rayon de courbure 
+\begin_inset Formula \( \overline{QP_{1}} \)
+\end_inset 
+
+.
+\layout Standard
+
+La position limite de 
+\begin_inset Formula \( C_{2} \)
+\end_inset 
+
+ est celle où le point 
+\begin_inset Formula \( P_{2} \)
+\end_inset 
+
+ coïncide avec le point 
+\begin_inset Formula \( P_{1} \)
+\end_inset 
+
+.
+ À ce moment, les deux courbes sont en contact en trois points (les trois
+ superposés en 
+\begin_inset Formula \( Q \)
+\end_inset 
+
+) au lieu d'un seul point 
+\begin_inset Formula \( Q \)
+\end_inset 
+
+, ce qu'on peut appeler un 
+\emph on 
+contact circulaire
+\emph toggle 
+ 
+\begin_inset LatexCommand \cite{Dijksman}
+
+\end_inset 
+
+
+\begin_inset LatexCommand \cite{Porteous94}
+
+\end_inset 
+
+
+\begin_inset LatexCommand \cite{Pottman2000}
+
+\end_inset 
+
+.
+ Dans le cas des articulations, la position la plus proche à cette configuration
+ est connue comme position de 
+\emph on 
+verrouillage
+\begin_float footnote 
+\layout Standard
+
+
+\emph on 
+closed-packed position
+\end_float 
+ 
+\begin_inset LatexCommand \cite{KaminaArthrologie}
+
+\end_inset 
+
+
+\begin_inset LatexCommand \cite{Kapandji}
+
+\end_inset 
+
+.
+ Dans cette position la pièce osseuse se trouve fortement ajusté contre
+ la pièce confrontée et il resulte presque impossible de luxer l'articulation
+\begin_float footnote 
+\layout Standard
+
+Une force excessive appliquée sur la pièce osseuse dans la position de verroulli
+age conduira d'abord à la cassure de la piece avant la luxation de l'articulatio
+n.
+\end_float 
+.
+ Cette position est reinforce par la tension des ligaments articulaires
+ qui dans cette configuration se trouvent tendus et compressent les deux
+ pièces articulaire une contre l'autre.
+\layout Standard
+
+Les contraintes du mouvement sont donc : 
+\layout Itemize
+
+l'évolute 
+\begin_inset Formula \( E_{1} \)
+\end_inset 
+
+ roule sur la ligne 
+\begin_inset Formula \( N_{q} \)
+\end_inset 
+
+ 
+\layout Itemize
+
+l'évolute 
+\begin_inset Formula \( E_{2} \)
+\end_inset 
+
+ roule sur la ligne 
+\begin_inset Formula \( N_{q} \)
+\end_inset 
+
+ 
+\layout Itemize
+
+le point 
+\begin_inset Formula \( P_{2} \)
+\end_inset 
+
+ ne dépasse jamais le point 
+\begin_inset Formula \( P_{1} \)
+\end_inset 
+
+
+\layout Standard
+
+Les deux premières assurent que 
+\begin_inset Formula \( C_{1} \)
+\end_inset 
+
+ et 
+\begin_inset Formula \( C_{2} \)
+\end_inset 
+
+ soient en contact.
+ La dernière assure que 
+\begin_inset Formula \( C_{2} \)
+\end_inset 
+
+ reste à l'intérieur de 
+\begin_inset Formula \( C_{1} \)
+\end_inset 
+
+.
+\layout Subsubsection
+
+Les forces appliquées sur l'articulation
+\layout Standard
+
+\begin_float fig 
+\layout Standard
+\align center 
+
+\begin_inset Figure size 476 176
+file Fonctionalite_eps/point_de_contacte.eps
+width 3 80.00
+flags 8
+
+\end_inset 
+
+
+\layout Caption
+
+
+\begin_inset LatexCommand \label{fig: PointDeContacte}
+
+\end_inset 
+
+Déplacement du point de contact entre deux pièces articulaires comme conséquence
+ de l'orientation de la force externe appliquée.
+ A gauche la force 
+\begin_inset Formula \( F \)
+\end_inset 
+
+ est appliquée verticalement tandis qu'à droite la force 
+\begin_inset Formula \( F \)
+\end_inset 
+
+ est oblique.
+ L'orientation des structures 
+\begin_inset Formula \( S_{1} \)
+\end_inset 
+
+ et 
+\begin_inset Formula \( S_{2} \)
+\end_inset 
+
+ est la même dans les deux cas, mais un déplacement a été effectué sur la
+ structure 
+\begin_inset Formula \( S_{2} \)
+\end_inset 
+
+, ce qui change la position du point de contact 
+\begin_inset Formula \( Q \)
+\end_inset 
+
+.
+ La nouvelle position est telle que la force appliquée est normale aux courbes
+ 
+\begin_inset Formula \( C_{1} \)
+\end_inset 
+
+ et 
+\begin_inset Formula \( C_{2} \)
+\end_inset 
+
+.
+\end_float 
+\layout Standard
+
+L'analyse planaire précédente nous montre que l'articulation possède deux
+ dégrees de liberté: le roulement de l'évolute 
+\begin_inset Formula \( E_{1} \)
+\end_inset 
+
+ sur 
+\begin_inset Formula \( N_{q} \)
+\end_inset 
+
+ et est le roulement de l'évolute 
+\begin_inset Formula \( E_{2} \)
+\end_inset 
+
+ sur 
+\begin_inset Formula \( N_{q} \)
+\end_inset 
+
+.
+ Les deux peuvent se réaliser de façon indépendante.
+ Nous considérons ici certaines contraintes supplémentaires qui réduisent
+ la mobilité de l'articulation, ces contraintes sont déterminées par les
+ forces appliquées sur l'articulation.
+\layout Standard
+
+Les sources de forces à considérer sont :
+\layout Itemize
+
+la tension des ligaments
+\layout Itemize
+
+la force externe appliquée sur la pièce osseuse
+\layout Itemize
+
+la force appliquée par les muscles
+\layout Standard
+
+La tension des ligaments est la première source de contraintes quand l'articulat
+ion se déplace de façon fine.
+ C'est le cas pour les mouvements des doigts, ou des bras dans la situation
+ sans efforts.
+\layout Standard
+
+La figure 
+\begin_inset LatexCommand \ref{fig: PointDeContacte}
+
+\end_inset 
+
+ illustre comment les forces appliquées font changer le point de contact
+ 
+\begin_inset Formula \( Q \)
+\end_inset 
+
+ pour une même orientation de la structure 
+\begin_inset Formula \( S_{2} \)
+\end_inset 
+
+ par rapport à la structure 
+\begin_inset Formula \( S_{1} \)
+\end_inset 
+
+.
+ Le nouveau point de contact est celui dont la tangente aux courbes 
+\begin_inset Formula \( C_{1} \)
+\end_inset 
+
+ et 
+\begin_inset Formula \( C_{2} \)
+\end_inset 
+
+ est perpendiculaire à la force 
+\begin_inset Formula \( F \)
+\end_inset 
+
+ appliquée sur l'articulation.
+\layout Standard
+
+\begin_float fig 
+\layout Standard
+\align center 
+
+\begin_inset Figure size 476 229
+file Fonctionalite_eps/ligaments_croises.eps
+width 3 80.00
+flags 8
+
+\end_inset 
+
+
+\layout Caption
+
+
+\begin_inset LatexCommand \label{fig: LigamentCroises}
+
+\end_inset 
+
+Ligaments croisés dans l'articulation du genou.
+ La configuration de quatre barres croisées formée par la tibia, le fémur
+ et les ligaments croisé antérieur et croisé postérieur réduisent les deux
+ degrés de liberté propres aux deux surfaces qui roulent et glissent.
+\end_float 
+\layout Standard
+
+La force 
+\begin_inset Formula \( F \)
+\end_inset 
+
+ est en général la résultante d'un ensemble de forces parmi lesquelles se
+ trouvent les trois que nous avons énumerées plus haut.
+ Ces forces coexistent à différentes proportions dépendant de l'activité
+ mécanique de l'articulation.
+\layout Standard
+
+Comme exemple de ces contraintes, nous pouvons analyser le cas de l'articulation
+ du genou.
+ La tête distale du fémur est confrontée à la surface articulaire du tibia.
+ Deux ligaments se trouvent à l'intérieur de la capsule articulaire, ils
+ attachent de façon croisée les deux pièces articulaires.
+ La figure 
+\begin_inset LatexCommand \ref{fig: LigamentCroises}
+
+\end_inset 
+
+ montre la configuration de cette articulation.
+ Le point 
+\begin_inset Formula \( P \)
+\end_inset 
+
+ est le point de croisement des deux ligaments.
+ Le point 
+\begin_inset Formula \( Q \)
+\end_inset 
+
+ est le point de contact entre le fémur et le tibia.
+ Le mécanisme se comporte de telle façon que les distances 
+\begin_inset Formula \( \overline{AB} \)
+\end_inset 
+
+ et 
+\begin_inset Formula \( \overline{CD} \)
+\end_inset 
+
+ restent constantes tandis que les distances 
+\begin_inset Formula \( \overline{AD} \)
+\end_inset 
+
+ et  
+\begin_inset Formula \( \overline{CB} \)
+\end_inset 
+
+ correspondants aux extensions des ligament sont presque constantes.
+ Le point de croisement 
+\begin_inset Formula \( P \)
+\end_inset 
+
+ est à tout moment le pôle du mouvement.
+ Dans ces conditions, l'évolute de la courbe de l'articulation du fémur
+ doit être en conctacte avec le point 
+\begin_inset Formula \( P \)
+\end_inset 
+
+.
+ D'autre part, la distance 
+\begin_inset Formula \( \overline{PQ} \)
+\end_inset 
+
+ sera égale au rayon de courbure du bord de l'articulation fémoral à cette
+ position.
+ Cela ne laisse qu'un dégrée de liberté pour le mouvement de l'articulation.
+\layout Standard
+
+Il est donc clair que la forme articulaire, bien qu'elle soit indispensable
+ pour analyser le mouvement, n'est pas suffisante pour le déterminer complètemen
+t.
+\layout Subsubsection
+
+Le rôle du cartilage 
+\layout Standard
+
+\begin_float fig 
+\layout Standard
+\align center 
+
+\begin_inset Figure size 476 162
+file Fonctionalite_eps/joint_elastic.eps
+width 3 80.00
+flags 8
+
+\end_inset 
+
+
+\layout Caption
+
+
+\begin_inset LatexCommand \label{fig: JointElastic}
+
+\end_inset 
+
+Illustration de la nécessité de l'élasticité du cartilage pour étendre la
+ distribution des forces le long d'une région de contact.
+\end_float 
+\layout Standard
+
+\begin_float fig 
+\layout Standard
+\align center 
+
+\begin_inset Figure size 476 173
+file Fonctionalite_eps/joint_elastic_curve.eps
+width 3 80.00
+flags 8
+
+\end_inset 
+
+
+\layout Caption
+
+
+\begin_inset LatexCommand \label{fig: JointElasticCurve}
+
+\end_inset 
+
+Illustration du rôle de l'élasticité du cartilage dans une articulation
+ concave.
+\end_float 
+\layout Standard
+
+Nous avons considéré ici qu'il n'y a qu'un point de contact entre les deux
+ courbes 
+\begin_inset Formula \( C_{1} \)
+\end_inset 
+
+ et 
+\begin_inset Formula \( C_{2} \)
+\end_inset 
+
+.
+ Néanmoins, pour la transmission des forces entre les pièces articulaires,
+ un seul point de contact n'est pas souhaitable.
+\layout Standard
+
+La transmision de force entre les pièces articulaires se fait par pression
+ : ce qui est transmis d'une pièce à l'autre est la force appliquée divisée
+ par l'aire d'application.
+ Réduire la surface de contact augmente la pression exercée pour une même
+ force externe.
+\layout Standard
+
+Le cartilage a pour rôle d'étendre la surface de contact, et par ce moyen
+ réduire la pression exercée sur la surface articulaire.
+ Il s'agit donc, de distribuer la force de la façon la plus uniforme possible
+ tout en gardant la mobilité de l'articulation.
+ Les figures 
+\begin_inset LatexCommand \ref{fig: JointElastic}
+
+\end_inset 
+
+ et 
+\begin_inset LatexCommand \ref{fig: JointElasticCurve}
+
+\end_inset 
+
+ illustrent l'effet de l'élasticité du cartilage dans la distribution de
+ la force.
+\layout Subsection
+
+Les mouvements dans l'espace
+\layout Standard
+
+Après avoir analysé les restrictions de mouvement dans le plan, nous pouvons
+ adresser le problème réel des articulations dans l'espace 3D.
+ Les bords des structures sont représentés maintenant par des surfaces.
+ Le contact entre deux surfaces articulaires confrontées peut être un point
+ ou une section de courbe 
+\begin_inset LatexCommand \cite{Hunt90}
+
+\end_inset 
+
+.
+ Le mouvement infinitésimal n'est plus une rotation comme dans le cas planaire,
+ mais une vis 
+\begin_inset LatexCommand \cite{Pottman2000}
+
+\end_inset 
+
+.
+ 
+\layout Subsubsection
+
+Le concept de vis
+\layout Standard
+
+\begin_float fig 
+\layout Standard
+\align center 
+
+\begin_inset Figure size 476 159
+file Fonctionalite_eps/vis.eps
+width 3 80.00
+flags 8
+
+\end_inset 
+
+
+\layout Caption
+
+
+\begin_inset LatexCommand \label{fig: Vis}
+
+\end_inset 
+
+Illustration du concept de vis.
+ Une ligne droite définit l'axe du rotation de la vis ainsi que son centre
+ de rotation.
+ Le rapport entre 
+\begin_inset Formula \( \theta  \)
+\end_inset 
+
+ et 
+\begin_inset Formula \( \delta  \)
+\end_inset 
+
+ définit le pas (
+\emph on 
+pitch
+\emph toggle 
+) de la vis.
+\end_float 
+\layout Standard
+
+Le concept de 
+\emph on 
+vis
+\emph toggle 
+ comprend une rotation instantanée autour d'un axe avec une translation
+ infinitésimale le long du même axe 
+\begin_float footnote 
+\layout Standard
+
+Le terme vis (
+\emph on 
+screw
+\emph toggle 
+) a été introduit par Guioulio Mozzi dans son 
+\emph on 
+
+\begin_inset Quotes eld
+\end_inset 
+
+Discorso matematico sopra il rotamento momentaneo dei corpi
+\begin_inset Quotes erd
+\end_inset 
+
+
+\emph toggle 
+ en 1807.
+\end_float 
+.
+ Pour définir une vis, il faut spécifier une ligne droite dans l'espace
+ ainsi que le rapport entre la rotation infinitésimale et la translation.
+ La figure 
+\begin_inset LatexCommand \ref{fig: Vis}
+
+\end_inset 
+
+ montre les éléments fondamentaux d'une vis.
+ Le ligne droite définit le centre de rotation de la vis ainsi que son axe.
+ Le rapport entre l'angle 
+\begin_inset Formula \( \theta  \)
+\end_inset 
+
+ et le déplacement 
+\begin_inset Formula \( \delta  \)
+\end_inset 
+
+ définit le pas de la vis.
+ 
+\layout Standard
+
+Tout mouvement, infinitésimal ou non, d'un corps rigide peut être représenté
+ comme un virage autour d'une vis.
+ Une séquence de virages autour d'un ensemble de vis peut être également
+ représenté comme un seul virage autour d'une vis, celle est appelée la
+ vis résultante.
+ Une translation pure correspond à une vis avec un pas infini.
+ Une rotation pure corresponds à une vis avec un pas nul 
+\begin_inset LatexCommand \cite{Ball}
+
+\end_inset 
+
+
+\begin_inset LatexCommand \cite{Pottman2000}
+
+\end_inset 
+
+.
+\layout Subsubsection
+
+Les points de contact
+\layout Standard
+
+\begin_float fig 
+\layout Standard
+\align center 
+
+\begin_inset Figure size 476 120
+file Fonctionalite_eps/surfaces_en_contact.eps
+width 3 80.00
+flags 8
+
+\end_inset 
+
+
+\layout Caption
+
+
+\begin_inset LatexCommand \label{fig: SurfacesEnContact}
+
+\end_inset 
+
+Restriction de mouvement produit par le contact entre deux surfaces au point
+ 
+\begin_inset Formula \( Q \)
+\end_inset 
+
+.
+ Les seuls mouvements possibles sont ceux produits par des vis dont l'axe
+ intersecte la normale 
+\begin_inset Formula \( N \)
+\end_inset 
+
+.
+\end_float 
+\layout Standard
+
+Prenons deux corps rigides 
+\begin_inset Formula \( S_{1} \)
+\end_inset 
+
+ et 
+\begin_inset Formula \( S_{2} \)
+\end_inset 
+
+ qui sont en contact en un point 
+\begin_inset Formula \( Q \)
+\end_inset 
+
+ comme l'illustre dans la figure 
+\begin_inset LatexCommand \ref{fig: SurfacesEnContact}
+
+\end_inset 
+
+.
+ Les surfaces partagent la même normale 
+\begin_inset Formula \( N \)
+\end_inset 
+
+ au point 
+\begin_inset Formula \( Q \)
+\end_inset 
+
+, ainsi que le même plan tangente 
+\begin_inset Formula \( T \)
+\end_inset 
+
+.
+ Le contact entre les deux surfaces limite les dégrés de liberté du mouvement
+ à ceux représentés par les vis dont l'axe intersecte la normale 
+\begin_inset Formula \( N \)
+\end_inset 
+
+.
+ La figure 
+\begin_inset LatexCommand \ref{fig: SurfacesEnContact}
+
+\end_inset 
+
+ à droite montre la section de trajectoire instantanée du point 
+\begin_inset Formula \( Q \)
+\end_inset 
+
+ comme réponse à l'application de la vis dont l'axe intersecte à 
+\begin_inset Formula \( N \)
+\end_inset 
+
+.
+\layout Standard
+
+\begin_float fig 
+\layout Standard
+\align center 
+
+\begin_inset Figure size 476 117
+file Fonctionalite_eps/surfaces_double_contact.eps
+width 3 80.00
+flags 8
+
+\end_inset 
+
+
+\layout Caption
+
+
+\begin_inset LatexCommand \label{fig: SurfacesDoubleContact}
+
+\end_inset 
+
+Restrictions de mouvement produites par deux points de contact entre deux
+ corps.
+ Les structures 
+\begin_inset Formula \( S_{1} \)
+\end_inset 
+
+ et 
+\begin_inset Formula \( S_{2} \)
+\end_inset 
+
+ se touchent en les points 
+\begin_inset Formula \( Q_{a} \)
+\end_inset 
+
+ et 
+\begin_inset Formula \( Q_{b} \)
+\end_inset 
+
+, avec des normales 
+\begin_inset Formula \( N_{a} \)
+\end_inset 
+
+ et 
+\begin_inset Formula \( N_{b} \)
+\end_inset 
+
+.
+ Les mouvements possibles sont décrits par des vis dont l'axe intersecte
+ les deux normales 
+\begin_inset Formula \( N_{a} \)
+\end_inset 
+
+ et 
+\begin_inset Formula \( N_{b} \)
+\end_inset 
+
+.
+\end_float 
+ 
+\layout Standard
+
+Considérons maintenant le cas illustré dans la figure 
+\begin_inset LatexCommand \ref{fig: SurfacesDoubleContact}
+
+\end_inset 
+
+, où il y a deux points de contact 
+\begin_inset Formula \( Q_{a} \)
+\end_inset 
+
+ et 
+\begin_inset Formula \( Q_{b} \)
+\end_inset 
+
+ entre les corps 
+\begin_inset Formula \( S_{1} \)
+\end_inset 
+
+ et 
+\begin_inset Formula \( S_{2} \)
+\end_inset 
+
+, avec des normales 
+\begin_inset Formula \( N_{a} \)
+\end_inset 
+
+ et 
+\begin_inset Formula \( N_{b} \)
+\end_inset 
+
+ respectivement.
+ Les possibilités de mouvement sont maintenant réduites à celles représentées
+ par des vis qui en même temps intersectent à 
+\begin_inset Formula \( N_{a} \)
+\end_inset 
+
+ et 
+\begin_inset Formula \( N_{b} \)
+\end_inset 
+
+.
+ La figure 
+\begin_inset LatexCommand \ref{fig: SurfacesDoubleContact}
+
+\end_inset 
+
+ à droite montre les relations entre la trajectoire de 
+\begin_inset Formula \( Q_{a} \)
+\end_inset 
+
+ et celle de 
+\begin_inset Formula \( Q_{b} \)
+\end_inset 
+
+ dans le plan normal à l'axe de la vis 
+\begin_inset LatexCommand \cite{Hunt90}
+
+\end_inset 
+
+.
+\layout Standard
+
+Quand le nombre de points de contact augmente, le nombre de restrictions
+ du mouvement augmente aussi.
+ Pour un nombre 
+\begin_inset Formula \( n \)
+\end_inset 
+
+ des points de contact, nous aurons 
+\begin_inset Formula \( n \)
+\end_inset 
+
+ normales respectives.
+ Les mouvements possibles sont ceux qui correspondent aux vis dont l'axe
+ intersecte en même temps toutes ces lignes normales.
+ Dans le cas où il n'y a pas de possibilité géométrique de tracer un axe
+ qui intersecte en même temps toutes les normales, le corps se trouve fixé
+ par ses points de contact.
+\layout Standard
+
+\begin_float fig 
+\layout Standard
+\align center 
+
+\begin_inset Figure size 476 112
+file Fonctionalite_eps/cone_plane_contact.eps
+width 3 80.00
+flags 8
+
+\end_inset 
+
+
+\layout Caption
+
+
+\begin_inset LatexCommand \label{fig: ConePlaneContact}
+
+\end_inset 
+
+Contact entre un cône et un plan.
+ Les points de contact se trouvent le long de la ligne horizontale 
+\begin_inset Formula \( L \)
+\end_inset 
+
+.
+ Les normales aux points de 
+\begin_inset Formula \( L \)
+\end_inset 
+
+ forment le plan 
+\begin_inset Formula \( M \)
+\end_inset 
+
+.
+ Les vis possibles sont celles qui se trouvent dans le plan 
+\begin_inset Formula \( M \)
+\end_inset 
+
+.
+ Parmi lesquelles, les vis 
+\begin_inset Formula \( V_{1} \)
+\end_inset 
+
+, 
+\begin_inset Formula \( V_{2} \)
+\end_inset 
+
+, 
+\begin_inset Formula \( V_{3} \)
+\end_inset 
+
+ et 
+\begin_inset Formula \( V_{4} \)
+\end_inset 
+
+ sont des possibilités de mouvement.
+\end_float 
+\layout Standard
+
+La figure 
+\begin_inset LatexCommand \ref{fig: ConePlaneContact}
+
+\end_inset 
+
+ montre le cas d'un cône en contact avec un plan.
+ Les points de contact forment une ligne horizontal 
+\begin_inset Formula \( L \)
+\end_inset 
+
+.
+ Les normales aux points de contact forment le plan 
+\begin_inset Formula \( M \)
+\end_inset 
+
+.
+ Les mouvement possibles sont ceux décrits par des vis dont l'axe est parallèle
+ au plan 
+\begin_inset Formula \( M \)
+\end_inset 
+
+.
+\layout Subsubsection
+
+Les axodes
+\begin_inset LatexCommand \label{sec: axodes}
+
+\end_inset 
+
+
+\layout Standard
+
+Dans le cas 2D le mouvement d'un corps rigide est décrit par la courbe polode
+ qui est la séquence de ses pôles.
+ L'équivalent dans l'espace, pour le mouvement d'un corps rigide est une
+ suite de vis.
+ Étant donnée que les vis sont représentées par segments de droite, la séquence
+ de vis est une surface réglée 
+\begin_float footnote 
+\layout Standard
+
+Une surface reglée est celle qui resulte du balayage de l'espace avec une
+ ligne droite.
+\end_float 
+
+\begin_inset LatexCommand \cite{Porteous94}
+
+\end_inset 
+
+.
+ Cette surface réglée est connue comme 
+\emph on 
+axode
+\begin_float footnote 
+\layout Standard
+
+
+\emph on 
+Axode
+\emph toggle 
+ : est équivalent au terme 
+\emph on 
+
+\begin_inset Quotes eld
+\end_inset 
+
+le chemin des axes
+\begin_inset Quotes erd
+\end_inset 
+
+
+\end_float 
+.
+ La détermination de l'axode permet de définir complètement le comportement
+ de tous les points d'un corps rigide en mouvement 
+\begin_inset LatexCommand \cite{Wang97a}
+
+\end_inset 
+
+.
+ 
+\layout Standard
+
+\begin_float fig 
+\layout Standard
+\align center 
+
+\begin_inset Figure size 476 90
+file Fonctionalite_eps/cone_plane_axode.eps
+width 3 80.00
+flags 8
+
+\end_inset 
+
+
+\layout Caption
+
+
+\begin_inset LatexCommand \label{fig: AxodeCone}
+
+\end_inset 
+
+Illustration des axodes correspondants au roulement d'un cône sur un plan.
+ L'axode fixe est la surface réglée formée par les lignes dans le plan irradiant
+ à partir de l'axe 
+\begin_inset Formula \( Z \)
+\end_inset 
+
+.
+ L'axode mobile est la surface reglée formée par les lignes irradiant à
+ partir du sommet du cône et situées sur sa surface.
+\end_float 
+\layout Standard
+
+La figure 
+\begin_inset LatexCommand \ref{fig: AxodeCone}
+
+\end_inset 
+
+ montre le cas d'un cône qui roule (sans glisser) sur un plan.
+ A chaque instant, le contact entre le cône et le plan est une ligne droite.
+ L'axe instantané de rotation est cette ligne de contact.
+ Cela définit donc, l'axe de la vis qui décrit le mouvement.
+ Pendant sa rotation, le cône ne réalise pas de translation le long de l'axe,
+ il s'agit donc d'une vis de pas nul.
+ Dans son mouvement, la ligne de contact change à chaque instant, en tournant
+ autour du sommet du cône, avec l'axe 
+\begin_inset Formula \( Z \)
+\end_inset 
+
+ comme axe de rotation.
+ L'axode fixe est la séquence de lignes de contact autour de l'axe 
+\begin_inset Formula \( Z \)
+\end_inset 
+
+, tandis que l'axode mobile est la surface même du cône.
+ En général, tout mouvement d'un corps rigide dans l'espace est décrit comme
+ le roulement de son axode mobile sur l'axode fixe 
+\begin_inset LatexCommand \cite{Wang97b}
+
+\end_inset 
+
+
+\begin_inset LatexCommand \cite{Wang97c}
+
+\end_inset 
+
+.
+\layout Subsubsection
+
+Les surfaces en contact
+\layout Standard
+
+Deux surfaces confrontées peuvent avoir plusieurs points de contact, soit
+ un nombre fini ou infini à l'intérieur d'une section de courbe (comme c'était
+ le cas pour l'exemple du cône et du plan dans la section 
+\begin_inset LatexCommand \ref{sec: axodes}
+
+\end_inset 
+
+).
+ En chaque point, les deux surfaces partagent un plan tangente et une ligne
+ normale.
+ À tout instant, les restrictions du mouvement entre les deux surfaces sont
+ déterminées par l'ensemble des lignes normales correspondant aux points
+ de contact 
+\begin_inset LatexCommand \cite{Wang97b}
+
+\end_inset 
+
+.
+\layout Standard
+
+Les vis possibles doivent intersecter toutes les lignes normales associées
+ aux points de contact.
+ Cet ensemble de points de contact change avec chaque déplacement infinitésimal
+ de la surface.
+ L'ensemble des normales correspondant changera aussi, ce qui se répercutera
+ sir les vis possibles.
+ Pour obtenir un mouvement continu, il en faut avoir une continuité dans
+ les vis à chaque instant, ce qui nécessite d'une continuité de l'ensemble
+ des normales 
+\begin_inset LatexCommand \cite{Pottman2000}
+
+\end_inset 
+
+
+\begin_inset LatexCommand \cite{Wang97c}
+
+\end_inset 
+
+.
+\layout Standard
+
+\begin_float fig 
+\layout Standard
+\align center 
+
+\begin_inset Figure size 476 161
+file Fonctionalite_eps/surface_evolutes.eps
+width 3 80.00
+flags 8
+
+\end_inset 
+
+
+\layout Caption
+
+
+\begin_inset LatexCommand \label{fig: SurfacesEvolutes}
+
+\end_inset 
+
+Évolutes d'une surface.
+ En tout point 
+\begin_inset Formula \( P \)
+\end_inset 
+
+, la surface 
+\begin_inset Formula \( S \)
+\end_inset 
+
+ a deux centres de courbure 
+\begin_inset Formula \( C_{1} \)
+\end_inset 
+
+ et 
+\begin_inset Formula \( C_{2} \)
+\end_inset 
+
+.
+ Le lieu géométrique des ces centres est la paire de surfaces 
+\begin_inset Formula \( E_{1} \)
+\end_inset 
+
+ et 
+\begin_inset Formula \( E_{2} \)
+\end_inset 
+
+.
+\end_float 
+\layout Standard
+
+Cela nous conduit, de la même façon que pour le cas planaire, à nous intêresser
+ à l'enveloppe des normales de la surface, car les mouvements continus doivent
+ se restreindre à ceux dont la suite des vis (l'axode) est une suite des
+ lignes dans cette enveloppe.
+ De la même façon qu'en 2D, l'enveloppe des lignes normales est appelée
+ 
+\emph on 
+l'évolute
+\emph toggle 
+ 
+\begin_inset LatexCommand \cite{Giblin92}
+
+\end_inset 
+
+.
+ 
+\layout Subsubsection
+
+L'évolute d'une surface
+\layout Standard
+
+Les évolutes de surface en 3D sont formées par deux feuilles car en tout
+ point de la surface originale, il y a deux courbures.
+ Pour chacune d'entre elles il y a un centre de courbure, comme c'est illustré
+ dans la figure 
+\begin_inset LatexCommand \ref{fig: SurfacesEvolutes}
+
+\end_inset 
+
+ où 
+\begin_inset Formula \( C_{1} \)
+\end_inset 
+
+ est le centre de courbure principale tandis que 
+\begin_inset Formula \( C_{2} \)
+\end_inset 
+
+ est le centre de courbure secondaire.
+ 
+\layout Standard
+
+Le lieu géométrique des centres de courbure principaux est une surface,
+ et il en est de même pour le lieu géométrique des centres secondaires de
+ courbure 
+\begin_inset LatexCommand \cite{Porteous94}
+
+\end_inset 
+
+.
+ La figure 
+\begin_inset LatexCommand \ref{fig: SurfacesEvolutes}
+
+\end_inset 
+
+ à droite montre la surface évolute 
+\begin_inset Formula \( E_{1} \)
+\end_inset 
+
+ qui est le lieu géométrique des centres principaux de courbure, ainsi que
+ la surface évolute 
+\begin_inset Formula \( E_{2} \)
+\end_inset 
+
+ qui est le lieu géométrique des centres de courbure secondaires.
+ Ces deux lieux géométriques ont des intersections aux centres de courbure
+ correspondant aux 
+\emph on 
+umbliques
+\emph toggle 
+ qui par définition sont les points de la surface dont les courbure principale
+ et secondaire ont la même valeur.
+\layout Standard
+
+Vu d'une autre façon, l'approximation au premier ordre d'une courbe est
+ une ligne droite.
+ L'approximation au second ordre d'une courbe est un cercle.
+ L'approximation au premier ordre d'une surface est un plan.
+ L'approximation au second ordre d'une surface n'est pas une sphère mais
+ une forme quadratique (ellipsoïde, hyperboloïde ou paraboloïde), et, pour
+ cette raison un point a toujours deux courbures dans des directions orthogonale
+s 
+\begin_inset LatexCommand \cite{Giblin92}
+
+\end_inset 
+
+.
+ 
+\layout Standard
+
+Les valeurs des courbures ainsi que leurs directions peuvent être obtenues
+ comme la solution d'un système de valeurs et vecteurs propres.
+ Ce système change en chaque point de la surface, ce qui fait que les orientatio
+ns correspondant à la courbure principale et secondaire changent le long
+ de la surface.
+ Il est possible de définir un système de coordonnées orthogonal sur une
+ surface en utilisant les orientations propres de la courbure 
+\begin_inset LatexCommand \cite{Porteous94}
+
+\end_inset 
+
+.
+\layout Standard
+
+\begin_float fig 
+\layout Standard
+\align center 
+
+\begin_inset Figure size 476 195
+file Fonctionalite_eps/euler_meusnier.eps
+width 3 80.00
+flags 8
+
+\end_inset 
+
+
+\layout Caption
+
+
+\begin_inset LatexCommand \label{fig: EulerMeusnier}
+
+\end_inset 
+
+Illustration de la notion de courbure directionnelle de la surface, comme
+ étant la courbure correspondant à la courbe qui résulte de l'intersection
+ de la surface avec un plan.
+ Les directions de la courbure principale et secondaire sont indiquées par
+ 
+\begin_inset Formula \( V_{1} \)
+\end_inset 
+
+ et 
+\begin_inset Formula \( V_{2} \)
+\end_inset 
+
+ respectivement.
+\end_float 
+\layout Standard
+
+La figure 
+\begin_inset LatexCommand \ref{fig: EulerMeusnier}
+
+\end_inset 
+
+ montre de façon géométrique la nécessité de choisir une direction pour
+ évaluer la courbure d'une surface.
+ Si on intersecte la surface 
+\begin_inset Formula \( S \)
+\end_inset 
+
+ avec un plan 
+\begin_inset Formula \( P \)
+\end_inset 
+
+ parallèle à la normale 
+\begin_inset Formula \( N \)
+\end_inset 
+
+ de la surface, ce plan formant un angle 
+\begin_inset Formula \( \alpha  \)
+\end_inset 
+
+ avec la direction de la courbure principale 
+\begin_inset Formula \( V_{1} \)
+\end_inset 
+
+, la courbe 
+\begin_inset Formula \( C_{P} \)
+\end_inset 
+
+ qui résulte de l'intersection du plan avec la surface aura une courbure
+ égale à 
+\begin_inset Formula \( k_{\alpha } \)
+\end_inset 
+
+ donnée par 
+\layout Standard
+
+
+\begin_inset Formula 
+\[
+k_{\alpha }=k_{1}\cos ^{2}\alpha +k_{2}\sin ^{2}\alpha \]
+
+\end_inset 
+
+
+\layout Standard
+
+où 
+\begin_inset Formula \( k_{1} \)
+\end_inset 
+
+ et 
+\begin_inset Formula \( k_{2} \)
+\end_inset 
+
+ sont les courbures dans les directions principal et secondaire 
+\begin_inset Formula \( V_{1} \)
+\end_inset 
+
+ et 
+\begin_inset Formula \( V_{2} \)
+\end_inset 
+
+.
+ Ceci implique que changer l'orientation du plan 
+\begin_inset Formula \( P \)
+\end_inset 
+
+ par rapport à la direction principale 
+\begin_inset Formula \( V_{1} \)
+\end_inset 
+
+ fait déplacer le centre de courbure entre les deux feuilles de l'évolute
+ de la surface.
+ 
+\layout Standard
+
+Si en revanche, on choisit un plan 
+\begin_inset Formula \( Q \)
+\end_inset 
+
+ qui n'est pas parallèle à la normale 
+\begin_inset Formula \( N \)
+\end_inset 
+
+ de la surface, mais qui forme un angle 
+\begin_inset Formula \( \psi  \)
+\end_inset 
+
+ avec elle, la courbe 
+\begin_inset Formula \( C_{Q} \)
+\end_inset 
+
+ qui résulte de l'intersection entre le plan 
+\begin_inset Formula \( Q \)
+\end_inset 
+
+ et la surface, a une courbure 
+\begin_inset Formula \( k_{\alpha ,\psi } \)
+\end_inset 
+
+ donnée par 
+\begin_inset LatexCommand \cite{Porteous94}
+
+\end_inset 
+
+
+\layout Standard
+
+
+\begin_inset Formula 
+\begin{equation}
+\label{eq:Meusnier}
+k_{\alpha ,\psi }=\frac{k_{\alpha }}{\cos \psi }
+\end{equation}
+
+\end_inset 
+
+
+\layout Subsubsection
+
+l'évolute spatiale d'une courbe
+\layout Standard
+
+\begin_float fig 
+\layout Standard
+\align center 
+
+\begin_inset Figure size 476 173
+file Fonctionalite_eps/curve_focal_surface.eps
+width 3 80.00
+flags 8
+
+\end_inset 
+
+
+\layout Caption
+
+
+\begin_inset LatexCommand \label{fig: CurveFocalSurface}
+
+\end_inset 
+
+Relations entre une courbe dans l'espace 3D, son évolute et sa surface focale.
+\end_float 
+\layout Standard
+
+La figure 
+\begin_inset LatexCommand \ref{fig: CurveFocalSurface}
+
+\end_inset 
+
+ montre les relations entre une courbe, son évolute et sa surface focale.
+ Une courbe 
+\begin_inset Formula \( C \)
+\end_inset 
+
+ en 3D a en chaque point 
+\begin_inset Formula \( P \)
+\end_inset 
+
+ un cercle osculant 
+\begin_inset Formula \( O \)
+\end_inset 
+
+.
+ Ce cercle définit un plan osculant et un centre de courbure 
+\begin_inset Formula \( O_{o} \)
+\end_inset 
+
+ pour le point 
+\begin_inset Formula \( P \)
+\end_inset 
+
+.
+ La ligne 
+\begin_inset Formula \( F \)
+\end_inset 
+
+ normale au plan du cercle osculant et qui passe par le centre du cercle
+ est appelée la 
+\emph on 
+ligne focale
+\emph toggle 
+ de la courbe 
+\begin_inset Formula \( C \)
+\end_inset 
+
+ en 
+\begin_inset Formula \( P \)
+\end_inset 
+
+.
+ La suite de lignes focales de 
+\begin_inset Formula \( C \)
+\end_inset 
+
+ forme une surface réglée connue comme la 
+\emph on 
+surface focale 
+\emph toggle 
+
+\begin_inset Formula \( S_{F} \)
+\end_inset 
+
+ 
+\begin_inset LatexCommand \cite{Wang97b}
+
+\end_inset 
+
+.
+ 
+\layout Standard
+
+De plus, la courbe 
+\begin_inset Formula \( C \)
+\end_inset 
+
+ a une sphère osculante 
+\begin_inset Formula \( S \)
+\end_inset 
+
+ en 
+\begin_inset Formula \( P \)
+\end_inset 
+
+.
+ La sphère osculante est bien définie pour les points de 
+\begin_inset Formula \( C \)
+\end_inset 
+
+ où la torsion est non nulle, c'est à dire, la où la courbe n'est pas planaire.
+ Le point 
+\begin_inset Formula \( O_{S} \)
+\end_inset 
+
+ centre de la sphère osculante est appelé 
+\emph on 
+centre de courbure 
+\emph toggle 
+sphérique.
+ La suite des centres de courbure sphérique de 
+\begin_inset Formula \( C \)
+\end_inset 
+
+ est la courbe 
+\begin_inset Formula \( E \)
+\end_inset 
+
+, qui est connue comme 
+\emph on 
+l 'évolute spatiale
+\emph toggle 
+ de 
+\begin_inset Formula \( C \)
+\end_inset 
+
+.
+ En tout point de 
+\begin_inset Formula \( C \)
+\end_inset 
+
+ où la courbe n'est pas plannaire, la ligne focale est tangente à l'évolute
+ spatiale.
+ La surface focale de 
+\begin_inset Formula \( C \)
+\end_inset 
+
+ est équivalente à la suite de lignes tangentes de l'évolute 
+\begin_inset Formula \( E \)
+\end_inset 
+
+ 
+\begin_inset LatexCommand \cite{Porteous94}
+
+\end_inset 
+
+
+\begin_inset LatexCommand \cite{Pottman2000}
+
+\end_inset 
+
+.
+\layout Subsubsection
+
+Exemple en 3D : L'ellipsoïde et le plan
+\layout Standard
+
+\begin_float fig 
+\layout Standard
+\align center 
+
+\begin_inset Figure size 476 142
+file Fonctionalite_eps/ellipsoide_plane.eps
+width 3 80.00
+flags 8
+
+\end_inset 
+
+
+\layout Caption
+
+
+\begin_inset LatexCommand \label{fig: EllipsoidePlan}
+
+\end_inset 
+
+Contact entre un ellipsoïde et un plan.
+ Les deux figures à droite sont les deux feuilles de l'évolute de l'ellipsoïde.
+ Une des feuilles correspond aux rayons des courbure principale tandis que
+ l'autre feuille correspond aux rayons de courbure secondaire.
+ Le point de contact entre l'ellipsoïde et le plan a toujours une normale
+ tangente aux deux feuilles de l'évolute.
+ 
+\end_float 
+\layout Standard
+
+L'analyse des axodes s'avère beaucoup plus complexe que celle des polodes,
+ dû en partie au fait que l'addition des vis est soumise à une règle beaucoup
+ plus complexe que celle applicable aux pôles 
+\begin_inset LatexCommand \cite{Ball}
+
+\end_inset 
+
+.
+ Malgré ce fait, nous pouvons déduire certaines caractéristiques concernant
+ les restrictions de mouvement.
+\layout Standard
+
+Prenons l'exemple d'un ellipsoïde qui se trouve en contact avec un plan,
+ comme illustré dans la figure 
+\begin_inset LatexCommand \ref{fig: EllipsoidePlan}
+
+\end_inset 
+
+.
+ Le point de contact entre l'ellipsoïde et le plan a toujours une normal
+ qui est tangente aux deux feuilles de l'évolute de la surface.
+ Les deux figures les plus à droite de 
+\begin_inset LatexCommand \ref{fig: EllipsoidePlan}
+
+\end_inset 
+
+ montrent la forme des feuilles de l'évolute.
+ Une feuille correspond aux courbures principales tandis que l'autre feuille
+ correspond aux courbures secondaires.
+ Les détails mathématiques sont présentés dans le paragraphe 
+\begin_inset LatexCommand \ref{sec: SurfacesImplicites}
+
+\end_inset 
+
+.
+\layout Standard
+
+\begin_float fig 
+\layout Standard
+\align center 
+
+\begin_inset Figure size 476 199
+file Fonctionalite_eps/ellipsoide_trajectoires.eps
+width 3 80.00
+flags 8
+
+\end_inset 
+
+
+\layout Caption
+
+
+\begin_inset LatexCommand \label{fig: EllipsoideTrajectoire}
+
+\end_inset 
+
+Trajectoire du point de contact sur la surface de l'ellipsoïde.
+ La courbe 
+\begin_inset Formula \( C \)
+\end_inset 
+
+ est la trajectoire des points de contact sur la surface 
+\begin_inset Formula \( S \)
+\end_inset 
+
+ de l'ellipsoïde.
+ En chaque point 
+\begin_inset Formula \( Q \)
+\end_inset 
+
+, la direction tangente à la trajectoire est indiquée par le vecteur 
+\begin_inset Formula \( T \)
+\end_inset 
+
+, la direction normale à la surface 
+\begin_inset Formula \( S \)
+\end_inset 
+
+ est indiquée par le vecteur 
+\begin_inset Formula \( N \)
+\end_inset 
+
+, le vecteur 
+\begin_inset Formula \( R \)
+\end_inset 
+
+ complète le triplet orthogonal.
+ L'orientation du plan en mouvement est définie par les vecteurs 
+\begin_inset Formula \( R \)
+\end_inset 
+
+ et 
+\begin_inset Formula \( T \)
+\end_inset 
+
+, tandis que sa position est définie par le point 
+\begin_inset Formula \( Q \)
+\end_inset 
+
+.
+\end_float 
+\layout Standard
+
+Pour analyser le mouvement, nous pouvons considérer par inversion cinématique
+ que le plan se déplace sur la surface de l'ellipsoïde en gardant toujours
+ un point de contact 
+\begin_inset Formula \( Q \)
+\end_inset 
+
+, ceci est illustré dans la figure 
+\begin_inset LatexCommand \ref{fig: EllipsoideTrajectoire}
+
+\end_inset 
+
+.
+ 
+\layout Standard
+
+La suite de points de contact décrit une courbe 
+\begin_inset Formula \( C \)
+\end_inset 
+
+ sur la surface de l'ellipsoïde.
+ Étant donné qu'une vis décrit le mouvement d'un corps rigide, le mouvement
+ d'un point n'est pas suffisant pour définir une vis.
+ Il faut en ajouter deux directions (ou deux points).
+ Nous considérons ici que dans le plan en mouvement il y a une ligne 
+\begin_inset Formula \( L \)
+\end_inset 
+
+, et que le mouvement du plan est tel que cette ligne reste toujours parallèle
+ au vecteur tangent 
+\begin_inset Formula \( T \)
+\end_inset 
+
+ de la trajectoire du point de contact.
+ Le plan est aussi normal au vecteur 
+\begin_inset Formula \( N \)
+\end_inset 
+
+ et contient toujours le point 
+\begin_inset Formula \( Q \)
+\end_inset 
+
+, ce qui complète deux orientations et un point pour définir le corps rigide.
+\layout Standard
+
+Le vecteur 
+\begin_inset Formula \( R \)
+\end_inset 
+
+ qui est perpendiculaire aux vecteurs 
+\begin_inset Formula \( N \)
+\end_inset 
+
+ et 
+\begin_inset Formula \( T \)
+\end_inset 
+
+, complète un triplet orthogonal.
+ Il faut remarquer néanmoins que ce triplet n'est pas le même que celui
+ qui résulte de l'analyse différentielle de la courbe avec les formules
+ de Serret-Frenet.
+ Ici, la normale 
+\begin_inset Formula \( N \)
+\end_inset 
+
+ est reliée à la surface 
+\begin_inset Formula \( S \)
+\end_inset 
+
+ et non à une caractéristique géométrique de la courbe 
+\begin_inset Formula \( C \)
+\end_inset 
+
+.
+ Le triplet associé aux formules de Serret-Frenet est formé par la tangente
+ à la courbe, la normale au plan osculant et un troisième vecteur qui pointe
+ vers le centre du cercle osculant.
+\layout Standard
+
+La figure 
+\begin_inset LatexCommand \ref{fig: EllipsoideTrajectoire}
+
+\end_inset 
+
+ à droite montre la relation entre le cercle osculant et la courbure de
+ la surface.
+ Le point 
+\begin_inset Formula \( O_{o} \)
+\end_inset 
+
+ est le centre du cercle osculant à la courbe 
+\begin_inset Formula \( C \)
+\end_inset 
+
+ en 
+\begin_inset Formula \( Q \)
+\end_inset 
+
+.
+ La ligne focale 
+\begin_inset Formula \( F \)
+\end_inset 
+
+ est normale au plan du cercle tandis que 
+\begin_inset Formula \( \rho  \)
+\end_inset 
+
+ est le rayon du cercle.
+ Comme la courbe 
+\begin_inset Formula \( C \)
+\end_inset 
+
+ est tracée sur la surface 
+\begin_inset Formula \( S \)
+\end_inset 
+
+, le cercle osculant est au même temps l'approximation au second ordre de
+ la courbe 
+\begin_inset Formula \( C \)
+\end_inset 
+
+ est l'approximation de second ordre de l'intersection de la surface 
+\begin_inset Formula \( S \)
+\end_inset 
+
+ avec le plan osculant.
+\layout Standard
+
+Cela nous permet d'utiliser l'équation 
+\begin_inset LatexCommand \ref{eq:Meusnier}
+
+\end_inset 
+
+ pour relier le rayon 
+\begin_inset Formula \( \rho  \)
+\end_inset 
+
+ du cercle osculant avec le rayon de courbure 
+\begin_inset Formula \( r_{T} \)
+\end_inset 
+
+ de la surface 
+\begin_inset Formula \( S \)
+\end_inset 
+
+ dans la direction 
+\begin_inset Formula \( T \)
+\end_inset 
+
+.
+\layout Standard
+
+
+\begin_inset Formula 
+\[
+\rho =r_{T}\cos \psi \]
+
+\end_inset 
+
+ 
+\layout Standard
+
+À partir de cette relation, nous pouvons conclure que la ligne focale 
+\begin_inset Formula \( F \)
+\end_inset 
+
+ passe en même temps par le centre de rotation du vecteur 
+\begin_inset Formula \( T \)
+\end_inset 
+
+ (qui est le point 
+\begin_inset Formula \( O_{o} \)
+\end_inset 
+
+ ) et par le centre de rotation de la normale 
+\begin_inset Formula \( N \)
+\end_inset 
+
+ quand elle se déplace le long de la direction 
+\begin_inset Formula \( T \)
+\end_inset 
+
+ (ce qui est le point 
+\begin_inset Formula \( O_{T} \)
+\end_inset 
+
+).
+ 
+\layout Standard
+
+La ligne 
+\begin_inset Formula \( F \)
+\end_inset 
+
+ est donc l'endroit où il faut placer l'axe d'une vis pour appliquer au
+ plan mobile un déplacement qui lui fasse suivre un parcours infinitésimal
+ le long de la courbe 
+\begin_inset Formula \( C \)
+\end_inset 
+
+, tout en gardant la direction de la tangente 
+\begin_inset Formula \( T \)
+\end_inset 
+
+, et en restant tangente à la surface 
+\begin_inset Formula \( S \)
+\end_inset 
+
+.
+ La surface focale, étant la suite des lignes focales de la courbe 
+\begin_inset Formula \( C \)
+\end_inset 
+
+, correspond directement à l'axode fixe de cette trajectoire, ceci est illustré
+ dans la figure 
+\begin_inset LatexCommand \ref{fig: EllipsoidePlaneAxode}
+
+\end_inset 
+
+.
+ La suite des centres de courbure de la surface 
+\begin_inset Formula \( S \)
+\end_inset 
+
+ dans les directions tangentes à la courbe 
+\begin_inset Formula \( C \)
+\end_inset 
+
+ est donc la même évolute spatiale de la courbe 
+\begin_inset Formula \( C \)
+\end_inset 
+
+.
+ 
+\layout Standard
+
+\begin_float fig 
+\layout Standard
+\align center 
+
+\begin_inset Figure size 476 169
+file Fonctionalite_eps/ellipsoide_plane_axode.eps
+width 3 80.00
+flags 8
+
+\end_inset 
+
+
+\layout Caption
+
+
+\begin_inset LatexCommand \label{fig: EllipsoidePlaneAxode}
+
+\end_inset 
+
+Illustration de l'axode du mouvement du plan sur la surface de l'ellipsoïde.
+ L'axode s'avère être la même surface focale de la courbe 
+\begin_inset Formula \( C \)
+\end_inset 
+
+.
+\end_float 
+L'axode mobile est la suite des axes des vis dans le système de repère du
+ plan mobile.
+ Dans ce système l'axe est toujours dans le plan défini par les vecteurs
+ 
+\begin_inset Formula \( R \)
+\end_inset 
+
+ et 
+\begin_inset Formula \( N \)
+\end_inset 
+
+.
+ Sa position étant déterminée par les distances 
+\begin_inset Formula \( r_{T} \)
+\end_inset 
+
+ et 
+\begin_inset Formula \( \rho  \)
+\end_inset 
+
+.
+\layout Subsubsection
+
+Glissement et roulement entre deux surfaces
+\layout Standard
+
+Maintenant que nous avons décrit l'interaction entre un plan et une surface,
+ nous pouvons dresser le cas de deux surfaces confrontées avec des glissement
+ et roulement.
+ L'analyse présentée ici et l'équivalent 3D de celle fait dans le paragraphe
+ 
+\begin_inset LatexCommand \ref{sec: Envelopes}
+
+\end_inset 
+
+ en 2D.
+\layout Standard
+
+Les deux surfaces 
+\begin_inset Formula \( S_{1} \)
+\end_inset 
+
+ et 
+\begin_inset Formula \( S_{2} \)
+\end_inset 
+
+ sont en contact en un point 
+\begin_inset Formula \( Q \)
+\end_inset 
+
+.
+ En ce point 
+\begin_inset Formula \( Q \)
+\end_inset 
+
+ elles partagent un plan tangent et une normale.
+ Le mouvement entre les surfaces et la composition de deux mouvement, celui
+ de 
+\begin_inset Formula \( S_{2} \)
+\end_inset 
+
+ par rapport au plan 
+\begin_inset Formula \( M \)
+\end_inset 
+
+ et celui du plan 
+\begin_inset Formula \( M \)
+\end_inset 
+
+ par rapport à 
+\begin_inset Formula \( S_{1} \)
+\end_inset 
+
+.
+ 
+\layout Standard
+
+Chacun de ces mouvement est décrit par le roulement d'une axode fixe sur
+ une axode mobile.
+ Dans le mouvement de 
+\begin_inset Formula \( S_{2} \)
+\end_inset 
+
+ par rapport au plan 
+\begin_inset Formula \( T \)
+\end_inset 
+
+ l'axode mobile est la surface focale de la courbe qui définit la trajectoire
+ du point de contact sur la surface 
+\begin_inset Formula \( S_{2} \)
+\end_inset 
+
+, l'axode fixe se trouve dans le plan défini par 
+\begin_inset Formula \( R \)
+\end_inset 
+
+ et 
+\begin_inset Formula \( N \)
+\end_inset 
+
+ du plan 
+\begin_inset Formula \( M \)
+\end_inset 
+
+.
+ En ce qui concerne le mouvement de 
+\begin_inset Formula \( M \)
+\end_inset 
+
+ par rapport à 
+\begin_inset Formula \( S_{1} \)
+\end_inset 
+
+, l'axode mobile est maintenant la suite des axes sur le plan de 
+\begin_inset Formula \( R \)
+\end_inset 
+
+ et 
+\begin_inset Formula \( N \)
+\end_inset 
+
+, tandis que l'axode fixe est la surface focale de la trajectoire du contact
+ sur la surface 
+\begin_inset Formula \( S_{1} \)
+\end_inset 
+
+.
+ 
+\layout Standard
+
+A chaque moment, la vis résultante 
+\begin_inset Formula \( V_{21} \)
+\end_inset 
+
+ est la composition des vis 
+\begin_inset Formula \( V_{2T} \)
+\end_inset 
+
+ (de 
+\begin_inset Formula \( S_{2} \)
+\end_inset 
+
+ par rapport à 
+\begin_inset Formula \( T \)
+\end_inset 
+
+) et 
+\begin_inset Formula \( V_{T1} \)
+\end_inset 
+
+ (de 
+\begin_inset Formula \( T \)
+\end_inset 
+
+ par rapport à 
+\begin_inset Formula \( S_{1} \)
+\end_inset 
+
+).
+ La composition des vis se fait en utilisant une structure algébrique connue
+ comme l'hyperboloïde 
+\begin_inset LatexCommand \cite{Ball}
+
+\end_inset 
+
+
+\begin_inset LatexCommand \cite{Hunt90}
+
+\end_inset 
+
+.
+ Pour notre intêret, il suffit de savoir qu'il est possible de trouver la
+ vis résultante 
+\begin_inset Formula \( V_{21} \)
+\end_inset 
+
+ si nous connaissons 
+\begin_inset Formula \( V_{2T} \)
+\end_inset 
+
+ et 
+\begin_inset Formula \( V_{T1} \)
+\end_inset 
+
+.
+\layout Standard
+
+La proportion entre roulement et glissement dépend du rapport entre les
+ amplitudes de 
+\begin_inset Formula \( V_{2T} \)
+\end_inset 
+
+ et 
+\begin_inset Formula \( V_{T1} \)
+\end_inset 
+
+.
+ Ce qui en pratique doit être défini par les ligament et les muscles.
+\layout Section
+
+La relation avec le traitement d'image
+\layout Standard
+
+L'analyse du paragraphe précédent montre que pour comprendre les restrictions
+ du mouvement associées à la forme, le premier pas consiste à étudier les
+ évolutes normales à la surface.
+\layout Subsection
+
+Surfaces définies implicitement
+\begin_inset LatexCommand \label{sec: SurfacesImplicites}
+
+\end_inset 
+
+
+\layout Standard
+
+Pour appliquer ces concepts au traitement d'image, nous pouvons profiter
+ du fait qu'il est possible de déterminer les propriétés géométriques des
+ surfaces d'isovaleur 
+\begin_inset Formula \( f(x,y,z)=c \)
+\end_inset 
+
+ à partir des dérivées d'ordre supérieur de la fonction 
+\begin_inset Formula \( f \)
+\end_inset 
+
+.
+ Nous nous intéressons en particulier aux fonctions 
+\begin_inset Formula \( f(x,y,z) \)
+\end_inset 
+
+ qui peuvent être associées au niveau de gris d'un volume de données.
+ La surface d'un objet dans ce volume peut correspondre à l'isosurface de
+ valeur 
+\begin_inset Formula \( c \)
+\end_inset 
+
+.
+\layout Subsubsection
+
+Géométrie des isosurfaces
+\layout Standard
+
+Soit 
+\begin_inset Formula \( f(x,y,z) \)
+\end_inset 
+
+ une fonction scalaire dans l'espace 3D.
+ L'équation 
+\begin_inset Formula \( f(x,y,z)=c \)
+\end_inset 
+
+ définit une surface implicite.
+ Les courbures 
+\begin_inset Formula \( k=\left\{ k_{1},k_{2}\right\}  \)
+\end_inset 
+
+ de cette surface et leurs directions 
+\begin_inset Formula \( u=\left\{ \overline{u_{1}},\overline{u_{2}}\right\}  \)
+\end_inset 
+
+ sont les solutions de l'équation des valeurs et vecteurs propres 
+\begin_inset Formula \( Su=ku \)
+\end_inset 
+
+, où la matrice 
+\begin_inset Formula \( S \)
+\end_inset 
+
+ est 
+\layout Standard
+
+
+\begin_inset Formula 
+\[
+S=\left( I-\frac{Df}{\left| Df\right| }\frac{Df^{t}}{\left| Df\right| }\right) \frac{D^{2}f}{\left| Df\right| }\]
+
+\end_inset 
+
+
+\layout Standard
+
+qui écrit de façon explicite devient
+\layout Standard
+
+
+\begin_inset Formula 
+\[
+S=\frac{1}{A^{3}}\left[ \begin{array}{ccc}
+A^{2}-\frac{\partial f}{\partial x}\frac{\partial f}{\partial x} & -\frac{\partial f}{\partial x}\frac{\partial f}{\partial y} & -\frac{\partial f}{\partial x}\frac{\partial f}{\partial z}\\
+-\frac{\partial f}{\partial y}\frac{\partial f}{\partial x} & A^{2}-\frac{\partial f}{\partial y}\frac{\partial f}{\partial y} & -\frac{\partial f}{\partial y}\frac{\partial f}{\partial z}\\
+-\frac{\partial f}{\partial z}\frac{\partial f}{\partial x} & -\frac{\partial f}{\partial z}\frac{\partial f}{\partial y} & A^{2}-\frac{\partial f}{\partial z}\frac{\partial f}{\partial z}
+\end{array}\right] \left[ \begin{array}{ccc}
+\frac{\partial ^{2}f}{\partial x^{2}} & \frac{\partial ^{2}f}{\partial x\partial y} & \frac{\partial ^{2}f}{\partial x\partial z}\\
+\frac{\partial ^{2}f}{\partial y\partial x} & \frac{\partial ^{2}f}{\partial y^{2}} & \frac{\partial ^{2}f}{\partial y\partial z}\\
+\frac{\partial ^{2}f}{\partial z\partial x} & \frac{\partial ^{2}f}{\partial z\partial y} & \frac{\partial ^{2}f}{\partial z^{2}}
+\end{array}\right] \]
+
+\end_inset 
+
+
+\layout Standard
+
+avec 
+\begin_inset Formula \( A=\left| Df\right|  \)
+\end_inset 
+
+
+\layout Standard
+
+Ce qui est valable pourvu que 
+\begin_inset Formula \( A\neq 0 \)
+\end_inset 
+
+ 
+\begin_inset LatexCommand \cite{Eberly96}
+
+\end_inset 
+
+.
+ Dans le cas qui nous intéresse, les valeurs de 
+\begin_inset Formula \( A \)
+\end_inset 
+
+ sont loin d'être nulles, car typiquement nous cherchons les regions avec
+ des forts gradients dans les volumes de données.
+ Plus spécifiquement, d'après les résultat présentés dans le chapitre de
+ détection de surfaces nous considèrons que la fonction 
+\begin_inset Formula \( f(x,y,z) \)
+\end_inset 
+
+ est le Laplacien de la fonction de niveaux des gris de l'image originale.
+ Nous avons déjà montré comment le rôle de ce Laplacien peut être mis en
+ oeuvre pour plusieurs méthodes de détection de surfaces.
+ La surface étant définie comme le passage par zéro du Laplacien, l'isovaleur
+ est donc 
+\begin_inset Formula \( f(x,y,z)=0 \)
+\end_inset 
+
+.
+\layout Subsubsection
+
+Exemple pour l'ellipsoïde
+\layout Standard
+
+Pour le cas d'un ellipsoïde défini par l'équation 
+\begin_inset Formula \( f(x,y,z)=\left( ax^{2}+by^{2}+cz^{2}\right) /2 \)
+\end_inset 
+
+, le vecteur 
+\begin_inset Formula \( Df \)
+\end_inset 
+
+ est 
+\begin_inset Formula \( \left( ax,by,cz\right)  \)
+\end_inset 
+
+, son amplitude 
+\begin_inset Formula \( A=\sqrt{a^{2}x^{2}+b^{2}y^{2}+c^{2}z^{2}} \)
+\end_inset 
+
+.
+ La matrice 
+\begin_inset Formula \( S \)
+\end_inset 
+
+ devient 
+\begin_inset LatexCommand \cite{Eberly96}
+
+\end_inset 
+
+
+\layout Standard
+
+
+\begin_inset Formula 
+\[
+S=\frac{1}{A^{3}}\left[ \begin{array}{ccc}
+b^{2}y^{2}+c^{2}z^{2} & -abxy & -acxz\\
+-bayx & a^{2}x^{2}+c^{2}z^{2} & -bcyz\\
+-cazx & -cbzy & a^{2}x^{2}+b^{2}y^{2}
+\end{array}\right] \left[ \begin{array}{ccc}
+a & 0 & 0\\
+0 & b & 0\\
+0 & 0 & c
+\end{array}\right] \]
+
+\end_inset 
+
+
+\layout Standard
+
+Les courbures principales de la surface sont 
+\layout Standard
+
+
+\begin_inset Formula 
+\begin{eqnarray*}
+k_{1} & = & (\alpha +\sqrt{\beta })/A^{3}\\
+k_{2} & = & (\alpha -\sqrt{\beta })/A^{3}
+\end{eqnarray*}
+
+\end_inset 
+
+ 
+\layout Standard
+
+avec 
+\layout Standard
+
+
+\begin_inset Formula 
+\[
+\alpha =a^{2}(b+c)x^{2}+b^{2}(a+c)y^{2}+c^{2}(a+b)z^{2}\]
+
+\end_inset 
+
+ 
+\layout Standard
+
+
+\begin_inset Formula 
+\begin{eqnarray*}
+\beta  & = & a^{4}(b-c)^{2}x^{4}+2(b-a)(c-a)b^{2}c^{2}y^{2}z^{2}\\
+ & + & b^{4}(a-c)^{2}y^{4}+2(a-b)(c-b)a^{2}c^{2}x^{2}z^{2}\\
+ & + & c^{4}(a-b)^{2}z^{4}+2(a-c)(b-c)a^{2}b^{2}x^{2}y^{2}
+\end{eqnarray*}
+
+\end_inset 
+
+
+\layout Standard
+
+Les directions principales sont
+\layout Standard
+
+
+\begin_inset Formula 
+\[
+u_{1}=ab(cxz,cyz,-ax^{2}-by^{2})+Ak_{1}(acxz,bcyz,-a^{2}x^{2}-b^{2}y^{2})\]
+
+\end_inset 
+
+
+\layout Standard
+
+
+\begin_inset Formula 
+\begin{eqnarray*}
+u_{2} & = & ab(-y(abx^{2}+b^{2}y^{2}+c^{2}z^{2}),x(a^{2}x^{2}+aby^{2}+c^{2}z^{2}),c(a-b)xyz)\\
+ & + & A^{3}k_{1}(-by,ax,0)
+\end{eqnarray*}
+
+\end_inset 
+
+
+\layout Subsection
+
+Les procédures de calcul
+\layout Standard
+
+Nous partons du fait que la fonction 
+\begin_inset Formula \( f(x,y,z) \)
+\end_inset 
+
+ est le Laplacien des valeurs de gris de l'image.
+ La surface d'intérêt est définie par le passage par zéro de ce Laplacien.
+\layout Standard
+
+Le premier pas pour évaluer des dérivées d'une image consiste à lisser la
+ fonction.
+ L'utilisation des filtres gaussiens est la méthode standard de lissage
+ en raison de ses propriétés intéressantes, parmi lesquels la plus importante
+ est sans doute la garantie de ne pas introduire des nouvelles singularités
+ dans la fonction.
+ Comme les Laplaciens ont été obtenus suite à des procédures de lissage
+ sur les données originales, il n'est pas nécessaire d'appliquer un lissage
+ important.
+\layout Standard
+
+En prenant comme volume de données la fonction 
+\begin_inset Formula \( f(x,y,z) \)
+\end_inset 
+
+, l'application des filtres gaussians nous permet de trouver 
+\begin_inset Formula \( Df \)
+\end_inset 
+
+ ainsi que 
+\begin_inset Formula \( D^{2}f \)
+\end_inset 
+
+ en chaque voxel.
+ Il est alors possible de calculer la matrice 
+\begin_inset Formula \( S \)
+\end_inset 
+
+ et résoudre le système propre pour retrouver les valeurs de la courbure
+ et ses directions.
+ Ces calculs sont nécessaires seulement pour les voxels qui sont considérés
+ comme appartenant à la surface d'un objet.
+ 
+\layout Standard
+
+Les valeurs ainsi obtenues peuvent etre compares avec des valeurs obtenus
+ par des mesures réalisées sur des cadavres tels que dans 
+\begin_inset LatexCommand \cite{Meskers98}
+
+\end_inset 
+
+
+\begin_inset LatexCommand \cite{Blankevoort90}
+
+\end_inset 
+
+.
+\the_end

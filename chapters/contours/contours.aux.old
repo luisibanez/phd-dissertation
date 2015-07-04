@@ -1,0 +1,153 @@
+\relax 
+\select@language{frenchb}
+\@writefile{toc}{\select@language{frenchb}}
+\@writefile{lof}{\select@language{frenchb}}
+\@writefile{lot}{\select@language{frenchb}}
+\citation{MarrHildreth}
+\citation{Marr}
+\@writefile{toc}{\contentsline {chapter}{\numberline {1}D^^e9tection des contours}{3}}
+\@writefile{lof}{\addvspace {10\p@ }}
+\@writefile{lot}{\addvspace {10\p@ }}
+\@writefile{toc}{\contentsline {section}{\numberline {1.1}G^^e9neralit^^e9s}{3}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {1.1.1}Les types de profil}{3}}
+\newlabel{sec:multi-echelle}{{1.1.2}{3}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {1.1.2}La notion de multi-^^e9chelle}{3}}
+\@writefile{lof}{\contentsline {figure}{\numberline {1.1}{\ignorespaces Le contour comme changement d'intensit^^e9 de la signal.}}{4}}
+\newlabel{fig:profiles}{{1.1}{4}}
+\@writefile{lof}{\contentsline {subfigure}{\string\numberline{1.1(a)}{\ignorespaces Articulation du coude}}{4}}
+\@writefile{lof}{\contentsline {subfigure}{\string\numberline{1.1(b)}{\ignorespaces Profil de niveaux de gris}}{4}}
+\@writefile{lof}{\contentsline {subfigure}{\string\numberline{1.1(c)}{\ignorespaces Articulation Scapulo-Humerale}}{4}}
+\@writefile{lof}{\contentsline {subfigure}{\string\numberline{1.1(d)}{\ignorespaces Profile de niveux de gris}}{4}}
+\@writefile{lof}{\contentsline {subfigure}{\string\numberline{1.1(e)}{\ignorespaces Articulation Coxo-Femorale}}{4}}
+\@writefile{lof}{\contentsline {subfigure}{\string\numberline{1.1(f)}{\ignorespaces Profile de niveaux de gris}}{4}}
+\citation{Herman3Dimaging}
+\citation{HermanRFP}
+\@writefile{toc}{\contentsline {subsection}{\numberline {1.1.3}Les artefacts en Tomographie}{5}}
+\@writefile{lof}{\contentsline {figure}{\numberline {1.2}{\ignorespaces Artefacts lin^^e9aires et decorrelation des coupes dans l'axe z.}}{6}}
+\newlabel{fig:artefacts}{{1.2}{6}}
+\@writefile{lof}{\contentsline {subfigure}{\string\numberline{1.2(a)}{\ignorespaces Coupe axe X}}{6}}
+\@writefile{lof}{\contentsline {subfigure}{\string\numberline{1.2(b)}{\ignorespaces Laplacian X}}{6}}
+\@writefile{lof}{\contentsline {subfigure}{\string\numberline{1.2(c)}{\ignorespaces Coupe axe Y}}{6}}
+\@writefile{lof}{\contentsline {subfigure}{\string\numberline{1.2(d)}{\ignorespaces Laplacian Y}}{6}}
+\@writefile{lof}{\contentsline {subfigure}{\string\numberline{1.2(e)}{\ignorespaces Coupe Z}}{6}}
+\@writefile{lof}{\contentsline {subfigure}{\string\numberline{1.2(f)}{\ignorespaces Laplacian Z}}{6}}
+\citation{MomentOperator2D}
+\citation{MomentOperator3D}
+\citation{Hamitouche2}
+\citation{MomentOtherProfiles}
+\citation{CompositeEdges}
+\newlabel{sec:CadreDetection}{{1.2}{7}}
+\@writefile{toc}{\contentsline {section}{\numberline {1.2}Les m^^e9thodes de d^^e9t^^e9ction de contours}{7}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {1.2.1}L'op^^e9rateur des moments}{7}}
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {1.2.1.1}les modeles de profil}{7}}
+\citation{MomentOperator2D}
+\citation{MomentOperator3D}
+\@writefile{lof}{\contentsline {figure}{\numberline {1.3}{\ignorespaces Mod^^e8le de profil de niveau de gris.}}{8}}
+\newlabel{fig:EchellonSigmoide}{{1.3}{8}}
+\@writefile{lof}{\contentsline {subfigure}{\string\numberline{1.3(a)}{\ignorespaces Echellon}}{8}}
+\@writefile{lof}{\contentsline {subfigure}{\string\numberline{1.3(b)}{\ignorespaces Sigmoide}}{8}}
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {1.2.1.2}L'operateur adapt^^e9}{8}}
+\citation{MomentOperator3D}
+\citation{OptimalEdgeDetect}
+\citation{MomentsFast}
+\citation{MarrHildreth}
+\citation{Marr}
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {1.2.1.3}Caracteristiques}{9}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {1.2.2}L'op^^e9rateur LOG}{9}}
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {1.2.2.1}le mod^^e8le de la vision humaine}{9}}
+\citation{HuertasMedioni}
+\citation{UniquenessGaussian}
+\@writefile{lof}{\contentsline {figure}{\numberline {1.4}{\ignorespaces La fonction Gaussien, sa premi^^e8re et seconde d^^e9riv^^e9es.}}{10}}
+\newlabel{fig:Gaussian1D}{{1.4}{10}}
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {1.2.2.2}Le mod^^e8le mathematique}{10}}
+\@writefile{lof}{\contentsline {figure}{\numberline {1.5}{\ignorespaces La fonction Gaussienne bidimensionel}}{11}}
+\newlabel{fig:Gaussian2D}{{1.5}{11}}
+\@writefile{lof}{\contentsline {subfigure}{\string\numberline{1.5(a)}{\ignorespaces La fonction Gaussien}}{11}}
+\@writefile{lof}{\contentsline {subfigure}{\string\numberline{1.5(b)}{\ignorespaces Laplacien d'une Gaussienne}}{11}}
+\@writefile{lof}{\contentsline {subfigure}{\string\numberline{1.5(c)}{\ignorespaces Derivee en X de la Gaussienne}}{11}}
+\@writefile{lof}{\contentsline {subfigure}{\string\numberline{1.5(d)}{\ignorespaces Derivee en Y de la Gaussienne}}{11}}
+\citation{ZeroCrossRepresentation}
+\citation{UniquenessGaussian}
+\citation{AuthenticatinZeroCrossing}
+\citation{ScaleSpaceStability}
+\citation{MarrHildreth}
+\citation{HuertasMedioni}
+\citation{GaussienRecursive}
+\citation{ScaleSpaceConvexShapes}
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {1.2.2.3}Le espace ^^e9chelle}{12}}
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {1.2.2.4}La performance}{12}}
+\citation{Canny}
+\citation{DericheRecursive}
+\@writefile{toc}{\contentsline {subsection}{\numberline {1.2.3}L'op^^e9rateur de Canny et Deriche}{13}}
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {1.2.3.1}Le concept d'optimization}{13}}
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {1.2.3.2}Le mod^^e8le math^^e9matique}{13}}
+\citation{INRIA2}
+\citation{INRIA3}
+\citation{CastanZaoShen}
+\citation{ShenCastan}
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {1.2.3.3}Mise en oeuvre}{14}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {1.2.4}L'op^^e9rateur de Shen et Castan}{14}}
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {1.2.4.1}Le principe de conception}{14}}
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {1.2.4.2}Le mod^^e8le mathematique}{14}}
+\citation{Deriche}
+\citation{FFTalgo}
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {1.2.4.3}La mise en oeuvre}{15}}
+\@writefile{toc}{\contentsline {section}{\numberline {1.3}La performance des m^^e9thodes de d^^e9tection de contours}{15}}
+\citation{MuPAD}
+\citation{Rosenfeld}
+\citation{DungeonMersereau}
+\@writefile{toc}{\contentsline {subsection}{\numberline {1.3.1}Construction de l'image de preuve}{16}}
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {1.3.1.1}La fonction et son spectre}{16}}
+\@writefile{lof}{\contentsline {figure}{\numberline {1.6}{\ignorespaces Transformation de Fourier de un sph^^e8re solide}}{17}}
+\newlabel{fig:FTSphere}{{1.6}{17}}
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {1.3.1.2}Limitation du spectre}{17}}
+\@writefile{lof}{\contentsline {figure}{\numberline {1.7}{\ignorespaces R^^e9ponse indicielle d'une fen^^eatre sph^^e9rique.}}{18}}
+\newlabel{fig:ReponseIndicielle}{{1.7}{18}}
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {1.3.1.3}Le profil du bord}{18}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {1.3.2}La pr^^e9cision de la d^^e9tection}{18}}
+\@writefile{toc}{\contentsline {section}{\numberline {1.4}Le probl^^e8me de l'interpr^^e9tation}{18}}
+\@writefile{toc}{\contentsline {section}{\numberline {1.5}La partialit^^e9 de l'information}{19}}
+\bibcite{MomentOtherProfiles}{1}
+\bibcite{MomentsFast}{2}
+\bibcite{Deriche}{3}
+\bibcite{CastanZaoShen}{4}
+\bibcite{ShenCastan}{5}
+\bibcite{CompositeEdges}{6}
+\bibcite{HuertasMedioni}{7}
+\bibcite{ZeroCrossEdgeDetect}{8}
+\bibcite{OptimalEdgeDetect}{9}
+\bibcite{Operator1Dto2D}{10}
+\bibcite{MarrHildreth}{11}
+\bibcite{Marr}{12}
+\bibcite{MomentOperator3D}{13}
+\bibcite{Hamitouche2}{14}
+\bibcite{MomentOperator2D}{15}
+\bibcite{GaussienRecursive}{16}
+\bibcite{PhysicsMedicalImaging}{17}
+\bibcite{HermanRFP}{18}
+\bibcite{Herman3Dimaging}{19}
+\bibcite{ScaleSpaceMedians}{20}
+\bibcite{GradientWatersheds}{21}
+\bibcite{ScalingTheoZeroCross}{22}
+\bibcite{ZeroCrossRepresentation}{23}
+\bibcite{UniquenessGaussian}{24}
+\bibcite{AuthenticatinZeroCrossing}{25}
+\bibcite{ScaleSpaceConvexShapes}{26}
+\bibcite{ScaleSpaceStability}{27}
+\bibcite{ScaleSpaceLigaments}{28}
+\bibcite{DirectionalAnalysisScaleSpace}{29}
+\bibcite{29}{30}
+\bibcite{INRIA2}{31}
+\bibcite{INRIA3}{32}
+\bibcite{Canny}{33}
+\bibcite{DericheRecursive}{34}
+\bibcite{3DEdgeDetecRecurFilt}{35}
+\bibcite{35}{36}
+\bibcite{3DSymmetryCurvature}{37}
+\bibcite{ZuckerHummel}{38}
+\bibcite{38}{39}
+\bibcite{39}{40}
+\bibcite{FFTalgo}{41}
+\bibcite{Rosenfeld}{42}
+\bibcite{DungeonMersereau}{43}
+\bibcite{MuPAD}{44}

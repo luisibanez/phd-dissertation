@@ -1,0 +1,4785 @@
+head	1.6;
+access;
+symbols;
+locks; strict;
+comment	@# @;
+
+
+1.6
+date	2000.04.18.06.25.54;	author ibanez;	state Exp;
+branches;
+next	1.5;
+
+1.5
+date	2000.03.26.19.29.09;	author ibanez;	state Exp;
+branches;
+next	1.4;
+
+1.4
+date	2000.03.26.17.09.25;	author ibanez;	state Exp;
+branches;
+next	1.3;
+
+1.3
+date	98.12.07.19.18.42;	author ibanez;	state Exp;
+branches;
+next	1.2;
+
+1.2
+date	98.09.05.08.54.42;	author ibanez;	state Exp;
+branches;
+next	1.1;
+
+1.1
+date	98.06.11.10.43.23;	author ibanez;	state Exp;
+branches;
+next	;
+
+
+desc
+@Chapitre de Morphogenese
+@
+
+
+1.6
+log
+@Version envoyee a Chafiaa pour relecture generale
+@
+text
+@#This file was created by <ibanez> Tue Apr 18 02:25:42 2000
+#LyX 0.12 (C) 1995-1998 Matthias Ettrich and the LyX Team
+\lyxformat 2.15
+\textclass book
+\begin_preamble
+\usepackage{url}
+\end_preamble
+\language english
+\inputencoding default
+\fontscheme default
+\graphics default
+\paperfontsize default
+\spacing onehalf 
+\papersize Default
+\paperpackage a4
+\use_geometry 0
+\use_amsmath 0
+\paperorientation portrait
+\secnumdepth 3
+\tocdepth 3
+\paragraph_separation indent
+\defskip medskip
+\quotes_language english
+\quotes_times 2
+\papercolumns 1
+\papersides 2
+\paperpagestyle default
+
+\layout Standard
+
+
+\begin_inset LatexCommand \tableofcontents
+
+\end_inset 
+
+
+\layout Chapter
+
+Morphogenèse
+\layout Standard
+
+La modélisation de la morphologie d'une structure vivante nécessite de la
+ compréhension des mécanismes biologiques responsables de sa formation.
+ Nous presentons ici l'hypothèse de que la description de la forme en terme
+ de son processus de formation est : 
+\layout Itemize
+
+
+\series bold 
+Efficace
+\series default 
+, car elle réduit la quantité d'information nécessaire à la description.
+\layout Itemize
+
+
+\series bold 
+Précise
+\series default 
+, grâce à la correcte correspondance entre les structures réelles et ses
+ modèles.
+\layout Itemize
+
+
+\series bold 
+Pertinente
+\series default 
+, puisque elle attache une signification biologique à la description.
+\layout Itemize
+
+
+\series bold 
+Flexible
+\series default 
+, étant donnée qu'elle peut être adaptée aux individus de différents âges
+ et constitutions.
+\layout Standard
+
+Les éléments participants à la création de la forme sont multiples.
+ Ils concernent des domaines scientifiques variés comme : la génétique,
+ la biologie moléculaire, l'embryologie et la paléontologie.
+ Cette méthodologie de description de la morphologie est présentée ici comme
+ une alternative aux approches mathématiques traditionnelles de représentation
+ de formes comme des fonctions exprimées en termes d'une base vectorielle
+ de fonctions.
+\layout Standard
+
+La morphologie osseuse est le résultat d'un processus dynamique continu.
+ Il commence dès les premières semaines de gestation du foetus et évolue
+ avec l'âge de l'individu jusqu'à sa mort.
+ Le processus est particulièrement actif pendant la gestation et l'adolescence.
+ L'os étant un tissu vivant, réagit et s'adapte aux conditions imposées
+ par son environnement 
+\begin_inset LatexCommand \cite{Gray79}
+
+\end_inset 
+
+.
+\layout Section
+
+Le rôle de l'information
+\layout Subsection
+
+Ce que les informaticiens empruntent à la biologie
+\layout Standard
+
+Nous nous intérêsons dans l'analyse de la morphogenèse pour établir quels
+ sont les mécanismes responsables du modelage de la forme et comment ils
+ gèrent l'information qui détermine les caractéristiques particulières d'un
+ structure 
+\begin_inset LatexCommand \cite{Stevens76}
+
+\end_inset 
+
+.
+ L'émulation de ces mécanismes nous conduira ensuite à une représentation
+ concise de la morphologie.
+ Cette approche peut être considérée comme une définition 
+\emph on 
+procédurale
+\emph default 
+ de la forme en opposition aux définitions 
+\emph on 
+extensives
+\emph default 
+ qui indiquent directement les positions des points conformant une structure
+ 
+\begin_inset LatexCommand \cite{Kaandorp94}
+
+\end_inset 
+
+
+\begin_inset LatexCommand \cite{Emmeche}
+
+\end_inset 
+
+.
+\layout Standard
+
+La methodologie d'etudier et analyser la nature du fonctionement des structures
+ biologiques est à la base même de la notion de modèlisation.
+ L'omision de cette étape dans le processus de modelisation resulte inadmisible
+ car c'est elle qui nous fournie les elements necesaires à la comprension
+ de notre objet d'etude.
+ Des approches similaires ont été à l'origine des domaines ajourd'hui bien
+ confirmés comme les reseaux neuronaux, les algorithmes génetiques et les
+ automates cellulaires.
+\layout Subsection
+
+Ce que les biologistes empruntent à l'informatique
+\layout Standard
+
+De point de vue biologique la conformation de la morphologie a souvent été
+ conçue dans un contexte emprunté très artificiellement à l'informatique
+ humaine.
+ Il suppose l'existance d'un systeme de control d'information permettant
+ de superviser de façon centralisée la construction des differents structures.
+ L'existance des capteurs et lignes de transmision d'information, ainsi
+ que d'un apparaillage permettant de traiter cette information pour la confronte
+r a un modèle predefini de la morphologie et capable ensuite d'excerser
+ des actions correctives dans les cas ou la conformation actuelle s'eloigne
+ du modèle 
+\begin_inset LatexCommand \cite{Emmeche}
+
+\end_inset 
+
+.
+\layout Standard
+
+Cette conception a voulu voir dans la structure d'ADN siegant dans le noyau
+ cellulaire une intelligence qui s'ocuppe de la morphogenèse.
+ Dans les enzimes et hormones des lignes de controle et actuators.
+ Dans les 
+\emph on 
+facteurs
+\emph default 
+ chemiques des signals de positionement et de répere de systeme de coordonnes
+ 
+\begin_inset LatexCommand \cite{JohnsonTabin}
+
+\end_inset 
+
+
+\begin_inset LatexCommand \cite{Chandebois}
+
+\end_inset 
+
+.
+\layout Subsection
+
+Une hypothese base sur les contraintes de traitement de l'information
+\layout Standard
+
+Quand l'analogie biologique du traitement de l'information et prise a serieux
+ aussi bien de point de vue de l'informatique que du traitement du signal
+ on arrive rapidement a conclure que les difficultés pour mettre en place
+ et mantenir en marche de tels mecanismes sont enormes.
+ Particulièrement l'inestabilité propre à un si complex systeme ne serait
+ coherente avec la stabilité structurel dont les organisme biologiques donnent
+ preuve.
+\layout Standard
+
+La première grande contradicction de l'analogie du systeme d'information
+ centralisée est la tautologie du problème de 
+\emph on 
+comment commencer ?
+\emph default 
+.
+ Cet a dire, pour construir un organisme il est necesaire d'afronter un
+ étape de morphogenèse, cette morphogenèse aurait besoin de la construction
+ prealable d'un système d'information (senseurs, traitement et control),
+ comment cette systeme d'information peut-il etre construit si pour le faire
+ il faudrait un mecanisme similaire pour l'especifier ? 
+\layout Standard
+
+Un deuxième dificulte a confronter dans la conception d'une intelligence
+ centrale est d'expliquer pourquoi le code genetique se trouve reproduit
+ en sa totalité dans toute cellule dans l'organisme.
+\layout Standard
+
+Malgré les efforts intenses dans les domaines de l'embryologie et notament
+ de la biologie moleculaire 
+\begin_inset LatexCommand \cite{JohnsonTabin}
+
+\end_inset 
+
+, les elements necesaire pour un telle structure n'ont pas eté trouves jusqu'a
+ aujourd'hui.
+ En revanche, un bonne nombre d'evidences conduisent à penser que les mécanismes
+ de morphogenese se bassent en l'utilisation des procèss autoregulables
+ dans les quelles l'intelligence se trouve fortement descentralize et distribue
+ 
+\begin_inset LatexCommand \cite{Emmeche}
+
+\end_inset 
+
+.
+ Des petites decisions sont prises a chaque moment en multitude des endroits
+ et à chaque fois en contact directe avec la region qui est concerné par
+ les consequences de cette decision 
+\begin_inset LatexCommand \cite{ShubinAlberch}
+
+\end_inset 
+
+.
+ 
+\layout Standard
+
+Dans ce cadre l'ADN joue simplement le rôle de Biblioteque contenant des
+ specifications de construction.
+ Notament les formules chemiques des proteines fondamentales 
+\begin_inset LatexCommand \cite{Torrey}
+
+\end_inset 
+
+.
+\layout Standard
+
+L'ADN est souvent denomé 
+\emph on 
+code
+\emph default 
+ genetique laissant penser qu'il sagit des instruction procedurales.
+ Dans la conception moderne de la programmation informatique la question
+ a poser est: Est-ce l'ADN du code ou de données ? La reponse est surement
+ un peu de deux.
+ En tout cas, si de mantenir le modèle informatique s'agit, l'ADN ne peut
+ pas jouer le role d'un microprocesseur traiteur d'information, mais plutot
+ celui d'un disque ou d'une bande magnetique.
+ Les structures cellulaires, en revanche, peuvent être candidates à des
+ vrais traiteurs d'information suivant le modèle des reseaux neuronaux ou
+ des automates cellularies.
+ C'est à dire, il sont assimilables à des machines à états très simplifiées
+ qui reagisent à un certaint nombre réduit de conditions externes en prenant
+ des actions dependantes de son état actuel 
+\begin_float footnote 
+\layout Standard
+
+L'apparition recente du domaine de la computation basé sur le ADN peut changer
+ cette conception.
+ Il a été prouvé que des solutions contenants de molecules de ADN peuvent
+ être manipulées pour realiser des calculs mathematiques et pour resoudre
+ des problemes de computation.
+ L'utilisation de cet approche resulte particulierement interesant dans
+ le domaine de l'optimisation où le parallelisme aporte plus que la vitese
+ de calcul.
+ Ce nouveau domaine de recherche commence a être connu comme 
+\emph on 
+conputation moleculaire
+\emph toggle 
+ 
+\begin_inset LatexCommand \cite{LandweberBaum}
+
+\end_inset 
+
+.
+\end_float 
+
+\emph default 
+.
+\layout Standard
+
+Notre hypotèse est que les processus de morphogènese doivent comporter des
+ mécanismes de flux 
+\emph on 
+presque null 
+\emph default 
+d'information.
+ Il est concevable que un systeme distribue soit mieux adapté aux besoins
+ de la morphogenèse car il ne necessite pas d'un luxeux flux d'information
+ allant de chaque position vers un traiteur centrale, ni des actuators gêrés
+ depuis cette unité centrale par des complexes mechanismes de transmision
+ d'information.
+\layout Standard
+
+Nous proposons plutôt un contexte dans lequel l'etablisement des conections
+ topologiques predéterminées creerá les conditiones minimales de flux d'informat
+ion necessaire au developpement d'une morphologie.
+ Ca serait donc le fait d'avoir un interface tendon-os ou cartilage-os qui
+ predisposera les cellules 
+\emph on 
+dans 
+\emph default 
+la region a reagir de façon particulier aux evenments qui se produisent
+ le long de son évolution.
+\layout Standard
+
+La differentiation cellulaire est la manifestation la plus visible de l'assumpti
+on d'un état particulier par les cellules.
+ Il a été etablie que la differentiaion cellulaire a un rôle majeur dans
+ la morphogenèse car les cellules differentiées initient la production des
+ matières specifiques à chaque tissue.
+ Ces substances ont une destination functionelle non reliée à la survivance
+ de la cellule mais à celle de l'organisme entier.
+\layout Section
+
+Embryologie
+\layout Standard
+
+L'étape de la morphogenèse la plus riche dans l'embryon humain correspond
+ aux 8 premières semaines de gestation.
+ L'embryologie est loin d'avoir éclairci tous les mécanismes régulant la
+ morphogenèse.
+ Néanmoins un certain nombre de faits ont été établis, qui forment un cadre
+ global du fonctionnement du processus de modelage 
+\begin_inset LatexCommand \cite{Torrey}
+
+\end_inset 
+
+.
+\layout Standard
+
+Tous les animaux comprennent deux sortes de tissu qui diffèrent profondément
+ par leur aspect histologique.
+ Les uns, que l'on appelle les 
+\emph on 
+épithéliums
+\emph default 
+, se présentent comme des assises des cellules jointives, unies par un cément
+ peu abondant.
+ Les autres dérivent du 
+\emph on 
+mésenchyme
+\emph default 
+.
+ Ce tissu embryonnaire est formé par des cellules qui se détachent d'un
+ épithélium et se dispersent dans la substance fondamentale qu'elles élaborent.
+ Les os, les cartilages et les tendons sont dérivés du mésenchyme 
+\begin_inset LatexCommand \cite{Chandebois}
+
+\end_inset 
+
+
+\begin_inset LatexCommand \cite{BloomFawcett}
+
+\end_inset 
+
+
+\begin_inset LatexCommand \cite{Gray79}
+
+\end_inset 
+
+.
+\layout Standard
+
+Les membres dans l'embryon humain apparaissent vers la quatrième semaine
+ de gestation.
+ Les bourgeons des membres sont projetés sortant de l'embryon.
+ Ceux des membres supérieurs précèdent de deux jours ceux des membres inférieurs
+ .
+ Dès la cinquième semaine apparaissent les lames primitives des mains et
+ des pieds ainsi que les 
+\emph on 
+plis
+\emph default 
+ des membres : coude, genou, poignet et cheville.
+ Les coudes se développent en direction caudale (vers les bas) et les genoux
+ en direction crâniale (vers la tête) 
+\begin_inset LatexCommand \cite{KaminaOsteologie}
+
+\end_inset 
+
+
+\begin_inset LatexCommand \cite{JohnsonTabin}
+
+\end_inset 
+
+
+\begin_inset LatexCommand \cite{Chandebois}
+
+\end_inset 
+
+.
+\layout Standard
+
+Vers la septième semaine se produisent les rotations axiales des membres.
+ Le membre tourne de façon à placer l'humérus parallèle à la colonne vertébrale
+ avec le coude en direction caudale, tandis que le membre inférieur tourne
+ de façon à placer les genoux en position ventral.
+ La rotation pour les membres inférieurs n'est pas complète\i \c{ }
+ elle ne s'achèvera
+ qu'après la naissance.
+ Pour le membre supérieur la rotation implique aussi une rotation axiale
+ de l'avant bras qui croise le cubitus et le radius pour redresser les mains
+ laissant les palmes en direction caudale.
+\layout Standard
+
+À la huitième semaine la morphologie primaire des os a été bien établie.
+ Il commence une étape de croissance et d'affinement de la morphologie de
+ ces structures.
+\layout Subsection
+
+La récapitulation
+\layout Standard
+
+La morphologie de l'embryon dans ses premiers stades est très similaire
+ dans la plupart des animaux.
+ Cette observation fut publiée par la première fois par Haeckel en 1874
+ 
+\begin_inset LatexCommand \cite{Haeckel}
+
+\end_inset 
+
+
+\begin_inset LatexCommand \cite{Torrey}
+
+\end_inset 
+
+, qui affirmait que tous les embryons des vertébrés se développent en passant
+ par des stades 
+\emph on 
+identiques
+\emph default 
+ correspondants à la séquence évolutive de ses ancêtres.
+ Malheureusement, il semblerait que les preuves fournies pour soutenir ses
+ idées auraient été manipulées à son profit 
+\begin_inset LatexCommand \cite{Richardson97}
+
+\end_inset 
+
+
+\begin_inset LatexCommand \cite{Richardson97b}
+
+\end_inset 
+
+.
+ Particulièrement les dessins de ses publications présentés dans la figure
+ 
+\begin_inset LatexCommand \ref{fig:Recapitulation}
+
+\end_inset 
+
+, dans lesquelles des simplifications importantes auraient été faites au
+ point de obscurcir des différences entre les embryons.
+ Il n'est pas clair si ce biais a été volontaire ou simplement la conséquence
+ d'une manque d'objectivité accentuée par le désir de prouver une idée originale.
+ En tout cas, Haeckel a été jugé pour fraude scientifique devant un tribunal
+ universitaire en Jena 
+\begin_inset LatexCommand \cite{Richardson97b}
+
+\end_inset 
+
+.
+\layout Standard
+
+\begin_float fig 
+\layout Standard
+\align center 
+
+\begin_inset Figure size 283 226
+file images/Richardson1.eps
+width 1 10
+height 1 8
+flags 8
+
+\end_inset 
+
+
+\layout Caption
+
+
+\begin_inset LatexCommand \label{fig:Recapitulation}
+
+\end_inset 
+
+Embryons des différents espèces présenté par Haeckel en 1874.
+\end_float 
+\layout Standard
+
+Des morphologies plus réalistes des embryons de certains espèces sont présentées
+ dans la figure 
+\begin_inset LatexCommand \ref{fig:RichardsonEmbryos}
+
+\end_inset 
+
+ d'après Richardson 
+\begin_inset LatexCommand \cite{Richardson97}
+
+\end_inset 
+
+.
+ L'analyse détaillé des embryons à montré des différences importantes, parmis
+ lesquelles nous pouvons citer : 
+\layout Itemize
+
+La taille qui peut varier entre 0.1 millimètres et 10 millimètres pour morphologi
+es similaires entre espèces différents .
+\layout Itemize
+
+La synchronisation des évènements du développement.
+ Les organes ne se développent toujours dans le même ordre.
+\layout Standard
+
+\begin_float fig 
+\layout Standard
+\align center 
+
+\begin_inset Figure size 283 170
+file images/Richardson2.eps
+width 1 10
+height 1 6
+flags 8
+
+\end_inset 
+
+
+\layout Caption
+
+
+\begin_inset LatexCommand \label{fig:RichardsonEmbryos}
+
+\end_inset 
+
+Embryons de différents espèces présentés par Richardson 
+\emph on 
+et al
+\emph default 
+.
+ en 1997.
+\end_float 
+\layout Standard
+
+Malgré que l'affirmation extrême de Haeckel ne correspond pas à la réalité,
+ il est pourtant vrai que le plan de développement des embryons pressent
+ des similitudes morphologiques importantes.
+ L'embryon passe par des stades qui remémorent les étapes de l'évolution
+ des espèces (
+\emph on 
+phylogénie
+\begin_float footnote 
+\layout Standard
+
+
+\series bold 
+Phylogenèse
+\series default 
+ ou 
+\series bold 
+Phylogénie
+\series default 
+: (du grec 
+\emph on 
+phûlon
+\emph default 
+\i \c{ }
+ tribu, et 
+\emph on 
+genesis
+\emph default 
+, origine).
+ Étude de la formation et de l'évolution des espèces animales et végétales,
+ en vue d'établir leur parenté.
+\end_float 
+) 
+\begin_inset LatexCommand \cite{Larsen97}
+
+\end_inset 
+
+.
+ Ce qui conduit à penser que l'information de l'organisme moderne est obtenue
+ par différences successives à partir de l'information des organismes primitives
+ 
+\begin_inset LatexCommand \cite{ShubinTabin}
+
+\end_inset 
+
+.
+ L'embryon humain, par exemple, passe par des stades de poisson et amphibien,
+ ayant des branchies fonctionnelles qui disparaissent dans les stades postérieur
+s 
+\begin_inset LatexCommand \cite{Larsen97}
+
+\end_inset 
+
+
+\begin_inset LatexCommand \cite{Torrey}
+
+\end_inset 
+
+.
+ Les biologistes ne sont pas tous partisans de cette interprétation de la
+ formation de l'embryon.
+ Malgré la controverse à ce sujet, le mécanisme est très inspirateur en
+ termes de codage de l'information.
+ Il semblerait raisonnable de penser que l'humain contemporain peut être
+ obtenu en introduisant des modifications dans le plan de construction de
+ un de ses ancêtres.
+ Ces modification seront appliquées de plus en plus tardivement en fonction
+ de la similitude entre l'individu moderne et son prédécesseur 
+\begin_inset LatexCommand \cite{Torrey}
+
+\end_inset 
+
+.
+\layout Standard
+
+Le terme 
+\emph on 
+codage différentiel
+\emph default 
+ résulte approprié pour décrire la méthodologie de développement de l'embryon.
+ Il faut remarquer que la récapitulation ne se produit pas de façon détaillée
+ mais dans ses grandes lignes.
+ La constatation de que certains stades de l'évolution ne se présentent
+ pas dans la récapitulation faite par l'embryon, conduit à penser que des
+ raccourcis morphologiques peuvent être prises.
+ Cette relation entre l'embryogenèse, la génétique et l'évolution a été
+ renforcée ces dernières années en conséquence des progrès de la biologie
+ moléculaire dans sa compréhension du fonctionnement de l'ADN et les molécules
+ impliquées dans la formation de l'individu (
+\emph on 
+ontogenèse
+\begin_float footnote 
+\layout Standard
+
+
+\series bold 
+Ontogènese
+\series default 
+ ou 
+\series bold 
+Ontogénie
+\series default 
+: (du grec 
+\emph on 
+ôn
+\emph default 
+, 
+\emph on 
+ontos
+\emph default 
+, être).
+ Développement de l'individu depuis l'oeuf fécondé jusqu'à l'êtat adulte.
+\end_float 
+) 
+\begin_inset LatexCommand \cite{ShubinTabin}
+
+\end_inset 
+
+.
+\layout Subsection
+
+Les bourgeons de membres
+\layout Standard
+
+\begin_float fig 
+\layout Standard
+\align center 
+
+\begin_inset Figure size 283 113
+file images/embryon_4w.eps
+width 1 10
+height 1 4
+flags 8
+
+\end_inset 
+
+
+\layout Caption
+
+
+\begin_inset LatexCommand \label{fig:Embryon_4_semaines}
+
+\end_inset 
+
+Aspect initiale du développement des bourgeons des membres dans l'embryon
+ humain.
+ Gauche: fin de la troisième semaine, les bourgeons de membres supérieures
+ apparaissent.
+ Droite: Quatrième semaine, les bourgeons des membres inférieures apparaissent.
+ (A) Bourgeon du membre supérieur.
+ (B) Bourgeon du membre inférieur.
+ (C) Tête.
+ (D) Oeil.
+ (E) Ventre.
+ (F) Cordon Umblical.
+ (G) Queue.
+\end_float 
+\begin_float fig 
+\layout Standard
+\align center 
+
+\begin_inset Figure size 283 226
+file images/BourgeonMicrograph.eps
+width 1 10
+height 1 8
+flags 8
+
+\end_inset 
+
+
+\layout Caption
+
+
+\begin_inset LatexCommand \label{fig:EmbryonPoulet}
+
+\end_inset 
+
+Formation des bourgeons de membres dans un embryon de poulet.
+ (A) aspect de l'embryon à 50 heures d'incubation, les bourgeons ne sont
+ pas encore différentiés.
+ (B) aspect de l'embryon à 72 heures d'incubation, le bourgeons sont visibles.
+ (C) diagrame squematique de l'aile de poulet à 10 jours d'incubation.
+ Le patron adulte est déjà formé dans une matrice cartilagineuse.
+ (D) Image de microsopie electronique de balayage (SEM) du bourgeon de membre
+ d'un embryon de 50 heures.
+ (E) section du bourgeon à 72 heures, la crête ectoblastique apicale est
+ visible (d'après Johnson et Tabin 1997 
+\begin_inset LatexCommand \cite{JohnsonTabin}
+
+\end_inset 
+
+)
+\end_float 
+\layout Standard
+
+La formation de membres dans l'embryon commence par la production des bourgeons
+ constitués de cellules mésenchymales.
+ Le développement des bourgeons serait contrôlé par des substances régulant
+ l'expression de l'information génétique codée dans l'ADN.
+ La croissance du bourgeon est régulée par un groupe de cellules logeant
+ dans son extrémité, connue comme crête ectoblastique apicale.
+ Ces cellules organisent la formation des patrons cartilagineux à l'intérieur
+ du bourgeon.
+ Un groupe de ces cellules implantées dans une autre région du flanc de
+ l'embryon donneront origine à un nouveau bourgeon de membre 
+\begin_inset LatexCommand \cite{Larsen97}
+
+\end_inset 
+
+
+\begin_inset LatexCommand \cite{JohnsonTabin}
+
+\end_inset 
+
+.
+ La potentialité des cellules mesenchymales du flanc, de produir un bourgeon,
+ n'est pas permanent, elle n'existe que durant une periode de quelques jours
+ aux alentours de la quatrième semaine de gestation 
+\begin_inset LatexCommand \cite{Chandebois}
+
+\end_inset 
+
+.
+\layout Standard
+
+\begin_float fig 
+\layout Standard
+\align center 
+
+\begin_inset Figure size 283 170
+file images/BourgeonApparition.eps
+width 1 10
+height 1 6
+flags 8
+
+\end_inset 
+
+
+\layout Caption
+
+
+\begin_inset LatexCommand \label{fig:BourgeonMembreAparition}
+
+\end_inset 
+
+Diagrame d'une coupe d'embryon.
+ Apparition du bourgeon du membre.
+ (d'après Aisemberg 
+\begin_inset LatexCommand \cite{Aisemberg}
+
+\end_inset 
+
+)
+\end_float 
+\layout Standard
+
+\begin_float fig 
+\layout Standard
+\align center 
+
+\begin_inset Figure size 170 170
+file images/bourgeon_1.eps
+width 1 6
+height 1 6
+flags 8
+
+\end_inset 
+
+
+\layout Caption
+
+
+\begin_inset LatexCommand \label{fig:Bourgeon1}
+
+\end_inset 
+
+Conformation du bourgeon du membre vers la quatrième semaine de gestation.
+ CEA : crête ectoblastique apicale, BME : bourgeon du muscle extenseur,
+ BMF : bourgeon du muscle flechisseur, CM : condensation mesenchymale qui
+ deviendra cartilage, EC : ectoderme, ME : tissu mesenchymal non différentié.
+\end_float 
+\layout Standard
+
+La figure 
+\begin_inset LatexCommand \ref{fig:Bourgeon1}
+
+\end_inset 
+
+ présente la composition tissulaire du bourgeon du membre vers la quatrième
+ semaine de gestation.
+ Le bourgeon se developpe dans la direccion de la crête ectoblastique apicale.
+ Les cellules conformant le tissu musculaire arrivent par migration dépuis
+ la région du mesoderme latéral.
+ Celles qui arrivent a la région ventrale donnent origine aux muscles fléchisseu
+rs tandis que celles qui arrivent à la région dorsale donnent origine aux
+ muscles extenseurs 
+\begin_inset LatexCommand \cite{Larsen97}
+
+\end_inset 
+
+.
+\layout Standard
+
+\begin_float fig 
+\layout Standard
+\align center 
+
+\begin_inset Figure size 85 85
+file images/13stcell.eps
+subcaption jours 25-27
+width 1 3
+height 1 3
+flags 8
+subfigure
+
+\end_inset 
+
+ 
+\begin_inset Figure size 85 85
+file images/14stcell.eps
+subcaption jours 27-29
+width 1 3
+height 1 3
+flags 8
+subfigure
+
+\end_inset 
+
+ 
+\begin_inset Figure size 85 85
+file images/15stcell.eps
+subcaption semaine 4-8
+width 1 3
+height 1 3
+flags 8
+subfigure
+
+\end_inset 
+
+
+\layout Standard
+\align center 
+
+\begin_inset Figure size 85 85
+file images/16stcell.eps
+subcaption semaine 6-8
+width 1 3
+height 1 3
+flags 8
+subfigure
+
+\end_inset 
+
+ 
+\begin_inset Figure size 85 85
+file images/17nstcell.eps
+subcaption jour 41
+width 1 3
+height 1 3
+flags 8
+subfigure
+
+\end_inset 
+
+ 
+\begin_inset Figure size 85 85
+file images/18cellst.eps
+subcaption jours 41-47
+width 1 3
+height 1 3
+flags 8
+subfigure
+
+\end_inset 
+
+
+\layout Standard
+\align center 
+
+\begin_inset Figure size 85 85
+file images/19stcells2.eps
+subcaption jours 47-48
+width 1 3
+height 1 3
+flags 8
+subfigure
+
+\end_inset 
+
+ 
+\begin_inset Figure size 85 85
+file images/20stcells2.eps
+subcaption jours 48-51
+width 1 3
+height 1 3
+flags 8
+subfigure
+
+\end_inset 
+
+ 
+\begin_inset Figure size 85 85
+file images/21stcells2.eps
+subcaption jour 51
+width 1 3
+height 1 3
+flags 8
+subfigure
+
+\end_inset 
+
+
+\layout Standard
+\align center 
+
+\begin_inset Figure size 85 85
+file images/22stcells2.eps
+subcaption jours 51-56
+width 1 3
+height 1 3
+flags 8
+subfigure
+
+\end_inset 
+
+ 
+\begin_inset Figure size 85 85
+file images/23stcells2.eps
+subcaption jours 56-57
+width 1 3
+height 1 3
+flags 8
+subfigure
+
+\end_inset 
+
+
+\layout Caption
+
+
+\begin_inset LatexCommand \label{fig:VisibleEmbryo}
+
+\end_inset 
+
+Stades de la formation de l'embryon humain.
+ (d'après 
+\emph on 
+Visible Embryo Project
+\emph default 
+ 
+\begin_inset LatexCommand \cite{VisibleEmbryo}
+
+\end_inset 
+
+)
+\end_float 
+\layout Standard
+
+La figure 
+\begin_inset LatexCommand \ref{fig:VisibleEmbryo}
+
+\end_inset 
+
+ présente les stades de l'embryon humain dans le premières semaines de gestation.
+ Ces images ont été prises du projet 
+\begin_inset Quotes eld
+\end_inset 
+
+
+\emph on 
+Visible Embryo
+\emph default 
+
+\begin_inset Quotes erd
+\end_inset 
+
+ 
+\begin_inset LatexCommand \cite{VisibleEmbryo}
+
+\end_inset 
+
+.
+ On remarque l'aparition des bourgeons de membres supérieurs dans (a) l'embryon
+ a une taille de 3 à 5 millimètres.
+ Les membres inferieurs apparaisent en (b).
+ Les membres supérieures s'allongent en forme cylindrique avec une applatisement
+ dans la région qui formera la main, le reseaux nerveau du membre se developpe
+ (c).
+ Dans le stade (d) les diverses parties du membre supérieur sont visibles:
+ l'epaule, le bras, l'avant bras et la main.
+ La main se developpe et il est possible de discernir la palme et les doigts
+ (e).
+ La periode critique de développement du bras a fini.
+ La position est correcte est la taille est proportionelle à l'embryon,
+ les lignes des doigts sont marqués (f).
+ Dans le stade (g) les jambes atteingnent sa taille proportionelle à l'embryon,
+ les articulation se developpent.
+ Le bras se plie dans l'articulation du coude et s'allonge d'avantage, les
+ orteilles sont visibles mais ne sont pas separés (h).
+ Les mains se rencontrent en face de l'abdomen, les doigts sont mieux definis
+ (i).
+ Les centres d'ossification primaires apparaisent dans les os longs, les
+ doigts d'une main se superposent à ceux de l'autre, les membranes interdigitale
+s disparaissent et laissent les doigts séparés (j).
+\layout Subsection
+
+Condensation 
+\layout Standard
+
+Les patrons cartilagineux qui donneront naissance aux structures osseuses
+ des membres commencent par une concentration des cellules du mésenchyme
+ à l'intérieur des bourgeons.
+ Ce processus est connu comme 
+\emph on 
+condensation
+\emph default 
+ en raison de l'augmentation locale de la densité des cellules mésenchymales
+ 
+\begin_inset LatexCommand \cite{KaminaOsteologie}
+
+\end_inset 
+
+
+\begin_inset LatexCommand \cite{BloomFawcett}
+
+\end_inset 
+
+.
+\layout Standard
+
+Les éléments fondamentaux intervenant dans la distribution spatiale de ces
+ condensations sont : 
+\layout Itemize
+
+La tension dans la matrice extracellulaire exercée par les cellules mésenchymale
+s.
+ (L'action de cette tension peut s'étendre jusqu'un rayon de 100 cellules).
+\layout Itemize
+
+La différenciation cellulaire.
+\layout Itemize
+
+La prolifération cellulaire (reproduction).
+\layout Itemize
+
+La contrainte mécanique exercée par l'ectoderme du bourgeon du membre.
+ (le tissu fibreux enveloppant le bourgeon).
+\layout Standard
+
+Les centres de condensation se forment par attraction des cellules voisines,
+ ce qu'implique que la présence d'un centre inhibe la création d'un autre
+ dans son voisinage immédiat.
+ Le patron de condensation est établi de façon progressive dans la direction
+ proximo-distal (à partir du corps vers l'extrémité du membre).
+ Les cellules de l'extrémité du bourgeon jouent un rôle majeur dans le modelage
+ des condensations, elles délimitent le diamètre du bourgeon ainsi que son
+ taux d'alongement.
+ Elle secrètent également des substances servant de marqueurs de position
+ qui indiquent aux cellules de l'interieur du bourgeon sa position dans
+ l'espace.
+ La forme de la section transversale du bourgeon détermine le nombre et
+ la disposition des condensations à l'intérieur car elle agit comme condition
+ de frontière pour les effets mécaniques qui produisent la condensation.
+ La section transversale du bourgeon passe d'une forme presque circulaire
+ près du corps vers une ellipse applatie près de l'extrémite du bourgeon.
+ Cette distribution détermine le nombre de pièces osseuses existantes à
+ chaque position dans la direction proximo-distale.
+ Une procédure qui peut être assimilée à l'extrusion 
+\begin_inset LatexCommand \cite{Oster88}
+
+\end_inset 
+
+
+\begin_inset LatexCommand \cite{Oster83A}
+
+\end_inset 
+
+
+\begin_inset LatexCommand \cite{Oster85}
+
+\end_inset 
+
+
+\begin_inset LatexCommand \cite{Chandebois}
+
+\end_inset 
+
+
+\begin_inset LatexCommand \cite{JohnsonTabin}
+
+\end_inset 
+
+.
+\layout Subsection
+
+Différenciation cellulaire
+\layout Standard
+
+Par différenciation cellulaire il faut comprendre le processus par lequel
+ les cellules se spécialisent dans leurs fonctions.
+ Les cellules mésenchymales sont considérées comme non différencées, elles
+ peuvent devenir des chondrocytes (cellules de tissu cartilagineux) ou osteocyte
+s (cellules de tissu osseux) entre autres.
+ La différentiation est considérée comme un des éléments fondamentaux de
+ la morphogenèse.
+ La specialisation d'un groupe de cellules introduit une modification de
+ son comportement et son métabolisme.
+ 
+\emph on 
+l'unité fondamentale de la morphogenèse est le tissu et non la cellule,
+ 
+\emph default 
+car finalement la notion de forme correspond à la définition de la distribution
+ spatiale de chacun de tissus 
+\begin_inset LatexCommand \cite{Chandebois}
+
+\end_inset 
+
+
+\emph on 
+.
+\layout Standard
+
+La figure 
+\begin_inset LatexCommand \ref{fig:Bourgeon1}
+
+\end_inset 
+
+ illustre la conformation du bourgeon du membre vers la quatrième semaine
+ de gestation.
+ Seulement la condensation correspondant à l'humérus est présente.
+ La cellules musculaires (fibroblastes) ont migré depuis la mesoderme latéral
+ pour s'installer de chaque côté de la condensation mesenchymale.
+\layout Standard
+
+La différenciation des cellules mésenchymales dépend de la densité.
+ Les cellules placées dans des régions de haute densité se différencient
+ en chondroblastes (cellules du tissu cartilagineux) tandis que celles placées
+ dans les régions de basse densité se différencient en fibroblastes (cellules
+ qui donneront origine à des ostéocytes), figure 
+\begin_inset LatexCommand \ref{fig:Differentiation}
+
+\end_inset 
+
+.
+\layout Subsection
+
+Chondrification
+\layout Standard
+
+L'apparition des centres de chondrification est la conséquence de l'augmentation
+ de la densité et de la tension de la matrice extra-cellulaire.
+ Le cartilage, en général, se présente en trois types : hyaline, fibreux
+ et membraneux.
+ En ce qui concerne la formation de membres, il suffit de prendre en compte
+ le cartilage hyaline.
+ Du point de vue morphogénétique ce tissu peut être conçu simplement comme
+ une masse qui se développe par croissance intersticielle, occasionée par
+ la reproduction cellulaire et la sécrecion de matrière intercellulaire,
+ conjugé avec une expansion vers la périphérie qui maintien la densite cellulair
+e.
+\layout Standard
+
+\begin_float fig 
+\layout Standard
+\align center 
+
+\begin_inset Figure size 170 78
+file images/differentiation2.eps
+flags 8
+
+\end_inset 
+
+
+\layout Caption
+
+
+\begin_inset LatexCommand \label{fig:Differentiation}
+
+\end_inset 
+
+Différentiation du tissu mesenchymale.
+ Les cellules situées dans le bord, région à basse densité, se différentient
+ en fibroblastes.
+ Les cellules situées au centre, à haute dénsité, se différentient en chondrobla
+stes.
+\end_float 
+\layout Standard
+
+Le tissu fibreux enveloppant les centres de condensation oblige ce dernier
+ à se développer en longueur, car dans la région distale l'enveloppe fibreuse
+ est plus relaxée.
+ Ceci est un example de comment une morphologie est obtenue par la simple
+ différentiation tissulaire et la disposition adéquate de ces tissus.
+ Ce procédé nécessite peu d'information et contrôle, car, les cellules se
+ comportent selon les patrons qui sont propres à son type de tissu.
+\layout Standard
+
+Le rôle morphogenétique joue par la croissance differentielle à été établi
+ depuis longue date, par des études messurant le taux de reproduction cellulaire
+ en differents regions du bourgeon du membres des embryos de poulet 
+\begin_inset LatexCommand \cite{Janners}
+
+\end_inset 
+
+.
+ Néanmois, il est moins clair, quel est le mécanisme de contrôle ou de regulatio
+n du taux de reproduction.
+\layout Subsection
+
+La vascularization
+\layout Standard
+
+Le rôle de la vascularisation dans le processus de morphogènese n'a pas
+ été completement éclairci.
+ Néanmoins, il existent des evidances de que la vacularization participe
+ dans l'établisement des patrons qui guident la morphogènese.
+ Deux étapes semblent susceptibles d'être influences par la predéfinition
+ du reseaux vasculaire:
+\layout Itemize
+
+La differentiation cellulaire avant la formation des centres de chondrification.
+\layout Itemize
+
+La reabsortion de la matrix cartilagineuse a l'interieur des diaphyses et
+ epiphyses pour la transformer en os trabeculaire.
+\layout Standard
+
+Pour la première, des experiences consistentes à injecter un produit de
+ contraste dans le bourgeon du membre des embryons de poulets a différents
+ stades de son developpement ont permi d'etablir que le reseaux vasculaire
+ se developpe initialement de façon uniforme dans le membre, mais que progresive
+ment le reseaux capillaire s'intensifie dans les regions qui donneront origine
+ au tissu musculaire, tandis qu'il se reduit dans les regions qui produiront
+ du cartilage.
+ Il faut remarquer que les chondrocytes (cellules du cartilage) et les myocites
+ (cellules du muscle) provienent du même type de cellues mesenquimateuses.
+ 
+\layout Standard
+
+Il semblerait que le reseaux vasculaire même, influence la differentiation
+ cellulaire, moyenant la distribution d'oxigene.
+ Les cellules mesenquimales soumises a un environment plus oxigené devienent
+ des miocytes tandis que celles moins oxigenés devienent des chondrocytes.
+ Le tissu cartilagineux est normalement avasculaire et sa nutrition se realise
+ par diffusion des produits depuis les couches externes du tissu 
+\begin_inset LatexCommand \cite{Caplan}
+
+\end_inset 
+
+.
+\layout Standard
+
+\begin_float fig 
+\layout Standard
+\align center 
+
+\begin_inset Figure size 180 95
+file images/ossification.eps
+flags 8
+
+\end_inset 
+
+
+\layout Caption
+
+
+\begin_inset LatexCommand \label{fig:Vascularisation1}
+
+\end_inset 
+
+Arbres vasculaires des os longs.(D) diaphyse.
+ (E) epiphyses.
+ (P) perioste.
+\end_float 
+\layout Standard
+
+Le deuxième stade de la participation de la vascularisation et l'invasion
+ de la partie mediale de l'os (diaphyse) qui déclenche l'invasion du cartilage
+ par les osteocytes est le debut de la construction de la structure trabeculaire
+ par simple excavation des tunnels 
+\begin_inset LatexCommand \cite{Gray79}
+
+\end_inset 
+
+.
+ La vascularisation de l'os long est illustrée dans la figure 
+\begin_inset LatexCommand \ref{fig:Vascularisation1}
+
+\end_inset 
+
+, Un arbre vasculaire nourri la partie interne de la diaphyse de l'os, un'autre
+ nourri le perioste et deux arbres independantes nourrisent les epiphyses.
+ La potentialité du reseau vasculaire comme guide de la morphogenèse est
+ d'un grande importance.
+ Il a été établi aujourd'hui que les structures arborescentes peuvent donner
+ origine à des patrons de formes de une grande complexité a partir de regles
+ élémentaires appliquées au moment de générer chacun de ses branchements.
+ L'analyse des L-systems nous offres des examples ineluctables 
+\begin_inset LatexCommand \cite{Lindenmayer}
+
+\end_inset 
+
+
+\begin_inset LatexCommand \cite{Mupad}
+
+\end_inset 
+
+.
+ Remarquons au passage, que les cellules non differencées qui restent comme
+ capital cellulaire disponible pour la renouvellement du tissu mesenchimal
+ differentié, sont attachées au vaisseux sanguins.
+ Elle se separent du reseau vasculaire et migrent vers les regions nécesitant
+ de nouveau materiel cellulaire, pour y se différentier 
+\begin_inset LatexCommand \cite{BloomFawcett}
+
+\end_inset 
+
+.
+\layout Subsection
+
+Ossification
+\layout Standard
+
+Peu après l'alongement du patron cartilagineux, la partie centrale est envahie
+ par des vaisseaux sanguins et des populations des cellules mésenchymales
+ qui se différencient en ostéocytes.
+ Ces cellules produisent de cristaux de sels mineraux.
+ Le reseau vasculaire enveloppe aussi la partie mediale de l'ebauche du
+ cartilage.
+ Le cellules dans cette région se différentien également en ostéocytes.
+ Les cristaux mineraux produits par les osteocytes se alignent avec les
+ fibres de collagène déjà présents dans le tissu chondrifié.
+ 
+\layout Standard
+
+Le materiau solide mineralisé produit par les osteocytes, les sépare et
+ les renferme en cavités.
+ Les nutrients arrivent aux osteocytes par des cannaux qui traversent le
+ materiau mineralisé.
+\layout Subsection
+
+Minéralisation
+\layout Standard
+
+Le tissu osseux est par definition un tissu mineralisé.
+ Cette notion ne resulte pas approprie de point de vue fonctionale car la
+ structure musculo-squelettique doit mettre en jeu l'interaction des muscles,
+ tendons, ligaments, articulations et tissu mineralisé.
+ Souvent la notion generalisé d'os comprends aussi les regions cartilagineuses.
+ Une conception plus adapté est celle de asimiler la mineralisation comme
+ une simple caracteristique locale de la structure osseuse.
+\layout Standard
+
+La mineralisation s'opere para la segregation des sales de calcium, parmi
+ lesquelles: phosphate de calcium, carbonate de calcium, fluoride de calcium
+ et fluoride de magnesium.
+ Ces element sont synthetises par les osteoclastes, est diffuses dans la
+ matrix intercellulaire.
+\layout Standard
+
+La generations semble être stimulé par les effort mechaniques, particulierement
+ les torsions, plus que les compresion et la tension.
+ Dans ce point il faut remarque que le cartilage est fortement resistente
+ a la compresion et la tension, c'est donc sa manque de rigidité qui doit
+ être comble par la mineralisation des tissu osseux 
+\begin_inset LatexCommand \cite{Poitout87}
+
+\end_inset 
+
+.
+\layout Standard
+
+Le tissu osseux devient donc un millieu avec une composition abondante des
+ fibres de collagene entre les quels des cristaux mineraux sont inserés.
+ Le dépot des sels minéraux se produit à un débit particulier.
+ En conditions normales ce débit est harmonisé avec le rythme de croissance
+ en longueur de l'os.
+ Dans certains cas pathologiques, dont la croissance en longueur résulte
+ inhibé\i \c{ }
+ le dépot de minerales produit des franges de densité minérale plus
+ importante qui laissent la trace de la surface entre l'épiphyse et la diaphyse
+ au moment de l'inhibition 
+\begin_inset LatexCommand \cite{Greulich}
+
+\end_inset 
+
+.
+\layout Subsection
+
+La croissance
+\layout Standard
+
+Une fois établie la morphologie globale de la structure osseuse, le processus
+ de croissance controle le developpement du squelette.
+ Les relations fondamentales ne se modifient pas (au sens de graph de voisinage
+ des structures), mais de deformations sont effectués pour arriver à le
+ stade adulte.
+\layout Standard
+
+Il faut noter qu'une caracteristique assez importante des structures biologique
+ est le fait d'être toujour fonctionelles (à l'exeption d'une courte periode
+ au début de la vie embryonnaire).
+ Ceci implique que les modifications de la morphologie ne seront plus dramatique
+s (sauf si les fonctionnalitées demandées par l'indiviu changent radicalement,
+ comme c'est le cas des spèces subissant des métamorphoses 
+\begin_inset LatexCommand \cite{Chandebois}
+
+\end_inset 
+
+).
+\begin_float fig 
+\layout Standard
+\align center 
+
+\begin_inset Figure size 164 61
+file images/croissance.eps
+flags 8
+
+\end_inset 
+
+
+\layout Caption
+
+
+\begin_inset LatexCommand \label{fig:Croissance1}
+
+\end_inset 
+
+Divers mécanismes de la croissance osseuse.
+ (A) dépot de couches dans le perioste de la diaphyse.
+ (B) resobtion interne dans la diaphyse.
+ (C) dilatation intersticielle dans les epiphyses.
+\end_float 
+\layout Standard
+
+La croissance osseuse se réalise par diverses mécanismes.
+ Le cartilage hyaline dans les epiphyses osseuses se développe par croissance
+ intersticielle.
+ Le tissu ossifié dans la diaphyse se développe par déposition de nouvelles
+ couches des osteocytes (ceux provenant d'une couche proliférante des cellules
+ mésenchymales qui se differencient progressivement.).
+ A l'intérieur de la diaphyse, l'absorption de tissu ossifie (os compacte)
+ remodele la forme de la surface interne, en faisant la conversion d'os
+ compacte en os traveculaire.
+ Le cartilage logé entre les extremités de la diaphyse et les cartilages
+ des epiphyses forme un plaque qui se développe en croissance longitudinale,
+ cette plaque connue comme 
+\emph on 
+cartilage de croissance
+\emph default 
+ ou 
+\emph on 
+cartilage de conjugaison
+\emph default 
+ est responsable de la croissance en longeur des os.
+\layout Subsection
+
+La mort programmée
+\layout Standard
+
+Il a été établie que certaines structures sont destinées à disparaître à
+ des moments spécifiques.
+ On parle d'une mort programme des cellules.
+ Il s'agit des tissus qui ont servi comme stades temporaires du développement
+ de l'organisme, ou de structures qui sont des vestiges évolutifs sans aucun
+ rôle dans l'organisme actuel.
+ Tel est le cas des membranes inter-digitales dans le embryon, qui se détruisent
+ vers la sixième semaine de gestation, laissant libres les doigts.
+ Des malformations génétiques peuvent conduire a la présence de ces membranes
+ au moment de la naissance, ce qui donne à la main l'aspect d'une pate de
+ canard.
+ 
+\layout Subsection
+
+L'interaction des structures confrontées
+\layout Standard
+
+Dans la formation des articulations une interaction est attendue entre les
+ pieces osseuses confrontées car la coherence entre les deux est indispensable
+ pour le correct fonctionnement de l'ensemble.
+\layout Standard
+
+Il a été trouvé néanmois que l'a morphologie de l'articulation n'est pas
+ modelé par l'interaction des pieces confrontées 
+\begin_inset LatexCommand \cite{Holder}
+
+\end_inset 
+
+.
+ L'extirpation du zeugopode (l'equivalent de l'avan-bras) dans des embryons
+ de poulet ont conduit a l'aparition normale de la surface articulaire de
+ l'humerus.
+ Cette conclusion, peut être afaiblie, pour se limiter a dire que si l'interacti
+on existe, elle doit s'operer dans des étapes anterieures a celle où le
+ zeugopode a été extirpé.
+\layout Standard
+
+En tout cas, cette interaction ne será effectué au niveau mécanique comme
+ on pourrais s'attendre, mais au niveu de la differentiation cellulaire
+ et de la transmision de l'information.
+\layout Subsection
+
+La predetermination
+\layout Standard
+
+Il a été montré que la determination des cellules qui sont destinées a former
+ l'articulation se fait dans une étape assez temprane de la morphogenèse
+ du membre.
+ Des experiences realizées dans les embryos de poulet consistant en l'extripatio
+n de la region de l'articulation du coude, suivi de la mise en correspondance
+ des parties correspondantes au bras et avan-bras, ont montré que si l'extirpati
+on se fait a une époque temprane, l'articulation est regenerée est se developpe
+ normalement, en revanche, si l'extirpation s'execute plus tard, les cellules
+ environnantes ne peuvent plus changer sa destination pour combler l'absence
+ du groupe de cellules de l'articulation, ce qui donne comme resultat un
+ membre avec l'humerus soudé aux radius et ulna 
+\begin_inset LatexCommand \cite{Holder}
+
+\end_inset 
+
+.
+\layout Subsection
+
+Le modelage fonctionnel
+\layout Standard
+
+Il est accepté que la morphologie des structures osseuses n'est pas complètement
+ préétablie dans l'information génétique 
+\begin_inset LatexCommand \cite{Chandebois}
+
+\end_inset 
+
+.
+ Un grand nombre d'aspects de la morphologie sont modelés par l'utilisation
+ même de la structure.
+ Un exemple d'illustration sont les crêtes et tubérosités présentes dans
+ la plupart des os.
+ Elles sont des détails saillants de la surface osseuse qui correspondent
+ aux endroits de l'insertion d'un tendon, d'un ligament ou d'un muscle.
+ La tension exercée par le muscle de façon continue finit par déformer la
+ surface et produire un rebord saillant.
+\layout Subsubsection
+
+D'examples particulière
+\layout Standard
+
+\begin_float fig 
+\layout Standard
+\align center 
+
+\begin_inset Figure size 283 113
+file images/TubRadial1e.eps
+width 1 10
+height 1 4
+flags 8
+
+\end_inset 
+
+
+\layout Caption
+
+
+\begin_inset LatexCommand \label{fig:TubRadial1}
+
+\end_inset 
+
+Coupe de l'avant bras en Scanner X.
+ (A) Articulation distal de l'humerus.
+ (B) Tête du radius.
+ (C) Tubérosité radiale.
+ (E) Articulation du poignet.
+\end_float 
+\begin_float fig 
+\layout Standard
+\align center 
+
+\begin_inset Figure size 283 85
+file images/TubRadial2e.eps
+width 1 10
+height 1 3
+flags 8
+
+\end_inset 
+
+
+\layout Caption
+
+
+\begin_inset LatexCommand \label{fig:TubRadial2}
+
+\end_inset 
+
+Coupe de l'avant bras en Scanner X.
+ (A) Articulation distal de l'humerus.
+ (B) Tête du radius.
+ (C) Tubérosité radiale.
+ (D) Ulna.
+ (E) Articulation du poignet.
+\end_float 
+\begin_float fig 
+\layout Standard
+\align center 
+
+\begin_inset Figure size 283 85
+file images/TubRadial3e.eps
+width 1 10
+height 1 3
+flags 8
+
+\end_inset 
+
+
+\layout Caption
+
+
+\begin_inset LatexCommand \label{fig:TubRadial3}
+
+\end_inset 
+
+Rendu volumique par lancer de rayons de l'avant bras.
+ (A) Articulation distal de l'humerus.
+ (B) Tête du radius.
+ (C) Tubérosité radiale.
+ (D) Ulna.
+ (E) Articulation du poignet.
+\end_float 
+\layout Standard
+
+Un cas remarquable est celui de la tubérosité radiale correspondant à l'insertio
+n du 
+\emph on 
+biceps brachial
+\emph default 
+.
+ L'effet de la tension applique par le muscle sur l'os produit un relief
+ local saillant ainsi qu'une déformation globale du radius.
+ Cet caractéristique étant absente chez le nouveau né, n'apparaît que dans
+ les premières années de l'enfance.
+ La morphologie de la tubérosité radiale est présentée dans les figures
+ 
+\begin_inset LatexCommand \ref{fig:TubRadial1}
+
+\end_inset 
+
+, 
+\begin_inset LatexCommand \ref{fig:TubRadial2}
+
+\end_inset 
+
+ et 
+\begin_inset LatexCommand \ref{fig:TubRadial3}
+
+\end_inset 
+
+ elles procedent d'un volume de données de Scanner X pris d'un cadavre.
+ Les figures 
+\begin_inset LatexCommand \ref{fig:TubRadial1}
+
+\end_inset 
+
+ et 
+\begin_inset LatexCommand \ref{fig:TubRadial2}
+
+\end_inset 
+
+ sont des coupes du volume de données, tandis que la figure 
+\begin_inset LatexCommand \ref{fig:TubRadial3}
+
+\end_inset 
+
+ est un rendu de volume par lancer de rayons.
+\layout Standard
+
+\begin_float fig 
+\layout Standard
+\align center 
+
+\begin_inset Figure size 99 82
+file images/avant_bras_triangle.eps
+flags 8
+
+\end_inset 
+
+
+\layout Caption
+
+
+\begin_inset LatexCommand \label{fig:CubitusRadiusTriangle}
+
+\end_inset 
+
+Section transversal de l'avant bras humain adulte pris d'un volume de données
+ de Scanner X.
+ L'aspect triangulaire du cubitus et du radius est visible.
+\end_float 
+\layout Standard
+
+Un autre exemple est la section transversale du cubitus et radius qui se
+ présente sous forme triangulaire.
+ Un coupe de Scanner X de l'avant bras est présentée dans la figure 
+\begin_inset LatexCommand \ref{fig:CubitusRadiusTriangle}
+
+\end_inset 
+
+.
+ Les sommets de deux triangles confrontés servent d'attache a la membrane
+ interosseuse qui transmet les efforts du radius vers le cubitus.
+ La section transversale de ces os n'étant pas triangulaire à la naissance
+ car la membrane interosseuse n'a pas été fonctionnelle dans la vie uterine.
+\layout Subsubsection
+
+La modelation par l'activité fonctionelle.
+\layout Standard
+
+Il a été proposé qu'une grande partie de la morphologie osseuse serait codée
+ en terme de fonctionalités à accomplir plutôt qu'en fonction de la description
+ directe de la forme, dans cette logique, il résulte économique que soit
+ la pratique même d'une activité fonctionnelle, la responsable du modelage
+ des structures impliquées.
+ Ce concept expliquerait aussi le fait que les articulations restent cartilagine
+uses jusqu'un âge assez avancé (20~25 ans) et gardent même des tissu non
+ différenciés capables de s'adapter à de nouvelles conditions fonctionelles.
+ Le stade cartilagineux étant beaucoup plus plastique que le stade osseux,
+ se laisserait modeler dans l'exécution journalière de tâches fonctionnelles
+ 
+\begin_inset LatexCommand \cite{Thom77}
+
+\end_inset 
+
+.
+\layout Standard
+
+Des aspects plus globaux de la morphologie nécessitent l'exercice de certaines
+ activités.
+ Le développement normal du squelette humain, particulièrement de la hanche,
+ exige que le nourrison marche a quatre pattes.
+ L'omision de cette étape conduira certainement à des malformations.
+\layout Standard
+
+Les effets pernicieux de l'immovilisation totale ou partielle des membres
+ résultent évidentes en orthopédie.
+ Des relations de causalité ont été établies entre la tradition culturelle
+ des populations Bretonnes et Navajo d'immobilisation des nourrisons et
+ l'apparition postérieure de pathologies comme la luxation congénital de
+ la hanche.
+ Ces pratiques empêchant le nourrison de maintenir les jambes écartées,
+ perturbaient le remodelage normal du squelette 
+\begin_inset LatexCommand \cite{LeGuillou}
+
+\end_inset 
+
+.
+\layout Standard
+
+Les activités physiques de l'embryon et plus tard du foetus sont modelantes
+ elles aussi.
+ L'activation des muscles antagoniques comme le biceps brachial et le triceps
+ brachial obligent à affiner la forme de l'articulation du coude dans l'étape
+ ou le tissu cartilagineux est très plastique.
+\layout Standard
+
+Des experiences efectués sur des embryons de poulet ont montré le rôle important
+e des movements des muscles dans la formation des articulations au niveau
+ embryonaire.
+ 
+\layout Paragraph
+
+Le developpement 
+\emph on 
+in vitro 
+\layout Standard
+
+Des articulations de membres ont été retirés de l'embryon et mises en culture.
+ Un groupe a subit des stimulations manuels de mouvements tandis qu'un groupe
+ de control a été laissez statique.
+ Il a été observé que les echantillones privées de mouvement ne developpent
+ pas des cavités articulaires et produisent des fusions entre les tissus
+ cartilagineux correspondants au deux pieces osseuses confrontés.
+ Le grupe stimulé avec de mouvements a developpé des cavités articulaires
+ d'aspect normal 
+\begin_inset LatexCommand \cite{Lelkes}
+
+\end_inset 
+
+.
+ La validité de cette experience avait été mis en question a cause de sa
+ réalization en dehors de l'organisme en developement.
+ 
+\layout Paragraph
+
+Le developpement
+\emph on 
+ in vivo
+\layout Standard
+
+A fin de revalider ces conclusions, des experiences 
+\emph on 
+in vivo
+\emph default 
+ ont été réalisées 
+\begin_inset LatexCommand \cite{Lelkes}
+
+\end_inset 
+
+.
+ Les muscles de membres des embryons de poulet ont été neutralisés (paralysés),
+ afin de observer les formes résultantes des articulations privées des stimules
+ de mouvement musculaire.
+ Trois mécanismes de paralization ont été appliques pour eviter la possibilité
+ de choisir une méthode que, comme effet secondaire, soit susceptible de
+ modifier directement la formation de l'articulation:
+\layout Itemize
+
+Injection de 
+\emph on 
+Decamethonium bromide
+\emph default 
+, substance qui bloque le mécanisme éléctrique d'éxcitation musculaire.
+\layout Itemize
+
+Injection de 
+\emph on 
+Botilinum toxin
+\emph default 
+e, substance qui bloque les connections entre les terminations nerveuses
+ et le muscle.
+\layout Itemize
+
+Extirpation de la corde épineuse au niveu sacro lumbaire, ce qui atrophie
+ le système nerveux responsable des muscles des membres.
+\layout Standard
+
+Les anomalies morphologiques resultantes de la paralization musculaire furent
+ les suivantes :
+\layout Itemize
+
+Absense de cavitation normal de l'articulation, cette à dire, la capsule
+ articulaire ainsi que son contenu de liquide synoviale ne se formerent
+ pas.
+ La zone etait donc ocupé par de tissu fibreaux et un reseau vasculaire.
+\layout Itemize
+
+absence des ligaments intrarticulaires au niveau du genou et du coude.
+\layout Itemize
+
+absence des sesamoides (os formés comme calcifications a l'intérieur des
+ tendons\i \c{ }
+ par example le 
+\emph on 
+patella
+\emph default 
+ 
+\begin_inset LatexCommand \cite{Gray79}
+
+\end_inset 
+
+).
+\layout Standard
+
+Les conclusions de cette experience indiquent que les contractions musculaires
+ sont indisplensable pendant la vie embryonaires pour produire : 
+\layout Itemize
+
+la formation des cavités articulaires.
+\layout Itemize
+
+l'aparution des cartilages sesamoides
+\layout Itemize
+
+la modelation de la forme des surfaces articulaires.
+\layout Standard
+
+Néanmois, cette activité musculaire ne semble pas être nécesaire pour la
+ differentiation céllulaire des structures de l'articulation.
+ Ce qui implique, finalement, que le mouvement est importante pour une affinatio
+n morphologique, mais que le mécanisme principal de la morphogènese des
+ articulations est intrinsèque à la chondrification et que l'information
+ nécesaire por produire l'aparution d'une articulation en particulière doit
+ provenir de l'ADN.
+\layout Section
+
+Constitution du Tissu Osseux
+\layout Standard
+
+Les os sont classés de façon général dans quatre grands groupes: Les os
+ longs, plats, courts et irréguliers.
+ La constitution tissulaire étant différente pour chaque groupe.
+ La structure microscopique du tissu osseux comporte une matrice extra cellulair
+e disposée en couches de 3 à 7 microns, composée de fibres collagènes infiltrés
+ de dépôts mineraux.
+ Parmi les cellules participant a la formation du tissu on identifie les:
+\layout Itemize
+
+Ostéoprogéniteurs
+\layout Itemize
+
+Ostéoblastes
+\layout Itemize
+
+Ostéocytes
+\layout Itemize
+
+Ostéoclastes
+\layout Standard
+
+Les ostéoprogéniteurs sont les cellules de croissance mésenchymales (résultant
+ du processus de mitose) qui s'activent pour se reproduire quand il y a
+ une demande de cellules pour regénérer l'os.
+ Ces cellules sont postérieurement différenciés dans une des trois autres
+ catégories.
+ Les ostéoblastes forment la matrice oseuse, ils supportent la formation
+ de collagene et s'occupent de la production de minéraux nécessaires à la
+ rigidisation du tissu.
+ Les ostéocytes sont les cellules du tissu osseux complétement formé, ils
+ résident dans les "
+\emph on 
+lacunae
+\emph default 
+" entre les structures tubulaires de l'os.
+ Les ostéoclastes sont responsables directement du processus de réabsortion
+ osseuse, ils disolvent la matrix en perforant de tunnels.
+\layout Subsection
+
+Activité Électrique
+\layout Standard
+
+Diverses études ont mis en évidence l'existence d'une activité électrique
+ dans le tissu osseux 
+\latex latex 
+
+\begin_inset LatexCommand \cite{Poitout87}
+
+\end_inset 
+
+
+\latex default 
+.
+ Malgré le fait que tout le mécanisme et la fonctionalité de l'activité
+ électrique ne sont pas encore connus, un certain nombre de faits peuvent
+ être soulevés, montrant l'importance de cette activité.
+ Elle peut jouer un rôle déterminant dans le processus d'adaptation de la
+ forme de la pièce osseuse aux contraintes globales, particuliermente ceux
+ reliées à ses besoins de résistance mécanique.
+ 
+\layout Standard
+
+Lors de la mise en charge d'un os, des polarisations de l'ordre de millivolts
+ par cm apparaissent.
+ Elles sont positives dans les regions soumises à tension et négatives dans
+ les regions soumises à compression.
+ Il semble que le collagène est le responsable de cette activité piézoélectrique.
+ Cette activité guide le dépôt de mineraux qui étant de cristaux se placent
+ alignés suivant les lignes d'efforts mécaniques.
+ De cette façon la minéralisation répond directement aux besoins de renforcement
+ de la structure.
+ Certains groupes d'orthopédistes ont appliqué des méthodologies de stimulation
+ électrique pour favoriser la regeneration du tissu lors de une fracture
+ 
+\begin_inset LatexCommand \cite{Poitout87}
+
+\end_inset 
+
+.
+\layout Standard
+
+L'activité électrique ne parait pas avoir une influence sur le procès même
+ de croissance osseuse.
+ Il se limite a intervenir dans la remodelation.
+\layout Subsection
+
+Remodelage
+\layout Subsubsection
+
+Le mécanisme
+\layout Standard
+
+Le processus de remodelage osseux est permanent, même s'il peut être stimulé
+ ou inhibé par des conditions externes.
+ Le processus se réalise avec la participation active de deux types de cellules,
+ le Ostéoclastes responsables de la réabsortion, et les Ostéoblastes responsable
+s de la conformation de nouveau tissu.
+ 
+\layout Standard
+
+Dans des conditions normales, les ostéoclastes perforent une cavité dans
+ la structure tubulaire à raison de 7 à 9 microns par jour, puis ils progressent
+ en suivant les lignes d'efforts mécaniques, pour former un tunnel à raison
+ de 40 à 50 microns par jour.
+ Ce tunnel est peuplé après par les osteoblastes, qui vont recouvrir ses
+ parois avec de lamelles de tissu osteoide.
+ Environ 10% de ces cellules resteront dans les tissus définitifs.
+\layout Subsubsection
+
+La Demineralisation
+\layout Standard
+
+Le processus normal de vieillissement implique une réduction de la masse
+ minérale oseuse.
+ Entre les 20 et les 80 ans les hommes perdent environ 27% de leur masse
+ osseuse, et les femmes perdent environ 40%.
+\layout Standard
+
+L'absence d'activité mécanique de le structure osseuse entraîne une perte
+ de la masse de l'os, particulièrement de la masse minérale.
+ Une immobilisation de 6 mois réduit de 30% le volume trabéculaire osseux
+ 
+\latex latex 
+
+\begin_inset LatexCommand \cite{Poitout87}
+
+\end_inset 
+
+
+\latex default 
+.
+ La perte étant plus importante pour les sujets jeunes.
+ La limite de stabilité de le structure est de 12%, en dessous l'os peut
+ être facilement fracturé.
+ Un sujet de 20 ans immobilisé pendant 6 moins perd l'équivalent de 60 ans
+ de process normal.
+ L'os spongieux est le premier à réagir à l'immobilisation, tandis que l'os
+ cortical est moins sensible.
+\layout Section
+
+La génétique
+\layout Standard
+
+La question : 
+\emph on 
+d'où vient la forme ?
+\emph default 
+ nous amène forcément à la génetique.
+ La specification concernant la façon de constituer les structures osseuses
+ est stocké dans l'ADN.
+ Cette information génétique contrôle particulièrement 
+\emph on 
+l'ordre
+\emph default 
+ d'aparition des structures 
+\begin_inset LatexCommand \cite{Greulich}
+
+\end_inset 
+
+.
+ Cet ordre, dans le cas des structures osseuses, suit un patron qui provient
+ de l'histoire évolutive et qui se présente de façon similaire dans d'autres
+ groupes des vertébrés.
+ La relation entre l'ordre d'apparition des structures et le modelage de
+ la forme a été abordée de différentes manières 
+\begin_inset LatexCommand \cite{Oster88}
+
+\end_inset 
+
+.
+ L'ordre comprend aussi bien la séquence d'apparition des noyaux de condensation
+ méshenchymale, l'apparition de centres de chondrification et postérieurement
+ de centres d'ossification.
+\layout Subsection
+
+Le codage de l'information
+\layout Standard
+
+L'information génétique est codée comme une séquence d'acides-amines présentes
+ dans la longue chaîne de la molécule d'ADN.
+ Cette molécule, bien que de structure linéaire, s'enroule dans l'espace
+ comme consequence de la minimisation de ses niveaux energétiques.
+ Les séquences d'ADN se regroupent en gènes et ceux ci en chromosomes qui
+ logent dans le noyau cellulaire.
+\layout Standard
+
+Quand les executeurs d'activités métaboliques de la cellule ont besoin de
+ produire des substances, l'information est demandé au noyau.
+ La sequence pertinente est 
+\emph on 
+copié,
+\emph default 
+ par une molécule de ARN messager qui la transporte à l'extérieur du noyau.
+ Une fois dans le cytoplasme, la séquence est lue pour produire les substances
+ en question.
+\layout Standard
+
+Un des grands problèmes de la génétique actuelle, ainsi que de ses disciplines
+ amies (la biologie du développement, l'anthropologie et la paléontologie)
+ est de savoir qu'est ce qui est codé dans l'ADN, et comment cette information
+ est utilisée par les cellues de l'organisme.
+\layout Standard
+
+La méthodolgie actuelle de recherche consiste à 
+\emph on 
+baliser 
+\emph default 
+le génome et à introduire des modifications à des endroit identifiées de
+ la molécule.
+ L'observation des altérations subies par l'organisme qui se développe à
+ continuation sert à établir des liens de causalité entre des gènes particuliers
+ et des caractéristiques de l'organisme biologique.
+ La difficulté dans cette approche est le grand nombre des effets secondaires
+ resultant de l'altération de l'information génétique, ce qui fait que les
+ élément alterés par la suite de l'expérience peuvent être plutôt relies
+ à des subtances dont la production a été stimulée ou inhibée par la modificatio
+n génétique.
+\layout Subsection
+
+L'expression de l'information
+\layout Standard
+
+La conception actuelle de l'ADN indique qu'il contient toute l'information
+ nécessaire à la constitution de l'individu.
+ Cette information est presente en copies identiques dans les noyaus de
+ toutes les cellules de l'organisme.
+ Or, une cellules ne necessite pas de l'information totale de l'individu
+ car elle sera différenciée, donc spécialisées pour des activités très particuli
+ères.
+ Chaque cellule utilise seulement une partie très réduite de son potentiel
+ d'information génétique et ceci en différentes combinaisons selon l'étape
+ de la vie cellulaire à laquelle elle se trouve.
+ Le fait de constater que seulement quelques gènes son utilisés pour les
+ activités cellulaires conduit au concept 
+\emph on 
+d'expression génétique
+\emph default 
+.
+ On dit que parmi l'ensemble des gènes il n'y a que quelques uns qui 
+\emph on 
+s'expriment
+\emph default 
+ à chaque moment.
+\layout Standard
+
+La replication des sections de la molécule d'ADN est possible seulement
+ si les deux trames de la molecule helicoidale peuvent être légèrement écartées.
+ La gestion de cet écartement semble être un mécanisme régulateur de l'expressio
+n des gènes.
+ Si on fait un parallèle entre le code génétique et un programe informatique
+ on pourrait dire que les mécanismes controlant l'expression génetique sont
+ le instructions conditionnelles du programme, cette-à-dire : les instructions
+ 
+\emph on 
+
+\begin_inset Quotes eld
+\end_inset 
+
+if
+\emph default 
+
+\begin_inset Quotes erd
+\end_inset 
+
+.
+\layout Subsection
+
+L'information positionelle
+\layout Standard
+
+L'ADN contient l'ensemble de gènes qui fournissent l'information nécessaire
+ pour la synthèse des protéines et enzymes.
+ Certains gènes peuvent aussi déterminer la différentiation cellulaire.
+ Cette différentiation étant dépendante de l'ubication de la cellule dans
+ l'organisme en formation, il lui faut un mécanisme pour déduire sa position.
+ Il a été proposé que un nombre de substances servent comme des marqueurs
+ en se diffusant depuis certains points de référence.
+ Les gradients de concentration de ses substances permettent aux cellules
+ de définir quels sont les gènes qui doivent s'exprimer pour activer la
+ différentiation cellulaire et spécialiser le tissu dans les fonctions correspon
+dantes 
+\begin_inset LatexCommand \cite{Cohen93}
+
+\end_inset 
+
+
+\begin_inset LatexCommand \cite{Chandebois}
+
+\end_inset 
+
+
+\begin_inset LatexCommand \cite{JohnsonTabin}
+
+\end_inset 
+
+
+\begin_inset LatexCommand \cite{ShubinTabin}
+
+\end_inset 
+
+.
+\layout Section
+
+Évolution
+\layout Standard
+
+L'évolution phylogénétique doit être forcément prise en considération pour
+ comprendre la conformation actuelle des structures vivantes.
+ L'information génétique transmise de génération en génération, subit des
+ mutations introduisant des nouvelles formes.
+ La morphologie d'un organisme ne peut pas être complètement justifiée par
+ ses besoins actuels de fontionalité.
+ Souvent, la solution trouvée par la nature pour répondre aux nouvelles
+ conditions des contraintes fonctionelles, est mise en oeuvre en utilisant
+ la solution déjà établie pour des conditions précédentes.
+ Cette effet d'hystéresis, impose, pour la modélisation, l'introduction
+ de certaines règles prises de la connaissance de l'espèce.
+ Évidement l'introduction de ces règles semble 
+\shape italic 
+ad hoc
+\shape default 
+ mais c'est la seule option pour ne pas être forcé à modéliser le mécanisme
+ entier de l'évolution des espèces.
+\layout Standard
+
+Un exemple clair de cette type de règle morphologique est la rotation du
+ radius et cubitus dans l'avant bras humain (et en général dans les membres
+ antérieurs de tous les tétrapodes).
+ Les études phylogénétiques montrent que l'apparition du membre 
+\emph on 
+chiridien
+\begin_float footnote 
+\layout Standard
+
+
+\series bold 
+Membre Chiridien
+\series default 
+: nom scientifique de ce qui devient plus tard les membres des mammifères
+\end_float 
+ a eu lieu au Devonien supérieur il y a environ 400 millions d'années.
+ Cette évenement évolutif rend possible le passage de la vie aquatique à
+ la vie aérienne 
+\latex latex 
+
+\begin_inset LatexCommand \cite{Beaumont87}
+
+\end_inset 
+
+
+\latex default 
+ 
+\begin_inset LatexCommand \cite{Torrey}
+
+\end_inset 
+
+
+\begin_inset Info ibanez Mon Sep 14 17:50:22 1998
+
+Inserer l'image de la page web de
+l'arbre de l'evolution.
+
+Et celles de l'article de parabiosis
+\end_inset 
+
+.
+\layout Standard
+
+Les stades intermédiaires de la transformation de la nageoire de poisson
+ en membre chiridien sont complètement inconnus.
+ Le membre chiridien au moment de son apparition avait une orientation horizonta
+l.
+ Il a évolué vers le stade actuel chez les Urodeles et les Reptiles dont
+ le membre est plie en Z dans un plan transversal et soulève le corps.
+ Les doigts sont orientés latéralement.
+ Cette configuration demande l'existence d'une musculature extrèmement important
+e, car les os ne soutiennent pas directement le poids.
+ Seulement l'effort musculaire continu peut maintenir le corps soulevé.
+ La locomotion est fortement limité dans ces conditions.
+\layout Standard
+
+Le stade suivant d'évolution modifie le membre pour appuyer le poids du
+ corps directement dans la structure osseuse.
+ La nouvelle configuration permet d'utiliser la force musculaire pour propulser
+ le corps vers l'avant au lieu d'être utilisé uniquement pour maintenir
+ la position statique.
+ C'est le stade actuel chez les mammifères.
+ La modification demande une rotation du membre posterieur de 90 degrés
+ vers l'avant de telle sorte que les doigts deviennent antérieures.
+ Le membre antérieur subit une rotation de 90 degrés vers l'arrière, cette
+ rotation placerait les doigts dans la direction postérieure.
+ Une rotation additionelle est subie dans la partie distal du membre (l'avant
+ bras dans les humains) pour compenser la première rotation et ramener les
+ doigts vers l'avant.
+ La rotation nécessaire est d'environ 180 degrés, ce qui transpose les positions
+ du cubitus et du radius entre le coude et le poignet.
+\layout Standard
+
+La fonctionalité actuelle de l'avant bras humain ne necesite pas cette transposi
+tion, les mouvements de pronation-supination peuvent être réalises de la
+ même façon si les deux os étaient paralleles (comme c'est le cas de la
+ jambe, avec la tibia et la fibula).
+ Malgré ça, la rotation est effectué à la septième semaine de gestation.
+\layout Standard
+
+Un autre cas important est celui de la morphologie de l'omoplate moderne.
+ A première vue, on remarque la complexité de la morphologie de l'omoplate,
+ mais cette complexité est largement éclarcie quand-on prend en compte le
+ fait que l'omoplate humaine actuelle est le resultat de la fusion de trois
+ os qui se présentent clairement sépares dans d'autres spèces : la scapula,
+ le coracoïde et l'acromion.
+\layout Subsection
+
+L'apparition des vertébrés
+\layout Standard
+
+Les vertébrés sont apparus au début de la période Devonien il y a 400 millions
+ d'années 
+\begin_inset LatexCommand \cite{TreeOfLife}
+
+\end_inset 
+
+.
+ L'os apparaît comme un mécanisme pour augmenter l'efficacité de l'action
+ musculaire.
+ La combinaison des tensions exercées par les muscles et la résistance à
+ la compression et la flexion exercée par les os, permettent aux organismes
+ de rediriger la force musculaire (tension) en directions différentes a
+ celles de la ligne medial du muscle.
+ La plupart des actions musculaires ont pour but de générer un déplacement
+ dans la direction perpendiculaire à l'axe du muscle 
+\begin_inset Info ibanez Tue Sep 15 21:00:16 1998
+
+comparer le mecanisme de locomotion
+du verre de terre par rapport a celui
+de la serpent
+\end_inset 
+
+.
+ 
+\layout Standard
+
+Tel est le cas des poissons avec la 
+\emph on 
+chorde
+\begin_float footnote 
+\layout Standard
+
+
+\series bold 
+Chorde ou corde dorsale: 
+\series default 
+Ébauche de la colonne vertébrale chez l'embryon et les vertébrés primitifs.
+\end_float 
+.
+ La nage nécessite un mouvement ondulatoire perpendiculaire à l'axe céphalo-caud
+ale du corps.
+ En l'absence de la chorde, ce mouvement devrait être produit par une contractio
+n plus rapide dans un flanc que dans l'autre, mais entraînant une compression
+ globale de l'organisme.
+ Le retour à l'état initial se feira par la simple relaxation musculaire,
+ et, l'élasticité de l'ensemble de l'organisme devrait conduire à récupérer
+ la forme originale.
+ Ce retour ne peut pas être accéléré.
+ 
+\layout Standard
+
+Avec l'apparition du tissu osseux, les muscles peuvent régler son action
+ en travaillant par paires antagonistes appuyés de façon opposé dans le
+ même os.
+ La différence de tension entre les deux détermine le résultat du déplacement.
+ La contraction harmonieuse des muscles antagonistes régule la continuité
+ et la finesse des gestes musculaires.
+\layout Standard
+
+Le mécanisme minimal musculo-squelettique est illustré dans la figure 
+\begin_inset LatexCommand \ref{fig:pair_muscle}
+
+\end_inset 
+
+.
+ Deux pièces osseuses connectées par une articulation hautement lubrifiée.
+ Deux muscles attachés à chacun des os, disposés de façon à ce qu'un muscle
+ puisse rétablir la position du membre après un déplacement produit par
+ le muscle antagoniste.
+\layout Standard
+
+\begin_float fig 
+\layout Standard
+\align center 
+
+\begin_inset Figure size 170 113
+file images/pair_muscle.eps
+width 1 6
+height 1 4
+flags 8
+
+\end_inset 
+
+
+\layout Caption
+
+
+\begin_inset LatexCommand \label{fig:pair_muscle}
+
+\end_inset 
+
+Ensemble d'une articulation et les muscles antagonistes.
+\end_float 
+\layout Subsection
+
+L'apparition des membres et la migration vers la vie terrestre
+\layout Standard
+
+Les membres ont été formés à partir des nageoires des poissons primitifs.
+ Il parait que les conditions climatiques du Devonien favorisaient la formation
+ de bassins aquatiques de faible profondeur ou la nage n'était pas toujours
+ possible.
+ Cette environnement obligeait souvent les poissons à ramper dans le fond
+ aquatique à l'aide de ses nageoires.
+ Cette modification de la fonctionalite a permit au specimenes dont la morpholog
+ie des nageoires était plus robuste de mieux survivre et de se reproduire
+ d'avantage.
+\layout Standard
+
+La nageoire est pliée quand elle sert à ramper.
+ ce qui induit la formation des articulations localisées.
+ Mais cettes articulations peuvent apparaître 
+\layout Standard
+
+Des fossiles de poissons munis de doigts ont été trouves en 1995 par Deshler
+ et Shubin 
+\begin_inset LatexCommand \cite{DaeschlerShubin}
+
+\end_inset 
+
+, il semble que les doigts on put apparaître avant de la migration vers
+ la vie terrestre.
+ Cette fait peut être interpreté en faveur du concepte suivant lequel un
+ partie importante de la morphologie dépend des mécanismes de construction
+ de l'organisme.
+\layout Subsection
+
+Les malformations 
+\layout Standard
+
+La migration des poissons vers la vie terrestre a eu lieu vers le Devonien
+ moyen il y a 350 millions d'années.
+ La relative fréquence actuel des malformations génétiques des membres est
+ une évidence de la fragilité du mécanisme responsable de sa formation.
+ Cette fragilité est le prix à payer pour le potentielle de variabilité
+ de ce mécanisme, qui permet de construire toutes les morphologies des tetrapode
+s.
+ Il a été observé que maintes des malformations humaines ressemblent aux
+ morphologies normales des autres animaux, faisant penser qu'il s'agit d'une
+ variation dans les paramètres qui régulent la morphogenèse.
+\layout Standard
+
+Ce qui veut dire que les membres sont formés par un mécanisme de base qui
+ est partage entre tous les tétrapodes.
+ Des contrôles dans ce mécanisme permettent de produire les différentes
+ instances de chaque espèce.
+ Quand dans une espèce en particulier, ces contrôles sont altérés, les condition
+s deviennent celles d'une des espèces voisines.
+\begin_inset LatexCommand \BibTeX[plain]{/home/ibanez/documents/Bibliography/these.bib}
+
+\end_inset 
+
+
+\the_end
+@
+
+
+1.5
+log
+@Apres de mettre toutes les references sous BibTeX
+@
+text
+@d1 1
+a1 1
+#This file was created by <ibanez> Sun Mar 26 14:28:52 2000
+@
+
+
+1.4
+log
+@Avant de changer a BibTeX toutes les references
+@
+text
+@d1 1
+a1 1
+#This file was created by <ibanez> Sun Mar 26 12:09:09 2000
+d93 1
+a93 1
+\begin_inset LatexCommand \cite{AnatomieGray}
+d127 6
+a132 1
+\begin_inset LatexCommand \cite{CellComputing}
+d162 1
+a162 1
+\begin_inset LatexCommand \cite{CellComputing}
+d178 1
+a178 1
+\begin_inset LatexCommand \cite{Tabin}
+d183 1
+a183 1
+\begin_inset LatexCommand \cite{GeneForme}
+d222 1
+a222 1
+\begin_inset LatexCommand \cite{Tabin}
+d232 1
+a232 1
+\begin_inset LatexCommand \cite{CellComputing}
+d240 1
+a240 1
+\begin_inset LatexCommand \cite{ShubinAlberchMorphogeneticApproach}
+d251 1
+a251 1
+\begin_inset LatexCommand \cite{VertebratesMorphogenesis}
+d291 1
+a291 1
+\begin_inset LatexCommand \cite{DNAComputing}
+d345 1
+a345 1
+\begin_inset LatexCommand \cite{VertebratesMorphogenesis}
+d368 1
+a368 1
+\begin_inset LatexCommand \cite{GeneForme}
+d373 1
+a373 1
+\begin_inset LatexCommand \cite{Histologie}
+d378 1
+a378 1
+\begin_inset LatexCommand \cite{AnatomieGray}
+d403 1
+a403 1
+\begin_inset LatexCommand \cite{Tabin}
+d408 1
+a408 1
+\begin_inset LatexCommand \cite{GeneForme}
+d444 1
+a444 1
+\begin_inset LatexCommand \cite{VertebratesMorphogenesis}
+d594 1
+a594 1
+\begin_inset LatexCommand \cite{Larsen}
+d602 1
+a602 1
+\begin_inset LatexCommand \cite{Shubin}
+d610 1
+a610 1
+\begin_inset LatexCommand \cite{Larsen}
+d615 1
+a615 1
+\begin_inset LatexCommand \cite{VertebratesMorphogenesis}
+d629 1
+a629 1
+\begin_inset LatexCommand \cite{VertebratesMorphogenesis}
+d675 1
+a675 1
+\begin_inset LatexCommand \cite{Shubin}
+d748 1
+a748 1
+\begin_inset LatexCommand \cite{Tabin}
+d766 1
+a766 1
+\begin_inset LatexCommand \cite{Larsen}
+d771 1
+a771 1
+\begin_inset LatexCommand \cite{Tabin}
+d779 1
+a779 1
+\begin_inset LatexCommand \cite{GeneForme}
+d857 1
+a857 1
+\begin_inset LatexCommand \cite{Larsen}
+d1084 1
+a1084 1
+\begin_inset LatexCommand \cite{Histologie}
+d1129 1
+a1129 1
+\begin_inset LatexCommand \cite{MorphoRules}
+d1134 1
+a1134 1
+\begin_inset LatexCommand \cite{MechanicalMorphogenesis}
+d1139 1
+a1139 1
+\begin_inset LatexCommand \cite{CondensationModel}
+d1144 1
+a1144 1
+\begin_inset LatexCommand \cite{GeneForme}
+d1149 1
+a1149 1
+\begin_inset LatexCommand \cite{Tabin}
+d1175 1
+a1175 1
+\begin_inset LatexCommand \cite{GeneForme}
+d1262 1
+a1262 1
+\begin_inset LatexCommand \cite{DiffProliferation}
+d1307 1
+a1307 1
+\begin_inset LatexCommand \cite{Vascularization}
+d1342 1
+a1342 1
+\begin_inset LatexCommand \cite{AnatomieGray}
+d1375 1
+a1375 1
+\begin_inset LatexCommand \cite{Histologie}
+d1427 1
+a1427 1
+\begin_inset LatexCommand \cite{BiomecaniqueOrthopedique}
+d1444 1
+a1444 1
+\begin_inset LatexCommand \cite{AtlaMain2}
+d1467 1
+a1467 1
+\begin_inset LatexCommand \cite{GeneForme}
+d1546 1
+a1546 1
+\begin_inset LatexCommand \cite{ElbowDevelopment}
+d1578 1
+a1578 1
+\begin_inset LatexCommand \cite{ElbowDevelopment}
+d1590 1
+a1590 1
+\begin_inset LatexCommand \cite{GeneForme}
+d1787 1
+a1787 1
+\begin_inset LatexCommand \cite{StabiliteStructurelle}
+d1809 1
+a1809 1
+\begin_inset LatexCommand \cite{LuxationHanche}
+d1842 1
+a1842 1
+\begin_inset LatexCommand \cite{RoleOfMovementInVitro}
+d1862 1
+a1862 1
+\begin_inset LatexCommand \cite{RoleOfMovementInVivo}
+d1914 1
+a1914 1
+\begin_inset LatexCommand \cite{AnatomieGray}
+d1992 1
+a1992 1
+\begin_inset LatexCommand \cite{BiomecaniqueOrthopedique}
+d2020 1
+a2020 1
+\begin_inset LatexCommand \cite{BiomecaniqueOrthopedique}
+d2070 1
+a2070 1
+\begin_inset LatexCommand \cite{BiomecaniqueOrthopedique}
+d2101 1
+a2101 1
+\begin_inset LatexCommand \cite{AtlaMain2}
+d2111 1
+a2111 1
+\begin_inset LatexCommand \cite{MorphoRules}
+d2227 1
+a2227 1
+\begin_inset LatexCommand \cite{GenomeHumain}
+d2232 1
+a2232 1
+\begin_inset LatexCommand \cite{GeneForme}
+d2237 1
+a2237 1
+\begin_inset LatexCommand \cite{Tabin}
+d2242 1
+a2242 1
+\begin_inset LatexCommand \cite{Shubin}
+d2291 1
+a2291 1
+\begin_inset LatexCommand \cite{AnatomieCompare}
+d2298 1
+a2298 1
+\begin_inset LatexCommand \cite{VertebratesMorphogenesis}
+d2364 1
+a2364 1
+\begin_inset LatexCommand \cite{TheTreeOfLife}
+d2478 1
+a2478 1
+\begin_inset LatexCommand \cite{FingeredFish}
+d2510 1
+a2510 274
+\layout Bibliography
+\bibitem {FormesNature}
+
+P.S.
+ Stevens, 
+\shape italic 
+Les Formes dans la Nature
+\shape default 
+.
+ ditions Seuil, 1976
+\layout Bibliography
+\bibitem {FractalGrowth}
+
+J.A.
+ Kaandorp, 
+\shape italic 
+Fractal Modelling.
+ Growth and Form in Biology
+\shape default 
+.
+ Springer Verlag 1994
+\layout Bibliography
+\bibitem {KaminaArthrologie}
+
+P.
+ Kamina, J.P.
+ Francke 
+\shape italic 
+Arthrologie des Membres, description et fonction
+\shape default 
+ Anatomie, Introduction a la Clinique.
+ ed.Maloine, 1986.
+\layout Bibliography
+\bibitem {KaminaOsteologie}
+
+P.
+ Kamina, 
+\shape italic 
+Osteologie des Membres
+\shape default 
+ Anatomie, Introduction a la Clinique.
+ ed.Maloine, 1986.
+\layout Bibliography
+\bibitem {KaminaMyologie}
+
+P.
+ Kamina, Y.
+ Rideau 
+\shape italic 
+Myologie des Membres
+\shape default 
+ Anatomie, Introduction a la Clinique.
+ ed.Maloine, 1987.
+\layout Bibliography
+\bibitem {AnatomieCompare}
+
+A.
+ Beaumont, P.Cassier 
+\shape italic 
+Biologie Animale
+\shape default 
+ Les Cords, Anatomie compare des vertébrés.
+ ed Dunod.
+ 6ème edition.
+ 1987.
+\layout Bibliography
+\bibitem {Larsen}
+
+W.
+ J.
+ Larsen, Embryologie Humaine, DeBoeck Université, 1997
+\layout Bibliography
+\bibitem {StabiliteStructurelle}
+
+R.
+ Thom, 
+\shape italic 
+Stabilité Structurelle et Morphogènse
+\shape default 
+ Essai d'une thèorie générale des modèles.
+ ed.
+ InterEditions, Deuxime Edition.
+ 1977.
+\layout Bibliography
+\bibitem {Histologie}
+
+Bloom, Fawcett, 
+\shape italic 
+A Textbook of Histology
+\shape default 
+ eleventh edition, 1986, ed.
+ WB Sanders Company.
+\layout Bibliography
+\bibitem {AnatomieGray}
+
+Gardner, Gray, O'Rahilly,
+\shape italic 
+ Anatomie
+\shape default 
+ ed.
+ Doin editeurs, 1979.
+ 
+\layout Bibliography
+\bibitem {BiomecaniqueOrthopedique}
+
+D.
+ Poitout,
+\shape italic 
+ Biomécanique Orthopédique
+\shape default 
+ ed Masson, 1987.
+ 
+\layout Bibliography
+\bibitem {MathematicalBiology}
+
+J.D.
+ Murray, 
+\shape italic 
+Mathematical Biology
+\shape default 
+, Springer Verlag, 1990.
+ 
+\layout Bibliography
+\bibitem {MorphoRules}
+
+G.F.
+ Oster, N.
+ Shubin, J.D.
+ Murray, P.Alberch 
+\shape italic 
+Evolution and Morphogenetic Rules: The Shape of the Vertebrate Limb in Ontogeny
+ and Phylogeny
+\shape default 
+, Evolution, Vol.
+ 42, No.
+ 5, 1988, 862-884.
+\layout Bibliography
+\bibitem {MechanicalMorphogenesis}
+
+G.F.
+ Oster, J.D.
+ Murray, K.
+ Harris 
+\shape italic 
+Mechanical Aspects of Mesenchymal morphogenesis
+\shape default 
+ J.Embryol.exp.Morph.
+ Vol 78.
+ 83-125, 1983.
+\layout Bibliography
+\bibitem {CondensationModel}
+
+G.F.
+ Oster, J.D.
+ Murray, K.
+ Maini 
+\shape italic 
+A Model for chondrogenic condensations in the developing limb: the role
+ of extracellular matrix and cell tractions
+\shape default 
+ J.Embryol.exp.Morph.
+ Vol 89.
+ 93-112, 1985.
+\layout Bibliography
+\bibitem {MathMorphogenesis}
+
+G.F.
+ Oster, J.D.
+ Murray, K.
+ Harris 
+\shape italic 
+A Mechanical Model for Mesenchymal Morphogenesis
+\shape default 
+ J.Math.
+ Biology.
+ Vol.
+ 17, 125-129, 1983.
+\layout Bibliography
+\bibitem {PhysicalModel}
+
+J.D.
+ Murray, K.
+ Maini, R.T.Tranquilo 
+\shape italic 
+Mechanochemical models for generating biological pattern and form in development
+\shape default 
+ Physics Reports (Review Section of Physics Letters) Vol 171, No.
+ 2, 59-84, 1988.
+\layout Bibliography
+\bibitem {MechanicalBasisMorphogenesis}
+
+G.M.
+ Odell, G.Oster, P.
+ Alberch, B.
+ Burnside.
+ 
+\shape italic 
+The Mechanical Basis of Morphogenesis
+\shape default 
+ Developmental Biology, Vol 85, 446-462, 1981.
+\layout Bibliography
+\bibitem {CatastrophePoston}
+
+T.
+ Poston, I.
+ Stewart, E.Pitman 
+\shape italic 
+Catastrophe Theory and Its Applications
+\shape default 
+ 1978.
+\layout Bibliography
+\bibitem {GenomeHumain}
+
+D.
+ Cohen 
+\shape italic 
+Les gènes de l'espoir
+\shape default 
+ A la decouverte du gnome humain, editions Robert Laffont S.A.
+ Paris 1993.
+\layout Bibliography
+\bibitem {GeneForme}
+
+R.
+ Chandebois,
+\emph on 
+ Le gène et la forme, ou la démythification de l'ADN
+\emph default 
+,  éditions spaces 34, 1989.
+\layout Bibliography
+\bibitem {Tabin}
+
+R.
+ L.
+ Johnson, C.
+ J.
+ Tabin, 
+\emph on 
+Molecular Models for Vertebrate Limb Development
+\emph default 
+, Cell, Vol.
+ 90, september 1997, pp 979-990.
+\layout Bibliography
+\bibitem {ShubinAlberchMorphogeneticApproach}
+
+N.
+ Shubin, P.
+ Alberch, 
+\emph on 
+A Morphogenetic approach to the Origin and Basic Organization of the Tetrapod
+ Limb
+\emph default 
+, Evolutionary Biology, Vol.
+ 20, No.
+ 1, 1986, pp.
+ 319-387.
+\layout Bibliography
+\bibitem {Shubin}
+
+N.
+ Shubin, C.
+ Tabin, S.
+ Carroll,
+\emph on 
+ Fossils, Genes and the Evolution of Animal Limbs
+\emph default 
+, Nature 388:639, 1997.
+\layout Bibliography
+\bibitem {TheTreeOfLife}
+
+The tree of life, a representation des liaisons phylogenetiques.
+ 
+\latex latex 
+\color blue
+a2511 24
+\backslash 
+url{http://phylogeny.arizona.edu/tree/phylogeny.html}
+\latex default 
+\color default
+.
+\layout Bibliography
+\bibitem {Lindenmayer}
+
+Przemyslaw Prusinkiewicz, A.
+ Lindenmayer, 
+\emph on 
+The Algorithmic Beauty of Plants
+\emph toggle 
+.
+ Springer Verlag, 1996.
+\layout Bibliography
+\bibitem {27}
+
+M.
+ B.
+ Nielsen, C.
+ Gramkow, S.
+ Kreigorg, 
+\begin_inset Quotes eld
+a2514 296
+\emph on 
+Non-Rigid Image Registration Using Bone Growth Model
+\emph default 
+
+\begin_inset Quotes erd
+\end_inset 
+
+ MICCAI'98 
+\begin_inset Info ibanez Wed Jun 10 11:20:46 1998
+
+Completar esta referencia : anales de congreso que nos dio
+Christian.
+
+Hay una segunda publicacion en el mismo congreso
+el ano siguiente:  esta en el libro que nos presto
+Stephen Aylward
+\end_inset 
+
+
+\layout Bibliography
+\bibitem {Mupad}
+
+MuPad, distribution-uni.paderborn.de
+\layout Bibliography
+\bibitem {FingeredFish}
+
+An evolutionary breakdown: the discovery of a fingered fish.
+ 
+\latex latex 
+\color blue
+
+\backslash 
+url{http://sln2.fi.edu/qa98/biology/journals/part14.html}
+\layout Bibliography
+\bibitem {LuxationHanche}
+
+E.
+ Le Guillou, R.
+ Paule, 
+\emph on 
+Les autres foyers de luxation congenitale de hanche
+\emph default 
+.
+ annales du congrès : Luxation congenitale de hanche, aspect antrhopologique
+ historique et médical.
+ Brest septembre 1997.
+\layout Bibliography
+\bibitem {CellComputing}
+
+C.
+ Emmeche, 
+\emph on 
+The Computational Notion of Life
+\emph default 
+, Theoria - Segunda Epoca, 9 (21), pp.
+ 1-30, 1994.
+ 
+\layout Bibliography
+\bibitem {MetaBalls}
+
+S.
+ Muraki, 
+\emph on 
+Multiscale Volume Representation by a DOG Wavelet
+\emph default 
+, IEEE Transactions on Visualization and Computer Graphics\i \c{ }
+ Vol.
+ 
+\series bold 
+1
+\series default 
+, Number 2, Jun.
+ 1995, pp.
+ 109-116.
+\layout Bibliography
+\bibitem {HarmoniquesSpheriques}
+
+Coatrieux, presenté au Forum de Jeunes Chercheurs, Brest 1998.
+\layout Bibliography
+\bibitem {AtlasMaturationSqueletique}
+
+M.
+ Sempé, C.
+ Pavía, 
+\emph on 
+Atlas de la maturation squelettique
+\emph default 
+, ed.
+ Simep 1979.
+\layout Bibliography
+\bibitem {AtlasMain}
+
+P.
+ Sempé, M.
+ Sempé, 
+\emph on 
+Croissance et maturation osseuse
+\emph default 
+, Théraplix, Printel, Paris.
+\layout Bibliography
+\bibitem {AtlaMain2}
+
+W.W.
+ Greulich, S.I.
+ Pyle, 
+\emph on 
+Radiograhic atlas of skeletal development of the hand and wrist
+\emph default 
+, Standford University Press, Stanford, California, 1959.
+\begin_inset Info ibanez Sun Jan  9 17:49:57 2000
+
+Hasta aqui ya lo pasamos a la base
+de referencias de Bibtex
+\end_inset 
+
+
+\layout Bibliography
+\bibitem {Vascularization}
+
+A.
+ I.
+ Caplan, S.
+ Koutroupas, 
+\emph on 
+The control of muscle and cartilage development in the chick limb: the role
+ of differential vascularization
+\emph default 
+, J.
+ Embryol.
+ exp.
+ Morph.
+ Vol.
+ 29, No.
+ 3, pp.
+ 571-583, 1973.
+\layout Bibliography
+\bibitem {ElbowDevelopment}
+
+N.
+ Holder, 
+\emph on 
+An experimental investigation into the early development of the chick elvow
+ joint
+\emph default 
+, J.
+ Embryol.
+ exp.
+ Morph, Vol.
+ 39, pp.
+ 115-127, 1977.
+\layout Bibliography
+\bibitem {DiffProliferation}
+
+M.Y.
+ Janners, R.L.
+ Searls, 
+\emph on 
+Changes in Rate of Proliferation during the Differentiation of Cartilage
+ and Muscle in the Mesenchyme of the Embryonic Chick Wing,
+\emph default 
+ Developmental Biology, Vol.
+ 23, 1970, pp.136-165.
+\layout Bibliography
+\bibitem {RoleOfMovementInVivo}
+
+D.B.
+ Drachman, L.
+ Sokoloff, 
+\emph on 
+The Role of Movement in Embryonic Joint Development
+\emph default 
+, Developmental Biology, Vol 14.
+ 1966, pp.
+\protected_separator 
+401-420.
+\layout Bibliography
+\bibitem {RoleOfMovementInVitro}
+
+G.
+ Lelkes, 
+\emph on 
+Experiments in vitro on the Role of Movement in the Development of Joints
+\emph default 
+, J.
+ Embryol.
+ exp.
+ Morph., Vol.
+ 6, Part 2, june 1958, pp.
+ 183-186.
+\layout Bibliography
+\bibitem {HumanShoulder}
+
+H.
+ Andersen, 
+\emph on 
+Histochemistry and Development of the Human Shoulder and Acromio-Clavicular
+ Joints with Particular Reference to the Early Development of the Clavicule
+\emph default 
+, Acta anat., Vol.
+ 55, 1963, pp 124-165.
+\layout Bibliography
+\bibitem {Haeckel}
+
+E.
+ Haeckel, 
+\emph on 
+Anthropogenie oder Entwickelungsgeschichte des Menschen
+\emph default 
+.
+ Engelmann, Leipzig, 1874.
+\layout Bibliography
+\bibitem {Richardson97}
+
+M.K.
+ Richardson, J.
+ Hanken, L.
+ Selwood, G.M.
+ Wright, R.J.
+ Richards, C.
+ Pieau, A.
+ Raynaud, 
+\emph on 
+Haeckel embryos, and evolution
+\emph toggle 
+, Science, Vol 280, pp.983-984, 1997.
+\layout Bibliography
+\bibitem {Richardson97b}
+
+M.K.
+ Richardson, J.
+ Hanken, M.J.
+ Gooneratne, C.
+ Pieau, A.
+ Raynaud, L.
+ Selwood, G.M.
+ Wright, 
+\emph on 
+There is no highly conserved embryonic stage in the vertebrates: implications
+ for current theories of evolutions and development
+\emph default 
+.
+ Anat.
+ Embryol.
+ 196, pp.
+ 91-106, 1997.
+\layout Bibliography
+\bibitem {Aisemberg}
+
+G.O.
+ Aisemberg, Department of Biological Sciences, Lehman College, City University
+ of New York, course Bio268.
+ 
+\latex latex 
+
+\backslash 
+url{http://www.lehman.cuny.edu/depts/biology/aisemberg/Bio268.html}
+\layout Bibliography
+\bibitem {VisibleEmbryo}
+
+Visible Embryo project 
+\latex latex 
+
+\backslash 
+url{http://www.visiembryo.com}
+\layout Bibliography
+\bibitem {DNAComputing}
+
+L.F.
+ Landweber, E.B.
+ Baum, 
+\emph on 
+DNA Based Computers II
+\emph toggle 
+, Series in Discrete Mathematics and Theoretical Computer Science, DIMACS
+ Workshop, American Mathematical Society, June 10-12, 1996, Vol 44.
+\layout Bibliography
+\bibitem {SkeletonKeys}
+
+J.H.
+ Schwartz, 
+\emph on 
+Skeleton Keys, an Introduction to Human Skeletal Morphology, Development,
+ and Analysis
+\emph toggle 
+.
+ Oxford University Press, 1995.
+\layout Bibliography
+\bibitem {VertebratesMorphogenesis}
+
+T.W.
+ Torrey,
+\emph on 
+ Morphogenesis of the Vertebrates
+\emph toggle 
+, Third edition, John Wiley & Sons, Inc.
+ 1971.
+@
+
+
+1.3
+log
+@Version antes de partir a Chapel Hill
+@
+text
+@d1 2
+a2 2
+#This file was created by <ibanez> Mon Dec  7 20:18:29 1998
+#LyX 1.0 (C) 1995-1998 Matthias Ettrich and the LyX Team
+d8 1
+a8 1
+\language french
+d42 4
+a45 4
+La modélisation de la morphologie d'une structure vivante nécessite la compréhen
+sion des mécanismes biologiques responsables de sa formation.
+ Notre hypothèse est que la description de la forme en terme de ses processus
+ de formation est : 
+d106 9
+a114 3
+Notre intérêt dans l'analyse de la morphogenèse est d'établir quels sont
+ les mécanismes responsables du modelage de la forme et comment ils gèrent
+ l'information qui détermine les caractéristiques particulières d'un structure.
+d137 3
+a139 2
+ car elle serait tout simplement irresponsable.
+ Des approches similaires ont donne origine a des domaines ajourd'hui bien
+d154 1
+a154 1
+r a un modele predefinie de la morphologie et capable ensuite d'excerser
+d165 1
+a165 1
+ cellulaire une intelligence qui s'ocuppe de la morphogenese.
+d191 1
+a191 1
+ et mantenir en marche un tel mecanismes sont enormes.
+d204 1
+a204 1
+ étape de morphogenese, cette morphogenese aurait besoin de la construction
+d245 6
+a250 1
+ Notament les formules chemiques des proteines fondamentales.
+d259 1
+a259 1
+ a poser est: Est-ce l'ADN du code ou de data ? La reponse est surement
+d269 26
+a294 1
+ des actions dependantes de son état actuel.
+d322 1
+a322 1
+La differentiation cellulaire est la manifestatoin la plus visible de l'assumpti
+d325 1
+a325 1
+ la morphogenese car les cellules differenties initient la production des
+d327 2
+a328 2
+ Ces substances ont une destination functionelle non relie a la survivance
+ de la cellule mais a celle de l'organisme entier.
+d338 7
+a344 2
+ Néanmoins un certain nombre de faits ont été établis qui forment un cadre
+ global du fonctionnement du processus de modelage.
+d361 2
+a362 3
+ épithélium et se dispersent dans la substance fondamentale qu'elle sélaborent.
+ Les os\i \c{ }
+ les cartilages et les tendons sont dérivés du mésenchyme 
+d438 5
+d609 5
+d623 6
+a628 1
+ de la similitude entre l'individu moderne et son prédécesseur.
+d1042 2
+a1043 2
+ dans la région qui formera la main, le reseaux nerveau se du membre se
+ developpe (c).
+d1048 3
+a1050 3
+ La periode critique de développement du bras fini, la position est correcte
+ est la taille est proportionelle à l'embryon, les lignes des doigts sont
+ marqués (f).
+d1195 6
+a1200 1
+ qui donneront origine à des ostéocytes).
+d1224 1
+a1224 1
+file images/differentiation.eps
+d1353 1
+a1353 1
+ élémentaires appliques au moment de générer chacun de ses branchements.
+d1365 1
+a1365 1
+ Remarquons au passage, que les cellules non differencés qui restent comme
+d1405 2
+a1406 4
+ Souvent la notion generalisé d'os inclus en elle les regions cartilagineuses.
+\layout Standard
+
+Une conception plus adapté est celle de asimiler la mineralisation comme
+d1420 2
+a1421 2
+ a la compresion et la tension, ce donc sa manque de rigidité qui doit être
+ comble par la mineralisation des tissu osseux 
+d1430 1
+a1430 1
+ fibres de collagene entre les quelle des cristaux mineraux sont inserés.
+d1450 1
+a1450 1
+ de croissance controle le developpement de le squelette.
+d1471 1
+a1471 1
+\begin_inset Figure size 164 53
+d1486 1
+a1486 1
+ (A) dépot de couches dans le perioste la diaphyses.
+d1701 1
+a1701 1
+
+d1706 1
+a1706 1
+
+d2262 1
+a2262 1
+ mais c'est la seule option pour ne pas être forcé de modéliser le mécanisme
+d2293 5
+d2371 1
+a2371 1
+ dans la direction perpendiculaire à l'axe du muscle
+d2788 7
+a2794 1
+Lindenmayer, The Algorithmic Beauty of Plants.
+d2814 1
+a2814 1
+ 
+d2819 4
+d2915 8
+a2922 1
+, standord University Press, Stanford, California, 1959.
+d3027 5
+a3031 2
+ Raynaud, Haeckel, embryos, and evolution, Science, Vol 280, pp.983-984,
+ 1997.
+d3071 32
+@
+
+
+1.2
+log
+@Before First Chafiaa Revision
+@
+text
+@d1 2
+a2 2
+#This file was created by <ibanez> Sat Sep  5 10:54:21 1998
+#LyX 0.12 (C) 1995-1998 Matthias Ettrich and the LyX Team
+d5 3
+d42 3
+a44 3
+La modélisation de la morphologie d'une structure vivante nécessite de la
+ compréhension des mécanismes biologiques responsables de sa formation.
+ Notre hypothèse est que la description de la forme en termes de ses processus
+d48 5
+a52 1
+Efficace, car elle réduit la quantité d'information nécessaire a la description.
+d55 6
+a60 2
+Précise, grâce à la correcte correspondance entre les structures réelles
+ et ses modèles.
+d63 5
+a67 1
+Pertinente, puisque elle attache une signification biologique a la description.
+d70 6
+a75 2
+Flexible, étant donnée que elle peut être adapté aux individus de différents
+ âges et conformations.
+d78 1
+a78 1
+Les éléments participantes à la création de la forme sont multiples.
+d82 3
+a84 3
+ une alternative aux approches mathématiques traditionaux de représentation
+ de formes comme de fonctions exprimée en termes d'une base vectorielle
+ des fonctions.
+d88 5
+a92 5
+ Il commence dés les premières semaines de gestation du foetus et évolue
+ avec l'âge de l'individu jusque sa mort.
+ Le processus est particulairement active pendant la gestation et l'adolescence.
+ L'os étant un tissu vivant, réagit et s'adapte aux conditions imposes par
+ son environment 
+d107 3
+a109 4
+ les mécanismes responsables de la modelation de la forme et comment ils
+ gèrent l'information qui détermine les caractéristiques particulières d'un
+ structure.
+ L'émulation de ces mécanismes nous conduira ensuite a une représentation
+d111 1
+a111 1
+ Cet approche peut être considéré comme un définition 
+d113 1
+a113 1
+procedurale
+d267 1
+a267 1
+ de la morphogenese car il ne necessite pas d'un luxeux flux d'information
+d298 1
+a298 1
+ à les 8 premières semaines de gestation.
+d302 1
+a302 1
+ global du fonctionement du processus de modelation.
+d319 1
+a319 1
+ épithélium et se dispersent dans la substance fondamentale qu'elle élaborent.
+d321 1
+a321 1
+ les cartilages et les tendons sont dérivées du mésenchyme 
+d342 1
+a342 1
+ Ceux des membres supérieurs précédent de deux jours ceux des membres inférieurs
+d344 1
+a344 1
+ Dès la cinquième semaine apparaissent les lames primitives de mains et
+d370 1
+a370 1
+ Le membre tourne de façon a placer l'humérus parallèle a la colonne vertébrale
+d372 2
+a373 2
+ de façon a placer les genoux en position ventral.
+ La rotation pour les membre inférieur n'est pas complète\i \c{ }
+d375 3
+a377 3
+ pas que après la naissance.
+ Pour le membre supérieur la rotation implique aussi un rotation axial de
+ l'avant bras qui croisse le cubitus et le radius pour redresser les mains
+d382 2
+a383 2
+ Il commence un étape de croissance est d'affination de la morphologie de
+ ses structures.
+d386 1
+a386 1
+La recapitulation
+d389 5
+a393 9
+La formation de l'embryon dans ses premières stades est très similaire pour
+ la plupart des animaux.
+ L'embryon passe par des stades qui rememorent les etapes de l'evolution
+ des spèces (phylogenie).
+ Ce qui conduit a penser que l'information de l'organisme moderne est obtenue
+ par differences succesives a partir de l'information des organismes primitives.
+ L'embryon humain, par exemple, passe par des stades de poisson et amphibien,
+ ayant des branchies fonctionelles qui disparaissent dans les stades posteriures.
+\layout Standard
+d395 1
+a395 10
+Les biologistes ne sont tous partisans de cette interpretation de la formation
+ de l'embryon.
+ Malgré la controversie a ce sujet, le mécanisme est tres inspirateur en
+ termes de codage d'information.
+ Il semblere raisonable de penser que l'humain contemporain peut être obtenu
+ en introduisant des modifications dans le plan de construction de un de
+ ses ancêtres.
+ Ces modification seront appliquées de plus en plus tardivement en fonction
+ de la similitude entre l'individu moderne et son predecesor.
+\layout Standard
+d397 2
+a398 1
+Le terme 
+d400 1
+a400 1
+codage differentiel
+d402 4
+a405 11
+ resulte adecuat pour décrire la methodologie de developpement de l'embryon.
+ Il faut remarquer que la recapitulation ne se produit de forme detaillée
+ mais dans ses grandes lignes.
+ Certains stade de l'evolution n'etant pas présentes dans la recapitulation
+ faite par l'embryon.
+ Ce relation entre l'embryogenèse\i \c{ }
+ la génetique et l'évolution a été reinforcé
+ ces derniers années en consequence des progrèss de la biologie moleculaire
+ dans sa comprension du fonctionement de l'ADN et les molecules impliquées
+ dans la formation de l'individu (ontogènese) 
+\begin_inset LatexCommand \cite{Shubin}
+a408 5
+.
+\layout Subsection
+
+Les bourgeons de membres
+\layout Standard
+d410 1
+a410 11
+La formation de membres dans l'embryon commence par la production des bourgeons
+ constitues des cellules mésenchymales.
+ Le developpement des bourgeons serait controlé par des substances régulant
+ l'expression de l'information génetique codée dans l'ADN.
+ La croissance du bourgeons est regulé par un groupe de cellules logeant
+ dans son extremité, connue comme crête apical ectodermique.
+ Ces cellules organisent la formations des patron cartilagineux a l'interieur
+ du bourgeon.
+ Une groupe de ces cellules implantes dans un autre region de l'embryon
+ donneront origin a une noveau bourgeon de membre 
+\begin_inset LatexCommand \cite{Tabin}
+d415 3
+a417 1
+\layout Subsection
+d419 1
+a419 2
+Condensation
+\layout Standard
+d421 7
+a427 6
+Les patron cartilagineux qui donnera naissance aux structures osseuses des
+ membres commencent par une concentration des cellules du mésenchyme à l'interie
+ur des bourgeons.
+ Ce processus est connu comme condensation en raison de l'augmentation locale
+ de la densité des cellules mésenchymales 
+\begin_inset LatexCommand \cite{KaminaOsteologie}
+d431 6
+d438 5
+a442 1
+\begin_inset LatexCommand \cite{Histologie}
+a445 2
+.
+\layout Standard
+d447 1
+a447 3
+Les éléments fondamentales intervenant dans la distribution spatiale de
+ ces condensations sont : 
+\layout Itemize
+a448 3
+La tension dans la matrice extracellulaire exercé par les cellules mésenchymales.
+ (L'action de cette tension peut s'étendre jusqu'un rayon de 100 cellules).
+\layout Itemize
+d450 1
+a450 2
+La différenciation cellulaire.
+\layout Itemize
+d452 1
+a452 2
+La prolifération cellulaire (reproduction).
+\layout Itemize
+d454 2
+a455 2
+La contrainte mécanique exercé par l'ectoderme du bourgeon du membre.
+ (le tissu fibreux enveloppant le bourgeon).
+d458 3
+a460 20
+Les centres de condensation se forment par accrecion (attraction des cellules
+ voisines) ce qu'implique automatiquement que un centre inhibe la creation
+ de un autre dans son voisinage inmediat.
+ Le patron de condensation est établit de façon progressive dans la direction
+ proximo-distal (à partir du corps vers l'extremité du membre).
+ Les cellules de l'extremité du bourgeon jouent un rôle majeur dans la modelatio
+n des condensations, elles delimiten le diametre du bourgeon ainsi comme
+ son taux d'alongement.
+ Elle secretent également des substances servant de marqueurs de position
+ que indiquent à les cellules de l'interieur du bourgeon sa position dans
+ le space.
+ La forme de la section transversale du bourgeon determine le nombre et
+ la disposition des condensations a l'interieur car elle actue comme condition
+ de frontière pour les effect mécaniques qui produisent la condensation.
+ La section transversale du bourgeon passe de une forme presque circulaire
+ près du corps vers un ellipse applatie près de l'extremite du bourgeon.
+ Ce distribution determine le nombre de pièces osseouses existantes a chaque
+ position dans la direction proximo-distale.
+ Une procedure qui peut être assimilé a l'extrusion 
+\begin_inset LatexCommand \cite{CondensationModel}
+d464 2
+a465 2
+
+\begin_inset LatexCommand \cite{MorphoRules}
+d469 4
+d474 3
+a476 1
+\begin_inset LatexCommand \cite{MechanicalMorphogenesis}
+d478 3
+a480 1
+\end_inset 
+d482 3
+d486 5
+a490 1
+\begin_inset LatexCommand \cite{GeneForme}
+d495 4
+a498 1
+\begin_inset LatexCommand \cite{Tabin}
+d502 4
+d507 3
+a509 1
+\layout Subsection
+d511 8
+a518 1
+Différenciation cellulaire
+d521 14
+a534 10
+Par différenciation cellulaire il faut comprendre le processus par lequel
+ les cellules se specialisent dans ses fonctions.
+ Les cellules mésenchymales sont considerés comme non différences, elles
+ peuvent devenir des chondrocytes (cellules de tissu cartilagineux) ou osteocyte
+s (cellules de tissu osseou) entre autres.
+ La différentiation est consideré comme un des éléments fondamentales de
+ la morphogenèses.
+ La specialization d'une groupe de cellules introduit un modification dans
+ se comportement et se metabolisme.
+ 
+d536 1
+a536 1
+l'unité fondamentale de la morphogènes est le tissu et non la cellule, 
+d538 6
+a543 3
+car finalement la notion de forme corresponde a la définition de la distribution
+ spatiale des chacun des tissus 
+\begin_inset LatexCommand \cite{GeneForme}
+d547 7
+a554 1
+\emph on 
+d556 4
+a559 1
+\layout Standard
+d561 1
+a561 6
+La différenciation des cellules mésenchymales depend de la densité.
+ Les cellules placées dans de regions de haute densité se differencient
+ en chondroblastes (cellules du tissu cartilagineux) tandis que celles places
+ dans les regions de basse densité se differencient en fibroblastes (cellules
+ qui donneront origin à des osteocytes).
+\layout Subsection
+d563 10
+a572 1
+Chondrification
+d575 17
+a591 10
+L'aparition des centres de chondrification est la consequence de l'aumentation
+ de la densité et de la tension de la matrice extra-cellulaire.
+ Le cartilage, en géneral, se presente en trois types : hyaline, fibreux
+ et membraneux.
+ En ce qui concerne la formation de membres il suffit de prendre en compte
+ le cartilage hyaline.
+ De point de vue morphogenetique ce tissu peut être conçu simplement comme
+ un masse qui se developpe par croissance intersticielle, occasionée par
+ la reproducition cellulaire et la migration de cellules vers la peripherie
+ pour mantenir la densite cellulaire.
+a593 8
+Le tissu fibreux enveloppant les centre de condensation oblige a ce dernier
+ a se developper en longueur, car dans la region distale l'enveloppe fibreux
+ est plus relaxé.
+ Ceci est une example de comment une morphologie est obtenue par la simple
+ differentiation tissulaire et la disposition adecuate de ces tissus.
+ Ce procédé nécessite de peu d'information et contrôle car les cellules
+ se comportent selon les patron qui sont propres a sont type de tissu.
+\layout Standard
+d595 20
+a614 4
+Le rôle morphogenétique joue par la croissance differentielle à été établi
+ depuis longue date, par des études messurant le taux de reproduction cellulaire
+ en differents regions du bourgeon du membres des embryos de poulet 
+\begin_inset LatexCommand \cite{DiffProliferation}
+a618 2
+ Néanmois, il est moins clair, quel est le mécanisme de contrôle ou de regulatio
+n du taux de reproduction.
+d621 1
+a621 1
+Ossification
+d624 1
+a624 3
+Peu après l'alongement du patron cartilagineux, la partie centrale est envahi
+ par des vaisseaux sangins et des populations des cellules mésenchymales
+ qui se différencent en osteocytes.
+d626 1
+d628 5
+a632 9
+La déposition des sales minerales se produit a une débit particuliere.
+ En conditions normales ce débit est harmonisé avec la rate de croissance
+ en longueur de l'os.
+ Dans certains cas pathologiques, dont la croissance en longueur résulte
+ inhibé\i \c{ }
+ la déposition de minerales produit de franges de densité minérale
+ plus importants qui laissent la trace de la surface entre l'épihyse et
+ la diaphyse au moment de l'inhibition 
+\begin_inset LatexCommand \cite{AtlaMain2}
+a635 2
+.
+\layout Subsection
+d637 21
+a657 1
+Minéralisation
+d659 7
+d667 1
+a667 6
+Le tissu osseux est par definition un tissu mineralisé.
+ Cette notion ne resulte pas approprie de point de vue fonctionale car la
+ structure musculo-squelettique doit mettre en jeu l'interaction des muscles,
+ tendons, ligaments, articulations et tissu mineralisé.
+ Souvent la notion generalisé d'os inclus en lui les regions cartilagineuses.
+\layout Standard
+a668 3
+Une conception plus adapté est celle de asimiler la mineralisation comme
+ une simple caracteristique locale de la structure osseuse.
+\layout Standard
+d670 1
+a670 5
+La mineralisation s'opere para la segregation des sales de calcium, phosphate
+ de calcium, carbonate de calcium, fluoride de calcium et fluoride de magnesium.
+ Ces element sont synthetises par les osteoclastes, est diffuses dans la
+ matrix intercellulaire.
+\layout Standard
+a671 6
+La generations semble etre stimulé par les effort mechaniques, particulierement
+ les torsions, plus que les compresion et la tension.
+ Dans ce point il faut remarque que le cartilage est fortement resistente
+ a la compresion et la tension, ce donc sa manque de rigidité qui doit être
+ comble par la mineralisation des tissu osseux.
+\layout Standard
+d673 1
+a673 3
+Le tissu osseux devient donc un millieu avec une composition abondante des
+ fibres de collagene entre les quelle des cristaux mineraux se sont inserés.
+\layout Subsection
+d675 1
+a675 2
+La vascularization
+\layout Standard
+d677 11
+a687 7
+Le rôle de la vascularization dans le processus de morphogènese n'as pas
+ été reivindique.
+ Néanmoins il existent des evidances de que la vacularization participe
+ dans l'établisement des patrons qui guident la morphogènese.
+ Deux étapes semblent susceptibles d'être influences par la predéfinition
+ du reseaux vasculaire:
+\layout Itemize
+d689 1
+a689 2
+La differentiation cellulaire avant la formation des centres de chondrification.
+\layout Itemize
+d691 2
+a692 2
+La reabsortion de la matrix cartilagineuse a l'interieur des diaphyses et
+ epiphyses pour la transformer en os trabeculaire.
+d695 14
+a708 11
+Pour la premiere, des experiences consistentes a injecter un produit de
+ contraste dans le bourgeon du membre des embryons de poulets a differents
+ stades de son developpement ont permi d'etablir que le reseaux vasculaire
+ se developpe initialement de façon uniforme dans le membre, mais que progresive
+ment le reseaux capillaire s'intensifie dans les regions qui donneront origine
+ au tissu musculaire, tandis qu'il se reduit dans les regions qui produiront
+ du cartilage.
+ Il faut remarquer que les chondrocytes (cellules du cartilage) et les myocites
+ (cellules du muscle) provienent du même type de cellues mesenquimateuses.
+ 
+\layout Standard
+d710 1
+a710 7
+Il semblerait que le reseaux vasculaire même, influence la differentiation
+ cellulaire, moyenant la distribution d'oxigene.
+ Les cellules mesenquimales soumises a un environment plus oxigené devienent
+ des miocytes tandis que celles moins oxigenés devienent des chondrocytes.
+ Le tissu cartilagineux est normalement avasculaire et sa nutrition se realise
+ par diffusion des produits depuis les couches externes du tissu 
+\begin_inset LatexCommand \cite{Vascularization}
+d715 4
+a718 7
+\layout Standard
+
+Le deuxieme stade de la participation de la vascularisation et l'invasion
+ de la partie mediale de l'os (diaphyse) qui declence l'invasion du cartilage
+ par les osteocytes est le debut de la construction de la structure trabeculaire
+ par simple excavation des tunnels 
+\begin_inset LatexCommand \cite{AnatomieGray}
+d725 9
+a733 7
+La potentialité du reseau vasculaire comme guide de la morphogenese est
+ d'un grande importance.
+ Il a été établi aujourd'hui que les structures arborescentes peuvent donner
+ origine a des patrons de formes de una grande complexité a partir de regles
+ elementaires appliques au moment de generer chacun de ses branchements.
+ L'analyse des L-systems nous offres des examples ineluctables 
+\begin_inset LatexCommand \cite{Lindenmayer}
+d738 4
+a741 1
+\begin_inset LatexCommand \cite{Mupad}
+d745 4
+a748 2
+.
+\layout Standard
+d750 1
+a750 6
+Remarquons au passage, que les cellules non differencés qui restent comme
+ capital cellulaire disponible pour la renouvellement du tissu mesenchimal
+ differentié, sont attachées au vaisseux sanguins.
+ Elle se separent du reseau vasculaire et migrent vers les regions nécesitant
+ de nouveau materiel cellulaire, pour y se differentier.
+\layout Subsection
+d752 2
+a753 1
+La croissance
+d756 1
+a756 5
+Une fois établie la morphologie globale de la structure osseuse, le processus
+ de croissance controle le developpement de le squelette.
+ Les relations fondamentales ne se modifient pas (au sens de graph de voisinage
+ des structures), mais de deformations sont effectués pour arriver a le
+ stade adulte.
+d758 1
+d760 13
+a772 7
+Il faut noter que une caracteristique assez importante des structures biologique
+ est le fait d'être toujour fonctionales (a exeption d'un court periode
+ au début de la vie embryonaire).
+ Ceci implique que les modifications de la morphologie ne seront plus dramatique
+s (sauf si les fonctionalitées demandes par l'indiviu changent radicalement,
+ comme c'est le cas de speces subisant des metamorphoses 
+\begin_inset LatexCommand \cite{GeneForme}
+d776 5
+a780 1
+).
+d783 652
+a1434 2
+La croissance osseuse comporte plusieurs comportement.
+ Le cartilage hyaline dans les epiphyses osseuses se developpe par crosissance
+d1436 6
+a1441 5
+ Le tissu ossifié dans la diaphyse se developpe par déposition de nouvelles
+ couches des osteocytes (ceux provienent d'une couche proliferante des cellules
+ mésenchymales que se differencient progressivement.).
+ A l'interieur de la diaphyse une absortion de tissu ossifie (os compacte)
+ remodele la forme globale.
+d1443 1
+a1443 1
+ des epiphyses forme un plaque que se developpe en croissance longitudinale,
+d1455 1
+a1455 1
+La morte programme
+d1458 3
+a1460 3
+Il a été établie que certaines structures sont destinées a disparaître à
+ de moments spécifiques.
+ On parle d'une morte programme des cellules.
+d1462 1
+a1462 1
+ de l'organisme, ou de structures qui sont de vestiges évolutives sans aucun
+d1467 2
+a1468 1
+ au moment de la naissance.
+d1477 1
+a1477 1
+ pour la correcte fonctionalité de l'ensemble.
+d1503 175
+a1677 12
+Il a été montré que la determination des cellules qui sont destinées a former
+ l'articulation se fait dans une étape assez temprane de la morphogenese
+ du membre.
+ Des experiences realizées dans les embryos de poulet consistant en l'extripatio
+n de la region de l'articulation du coude, suivi de la mise en correspondance
+ des parties correspondantes au bras et avan-bras, ont montré que si l'extirpati
+on se fait a une époque temprane, l'articulation est regenerée est se developpe
+ normalement, en revanche, si elle s'execute plus tard, les cellules environnant
+es ne peuvent plus changer sa destination pour combler l'absence du groupe
+ de cellules de l'articulation, ce qui donne comme resultat un membre avec
+ l'humerus soudé aux radius et ulna 
+\begin_inset LatexCommand \cite{ElbowDevelopment}
+a1680 2
+.
+\layout Subsection
+d1682 2
+a1683 2
+La modelation fonctionale
+\layout Standard
+d1685 1
+a1685 3
+Il est accepté que la morphologie des structures osseuses n'est pas complètement
+ préétablie dans l'information génétique 
+\begin_inset LatexCommand \cite{GeneForme}
+d1689 5
+a1693 10
+.
+ Un grand nombre d'aspects de la morphologie sont modelés par l'utilisation
+ même de la structure.
+ Un exemple illustrative sont les crêtes et tubérosités présentes dans la
+ plupart des os.
+ Elles sont de détails saillantes de la surface osseuse qui correspondent
+ aux endroits de l'insertion d'un tendon, un ligament ou d'un muscle.
+ La tension exercé par le muscle de façon continue fini par déformer la
+ surface et produire un rébord saillante.
+\layout Subsubsection
+d1695 4
+a1698 2
+D'examples particulière
+\layout Standard
+d1700 1
+a1700 7
+Un cas remarquable est cel de la tubérosité radiale correspondante a l'insertion
+ du muscle biceps brachial.
+ L'effet de la tension applique par le muscle sur l'os produit un relief
+ locale saillante ainsi que un déformation globale du radius.
+ Cet caracteristique étant absente dans le nouveau née, n'apparaît que dans
+ les premiers années de l'enfance.
+\layout Standard
+d1702 5
+a1706 6
+Un autre exemple est la section transversale du cubitus et radius que se
+ presente de forme triangulaire.
+ Les vertices de deux triangles confrontés servent comme attache a la membrane
+ interosseuse qui transmet les effort du radius vers le cubitus.
+ La section transversale de ces os n'etant pas triangulaire à la naissance
+ car la membrane interosseuse n'as pas été fonctionale dans la vie uterine.
+d1712 4
+a1715 4
+Il a été proposé que une grande partie de la morphologie osseuse est codée
+ en termes des fonctionalitesà accomplir plutôt que en fonction de la descriptio
+n directe de la forme, dans cette logique, il résulte économique que soit
+ la pratique même d'une activité fonctionelle, la responsable de la modelation
+d1718 4
+a1721 4
+uses jusque une âge assez avancée (20~25 ans) et gardent même des tissus
+ non différencies capables de s'adapter a des nouvelles conditions fonctionelles.
+ Le stade cartilagineux étant beaucoup plus plastique que le stade osseux
+ se laisserait modeler dans l'exécution journalière des tache fonctionelles
+d1730 1
+a1730 1
+Des aspect plus globaux de la morphologie nécessitent de l'exercice de certaines
+d1732 2
+a1733 2
+ Le développement normal de le squelette humain, particulièrement de la
+ hanche, exige que le nourrison marche a quatre pattes.
+d1737 1
+a1737 1
+Les effets pernicieux de l'inmovilisation totale ou partial des membres
+d1739 3
+a1741 3
+ Des relations de causalité ont été établies entre la tradition culturel
+ des populations bretonnes et navajo d'immobilisation des nourrisons et
+ l'apparition postérieure des pathologies comme la luxation congénital de
+d1743 2
+a1744 2
+ Ce pratiques empêchant au nourrison de mantenir les jambes écartées perturbaien
+t la remodelation normale du squelette 
+d1879 1
+a1879 1
+Constitution du Tissu Oseuse
+d1882 1
+a1882 1
+Les os sont classifies de façon général dans trois grands groupes: Les os
+d1886 3
+a1888 3
+e dispose en couches de 3 a 7 microns, compose de fibres collagenes infiltres
+ de dépôts minerales.
+ Entre les cellules participant a la formation du tissu on identifie:
+d1891 1
+a1891 1
+Osteoprogeniteurs
+d1894 1
+a1894 1
+Osteoblastes
+d1897 1
+a1897 1
+Osteocytes
+d1900 1
+a1900 1
+Osteoclastes
+d1903 4
+a1906 4
+Les osteoprogeniteurs sont les cellules de croissance mésenchymales (résultants
+ du processus de mitose) qui se activent pour se reproduire quand il y a
+ une demande de cellules pour regenerer l'os.
+ Ces cellules sont postérieurement différencies dans une de trois autres
+d1908 2
+a1909 2
+ Les osteoblastes forment la matrice oseuse, ils supportent la formation
+ de collagene et s'occupent de la production de mineraux nécessaires a la
+d1911 8
+a1918 4
+ Les osteocytes sont les cellules du tissu osseux completement formé, ils
+ résident dans les "lacunae" entre les structures tubulaires de l'os.
+ Les osteoclastes sont responsables directement du processus de reabsortion
+ osseuse.
+d1924 2
+a1925 2
+Divers études on mis en évidence l'existence d'une activité électrique dans
+ le tissu osseux 
+d1935 1
+a1935 1
+ Malgré le fait de que tout le mécanisme et la fonctionalité de l'activité
+d1937 4
+a1940 4
+ être soulevés qui montrent l'importance de cette activité, et surtout offrent
+ un possible explication a la méthodologie détaille pour la quelle le tissu
+ osseux peut adapter sa forme locale aux contraintes globales, particularemente
+ reliées a ses requeriments de résistance mécanique.
+d1944 17
+a1960 10
+Lors de la mis en charge d'un os, il apparaissent des polarisations de l'ordre
+ de millivolts par cm, positives dans les regions soumises à tension et
+ négatives dans les regions soumises à compression.
+ Il semble que le collagène est le responsable de cette activité piezoelectrique.
+ Cette activité guide la déposition de mineraux qui étant de cristaux se
+ placent alignés selon les lignes des efforts mécaniques.
+ De cette façon la mineralisation répond directement aux besoins de reinforcemen
+t de la structure.
+ Certains groupes des orthopédistes ont appliqué des méthodologies de stimulatio
+n électrique pour favoriser la regeneration du tissu lors de une fracture.
+d1968 1
+a1968 1
+Remodelation
+d1974 2
+a1975 2
+Le processus de rémodelation oseuse est permanent, bien s'il peut être stimulé
+ ou inhibé selon des conditions externes.
+d1977 1
+a1977 1
+ le Osteoclastes responsables de la reabsortion, et les Osteoblastes responsable
+d1982 4
+a1985 4
+Dans des conditions normales, les osteoclastes perforent une cavité dans
+ la structure tubulaire à raison de 7 a 9 microns par jour.
+ Puis ils progressent en suivant les lignes d'efforts mécaniques, pour former
+ un tunnel a raison de 40 a 50 microns par jour.
+d1988 1
+a1988 1
+ Environ 10% de ces cellules resteront dans les tissu définitif.
+d1994 4
+a1997 4
+Le procès normal de viellisement implique une réduction de la masse minéral
+ oseuse.
+ Entre les 20 et les 80 ans les hommes perdent environt 27% de sa masse
+ oseuse, et les femmes perdent environ 40%.
+d2000 1
+a2000 1
+L'absence d'activité mécanique de le structure oseuse entraîne un perte
+d2002 1
+a2002 1
+ Une immobilisation de 6 mois réduit en un 30% le volume trabeculaire osseux
+d2013 1
+a2013 1
+ La perte étant plus important pour les sujets jeunes.
+d2015 5
+a2019 5
+ être facilement fracture.
+ Un sujet de 20 ans immobilise 6 moins perds l'équivalent de 60 ans de process
+ normal.
+ L'os spongieux est le premier en réagir a d'immobilisation, tandis que
+ l'os cortical est mois sensible.
+d2025 8
+a2032 5
+La question : d'où vient-i-l la forme ? nous amene forcement à la génetique.
+ 
+\layout Standard
+
+La génétique contrôle particulièrement 
+d2042 2
+a2043 2
+ Cet ordre dans le cas des pieces osseuses suit un patron qui provien de
+ l'histoire évolutive et qui se présente de façon similaire dans autres
+d2045 2
+a2046 2
+ La relation entre l'ordre d'aparition des structures et la modelation de
+ la forme a été approche de différentes manières 
+d2052 2
+a2053 2
+ L'ordre comprend aussi bien la séquence d'aparition des noyaux de condensation
+ meshenchymale, l'aparution de centres de chondrification et postérieurement
+d2060 5
+a2064 5
+L'information génetique est codé en la sequence de acide-amines présentes
+ dans la longue chain de la molecule d'ADN.
+ Ce molecule bien, que de structure lineaire, s'enroule dans le space comme
+ consequence de la minimization des ses niveux energetiques.
+ Les sequences d'ADN se regroupen en gènes et ceux ci en chromosomas qui
+d2068 2
+a2069 3
+Quand les executores des activités metaboliques de la cellule ont besoin
+ de produir des substances\i \c{ }
+ l'information est demande au noyau.
+d2072 1
+a2072 1
+copie,
+d2074 2
+a2075 2
+ par une molecule de ARN messager que la transporte a l'exterieur du noyau.
+ Une fois dans le cytoplasme, la sequence est lue pour produir les substances
+d2079 4
+a2082 6
+Un de grands problèmes de la génetique actuelle\i \c{ }
+ ainsi comme de ses disciplines
+ amies (la biologie du developpement\i \c{ }
+ l'anthropologie et la paleontologie)
+ est de savoir que est-ce qui est codee dans l'ADN, et comment cet information
+ est utilisé par las cellues de l'organisme.
+d2085 1
+a2085 1
+La methodolgie actuelle de recherche consiste a 
+d2089 10
+a2098 9
+le genome et a introduire des modifications dans des endroit identifies
+ de la molecule.
+ L'observation des alterations subies par l'organisme qui se developpe à
+ continuation sert a établire des liens de causalité entre des gènes particulièr
+es et des caracteristiques de l'organisme biologique.
+ La difficulte dans cet approche est le grand nombre des effect secondaires
+ de l'alteration de l'information genetique, ce qui fait que les element
+ alterés par la suite de l'experience peuvent être plutôt relies a des subtance
+ dont la production a ete stimulé ou inhibée par la modification génetique.
+d2104 16
+a2119 13
+La conception actuel de l'ADN indique qu'il contient toute l'information
+ necessaire à la constitution de l'individu.
+ Mais cette information est presente en copies identiques (sauf la très
+ basse occurence des mutations) dans toutes les cellules de l'organisme.
+ Or\i \c{ }
+ ces cellules ne necessitent pas de l'information totale de l'individu
+ car elle ont été différences, donc specialisées pour des activités très
+ particulières.
+ Chaque cellule utilise seulement une partie très reduite de son potentiel
+ d'information génetique et ceci en differentes combinaisons selon l'étape
+ de la vie cellulaire dont elle se trouve.
+ La notion de que seulement quelque gènes son utilises pour les activites
+ cellulaires conduit au concept d'expression génetique.
+d2124 1
+a2124 1
+ a chaque moment.
+d2127 3
+a2129 3
+La replication des section de la molecule de l'ADN est possible seulement
+ si les deux trames de la molecule helicoidale peuvent être légerement écartés.
+ La gestion de cet écartement semble etre un mécanisme regulateur de l'expressio
+d2131 1
+a2131 3
+\layout Standard
+
+Si on fait un parallele entre le code génetique et un programe informatique
+d2133 1
+a2133 2
+ le instructions conditionelles du programe\i \c{ }
+ en trois mots : les instructions
+d2149 1
+a2149 1
+L'information positionale
+d2152 1
+a2152 1
+L'ADN contient l'ensemble de gènes qui fournisent l'information nécessaire
+d2154 2
+a2155 2
+ Certains gènes peuvent aussi déterminer la differentiaton cellulaire.
+ Cette differentiation étant dépendante de l'ubication de la cellule dans
+d2157 1
+a2157 1
+ Il a été propose que un nombre de substances servent comme des marqueurs
+d2159 1
+a2159 1
+ Les gradients de concentration de ses substances permettent à les cellules
+d2161 1
+a2161 1
+ différenciation cellulaire et spécialiser le tissu dans les fonctions correspon
+d2188 3
+a2190 3
+L'évolution phylogénétique doit être forcement prise en considération pour
+ comprendre la conformation actuelle des structures vivants.
+ L'information génétique transmise de generation en generation, subit des
+d2193 7
+a2199 9
+ ses besoins actuelles de fontionalité, car la solution trouvée par la nature
+ pour répondre à les nouvelles conditions des contraintes ou fonctionelles
+ sont mis en oeuvre en utilisant la solution déjà établie pour des conditions
+ precedentes.
+ Cette effet d'hysteresis, impose, pour la modélisation, l'introduction
+ de certains regles prises de la connaissance de l'espèce.
+\layout Standard
+
+Évidement l'introduction de ces regles semble-t-il 
+d2203 2
+a2204 2
+ mais il est la seule option pour ne pas être forces de modéliser le mécanisme
+ entière de l'évolution des espèces.
+d2207 18
+a2224 5
+Exemple claire de cette type de règle morphologique est la rotation du radius
+ et cubitus dans l'avant bras humain (et en général dans le membre antérieur
+ de tous les tétrapodes).
+ Les études phylogenetiques montrent que l'apparition du membre chiridien
+ (nom scientifique de ce qui devient plus tard les pattes de mammifères)
+d2233 10
+a2242 3
+ a eu lieu au Devonien supérieur il y a environ 400 millions d'années.
+ Cette évenement évolutif rend possible le passage de la vie aquatique à
+ la vie aérienne.
+d2249 1
+a2249 1
+ Il a évolué vers le stade actuelle chez les Urodeles et les Reptiles dont
+d2252 3
+a2254 3
+ Cette configuration demande la existence de une musculature extremment
+ importante, car les oses ne soutiennent pas directemente le poids.
+ Seulement l'effort musculaire continu peut mantenir le corps soulevé.
+d2258 2
+a2259 2
+Le stade suivante d'évolution correspond à modifier le membre pour appuyer
+ le poids du corps directement dans la structure oseuse.
+d2261 8
+a2268 8
+ le corps vers l'avant au lieu d'être utilisé uniquement pour mantenir la
+ position statique.
+ C'est le stade actuelle chez les mammifères.
+ La modification demande une rotation du membre posterieur 90 dégrées vers
+ l'avant de telle sorte que les doigts deviennent antérieures.
+ Le membre antérieur subit une rotation de 90 dégrées vers l'arrière, cette
+ rotation aurait place les doigts dans la direction posterieur, donc une
+ rotation additionelle est subit dans la partie distal du membre (l'avant
+d2271 2
+a2272 2
+ La rotation nécessaire est de environ 180 degrés, ce qui transpose les
+ positions du cubitus et du radius entre le coude et le poignet.
+d2275 13
+a2287 12
+La foncionalité actuelle de l'avant bras humain ne demande pas cette transpositi
+on, les mouvements de pronation-supination peuvent être réalises de la même
+ façon si les deux os étaient paralleles (comme c'est le cas de la jambe,
+ avec les tibia et la fibule).
+ Malgré ça, la rotation est effectué à la septième semaine de gestation
+\layout Standard
+
+Un autre cas importante est ce de la morphologie de l'omoplate moderne.
+ A la vue on remarque la complexité de la morphologie de l'omoplate, mais
+ cette complexité est largement eclarcie quand-t-on prend en compte que
+ l'omoplate humain actuel est la fusion de trois os que se présentent clairement
+ sépares dans d'autres species : la scapula, le coracoide et l'acromion.
+d2293 2
+a2294 2
+Les vertèbres sont apparus dans le début du période Devonien il y a 400
+ millions d'années 
+d2302 3
+a2304 3
+ La combinaison des tension exercé par les muscles et de résistance a la
+ compression et la flexion exercé par les os, permettent aux organismes
+ de reconduire la force musculaire (tension) en directions différentes a
+d2306 10
+a2315 2
+ La plupart d'action musculaires ont pour but generer un déplacement dans
+ la direction perpendiculaire a l'axe du muscle.
+d2319 17
+a2335 5
+Tel est le cas des poissons avec la chorde.
+ La nage nécessite d'un mouvement ondulatoire perpendiculaire a l'axe cephalo-ca
+udale du corps.
+ En l'absence de la chorde, ce mouvement devrait être produit par un contraction
+ plus rapide dans un flanc que dans l'autre, mais entraînant un compression
+d2337 2
+a2338 2
+ Le retour a l'état initial se faira par la simple relaxation musculaire
+ et l'élasticité de l'ensemble de l'organisme devrait conduire récupérer
+d2340 1
+a2340 1
+ Ce retour ne peut pas être acceleré.
+d2348 1
+a2348 1
+ La contraction harmonieuse des muscles antagonistes regule la continuité
+d2352 1
+a2352 1
+Le mécanisme minimal musculo-squelettique est illustre dans la figure 
+d2358 4
+a2361 4
+ Deux pieces osseuses connectées par une articulation hautement lubrifiée.
+ Deux muscles attaches a chacun des os, disposés de façon a que un muscle
+ peut rétablir la position du membre après un déplacement produit par son
+ compagnon le muscle antagoniste.
+d2369 1
+a2369 1
+file pair_muscle.eps
+d2372 1
+a2372 1
+flags 9
+d2388 1
+a2388 1
+L'apparition des membres
+d2391 3
+a2393 3
+Les membres ont été formés à partir des ailerons des poissons primitifs.
+ Il parait que les conditions climatiques du Devonien favorisaient la formations
+ de bassins aquatiques de faible profondeur dont la nage n'était pas toujours
+d2395 4
+a2398 6
+ Cette environment obligeait souvent aux poissons a ramper dans le fond
+ aquatique a l'aide de ses ailerons.
+\layout Standard
+
+Cette modification de la fonctionalite a permit au specimenes dont la morphologi
+e des nageoires était plus robuste de mieux survivre et de se reproduire
+d2402 3
+a2404 2
+La nageoire est plie quand elle sert a ramper.
+ ce pliement induit la formation des articulations localises.
+d2407 1
+a2407 1
+Des fossiles de poissons munis des doigts ont été trouves en 1995 par Deshler
+d2413 20
+a2432 16
+.
+\layout Subsection
+
+La migration vers la vie terrestre
+\layout Standard
+
+La migration des poissons devoniens vers la vie terrestre a eu lieu vers
+ le Devonien moyen il y a 350 millions d'années.
+ La relative fréquence des malformations genetiques des membres est une
+ évidence de la fragilité du mécanisme responsable de sa formation.
+ Cette fragilité est le prix a payer pour le potentielle de variabilité
+ de cette mechanisme, qui permet de construire toutes les morphologies des
+ tetrapodes.
+ Il a été observe que maintes des malformations humaines ressemblent au
+ morphologies normales des autres animaux, faisant penser qu'il s'agit d'un
+ variations dans les paramètres qui regulent la morphogenèse.
+d2435 2
+a2436 2
+Cet-a-dire, Les membres sont formes par un mécanisme de base qui est partage
+ entre tous les tetrapodes.
+d2439 2
+a2440 178
+ Quand dans une espèce en particulier, ces contrôles sont altérées, les
+ conditions deviennent celles de un des espèces voisines.
+\layout Subsection
+
+L'évolution des tetrapodes
+\layout Subsection
+
+L'adaptation functionale
+\layout Subsection
+
+Les traces évolutives de l'homme moderne
+\layout Itemize
+
+L'inversion du cubitus et radius.
+\layout Itemize
+
+Le processus coracoide dans l'omoplate.
+\layout Itemize
+
+L'orientation du muscle biceps brachial.
+\layout Section
+
+Paragraphes a relocaliser
+\layout Subsection
+
+Autres approches
+\layout Standard
+
+Une décomposition en harmoniques sphériques est présenté dans 
+\begin_inset LatexCommand \cite{HarmoniquesSpheriques}
+
+\end_inset 
+
+ pour la modélisation des surfaces de vertèbres.
+ Ces fonctions n'étant pas relies à la nature de la forme biologique, un
+ grand nombre de coefficients s'avére nécessaire pour une description précise.
+\layout Standard
+
+La méthode présentée en 
+\begin_inset LatexCommand \cite{MetaBalls}
+
+\end_inset 
+
+ suit la courant de décomposition de un forme en somme des formes simples
+ en utilisant un base d'ondelettes.
+ Elle est appliquée a la description des volumes de donnes.
+\layout Standard
+
+La simulation de la croissance a été utilisée ailleurs pour modéliser la
+ morphologie.
+ Les L-Systems de Lindenmayer 
+\begin_inset LatexCommand \cite{Lindenmayer}
+
+\end_inset 
+
+ représentent un cas très importante dans la modélisation des végétaux en
+ utilisant des structures fractales 
+\begin_inset LatexCommand \cite{Mupad}
+
+\end_inset 
+
+.
+ Une méthodologie similaire a été suivi pour la modélisation des structures
+ coralliens tridimensionelles, guides par les contraintes d'obtention des
+ nutrients en 
+\begin_inset LatexCommand \cite{FractalGrowth}
+
+\end_inset 
+
+.
+ La generation de formes suivant le mécanisme des croissance est utilisé
+ en 
+\begin_inset LatexCommand \cite{GrowthModel}
+
+\end_inset 
+
+ pour effectuer le recalage des structures osseuses en imagerie médicale.
+\layout Subsection
+
+embryologie
+\layout Standard
+
+Une hypothèses (connue comme la loi de Woolf (1892))
+\latex latex 
+
+\begin_inset LatexCommand \cite{BiomecaniqueOrthopedique}
+
+\end_inset 
+
+
+\latex default 
+ établie que la morphologie des os est directement la réponse aux requirements
+ de une fonction anatomique soumise à des contraintes de types divers 
+\begin_inset LatexCommand \cite{FormesNature}
+
+\end_inset 
+
+.
+ Entre ses contraintes se trouvent: les caracteristiques physiques des matériaux
+ disponibles pour la constitution osseuse, le mécanisme de construction
+ du tissu vivant, les limitation de poids d'une structure dynamique, les
+ requeriment de résistance mécanique.
+\layout Standard
+
+L'information génétique a partir de la quelle un individu est formé, est
+ stocke dans les gamètes qui l'ont donné origine.
+ La quantité d'information contenue dans le génome humain est estimé actuelment
+ comme environ 3.000 Gigabytes 
+\latex latex 
+
+\begin_inset LatexCommand \cite{GenomeHumain}
+
+\end_inset 
+
+
+\latex default 
+.
+ Bien si cette quantité semble importante, il est claire que elle est insuffisan
+te pour décrire de façon détaille la morphologie et la fonctionalité de
+ tous les éléments d'un organisme vivant.
+ Deux hypothèses se présentent: 
+\layout Itemize
+
+l'information est codée de manière extrement efficace.
+\layout Itemize
+
+l'information génétique comporte seulement les éléments nécessaires à l'établiss
+ement d'un système dynamique autoregulé capable de se développer à partir
+ de un nombre réduit de regles de comportement.
+\layout Standard
+
+Ces deux hypothèses n'étant pas exclusives entre elles, sont adoptes ensemble
+ generalement.
+ Les travaux relatives a la morphogènese ont établie qu'il est possible
+ de construire des systèmes autoregulateurs, que grace aux simples condition
+ physiques, et des convenables environments chimiques peuvent évoluer jusque
+ produire de formes complexes
+\latex latex 
+ 
+\begin_inset LatexCommand \cite{FractalGrowth}
+
+\end_inset 
+
+
+\begin_inset LatexCommand \cite{MathematicalBiology}
+
+\end_inset 
+
+
+\latex default 
+.
+\layout Bibliography
+\bibitem {GrowthModel}
+
+M.
+ B.
+ Nielsen, C.
+ Gramkow, S.
+ Kreigorg, 
+\begin_inset Quotes eld
+\end_inset 
+
+
+\emph on 
+Non-Rigid Image Registration Using Bone Growth Model
+\emph default 
+
+\begin_inset Quotes erd
+\end_inset 
+
+ 
+\begin_inset Info ibanez Wed Jun 10 11:20:46 1998
+
+Completar esta referencia : anales de congreso que nos dio
+Christian.
+\end_inset 
+
+
+d2507 6
+d2713 1
+d2715 4
+a2718 1
+http://phylogeny.arizona.edu/tree/phylogeny.html
+d2724 28
+a2751 1
+Lindenmayer, The Algorithmic Beauty of Plants
+d2761 1
+d2763 3
+a2765 1
+http://sln2.fi.edu/qa98/biology/journals/part14.html
+d2926 61
+@
+
+
+1.1
+log
+@Initial revision
+@
+text
+@d1 1
+a1 1
+#This file was created by <ibanez> Thu Jun 11 12:42:10 1998
+d10 1
+a10 1
+\spacing single 
+d16 2
+a17 2
+\secnumdepth 2
+\tocdepth 2
+d26 2
+a27 1
+\layout Title
+d29 3
+a32 4
+\series medium 
+Détection, représentation et modélisation des surfaces des structures 3D.
+ Application à l'étude de la morphologie et la fonctionnalité des os longs.
+\layout Author
+a33 1
+Luis Ibáñez
+d79 6
+d101 173
+a273 1
+ qui indiquent directement les positions des points conformant une structure.
+d573 12
+d611 107
+d724 4
+a727 1
+ de croissance 
+d731 2
+a732 2
+ est le fait d'être toujour fonctionles (a exeption d'un court periode au
+ début de la vie embryonaire).
+d735 6
+a740 1
+ comme c'est le cas de speces subisant des metamorphoses).
+d746 1
+a746 1
+ Le tissu ossifie dans la diaphyse se developpe par déposition de nouvelles
+d780 49
+d847 3
+d852 1
+a852 1
+Un cas remarquable est ce de la tubérosité radiale correspondante a l'insertion
+d864 1
+a864 1
+ La section transversale de ces os n'etant pas triangulaire a la naissance
+d866 3
+d872 4
+a875 4
+ en termes des fonctionalites a accomplir plutôt que en fonction de la descripti
+on directe de la forme, dans cette logique il résulte économique de permettre
+ que soit la pratique même d'une activité fonctionelle la responsable de
+ la modelation des structures impliquées.
+d877 3
+a879 3
+uses jusque une âge assez avancée et gardent même des tissu non différencies
+ capables de s'adapter a des nouvelles conditions fonctionelles.
+ Le stade cartilagineux étant beaucoup plus plastique que le tissu osseux
+d896 15
+d918 118
+a1035 8
+Les effets pernicieux de l'inmovilisation totale ou partial des membres
+ résultent évidentes en orthopédie.
+ Des relations de causalité ont été établies entre la tradition culturel
+ des populations bretonnes et navajo d'immobilisation des nourrisons et
+ l'apparition postérieure des pathologies comme la luxation congénital de
+ la hanche.
+ Ce pratiques empêchant au nourrison de mantenir les jambes écartées perturbaien
+t la remodelation normale du squelette.
+d1422 6
+a1427 1
+ millions d'années.
+d1460 6
+a1465 1
+Le mécanisme minimal musculo-squelettique est illustre dans la figure.
+d1470 24
+d1525 1
+a1525 1
+La migrationà la vie terrestre
+d1929 2
+a1930 1
+D.Cohen 
+d1959 14
+d1984 9
+d2021 11
+d2035 5
+a2039 2
+ Muraki, Multiscale Volume Representation by a DOG Wavelet, IEEE Transactions
+ on Visualization and Computer Graphics\i \c{ }
+d2083 84
+@

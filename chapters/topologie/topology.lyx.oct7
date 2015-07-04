@@ -1,0 +1,6342 @@
+#This file was created by <ibanez> Thu Oct  7 20:10:34 1999
+#LyX 0.12 (C) 1995-1998 Matthias Ettrich and the LyX Team
+\lyxformat 2.15
+\textclass book
+\begin_preamble
+\usepackage{amsmath}
+\end_preamble
+\language default
+\inputencoding default
+\fontscheme default
+\graphics default
+\paperfontsize default
+\spacing single 
+\papersize letterpaper
+\paperpackage a4
+\use_geometry 1
+\use_amsmath 0
+\paperorientation portrait
+\leftmargin 1in
+\topmargin 1in
+\rightmargin 1in
+\bottommargin 1in
+\secnumdepth 4
+\tocdepth 4
+\paragraph_separation indent
+\defskip medskip
+\quotes_language english
+\quotes_times 2
+\papercolumns 1
+\papersides 2
+\paperpagestyle default
+
+\layout Standard
+
+
+\begin_inset LatexCommand \tableofcontents
+
+\end_inset 
+
+
+\layout Chapter
+
+Topologie Discrète
+\layout Section
+
+Motivation
+\layout Standard
+
+L'utilisation d'un volume de données ainsi que celle d'une image nécessite
+ d'une compréhension claire de les notions de la topologie discrète.
+ Une volume de données étant un échantillonage d'un signal continue, réduit
+ l'information à un nombre fini de valeurs correspondants à des points précis
+ de l'espace.
+\layout Standard
+
+Malgré la profonde répercussion de la topologie discrète sur le sens même
+ des algorithmes de traitement d'image, elle n'est pas toujours considéré
+ avec l'ampleur qu'elle mérite.
+ Souvent, les analyses de la topologie discrète sont classés comme des études
+ théoriques ou de simple intérêt académique, quand ils relèvent de la plus
+ grand importance au niveau de la conception ainsi que de la mise en oeuvre
+ algorithmique.
+ 
+\layout Standard
+
+Un large éventail des méthodes de traitement d'image sont développés à partir
+ des notions propres aux espaces continus, en faisant grand soin au traitement
+ mathématique continu, mais en oubliant souvent d'appliquer ce même rigueur
+ au moment de discrétiser l'approche et de l'appliquer sur un ensemble discrète
+ des points.
+ La plupart d'algorithmes basées sur des concepts du calcul différentiel
+ souffrent de cette biais.
+\layout Standard
+
+La contribution originale de notre travail à l'étude de la topologie discréte
+ est d'un part la définition d'un topologie dans un grille discrete et d'autre
+ part, le fait d'avoir utilisé un formalisme purement vectorielle pour mener
+ à bien cette définition.
+\layout Section
+
+Introduction
+\layout Standard
+
+Notre problème étant la détection et l'extraction des surfaces à partir
+ des volumes de données, nous sommes profondément concernées par la définition
+ correcte d'un topologie discrète.
+ Ce Chapitre présente les résultats de notre étude d'une définition formelle
+ de la topologie combinatoire pour les espaces discrets.
+\layout Standard
+
+Notre analyse nous a conduit à nous concentrer sur la grille hexagonale
+ et par ce biais sur la famille des grilles 
+\begin_inset Formula \( n \)
+\end_inset 
+
+-dimensionels 
+\begin_inset Formula \( A_{n} \)
+\end_inset 
+
+ qui sont optimales pour résoudre le problème de la empaquetage (
+\emph on 
+packing
+\emph default 
+) des sphères 
+\begin_inset Formula \( n \)
+\end_inset 
+
+-dimensionels.
+ L'étude de la famille 
+\begin_inset Formula \( A_{n} \)
+\end_inset 
+
+ n'est peut être réalisé de façon complète sans l'acompagner de celui de
+ sa famille réciproque 
+\begin_inset Formula \( A^{*}_{n} \)
+\end_inset 
+
+.
+ L'intérêt d'utiliser la famille 
+\begin_inset Formula \( A^{*}_{n} \)
+\end_inset 
+
+de grilles au lieu des grilles 
+\begin_inset Formula \( Z^{n} \)
+\end_inset 
+
+ classiques, comme support pour la construction d'un topologie discrète
+ est justifie par:
+\layout Itemize
+
+Le grilles 
+\begin_inset Formula \( A^{*}_{n} \)
+\end_inset 
+
+ sont optimales optimales pour l'échantillonnage des signaux 
+\begin_inset Formula \( n \)
+\end_inset 
+
+-dimensionels quand le critère établie par le théoreme de Shannon est respecté.
+\layout Itemize
+
+Ces grilles présentent les meilleures configurations des voisinage entre
+ ses points grâce au fait de que ses duel topologique sont des 
+\begin_inset Formula \( K \)
+\end_inset 
+
+-simplexes.
+\layout Standard
+
+Développements récents dans le domaine de l'imagerie médicale 3D ainsi que
+ dans le domaine de l'image de synthèse ont motivé des travaux concernant
+ la géométrie et la topologie discrètes.
+ La plupart de ces travaux utilisent les grilles 
+\begin_inset Formula \( Z^{n} \)
+\end_inset 
+
+comme l'espace discret par excellence.
+ Malheureusement, il se trouve que cette choix est plutôt une erreur historique,
+ conséquence d'opter par le choix de la facilité au moment d'extrapôler
+ les méthodes bien établies dans un dimension pour les appliquer dans les
+ dimensions supérieures.
+\layout Standard
+
+Il a été montré que les grilles 
+\begin_inset Formula \( Z^{n} \)
+\end_inset 
+
+ malgré son apparente simplicité, compliquent le développement des algorithmes
+ topologiques.
+ Ces grilles ne sont pas les mieux adaptés à l'échantillonnage des signaux,
+ elles ne sont pas non plus appropriées pour aboutir à définir correctement
+ une topologie discrète.
+\layout Standard
+
+Pour présenter le résultats de nos travaux dans ce domaine nous suivrons
+ une parcours à partir des grilles de dimension 2, ensuite nous aborderons
+ la dimension 3 et pour en finir nous présenterons la généralisation à la
+ dimension 
+\begin_inset Formula \( n \)
+\end_inset 
+
+.
+\layout Subsection
+
+La topologie dans la grille carrée
+\layout Standard
+
+La grille carrée ou 
+\begin_inset Formula \( Z^{2} \)
+\end_inset 
+
+ a été utilisée depuis les premiers travaux développés dans le domaine du
+ traitement d'image 
+\latex latex 
+
+\begin_inset LatexCommand \cite{Rosenfeld}
+
+\end_inset 
+
+
+\latex default 
+.
+ L'utilisation de cette grille a continue malgré le fait bien connu de que
+ la grille correcte pour échantillonner l'espace 
+\begin_inset Formula \( 2D \)
+\end_inset 
+
+ est la grille hexagonale ainsi que la constatation de que la grille carrée
+ conduit à des ambiguïtes dans la définition de la conexité entre points
+ (pixels), ce qui n'est pas le cas dans la grille hexagonal.
+ 
+\layout Standard
+
+Pour bien définir une topologie discrète dans la grille carré il a été nécessair
+e de recourir à l'utilisation de deux connexitées complémentaires, la 4-connexit
+é et la 8-connexité.
+ Quand une d'entre elles est utilisé pour un objet, l'autre doit être utilisé
+ pour le complément de l'objet.
+ Néanmoins cette solution n'est pas acceptable dans domaines tels que la
+ morphologie mathématique car l'application des opérations de complément
+ obligent a commuter la connexité sur le champ 
+\begin_inset LatexCommand \cite{Serra}
+
+\end_inset 
+
+.
+ 
+\layout Standard
+
+La figure 
+\begin_inset LatexCommand \ref{fig:topo2d}
+
+\end_inset 
+
+, montre les relations généralement établies dans les application d'imagerie.
+ (a) Relations de voisinage de la grille 
+\begin_inset Formula \( Z^{2} \)
+\end_inset 
+
+, chaque cercle solide représente un point d'échantillonnage, le carré gris
+ représente la région de Voronoï correspondante au point central.
+ (b)(c) et (d) sont des possibles définitions de voisinage dans cette grille.
+ (b) montre le 
+\begin_inset Formula \( K \)
+\end_inset 
+
+-complexe associé au graphe de connexité pour la 4-connexité et les carrés
+ gris sont les régions de Delaunay de la grille.
+ (c) montre le graphe de connexité pour la 8-connexité, ce graphe, n'étant
+ pas planaire ne peut pas servir comme support pour un 
+\begin_inset Formula \( K \)
+\end_inset 
+
+-complexe de dimension deux.
+ Il a été montré que cette connexité ne peut pas conduire à une définition
+ correcte d'un topologie discrète 
+\begin_inset LatexCommand \cite{Nogly}
+
+\end_inset 
+
+.
+ (d) Illustre le 
+\begin_inset Formula \( K \)
+\end_inset 
+
+-complexe associé au graphe de connexité pour une solution de 6-connexité,
+ cette option présent la désavantage d'être anisotrope, elle est absente
+ dans les applications d'imagerie mais on la retrouve souvent dans le domaine
+ de l'ingénierie en particulier dans les maillages utilisés par la méthode
+ des éléments finis.
+\layout Standard
+
+La figure 
+\begin_inset LatexCommand \ref{fig:hexagonal}
+
+\end_inset 
+
+ montre les relations équivalents pour le cas de la grille hexagonale.
+ (a) les cercles solides sont les points d'échantillonnage, le hexagone
+ gris est la région de Voronoï du point central.
+ (b) montre le 
+\begin_inset Formula \( K \)
+\end_inset 
+
+-simplex 
+\begin_inset Formula \( 2D \)
+\end_inset 
+
+ associé au graphe de connexité, les triangles grises correspondent a les
+ régions de Delaunay de la grille.
+ Malgré qu'elle n'est pas souvent utilisé dans les applications de traitement
+ d'image, la grille hexagonale est fondamentale dans le procès d'imprimerie
+ ainsi que dans la fabrication des écrans de télévision et des moniteurs
+ d'ordinateur.
+\layout Subsection
+
+La topologie dans la grille cubique 
+\layout Standard
+
+Le développement de l'imagerie 
+\begin_inset Formula \( 3D \)
+\end_inset 
+
+ a continue l'utilisation de la grille 
+\begin_inset Formula \( Z^{n} \)
+\end_inset 
+
+ avec la grille cubique, malgré le fait de constater que les problèmes de
+ connexité deviennent plus complexes 
+\latex latex 
+
+\begin_inset LatexCommand \cite{Udupa}
+
+\end_inset 
+
+
+\latex default 
+ (introduction de les 6, 18 et 26-connexitées) et que la non optimalité
+ de cette type de grille pour l'échantillonnage des signaux est plus significati
+ve.
+\layout Standard
+
+L'apparition des applications concernant des espaces 
+\begin_inset Formula \( 4D \)
+\end_inset 
+
+ et 
+\begin_inset Formula \( 5D \)
+\end_inset 
+
+ 
+\latex latex 
+
+\begin_inset LatexCommand \cite{UdupaDGCI}
+
+\end_inset 
+
+
+\latex default 
+ motivent d'avantage l'abandon de la grille 
+\begin_inset Formula \( Z^{n} \)
+\end_inset 
+
+en profit d'autre type des grilles mieux adaptées pour la description des
+ espaces discrets 
+\begin_inset Formula \( n \)
+\end_inset 
+
+-dimensionels.
+\layout Standard
+
+La figure 
+\begin_inset LatexCommand \ref{fig:topo3d}
+
+\end_inset 
+
+ illustre les relations dans la grille 
+\begin_inset Formula \( Z^{3} \)
+\end_inset 
+
+.
+ A gauche on trouve les 26 voisins d'un point d'échantillonage, le cube
+ gris représente la région de Voronoï du point central.
+ A droite on peut apprécier le 
+\begin_inset Formula \( K \)
+\end_inset 
+
+-complexe associé à la 6-connexité, il faut remarque qu'il n'est pas un
+ 
+\begin_inset Formula \( K \)
+\end_inset 
+
+-simplex.
+\layout Standard
+
+Nous montrerons dans ce chapitre que les grilles 
+\begin_inset Formula \( Z^{n} \)
+\end_inset 
+
+ peuvent être remplacées par les grilles 
+\begin_inset Formula \( A^{*}_{n} \)
+\end_inset 
+
+avec des importants avantages.
+ La plupart de ces avantages dérivent directement du fait que le graphe
+ de connexité d'une grille 
+\begin_inset Formula \( A^{*}_{n} \)
+\end_inset 
+
+est un 
+\begin_inset Formula \( K \)
+\end_inset 
+
+-simplex.
+ L'étude des grilles 
+\begin_inset Formula \( A^{*}_{n} \)
+\end_inset 
+
+est abordé ici en introduisant une procédure progressive de construction
+ de la famille.
+ Les relations géométriques qui seront mises en évidence par cette procédure
+ de construction nous permettrons de mettre en valeur les intéressantes
+ propriétés de la famille 
+\begin_inset Formula \( A^{*}_{n} \)
+\end_inset 
+
+.
+\layout Section
+
+La famille des grilles 
+\begin_inset Formula \( A_{n}^{*} \)
+\end_inset 
+
+
+\layout Subsection
+
+
+\begin_inset LatexCommand \label{sec:DefGrilleReciproque}
+
+\end_inset 
+
+La base vectorielle et la grille réciproque
+\layout Standard
+
+Une grille 
+\begin_inset Formula \( n \)
+\end_inset 
+
+-dimensionel peut être définie à partir d'une base vectorielle.
+ Les positions relatives entre deux points quelconques de la grille est
+ donc exprimée comme une combinaison linéaire des vecteurs de cette base
+ vectorielle de manière tel que les coefficients de la combinaison linéaire
+ soient des valeurs entiers 
+\latex latex 
+
+\begin_inset LatexCommand \cite{Coxeter}
+
+\end_inset 
+
+
+\latex default 
+.
+ Une même grille peut être décrite par différents bases vectorielles.
+\layout Standard
+
+Toute base vectorielle A a un base vectorielle orthonormale B tel que chacun
+ des vecteurs de B est orthogonal à exactement 
+\begin_inset Formula \( \left( n-1\right)  \)
+\end_inset 
+
+ vecteurs de la base A.
+ La base vectorielle B décrit la grille réciproque de la grille A.
+\layout Standard
+
+La densité des points une grille est inversement proportionnel à la densité
+ de points de sa grille réciproque 
+\latex latex 
+
+\begin_inset LatexCommand \cite{Kittel}
+
+\end_inset 
+
+
+\begin_inset LatexCommand \cite{Xtal}
+
+\end_inset 
+
+
+\latex default 
+.
+ Un super-index 
+\begin_inset Formula \( (*) \)
+\end_inset 
+
+ dénote la grille réciproque, ainsi, la grille 
+\begin_inset Formula \( A^{*}_{n} \)
+\end_inset 
+
+ est la réciproque de la grille 
+\begin_inset Formula \( A_{n} \)
+\end_inset 
+
+
+\latex latex 
+ 
+\begin_inset LatexCommand \cite{Pack}
+
+\end_inset 
+
+
+\latex default 
+.
+\layout Subsection
+
+Construction récursive de la grille 
+\begin_inset Formula \( A_{n} \)
+\end_inset 
+
+
+\layout Standard
+
+Les grilles de la famille 
+\begin_inset Formula \( A_{n} \)
+\end_inset 
+
+ sont connues comme les grilles sphèriques compactes (
+\emph on 
+spherical compact grid
+\emph default 
+s) car elles sont les grilles que permetent de mieux compacter des sphères
+ si on utilise les points de la grille comme les positions des centres des
+ sphères.
+ De grilles, n'appartenant à cette famille peuvent sur certains dimensions
+ supérer la capacité de compactation de la famille 
+\begin_inset Formula \( A_{n} \)
+\end_inset 
+
+, tel est le cas pour la dimensions 8 et 24 par exemple, néanmoins, ces
+ cas sont particulierement exceptionelles, ce qui fait que la famille 
+\begin_inset Formula \( A_{n} \)
+\end_inset 
+
+ garde sont designation historique de grilles compactes malgré qu'elles
+ ne sont pas les solutions optimales de compactation pour toutes les dimensions
+ 
+\begin_inset LatexCommand \cite{Pack}
+
+\end_inset 
+
+.
+\layout Standard
+
+La grille 
+\begin_inset Formula \( A_{0} \)
+\end_inset 
+
+ est un point isolé.
+ La grille 
+\begin_inset Formula \( A_{1} \)
+\end_inset 
+
+ est une alineation trivial des points sur une droite.
+ La grille 
+\begin_inset Formula \( A_{2} \)
+\end_inset 
+
+ est la grille hexagonal.
+ La grille 
+\begin_inset Formula \( A_{3} \)
+\end_inset 
+
+ est connue comme la grille FCC (
+\emph on 
+face centered cubic grid
+\emph default 
+).
+\layout Standard
+
+Étant donnée que les grilles de la famille 
+\begin_inset Formula \( A_{n} \)
+\end_inset 
+
+ compactent au mieux des sphères, ses réciproques, les grilles 
+\begin_inset Formula \( A^{*}_{n} \)
+\end_inset 
+
+ permetent de remplir l'espace en utilisant des sphères superposées avec
+ le moindre recouvrement 
+\begin_float footnote 
+\layout Standard
+
+le facteur de compactation des sphères d'une grille est connu comme 
+\emph on 
+packing ratio
+\emph default 
+, tandis que le factor de recouvrement est connu comme 
+\emph on 
+covering ratio
+\emph default 
+.
+\end_float 
+.
+\layout Standard
+
+Nous avons developpé un mécanisme simple pour construire de façon récursive
+ la famille de grilles 
+\begin_inset Formula \( A_{n} \)
+\end_inset 
+
+.
+ La grille 
+\begin_inset Formula \( A_{n} \)
+\end_inset 
+
+ correspondant à un espace 
+\begin_inset Formula \( n \)
+\end_inset 
+
+-dimensionel peut être construite à partir de la grille 
+\begin_inset Formula \( A_{(n-1)} \)
+\end_inset 
+
+, et ce depuis la grille 
+\begin_inset Formula \( A_{0} \)
+\end_inset 
+
+ qui corresponds à un point isolé.
+ Sans perte de généralité nous considérons pour chaque grille 
+\begin_inset Formula \( A_{n} \)
+\end_inset 
+
+ que la distance entre le points le plus proches est égale à 1.
+\layout Subsubsection
+
+Définition de l'ensemble élémentaire
+\layout Standard
+
+Pour guider la construction de la grille, nous utilisons une ensemble minimal
+ de points qui permet de définir la grille dans sa totalité, cet ensemble
+ est nommé ici 
+\emph on 
+ensemble élémentaire
+\emph default 
+, il corresponds à la configuration la plus compacte selon la quel peuvent
+ être mis en contacte 
+\begin_inset Formula \( (n+1) \)
+\end_inset 
+
+ hypersphères dans un espace 
+\begin_inset Formula \( n \)
+\end_inset 
+
+-dimensionel, l'ensemble est donc conformé par les 
+\begin_inset Formula \( (n+1) \)
+\end_inset 
+
+ centres de cettes hypersphères.
+ Tous les points de l'ensemble sont équidistants entre eux.
+ Le barycentre de l'ensemble est, lui aussi, équidistante de tous les 
+\begin_inset Formula \( (n+1) \)
+\end_inset 
+
+ points.
+ Nous utilisons desormais 
+\begin_inset Formula \( \Theta _{n} \)
+\end_inset 
+
+ pour représenter l'ensemble élémentaire de dimension 
+\begin_inset Formula \( n \)
+\end_inset 
+
+.
+\layout Subsubsection
+
+La règle de récursion
+\layout Standard
+
+Une fois que nous disposons de l'ensemble élémentaire 
+\begin_inset Formula \( \Theta _{(n-1)} \)
+\end_inset 
+
+ correspondant à une espace de dimension 
+\begin_inset Formula \( (n-1) \)
+\end_inset 
+
+, nous pouvons construire celui de dimension 
+\begin_inset Formula \( n \)
+\end_inset 
+
+ en prenant en compte que tous les points de 
+\begin_inset Formula \( \Theta _{(n-1)} \)
+\end_inset 
+
+ sont dans un sous-espace 
+\begin_inset Formula \( (n-1) \)
+\end_inset 
+
+-dimensionel de un autre espace 
+\begin_inset Formula \( n \)
+\end_inset 
+
+-dimensionel.
+ De cette façon, la coordonnée 
+\begin_inset Formula \( n \)
+\end_inset 
+
+-ème de tous les 
+\begin_inset Formula \( n \)
+\end_inset 
+
+ points de 
+\begin_inset Formula \( \Theta _{(n-1)} \)
+\end_inset 
+
+ est nulle.
+ Un nouveau point est donç ajouté pour compléter les 
+\begin_inset Formula \( (n+1) \)
+\end_inset 
+
+ nécessaires à la conformation de l'ensemble 
+\begin_inset Formula \( \Theta _{n} \)
+\end_inset 
+
+.
+ Les premières 
+\begin_inset Formula \( (n-1) \)
+\end_inset 
+
+ coordonnées de ce nouveau point sont choisies comme étant égales à celles
+ du barycentre de 
+\begin_inset Formula \( \Theta _{(n-1)} \)
+\end_inset 
+
+, tandis que la coordonnée 
+\begin_inset Formula \( n \)
+\end_inset 
+
+-ème est calcule de telle manière que la distance à tous les points de 
+\begin_inset Formula \( \Theta _{(n-1)} \)
+\end_inset 
+
+ soit égale à 1.
+ La figure 
+\begin_inset LatexCommand \ref{fig:elemset}
+
+\end_inset 
+
+ montre le processus incremental pour les dimensions de zéro a trois.
+ Les sphères représentent les point des ensembles élémentaires tandis que
+ les carres représentent les barycentres.
+\layout Standard
+
+Si nous appelons: 
+\layout Itemize
+
+
+\begin_inset Formula \( b_{n} \)
+\end_inset 
+
+ la distance euclidienne entre le barycentre et les points de 
+\begin_inset Formula \( \Theta _{n} \)
+\end_inset 
+
+.
+\layout Itemize
+
+
+\begin_inset Formula \( p_{n} \)
+\end_inset 
+
+ la distance euclidienne entre le nouveau point et le sous-espace occupé
+ par 
+\begin_inset Formula \( \Theta _{(n-1)} \)
+\end_inset 
+
+.
+\layout Standard
+
+La figure 
+\begin_inset LatexCommand \ref{fig:pnbn}
+
+\end_inset 
+
+ illustre les relations existantes entre les segment 
+\begin_inset Formula \( p_{n} \)
+\end_inset 
+
+ et 
+\begin_inset Formula \( b_{n} \)
+\end_inset 
+
+ pour deux dimensions consécutives, elle sont explicitement:
+\layout Standard
+
+
+\begin_inset Formula 
+\begin{equation}
+p_{n}^{2}=1-b_{n-1}^{2}
+\end{equation}
+
+\end_inset 
+
+
+\layout Standard
+
+
+\begin_inset Formula 
+\begin{equation}
+b_{n}=\left( \frac{n}{n+1}\right) p_{n}
+\end{equation}
+
+\end_inset 
+
+
+\layout Standard
+
+
+\begin_inset Formula 
+\begin{equation}
+b_{n}^{2}=b^{2}_{n-1}+\frac{p^{2}_{n}}{(n+1)^{2}}
+\end{equation}
+
+\end_inset 
+
+Avec 
+\begin_inset Formula \( p_{0}=0 \)
+\end_inset 
+
+ et 
+\begin_inset Formula \( b_{0}=0 \)
+\end_inset 
+
+.
+ En utilisant ces expressions récursives nous pouvons déduire les valeurs
+ de 
+\begin_inset Formula \( p_{n} \)
+\end_inset 
+
+ et 
+\begin_inset Formula \( b_{n} \)
+\end_inset 
+
+ comme il est indiqué dans la équation 
+\begin_inset LatexCommand \ref{sec:pnbn}
+
+\end_inset 
+
+:
+\layout Standard
+
+
+\begin_inset Formula 
+\begin{equation}
+p_{n}^{2}=\frac{(n+1)}{2n}
+\end{equation}
+
+\end_inset 
+
+
+\layout Standard
+
+
+\begin_inset Formula 
+\begin{equation}
+b_{n}^{2}=\frac{n}{2(n+1)}
+\end{equation}
+
+\end_inset 
+
+
+\layout Standard
+
+Le hypervolume 
+\begin_inset Formula \( Ve_{n} \)
+\end_inset 
+
+ correspondante à l'enveloppe convexe de l'ensemble élémentaire est exprimé
+ comme:
+\layout Standard
+
+
+\begin_inset Formula 
+\begin{equation}
+Ve_{n}=Ve_{(n-1)}\frac{p_{n}}{n}
+\end{equation}
+
+\end_inset 
+
+
+\layout Standard
+
+ce qui conduit à l'expression explicite:
+\layout Standard
+
+
+\begin_inset Formula 
+\begin{equation}
+Ve_{n=}\left( \frac{1}{n!}\right) \sqrt{\frac{(n+1)}{2^{n}}}
+\end{equation}
+
+\end_inset 
+
+
+\layout Standard
+
+Le hypervolume 
+\begin_inset Formula \( Vc_{n} \)
+\end_inset 
+
+ de la cellule 
+\begin_inset Formula \( n \)
+\end_inset 
+
+-dimensionel définie par les combinaisons lineaires de les vecteurs de la
+ base, avec des coefficientws dans l'intervale 
+\begin_inset Formula \( [0,1] \)
+\end_inset 
+
+ est évalue para l'expression récursive:
+\layout Standard
+
+
+\begin_inset Formula 
+\begin{equation}
+Vc_{n}=Vc_{(n-1)\; \; }p_{n}
+\end{equation}
+
+\end_inset 
+
+
+\layout Standard
+
+à partir de la quelle nous pouvons obtenir l'expression explicite:
+\layout Standard
+
+
+\begin_inset Formula 
+\begin{equation}
+Vc_{n}=\sqrt{\frac{(n+1)}{2^{n}}}
+\end{equation}
+
+\end_inset 
+
+
+\layout Standard
+
+Cette dernière expression est d'une grande importance car elle est équivalente
+ au volume de la cellule de Voronoï de la grille 
+\begin_inset Formula \( A_{n} \)
+\end_inset 
+
+.
+ Son inverse étant la densité des points de la grille.
+ Ce volume nous permet de calculer le facteur de compactation de la grille
+ (ou 
+\emph on 
+packing ratio
+\emph default 
+).
+\layout Standard
+
+La table 
+\begin_inset LatexCommand \ref{tab:basic}
+
+\end_inset 
+
+ présente les valeurs de 
+\begin_inset Formula \( p_{n} \)
+\end_inset 
+
+, 
+\begin_inset Formula \( b_{n} \)
+\end_inset 
+
+, 
+\begin_inset Formula \( Ve_{n} \)
+\end_inset 
+
+, 
+\begin_inset Formula \( Vc_{n} \)
+\end_inset 
+
+ issues de ces relations pour les dimensions de zéro a cinq.
+ Les fractions rationales n'ont pas été simplifies à fin de permettre la
+ comparaison avec les relations récursives.
+ La dernière colonne montre les valeurs numeriques approximatives du volume
+ de la cellule.
+\layout Subsubsection
+
+La base vectorielle de la grille 
+\begin_inset Formula \( A_{n} \)
+\end_inset 
+
+
+\layout Standard
+
+La méthode récursive de construction que nous présentons ici constitue une
+ procedure simple pour définir la base vectorielle de la grille 
+\begin_inset Formula \( A_{n} \)
+\end_inset 
+
+.
+ Elle nous permet d'établir une procedure algebraique pour obtenir la base
+ vectorielle de la grille sans developper la suite des grilles des dimensions
+ inférieures.
+\layout Standard
+
+Nous considerons que l'ensemble élémentaire 
+\begin_inset Formula \( \Theta _{n} \)
+\end_inset 
+
+ est immergé dans un espace 
+\begin_inset Formula \( m \)
+\end_inset 
+
+-dimensionel avec 
+\begin_inset Formula \( m \)
+\end_inset 
+
+ de taille aussi grand que nous voudrions.
+ Cette ensemble se construit suivant notre méthode incrementale jusqu'a
+ occuper à sous-espace 
+\begin_inset Formula \( n \)
+\end_inset 
+
+-dimensional.
+ La base vectorielle de cet sous-espace est conformée par 
+\begin_inset Formula \( n \)
+\end_inset 
+
+ vecteurs dont les 
+\begin_inset Formula \( (m-n) \)
+\end_inset 
+
+ dernières composantes sont nulles.
+\layout Standard
+
+Nous appelons 
+\begin_inset Formula \( C_{ij} \)
+\end_inset 
+
+ à la composante 
+\begin_inset Formula \( i \)
+\end_inset 
+
+-ème du vecteur 
+\begin_inset Formula \( \overrightarrow{C_{j}} \)
+\end_inset 
+
+, qui est, à son tour, le 
+\begin_inset Formula \( j \)
+\end_inset 
+
+-ème vecteur de la base vectorielle.
+ L'application de la méthode récursive de construction implique que les
+ premières 
+\begin_inset Formula \( (n-1) \)
+\end_inset 
+
+ coordonnés du nouveau point ajouté pour obtenir l'ensemble 
+\begin_inset Formula \( E_{(n-1)} \)
+\end_inset 
+
+ seront celles du barycentre de 
+\begin_inset Formula \( \Theta _{n} \)
+\end_inset 
+
+, tandis que la coordonnée 
+\begin_inset Formula \( n \)
+\end_inset 
+
+-ème sera égale au coefficient 
+\begin_inset Formula \( p_{n} \)
+\end_inset 
+
+.
+ Ce qui est en génerale:
+\layout Standard
+
+
+\begin_inset Formula 
+\begin{equation}
+\label{eqn:compact}
+C_{ij}=\left\{ \begin{array}{lcr}
+0 & \mbox {if} & i>j\\
+p_{i} & \mbox {if} & i=j\\
+\frac{p_{i}}{(i+1)} & \mbox {if} & i<j
+\end{array}\right. 
+\end{equation}
+
+\end_inset 
+
+
+\layout Section
+
+La grille 
+\begin_inset Formula \( A^{*}_{n} \)
+\end_inset 
+
+ réciproque de 
+\begin_inset Formula \( A_{n} \)
+\end_inset 
+
+
+\layout Standard
+
+La grille réciproque de une grille A est definie comme la grille B dont
+ la base vectorielle est orthonormal à la base vectorielle de A.
+ Si le coefficient 
+\begin_inset Formula \( D_{ij} \)
+\end_inset 
+
+ est la composante 
+\begin_inset Formula \( i \)
+\end_inset 
+
+-ème du 
+\begin_inset Formula \( j \)
+\end_inset 
+
+-ème vecteur 
+\begin_inset Formula \( \overrightarrow{D_{j}} \)
+\end_inset 
+
+ de la base vectorielle de B, la rélations suivante doit être satisfaite:
+\layout Standard
+
+
+\begin_inset Formula 
+\begin{equation}
+\sum _{i=1}^{n}C_{ij}D_{kj}=\delta _{ij}
+\end{equation}
+
+\end_inset 
+
+
+\layout Standard
+
+Ce qui nous conduit à l'expression éxplicite (les détails de ce developpement
+ sont présentes dans la section 
+\begin_inset LatexCommand \ref{sec:reciprocalgrid}
+
+\end_inset 
+
+):
+\layout Standard
+
+
+\begin_inset Formula 
+\begin{equation}
+\label{eqn:reciprocal}
+D_{ij}=\left\{ \begin{array}{ccc}
+0 & \mbox {if} & i<j\\
+\frac{1}{p_{i}} & \mbox {if} & i=j\\
+\frac{-1}{i\cdot p_{i}} & \mbox {if} & i>j
+\end{array}\right. 
+\end{equation}
+
+\end_inset 
+
+
+\layout Standard
+
+Pour illustrer les résultats de cettes relations, les valeurs des coefficients
+ 
+\begin_inset Formula \( C_{ij} \)
+\end_inset 
+
+ des vecteurs de la base sont présentés jusqu'a la dimension 
+\begin_inset Formula \( 5 \)
+\end_inset 
+
+.
+\layout Standard
+
+La base vectorielle pour une dimension 
+\begin_inset Formula \( n \)
+\end_inset 
+
+ inferieure à cinq est simplement la sous-matrice de taille 
+\begin_inset Formula \( n\times n \)
+\end_inset 
+
+ à partir du coin gauche supérieur.
+ Les vecteus sont présents dans les lignes de la matrice.
+\layout Standard
+
+
+\begin_inset Formula 
+\begin{equation}
+C_{ij}=\left[ \begin{array}{ccccc}
+p_{1} & 0 & 0 & 0 & 0\\
+\frac{p_{1}}{2} & p_{2} & 0 & 0 & 0\\
+\frac{p_{1}}{2} & \frac{p_{2}}{3} & p_{3} & 0 & 0\\
+\frac{p_{1}}{2} & \frac{p_{2}}{3} & \frac{p_{3}}{4} & p_{4} & 0\\
+\frac{p_{1}}{2} & \frac{p_{2}}{3} & \frac{p_{3}}{4} & \frac{p_{4}}{5} & p_{5}
+\end{array}\right] =\left[ \begin{array}{ccccc}
+1 & 0 & 0 & 0 & 0\\
+\frac{1}{2} & \frac{\sqrt{3}}{2} & 0 & 0 & 0\\
+\frac{1}{2} & \frac{\sqrt{3}}{6} & \frac{\sqrt{6}}{3} & 0 & 0\\
+\frac{1}{2} & \frac{\sqrt{3}}{6} & \frac{\sqrt{6}}{12} & \frac{\sqrt{10}}{4} & 0\\
+\frac{1}{2} & \frac{\sqrt{3}}{6} & \frac{\sqrt{6}}{12} & \frac{\sqrt{10}}{20} & \frac{\sqrt{15}}{5}
+\end{array}\right] 
+\end{equation}
+
+\end_inset 
+
+ 
+\layout Standard
+
+Les composants 
+\begin_inset Formula \( D_{ij} \)
+\end_inset 
+
+ des vecteurs de la base correspondant à la grille réciproque, pour la dimension
+ 
+\begin_inset Formula \( 5 \)
+\end_inset 
+
+ sont:
+\layout Standard
+
+
+\begin_inset Formula 
+\begin{equation}
+D_{ij}=\left[ \begin{array}{ccccc}
+\frac{1}{p_{1}} & \frac{-1}{2\cdot p_{2}} & \frac{-1}{3\cdot p_{3}} & \frac{-1}{4\cdot p_{4}} & \frac{-1}{5\cdot p_{5}}\\
+0 & \frac{1}{p_{2}} & \frac{-1}{3\cdot p_{3}} & \frac{-1}{4\cdot p_{4}} & \frac{-1}{5\cdot p_{5}}\\
+0 & 0 & \frac{1}{p_{3}} & \frac{-1}{4\cdot p_{4}} & \frac{-1}{5\cdot p_{5}}\\
+0 & 0 & 0 & \frac{1}{p_{4}} & \frac{-1}{5\cdot p_{5}}\\
+0 & 0 & 0 & 0 & \frac{1}{p_{5}}
+\end{array}\right] =\left[ \begin{array}{ccccc}
+1 & \frac{-\sqrt{3}}{3} & \frac{-\sqrt{6}}{6} & \frac{-\sqrt{10}}{10} & \frac{-\sqrt{15}}{15}\\
+0 & \frac{2\sqrt{3}}{3} & \frac{-\sqrt{6}}{6} & \frac{-\sqrt{10}}{10} & \frac{-\sqrt{15}}{15}\\
+0 & 0 & \frac{\sqrt{6}}{2} & \frac{-\sqrt{10}}{10} & \frac{-\sqrt{15}}{15}\\
+0 & 0 & 0 & \frac{2\sqrt{10}}{5} & \frac{-\sqrt{15}}{15}\\
+0 & 0 & 0 & 0 & \frac{\sqrt{15}}{3}
+\end{array}\right] 
+\end{equation}
+
+\end_inset 
+
+
+\layout Standard
+
+Les lignes de la matrice 
+\begin_inset Formula \( C \)
+\end_inset 
+
+ sont les vecteurs 
+\begin_inset Formula \( \overrightarrow{C_{j}} \)
+\end_inset 
+
+ tandis que les lignes de la matrice 
+\begin_inset Formula \( D \)
+\end_inset 
+
+ sont les vecteurs 
+\begin_inset Formula \( \overrightarrow{D_{i}} \)
+\end_inset 
+
+.
+ Les vecteurs 
+\begin_inset Formula \( \overrightarrow{C_{j}} \)
+\end_inset 
+
+ la proprieté suivante (les détails sont présentés dans la section 
+\begin_inset LatexCommand \ref{sec:reciprocalgrid}
+
+\end_inset 
+
+):
+\layout Standard
+
+
+\begin_inset Formula 
+\begin{equation}
+\overrightarrow{C_{j}}\cdot \overrightarrow{C_{k}}=\left\{ \begin{array}{lcr}
+1 & \mbox {if} & j=k\\
+\frac{1}{2} & \mbox {otherwise} & 
+\end{array}\right. 
+\end{equation}
+
+\end_inset 
+
+
+\layout Standard
+
+Cette relation implique que l'angle entre deux vecteurs quelconques de la
+ base vectorielle de une grille 
+\begin_inset Formula \( A_{n} \)
+\end_inset 
+
+ est de 
+\begin_inset Formula \( 60^{\circ } \)
+\end_inset 
+
+ indépendenment de la dimension 
+\begin_inset Formula \( n \)
+\end_inset 
+
+ de l'espace.
+\layout Standard
+
+Les vecteurs 
+\begin_inset Formula \( \overrightarrow{D_{j}} \)
+\end_inset 
+
+ satisfasent la proprieté suivante (les détails sont présentés dans la section
+ 
+\begin_inset LatexCommand \ref{sec:recipbasisproduct}
+
+\end_inset 
+
+):
+\layout Standard
+
+
+\begin_inset Formula 
+\begin{equation}
+\overrightarrow{D_{j}}\cdot \overrightarrow{D_{k}}=\left\{ \begin{array}{lcr}
+\frac{2n}{(n+1)} & \mbox {if} & j=k\\
+\frac{-2}{(n+1)} & \mbox {otherwise} & 
+\end{array}\right. 
+\end{equation}
+
+\end_inset 
+
+
+\layout Standard
+
+Où 
+\begin_inset Formula \( n \)
+\end_inset 
+
+ est la dimension de l'espace.
+ En consequence, l'angle 
+\begin_inset Formula \( \alpha  \)
+\end_inset 
+
+ entre deux vecteurs quelconques de la base vectorielle d'une grille 
+\begin_inset Formula \( A^{*}_{n} \)
+\end_inset 
+
+ est:
+\layout Standard
+
+
+\begin_inset Formula 
+\begin{equation}
+\label{eqn:angle}
+\alpha =cos^{-1}\left( \frac{-1}{n}\right) 
+\end{equation}
+
+\end_inset 
+
+
+\layout Standard
+
+Le fait de que tous les vecteurs de base aient le même module et que tous
+ les paires de vecteurs forment le même angle implique que 
+\emph on 
+tous sont équivalents entre eux,
+\emph default 
+ malgré que les expressions arithmétiques de ses composantes semblents assez
+ differentes.
+\layout Standard
+
+Ces differences reflêtent simplement le fait d'avoir construit les vecteurs
+ de façon incrementale.
+ Néanmoins, du point de vue géométrique, n'importe lequel d'entre eux aurait
+ pu être choisi comme le premier, deuxieme ou dernier.
+ Ce remarque est valable aussi bien pour la grille 
+\begin_inset Formula \( A_{n} \)
+\end_inset 
+
+ que pour la grille 
+\begin_inset Formula \( A^{*}_{n} \)
+\end_inset 
+
+.
+\layout Subsection
+
+Les voisinages
+\layout Standard
+
+Le but de cette section est d'identifier les relations de voisinage entre
+ les points de la grille 
+\begin_inset Formula \( A^{*}_{n} \)
+\end_inset 
+
+qui serviront de support pour les remarquables propriétés de symmetrie que
+ nous aborderons dans la secton suivante.
+ La détermination des voisinage d'un point est une tâche de la plus grande
+ importance dans la définition de la topologie discrète dans une grille.
+ 
+\layout Standard
+
+Les vecteurs de base de la grille indiquent les position de seulement 
+\begin_inset Formula \( n \)
+\end_inset 
+
+ points voisins de l'origin.
+ Les vecteurs pour les points restants peuvent être retrouvés en faisant
+ des combinaison lineaires des vecteurs de la base.
+ Les voisins inmediats de l'origin (au sens de déplacement dans la grille,
+ pas au sens des distance euclidienne) sont obtenus par de combinaisons
+ lineaires de vecteurs de la base avec des coefficients choisis dans l'ensemble
+ 
+\begin_inset Formula \( \left\{ -1,0,1\right\}  \)
+\end_inset 
+
+.
+\layout Standard
+
+La figure 
+\begin_inset LatexCommand \ref{fig:inmediateneighbors}
+
+\end_inset 
+
+ illustre cette notion pour le cas de la grille hexagonal (ce que correspond,
+ en fait, à la grille 
+\begin_inset Formula \( A_{2}^{*} \)
+\end_inset 
+
+).
+ Les vecteur 
+\begin_inset Formula \( \overrightarrow{D_{1}} \)
+\end_inset 
+
+ et 
+\begin_inset Formula \( \overrightarrow{D_{2}} \)
+\end_inset 
+
+ forment la base vectorielle.
+ Ils définent les positions que de deux voisins immediates du point central.
+ Les quatre restants sont obtenus par des combinaisons lineaires de 
+\begin_inset Formula \( \overrightarrow{D_{1}} \)
+\end_inset 
+
+ et 
+\begin_inset Formula \( \overrightarrow{D_{2}} \)
+\end_inset 
+
+.
+ Il faut remarquer que pas toutes les combinaison avec des coefficients
+ dans l'ensemble 
+\begin_inset Formula \( \left\{ -1,0,1\right\}  \)
+\end_inset 
+
+ conduisent a des voisins immediates.
+\layout Standard
+
+Dans le cas général de la grille 
+\begin_inset Formula \( A_{n}^{*} \)
+\end_inset 
+
+, notre étude a montré que le vecteur 
+\begin_inset Formula \( \overrightarrow{SD} \)
+\end_inset 
+
+, somme de tous les vecteurs 
+\begin_inset Formula \( \overrightarrow{D_{j}} \)
+\end_inset 
+
+ de la base, est clé pour la comprehension des relations de symmetrie de
+ cette grille.
+\layout Standard
+
+Les composantes du vecteur somme 
+\begin_inset Formula \( \overrightarrow{SD} \)
+\end_inset 
+
+ sont: (voir détails dans la section 
+\begin_inset LatexCommand \ref{sec:recipbasisproduct}
+
+\end_inset 
+
+):
+\layout Standard
+
+
+\begin_inset Formula 
+\begin{equation}
+\left( \overrightarrow{SD}\right) _{i}=\sum ^{n}_{j=1}D_{ij}=\frac{1}{ip_{i}}=\sqrt{\frac{2}{i(i+1)}}
+\end{equation}
+
+\end_inset 
+
+
+\layout Standard
+
+en consequence, son module est:
+\layout Standard
+
+
+\begin_inset Formula 
+\begin{equation}
+\left\Vert \overrightarrow{SD}\right\Vert ^{2}=\frac{2n}{(n+1)}
+\end{equation}
+
+\end_inset 
+
+
+\layout Standard
+
+Cet-à-dire que le vecteur 
+\begin_inset Formula \( \overrightarrow{SD} \)
+\end_inset 
+
+, resultant de la somme de tous les vecteurs 
+\begin_inset Formula \( \overrightarrow{D_{i}} \)
+\end_inset 
+
+ de la base, a le même module que n'importe lequel d'entre eux.
+ Le produit scalaire d'un vecteur 
+\begin_inset Formula \( \overrightarrow{D_{i}} \)
+\end_inset 
+
+ avec le vecteur somme 
+\begin_inset Formula \( \overrightarrow{SD} \)
+\end_inset 
+
+ est:
+\layout Standard
+
+
+\begin_inset Formula 
+\begin{equation}
+\overrightarrow{SD}\cdot \overrightarrow{D_{i}}=\frac{2}{(n+1)}
+\end{equation}
+
+\end_inset 
+
+
+\layout Standard
+
+Donc, le vecteur 
+\begin_inset Formula \( -\overrightarrow{SD} \)
+\end_inset 
+
+ forme le même angle 
+\begin_inset Formula \( \alpha  \)
+\end_inset 
+
+ avec tous les vecteur 
+\begin_inset Formula \( \overrightarrow{D_{i}} \)
+\end_inset 
+
+ de la base (voir equation (
+\begin_inset LatexCommand \ref{eqn:angle}
+
+\end_inset 
+
+)):
+\layout Standard
+
+
+\begin_inset Formula 
+\begin{equation}
+\alpha =cos^{-1}\left( \frac{-1}{n}\right) 
+\end{equation}
+
+\end_inset 
+
+
+\layout Standard
+
+Le vecteur qui est reelement interesant est 
+\begin_inset Formula \( -\overrightarrow{SD} \)
+\end_inset 
+
+ plutôt que 
+\begin_inset Formula \( \overrightarrow{SD} \)
+\end_inset 
+
+, car son module est le même que celui des vecteurs 
+\begin_inset Formula \( \overrightarrow{D_{i}} \)
+\end_inset 
+
+ et l'angle qu'il forme avec une vecteur 
+\begin_inset Formula \( \overrightarrow{D_{i}} \)
+\end_inset 
+
+ quelconque est le même qui se forme entre deux vecteurs 
+\begin_inset Formula \( \overrightarrow{D_{i}} \)
+\end_inset 
+
+ et 
+\begin_inset Formula \( \overrightarrow{D_{j}} \)
+\end_inset 
+
+ de la base.
+ Comme conséquence le vecteur 
+\begin_inset Formula \( -\overrightarrow{SD} \)
+\end_inset 
+
+ est équivalent à un vecteur 
+\begin_inset Formula \( \overrightarrow{D_{i}} \)
+\end_inset 
+
+.
+ Cette propriété condense la particularité de la configuration géométrique
+ qui fait que la grille 
+\begin_inset Formula \( A_{n}^{*} \)
+\end_inset 
+
+soit tellement intéressant.
+\layout Standard
+
+La figure (
+\begin_inset LatexCommand \ref{fig:bccbasisvectors}
+
+\end_inset 
+
+) illustre le cas 
+\begin_inset Formula \( 3D \)
+\end_inset 
+
+.
+ La grille 
+\begin_inset Formula \( A_{3} \)
+\end_inset 
+
+ est équivalent à la grille FCC (
+\emph on 
+face centered cubic grid
+\emph default 
+) tandis que la grille 
+\begin_inset Formula \( A^{*}_{3} \)
+\end_inset 
+
+ est équivalent à la grille BCC (
+\emph on 
+body centered cubic grid
+\emph default 
+).
+\layout Standard
+
+Nous utilisons par la suite le terme de 
+\emph on 
+base étendue
+\emph default 
+ pour designer l'ensemble de vecteurs composé par tous les vecteur 
+\begin_inset Formula \( \overrightarrow{D_{i}} \)
+\end_inset 
+
+ de la base plus le vecteur 
+\begin_inset Formula \( -\overrightarrow{SD} \)
+\end_inset 
+
+.
+ Cette ensemble nous permet de former 
+\begin_inset Formula \( n \)
+\end_inset 
+
+ bases vectorielles différentes mais équivalentes pour définir la grille
+ 
+\begin_inset Formula \( A^{*}_{n} \)
+\end_inset 
+
+.
+ Au moment de remplacer un vecteur 
+\begin_inset Formula \( \overrightarrow{D_{i}} \)
+\end_inset 
+
+ de la base vectorielle, par le vecteur 
+\begin_inset Formula \( -\overrightarrow{SD} \)
+\end_inset 
+
+ nous obtenons une nouvelle base vectorielle complètement équivalente à
+ l'originale.
+ Aditionellement, le vecteur reemplacé 
+\begin_inset Formula \( \overrightarrow{D_{i}} \)
+\end_inset 
+
+ est égale à la somme négative de tous les vecteurs de la nouvelle base,
+ c'est-a-dire que il à échange son rôle géométrique avec le vecteur 
+\begin_inset Formula \( -\overrightarrow{SD} \)
+\end_inset 
+
+.
+\layout Standard
+
+Pour faire plus évidente cette propriété nous designons le vecteur 
+\begin_inset Formula \( -\overrightarrow{SD} \)
+\end_inset 
+
+ comme le vecteur 
+\begin_inset Formula \( \overrightarrow{D_{(n+1)}} \)
+\end_inset 
+
+, qui satisfait:
+\layout Standard
+
+
+\begin_inset Formula 
+\begin{eqnarray}
+\overrightarrow{D_{(n+1)}} & = & -\sum ^{n}_{i=1}\overrightarrow{D_{i}}\nonumber \\
+0 & = & \sum ^{n+1}_{i=1}\overrightarrow{D_{i}}\\
+\overrightarrow{D_{k}} & = & -\sum _{i\neq k}\overrightarrow{D_{i}}\nonumber 
+\end{eqnarray}
+
+\end_inset 
+
+
+\layout Standard
+
+Nous trouvons que l'analyse de sommes partiales des vecteurs de base nous
+ conduit aussi à des relations intéresants.
+ Nous designons par 
+\begin_inset Formula \( \overrightarrow{S_{k}} \)
+\end_inset 
+
+ la somme de les premier 
+\begin_inset Formula \( k \)
+\end_inset 
+
+ vecteurs 
+\begin_inset Formula \( \overrightarrow{D_{i}} \)
+\end_inset 
+
+ de la base.
+ Les composantes de 
+\begin_inset Formula \( \overrightarrow{S_{k}} \)
+\end_inset 
+
+ sont (details dans la section 
+\begin_inset LatexCommand \ref{sec:sumofkvectors}
+
+\end_inset 
+
+):
+\layout Standard
+
+
+\begin_inset Formula 
+\begin{equation}
+\left( \overrightarrow{S_{k}}\right) _{i}=S_{ik}=\sum ^{k}_{j=1}D_{ij}=\left\{ \begin{array}{ccc}
+\frac{1}{ip_{i}} & \mbox {for} & i\leq j\\
+\frac{-k}{ip_{i}} & \mbox {for} & i>j
+\end{array}\right. 
+\end{equation}
+
+\end_inset 
+
+
+\layout Standard
+
+Les vecteurs 
+\begin_inset Formula \( \overrightarrow{S_{k}} \)
+\end_inset 
+
+ correspondants à la dimension 
+\begin_inset Formula \( 5 \)
+\end_inset 
+
+ se trouvent dans les lignes de la matrice.
+\layout Standard
+
+
+\begin_inset Formula 
+\begin{equation}
+S_{ij}=\left[ \begin{array}{ccccc}
+\frac{1}{p_{1}} & \frac{-1}{2\cdot p_{2}} & \frac{-1}{3\cdot p_{3}} & \frac{-1}{4\cdot p_{4}} & \frac{-1}{5\cdot p_{5}}\\
+\frac{1}{p_{1}} & \frac{1}{2p_{2}} & \frac{-2}{3\cdot p_{3}} & \frac{-2}{4\cdot p_{4}} & \frac{-2}{5\cdot p_{5}}\\
+\frac{1}{p_{1}} & \frac{1}{2p_{2}} & \frac{1}{3p_{3}} & \frac{-3}{4\cdot p_{4}} & \frac{-3}{5\cdot p_{5}}\\
+\frac{1}{p_{1}} & \frac{1}{2p_{2}} & \frac{1}{3p_{3}} & \frac{1}{4p_{4}} & \frac{-4}{5\cdot p_{5}}\\
+\frac{1}{p_{1}} & \frac{1}{2p_{2}} & \frac{1}{3p_{3}} & \frac{1}{4p_{4}} & \frac{1}{5p_{5}}
+\end{array}\right] =\left[ \begin{array}{ccccc}
+1 & \frac{-\sqrt{3}}{3} & \frac{-\sqrt{6}}{6} & \frac{-\sqrt{10}}{10} & \frac{-\sqrt{15}}{15}\\
+1 & \frac{\sqrt{3}}{3} & \frac{-2\sqrt{6}}{6} & \frac{-2\sqrt{10}}{10} & \frac{-2\sqrt{15}}{15}\\
+1 & \frac{\sqrt{3}}{3} & \frac{\sqrt{6}}{6} & \frac{-3\sqrt{10}}{10} & \frac{-3\sqrt{15}}{15}\\
+1 & \frac{\sqrt{3}}{3} & \frac{\sqrt{6}}{6} & \frac{\sqrt{10}}{10} & \frac{-4\sqrt{15}}{15}\\
+1 & \frac{\sqrt{3}}{3} & \frac{\sqrt{6}}{6} & \frac{\sqrt{10}}{10} & \frac{\sqrt{15}}{15}
+\end{array}\right] 
+\end{equation}
+
+\end_inset 
+
+
+\layout Standard
+
+Le produit scalaire de ce vecteur avec n'importe lequel des premiers 
+\begin_inset Formula \( k \)
+\end_inset 
+
+ vecteurs de la base (c'est-à-dire, avec les vecteurs qu'ont participé dans
+ la somme) est:
+\layout Standard
+
+
+\begin_inset Formula 
+\begin{equation}
+\overrightarrow{S_{k}}\cdot \overrightarrow{D_{i}}=\frac{2(n+1-k)}{(n+1)}
+\end{equation}
+
+\end_inset 
+
+
+\layout Standard
+
+Ce qui est independant du vecteur 
+\begin_inset Formula \( \overrightarrow{D_{i}} \)
+\end_inset 
+
+ choisi, le vecteur 
+\begin_inset Formula \( \overrightarrow{S_{k}} \)
+\end_inset 
+
+ forme donç le même angle
+\begin_float footnote 
+\layout Standard
+
+Puisque les modules de tous les vecteurs de la base sont les mêmes.
+\end_float 
+ avec tous les vecteurs qui ont participé à sa somme.
+\layout Standard
+
+Le module du vecteur 
+\begin_inset Formula \( \overrightarrow{S_{k}} \)
+\end_inset 
+
+ en dimension 
+\begin_inset Formula \( n \)
+\end_inset 
+
+ est:
+\layout Standard
+
+
+\begin_inset Formula 
+\begin{equation}
+\left\Vert \overrightarrow{S_{k}}\right\Vert ^{2}=\frac{2k(n+1-k)}{(n+1)}
+\end{equation}
+
+\end_inset 
+
+
+\layout Standard
+
+Le produit scalaire de deux vecteurs 
+\begin_inset Formula \( \overrightarrow{S_{k_{1}}} \)
+\end_inset 
+
+ and 
+\begin_inset Formula \( \overrightarrow{S_{k_{2}}} \)
+\end_inset 
+
+ qui resultent des sommes partiels est:
+\layout Standard
+
+
+\begin_inset Formula 
+\begin{equation}
+\overrightarrow{S_{k_{1}}}\cdot \overrightarrow{S_{k_{2}}}=\frac{2k_{1}(n+1-k_{2})}{(n+1)}
+\end{equation}
+
+\end_inset 
+
+
+\layout Standard
+
+Où 
+\begin_inset Formula \( k_{1}<k_{2} \)
+\end_inset 
+
+ et tous les vecteur présents dans la somme de 
+\begin_inset Formula \( \overrightarrow{S_{k_{1}}} \)
+\end_inset 
+
+ le sont aussi dans la somme de 
+\begin_inset Formula \( \overrightarrow{S_{k_{2}}} \)
+\end_inset 
+
+.
+\layout Subsection
+
+Les symmetries
+\layout Subsubsection
+
+L'equivalence des vecteurs de base
+\layout Standard
+
+L'analyse des symmetries nous donne un aperçu importante de les propriétés
+ des grilles.
+ C'est le nombre importante de symmetries présentes dans les grilles 
+\begin_inset Formula \( A^{*}_{n} \)
+\end_inset 
+
+ et 
+\begin_inset Formula \( A_{n} \)
+\end_inset 
+
+ qui les fait interesantes pour les applications de traitement de signal
+ 
+\latex latex 
+
+\begin_inset LatexCommand \cite{Serra}
+
+\end_inset 
+
+
+\begin_inset LatexCommand \cite{Morpho}
+
+\end_inset 
+
+
+\latex default 
+ .
+ 
+\layout Standard
+
+L'equivalence entre les 
+\begin_inset Formula \( (n+1) \)
+\end_inset 
+
+ vecteurs 
+\begin_inset Formula \( \overrightarrow{D_{i}} \)
+\end_inset 
+
+ devoile l'existence d'n ensemble assez complete de symmetries.
+ Cettes symmetries apparaisent grâce à la possibilité d'echanger un vecteur
+ par un'autre.
+ Chaque symmetrie est obtenue par la division de l'ensemble de vecteurs
+ en deux sous-ensembles.
+ Le premier ensemble (qui nous designons par 
+\begin_inset Formula \( \eta  \)
+\end_inset 
+
+) reste constant, tandis que le seconde (qui nous designon par 
+\begin_inset Formula \( \psi  \)
+\end_inset 
+
+) permute ses éléments de manière cyclique.
+ Le sous-ensemble 
+\begin_inset Formula \( \eta  \)
+\end_inset 
+
+ est appellé souvent le 
+\emph on 
+sous-espace de symmetry
+\emph default 
+ (le 
+\emph on 
+point
+\emph default 
+ de symmetrie si 
+\begin_inset Formula \( \eta  \)
+\end_inset 
+
+ est vide, l'
+\emph on 
+axe
+\emph default 
+ de symmetrie si 
+\begin_inset Formula \( \eta  \)
+\end_inset 
+
+ a que un seul élément, le plane de symmetrie si 
+\begin_inset Formula \( \eta  \)
+\end_inset 
+
+ a deux éléments\SpecialChar \ldots{}
+) 
+\latex latex 
+
+\begin_inset LatexCommand \cite{Martin}
+
+\end_inset 
+
+
+\latex default 
+.
+ Néanmoins, cette notation pourtant utile en 
+\begin_inset Formula \( 2D \)
+\end_inset 
+
+ et 
+\begin_inset Formula \( 3D \)
+\end_inset 
+
+, peut conduire à confusion dans le dimension supérieures 
+\latex latex 
+
+\begin_inset LatexCommand \cite{Japon}
+
+\end_inset 
+
+
+\latex default 
+.
+\layout Standard
+
+Les sous-ensembles 
+\begin_inset Formula \( \eta  \)
+\end_inset 
+
+ et 
+\begin_inset Formula \( \psi  \)
+\end_inset 
+
+ peuvent être choisis de 
+\begin_inset Formula \( \left( n!/(k!(n-k)!\right)  \)
+\end_inset 
+
+ manières différents si 
+\begin_inset Formula \( \psi  \)
+\end_inset 
+
+ a 
+\begin_inset Formula \( k \)
+\end_inset 
+
+ éléments et 
+\begin_inset Formula \( \eta  \)
+\end_inset 
+
+ a 
+\begin_inset Formula \( (n-k) \)
+\end_inset 
+
+ éléments.
+ Pour chaque choix, les éléments de 
+\begin_inset Formula \( \psi  \)
+\end_inset 
+
+ peuvent être commutés de 
+\begin_inset Formula \( k \)
+\end_inset 
+
+ façons différents.
+\layout Standard
+
+Comme exemple illustrative, la figure 
+\begin_inset LatexCommand \ref{fig:symmetries}
+
+\end_inset 
+
+ montre les symmetries de la grille 
+\begin_inset Formula \( A^{*}_{2} \)
+\end_inset 
+
+: la grille hexagonale.
+ 
+\layout Standard
+
+Les vecteur de base 
+\begin_inset Formula \( \overrightarrow{D_{1}} \)
+\end_inset 
+
+ et 
+\begin_inset Formula \( \overrightarrow{D_{2}} \)
+\end_inset 
+
+ forment an angle de 
+\begin_inset Formula \( \pi /3 \)
+\end_inset 
+
+.
+ Le vecteur additionel 
+\begin_inset Formula \( \overrightarrow{D_{3}} \)
+\end_inset 
+
+ (le negative de la somme de deux vecteurs originaux).
+ Quand 
+\begin_inset Formula \( \eta  \)
+\end_inset 
+
+ est un ensemble vide, l'origine âgit comme un 
+\emph on 
+point
+\emph default 
+ de symmetrie.
+ Les symmetries correspondantes a ce cas sont toutes les permutations des
+ trois vecteurs 
+\begin_inset Formula \( \left\{ \overrightarrow{D_{1}},\overrightarrow{D_{2}},\overrightarrow{D_{3}}\right\}  \)
+\end_inset 
+
+ appartenant à 
+\begin_inset Formula \( \psi  \)
+\end_inset 
+
+, elles sont équivalents a des rotations de 
+\begin_inset Formula \( \pi /3 \)
+\end_inset 
+
+ dans le plan, ce qui nous donne trois possibilités.
+ Quand 
+\begin_inset Formula \( \eta  \)
+\end_inset 
+
+ a un élément, ce vecteur âgit comme 
+\emph on 
+ligne
+\emph default 
+ de symmetrie, les permutations dans ce cas sont des reflexions dans cette
+ ligne, donç, deux possibilités.
+ (il faut remarquer que la reflexion n'est pas équivalent a un changement
+ de signe d'une coordonnée quand-t-elle s'applique sur des grilles non-orthogona
+les).
+\layout Subsubsection
+
+Equivalence des sommes partielles des vecteurs
+\layout Standard
+
+Un vecteur 
+\begin_inset Formula \( \overrightarrow{S_{k}} \)
+\end_inset 
+
+ est la somme d'un ensemble de 
+\begin_inset Formula \( k \)
+\end_inset 
+
+ vecteurs de la base.
+ La somme d'un sous-ensemble de 
+\begin_inset Formula \( m \)
+\end_inset 
+
+ vecteurs parmi ceux 
+\begin_inset Formula \( k \)
+\end_inset 
+
+, donne comme résultat un vecteur 
+\begin_inset Formula \( \overrightarrow{S_{m}} \)
+\end_inset 
+
+.
+ Le produit scalaire de deux vecteurs 
+\begin_inset Formula \( \overrightarrow{S_{k}} \)
+\end_inset 
+
+ et 
+\begin_inset Formula \( \overrightarrow{S_{m}} \)
+\end_inset 
+
+ depends que de la valeur 
+\begin_inset Formula \( m \)
+\end_inset 
+
+, sans aucune influence au choix particulaire de l'ensemble de 
+\begin_inset Formula \( m \)
+\end_inset 
+
+ vecteurs.
+ 
+\layout Standard
+
+Ce fait nous conduit à conclure que les relations géométriques entre la
+ somme d'un ensemble de vecteurs et la somme que n'importe lequel de ses
+ sous-ensembles de 
+\begin_inset Formula \( m \)
+\end_inset 
+
+ éléments sont toujours les mêmes.
+ Cette équivalence implique l'existence des nouvelles symmetries car les
+ vecteurs equivalents peuvent être permutés sans modifier l'identité de
+ la grille.
+ 
+\layout Section
+
+Topologie de la grille 
+\begin_inset Formula \( A^{*}_{n} \)
+\end_inset 
+
+
+\layout Standard
+
+Pour définir une topologie discrete dans grille 
+\begin_inset Formula \( A^{*}_{n} \)
+\end_inset 
+
+(la grille réciproque de la grille compacte) il est nécessaire d'introduir
+ la notion de voisinage entre les point de la grille.
+ Pour ce faire, nous nous servons du concept de la 
+\emph on 
+cellule modulaire
+\emph default 
+ qui est dans le cas des grilles 
+\begin_inset Formula \( A^{*}_{n} \)
+\end_inset 
+
+ l'équivalent de la région de Delaunay de la grille.
+\layout Subsection
+
+La cellule modulaire
+\layout Standard
+
+L'espace autour de l'origin peut être partitioné au sens angulaire, c'est-a-dire
+, sans prendre en compte la distance radiale à l'origine.
+ Ce problème de partition est traité de façon approfondie dans le domaine
+ des codes spheriques utilisé dans la theorie de codage 
+\begin_inset LatexCommand \cite{SphericalCodes}
+
+\end_inset 
+
+.
+ L'exemple de base en 
+\begin_inset Formula \( 3D \)
+\end_inset 
+
+ étant le problème de distribuer de façon uniforme un ensemble de 
+\begin_inset Formula \( n \)
+\end_inset 
+
+ points dans la surface d'une sphère.
+\layout Standard
+
+Chaque région de la partition peut être completement définie par un ensemble
+ de vecteus 
+\begin_inset Formula \( \left\{ \overrightarrow{S_{k}},\: k=1\ldots n\right\}  \)
+\end_inset 
+
+, où chaque vecteur 
+\begin_inset Formula \( \overrightarrow{S_{k}} \)
+\end_inset 
+
+ est la somme de 
+\begin_inset Formula \( k \)
+\end_inset 
+
+ vecteurs de la base étendue, de tel manière que les vecteurs qui participent
+ dans la somme du 
+\begin_inset Formula \( \overrightarrow{S_{k-1}} \)
+\end_inset 
+
+ , participent aussi dans celle de 
+\begin_inset Formula \( \overrightarrow{S_{k}} \)
+\end_inset 
+
+.
+ 
+\layout Standard
+
+Nous definisons la cellule modulaire comme l'enveloppe convexe de l'ensemble
+ de points situes dans les positions indiquées par les vecteurs 
+\begin_inset Formula \( \left\{ \overrightarrow{S_{k}},\: k=1\ldots n\right\}  \)
+\end_inset 
+
+ et à l'origine.
+ La première propriété interesante à remarquer de la cellule modulaire est
+ le fait de pouvir utiliser un ensemble des cellules modulaires pour envelopper
+ un point à l'origine, les cellules étant transformées selon les symmetries
+ de la base vectorielle.
+ 
+\layout Standard
+
+Tous les points de la grille étant équivalents, cette propriété implique
+ que les cellules modulaires transformées par les symmetries peuvent remplir
+ l'espace sans recouvrements ni espacements (les détails de cet argumentaire
+ se trouvent dans la section 
+\begin_inset LatexCommand \ref{sec:modularcell}
+
+\end_inset 
+
+).
+\layout Standard
+
+L'ensemble de vecteurs 
+\begin_inset Formula \( \left\{ \overrightarrow{S_{k}}\right\}  \)
+\end_inset 
+
+ peut être formé de 
+\begin_inset Formula \( (n+1)! \)
+\end_inset 
+
+ façons differentes car la base étendue est composée de 
+\begin_inset Formula \( (n+1) \)
+\end_inset 
+
+ vecteurs, en consequence, l'origin est entouré de 
+\begin_inset Formula \( (n+1)! \)
+\end_inset 
+
+ cellules modulaires.
+ La figure
+\protected_separator 
+
+\begin_inset LatexCommand \ref{fig:modular_cell}
+
+\end_inset 
+
+ montre les cellules modulaires de la grille 
+\begin_inset Formula \( A^{*}_{n} \)
+\end_inset 
+
+ pour les dimensions 
+\begin_inset Formula \( 2 \)
+\end_inset 
+
+ et 
+\begin_inset Formula \( 3 \)
+\end_inset 
+
+.
+ La cellule 
+\begin_inset Formula \( 2D \)
+\end_inset 
+
+ est repliquée 
+\begin_inset Formula \( (2+1)!=6 \)
+\end_inset 
+
+ fois autour de l'origine, tandis que la cellule modulaire 
+\begin_inset Formula \( 3D \)
+\end_inset 
+
+ est répliquée 
+\begin_inset Formula \( (3+1)!=24 \)
+\end_inset 
+
+ fois pour envelopper l'origine.
+\layout Standard
+
+De point de vue topologique, la propriété remarquable de la cellule modulaire
+ est le fait d'être un 
+\begin_inset Formula \( K \)
+\end_inset 
+
+-simplex 
+\begin_inset LatexCommand \cite{Kinsey}
+
+\end_inset 
+
+, car elle possede 
+\begin_inset Formula \( (n+1) \)
+\end_inset 
+
+ sommets dans un espace de dimension 
+\begin_inset Formula \( n \)
+\end_inset 
+
+, dont les positions sont définies par des vecteurs lineairement independantes.
+ 
+\layout Standard
+
+Une propriété géométrique interesante est le fait de que la cellule modulaire
+ peut être inscrite dans une hypersphère, le centre de cette hypersphère
+ corresponds à un sommet de la figure de Voronoï de la grille.
+ La même rélation est évidante quand-t-on rappelle que un sommet de la figure
+ de Voronoï doit être équidistante de tous les points de la grille qui l'ont
+ déterminé 
+\begin_inset LatexCommand \cite{Pack}
+
+\end_inset 
+
+
+\begin_inset LatexCommand \cite{Coxeter}
+
+\end_inset 
+
+
+\begin_inset LatexCommand \cite{Viterbo}
+
+\end_inset 
+
+
+\layout Subsection
+
+Définition de voisinage
+\layout Standard
+
+Nous introduisons ici la définition de 
+\emph on 
+m-voisinage
+\emph default 
+ de la manière suivante:
+\layout Quotation
+
+Deux points de la grille sont 
+\emph on 
+m-voisins
+\emph default 
+, si et seulement si, ils sont sommets de la même cellule modulaire.
+\layout Subsubsection
+
+Régions de Voronoï
+\layout Standard
+
+La région de Voronoï est définie autour d'un point 
+\begin_inset Formula \( P \)
+\end_inset 
+
+ de la grille comme l'ensemble de points de l'espace continu qui sont plus
+ proches du point 
+\begin_inset Formula \( P \)
+\end_inset 
+
+ que de n'importe quel autre point de la grille.
+ Dans ce sens, il s'âgit d'un ensemble ouvert de l'espace continu.
+ Les symmetries propres a la grille s'appliquent aussi à la figure correspondant
+e a la forme de la région de Voronoï 
+\begin_inset LatexCommand \cite{Japon}
+
+\end_inset 
+
+.
+ 
+\layout Standard
+
+La région de Voronoï d'une grille 
+\begin_inset Formula \( n \)
+\end_inset 
+
+-dimensionel est un disque ouvert 
+\begin_inset Formula \( n \)
+\end_inset 
+
+-dimensionel.
+ Les frontières de la région de Voronoï sont des disques ouverts 
+\begin_inset Formula \( (n-1) \)
+\end_inset 
+
+-dimensionels 
+\latex latex 
+
+\begin_inset LatexCommand \cite{Viterbo}
+
+\end_inset 
+
+
+\latex default 
+.
+ L'importance de la région de Voronoï dans la définition d'une topologie
+ discrete a été bien établie 
+\latex latex 
+
+\begin_inset LatexCommand \cite{Ayala}
+
+\end_inset 
+
+
+\begin_inset LatexCommand \cite{Serra}
+
+\end_inset 
+
+
+\latex default 
+.
+\layout Subsubsection
+
+La dualite: cellule modulaire - région de Voronoï
+\layout Standard
+
+La cellule modulaire, étant un 
+\begin_inset Formula \( K \)
+\end_inset 
+
+-simplex 
+\begin_inset Formula \( n \)
+\end_inset 
+
+-dimensionel 
+\begin_inset Formula \( \lambda _{n} \)
+\end_inset 
+
+, a 
+\begin_inset Formula \( (n+1) \)
+\end_inset 
+
+ faces, chacune d'entre elles est à son tour un 
+\begin_inset Formula \( K \)
+\end_inset 
+
+-simplex 
+\begin_inset Formula \( (n-1) \)
+\end_inset 
+
+-dimensionel 
+\begin_inset Formula \( \lambda _{(n-1)} \)
+\end_inset 
+
+.
+\layout Standard
+
+La région de Voronoï, vue comme un 
+\begin_inset Formula \( K \)
+\end_inset 
+
+-complex est composée d'un ensemble de cellules 
+\begin_inset Formula \( \sigma _{m} \)
+\end_inset 
+
+ de dimension inferieur 
+\latex latex 
+
+\begin_inset LatexCommand \cite{Kinsey}
+
+\end_inset 
+
+
+\latex default 
+.
+ Chaque cellule 
+\begin_inset Formula \( \sigma _{m} \)
+\end_inset 
+
+ est orthogonal à une cellule 
+\begin_inset Formula \( (n-m) \)
+\end_inset 
+
+-dimensionel 
+\begin_inset Formula \( \lambda _{(n-m)} \)
+\end_inset 
+
+ appartenant au 
+\begin_inset Formula \( K \)
+\end_inset 
+
+-simplex de la cellule modulaire 
+\begin_inset LatexCommand \cite{IbanezDGCI97}
+
+\end_inset 
+
+.
+\layout Standard
+
+La figure 
+\begin_inset LatexCommand \ref{fig:duality}
+
+\end_inset 
+
+, illustre cette relation pour le cas 
+\begin_inset Formula \( 2D \)
+\end_inset 
+
+.
+ A gauche, la région sombrée est la cellule modulaire, à droite la zone
+ sombrée montre la région de Voronoï pour la même configuration.
+ Les lignes épaises sont les cellules modulaires qui répliquées participent
+ à la détermination de cette figure de Voronoï.
+\layout Standard
+
+L'estructure topologique de la grille est composée de: éléments et relations
+ de voisinage.
+ Nous définison ici comme éléments toutes les cellules 
+\begin_inset Formula \( \sigma _{m} \)
+\end_inset 
+
+ de la figure de Voronoï.
+ Le voisinage entre deux élément existe si l'un est une face de l'autre
+ (suivant le modèle analogue continu presenté dans 
+\latex latex 
+
+\begin_inset LatexCommand \cite{Ayala}
+
+\end_inset 
+
+
+\latex default 
+).
+ Cette structure satisfait les conditions pour être une topologie formelle
+ d'ensemble (
+\emph on 
+point set topology
+\emph default 
+) 
+\begin_inset LatexCommand \cite{Kinsey}
+
+\end_inset 
+
+.
+ 
+\layout Standard
+
+Les puissantes propriété de la topologie que nous venons de définir dans
+ la grille 
+\begin_inset Formula \( A^{*}_{n} \)
+\end_inset 
+
+ derivent directement de la relation de dualité entre la figure de Voronoï
+ et la cellule modulaire, ainsi que du fait de que la cellule modulaire
+ est un 
+\begin_inset Formula \( K \)
+\end_inset 
+
+-simplex.
+ La cellule modulaire peut être vue comme le graphe de conexité de les régions
+ de Voronoï.
+ À de titre, elle définie toutes les rélations de voisinage de le structure
+ topologique.
+\layout Standard
+
+Chaque cellule 
+\begin_inset Formula \( \sigma _{m} \)
+\end_inset 
+
+ 
+\begin_inset Formula \( m \)
+\end_inset 
+
+-dimensional de la strucure topologique de 
+\begin_inset Formula \( A^{*}_{n} \)
+\end_inset 
+
+ a exactement 
+\begin_inset Formula \( (n-m+1) \)
+\end_inset 
+
+ voisins de dimension supérieure.
+ Cette homogeneité fournie une base importante pour le developpement algorithmiq
+ue.
+\layout Section
+
+Processus d'échantillonnage des signaux 
+\layout Standard
+
+Le processus d'échantillonnage d'un signal continue avec un grille discrète
+ 
+\begin_inset Formula \( S \)
+\end_inset 
+
+, implique la réplication de le spectre de la signal dans le domaine frequentiel.
+ Cette réplication se produit dans chaque point de la grille réciproque
+ de 
+\begin_inset Formula \( S \)
+\end_inset 
+
+.
+\layout Standard
+
+La signal continue peut être restauré à partir de l'échantillonnage sans
+ perte d'information si les spectres n'ont pas été superposés lors de la
+ réplication.
+ Normalement le spectre est consideré comme isotropique, donc, on le représent
+ par une hypersphère de dimension 
+\begin_inset Formula \( n \)
+\end_inset 
+
+ dans le domaine frequentiel.
+ Évidement, la condition de non-superposition peut être satisfaite simplement
+ par l'augmentation de la separation des points de la grille réciproque,
+ mais cela équivault à augmenter la densité des échantillons dans le domaine
+ de la signal.
+\layout Standard
+
+Pour réduire la densité d'échantillons à un minimum dans le domaine de la
+ signal, il est nécesaire de maximiser la densité dans le domain frequentiel
+ (la grille réciproque de celle d'échantillonnage).
+ Le problème de trouver la grille d'échantillonnage optimale devient donc
+ équivalent à celui de la compactation optimale de hypershères dans le domain
+ frequentiel.
+\layout Standard
+
+En consequence, la grille d'échantillonage optimal pour un signal 
+\begin_inset Formula \( n \)
+\end_inset 
+
+-dimensional est la réciproque de la grille compacte, dans laquelle le rayon
+ des hypersphères est égal à la frequence maximale de la signal.
+ Cette condition conduit à l'utilisation d'une grille d'échantillonnage
+ dans laquelle la distance entre les voisins les plus proches soit égale
+ à la période d'échantillonnage de Nyquist.
+\layout Standard
+
+Le problème de la obtention de l'arrangement périodique le plus dense de
+ hyper-sphères dans un espace 
+\begin_inset Formula \( n \)
+\end_inset 
+
+-dimensionel est bien connu.
+ Les solutions sont les grilles 
+\begin_inset Formula \( A_{n} \)
+\end_inset 
+
+ en 
+\begin_inset Formula \( 2D \)
+\end_inset 
+
+ et 
+\begin_inset Formula \( 3D \)
+\end_inset 
+
+, la grille 
+\begin_inset Formula \( D_{n} \)
+\end_inset 
+
+ en 
+\begin_inset Formula \( 4D \)
+\end_inset 
+
+ et 
+\begin_inset Formula \( 5D \)
+\end_inset 
+
+ par exemple.
+ Les points de la grille sont utilises comme centres pour les hyper-sphères
+\latex latex 
+ 
+\latex default 
+
+\begin_inset LatexCommand \cite{Pack}
+
+\end_inset 
+
+.
+\layout Standard
+
+Cet argument établie clairement que la famille de grilles 
+\begin_inset Formula \( Z^{n} \)
+\end_inset 
+
+ n'est pas la mieux adapté pour l'échantillonnage des signaux 
+\begin_inset Formula \( n \)
+\end_inset 
+
+-dimensionels 
+\latex latex 
+
+\begin_inset LatexCommand \cite{Mersereau}
+
+\end_inset 
+
+
+\latex default 
+.
+ La relation entre la densité des échantillons nécessaires dans la grille
+ 
+\begin_inset Formula \( Z^{n} \)
+\end_inset 
+
+ et la densité correspondante dans la grille 
+\begin_inset Formula \( A_{n} \)
+\end_inset 
+
+ est donnée par la relation entre les volumes des cellules de Voronoï, c'est
+ à dire, la grille 
+\begin_inset Formula \( Z^{n} \)
+\end_inset 
+
+ sur-échantillone la signal par un facteur égal à 
+\begin_inset Formula \( Vc_{n} \)
+\end_inset 
+
+ (dont quelques valeurs sont présentées dans la table (
+\begin_inset LatexCommand \ref{tab:basic}
+
+\end_inset 
+
+)).
+ Nous pouvons remarquer que cette expression est exponentielle en 
+\begin_inset Formula \( n \)
+\end_inset 
+
+, ce qui implique que plus la dimension est importante, plus le choix de
+ la grille 
+\begin_inset Formula \( Z^{n} \)
+\end_inset 
+
+ est inaproprié 
+\begin_inset LatexCommand \cite{IbanezDGCI96}
+
+\end_inset 
+
+.
+ 
+\layout Standard
+
+Remarquons aussi que avons définie une topologie dans la famille de grilles
+ 
+\begin_inset Formula \( A^{*}_{n} \)
+\end_inset 
+
+ car l'abondance de symmetries la rend interessante au moment de détermines
+ les voisinnages entre points, mais cette même developpement peut s'avèrer
+ fructifere dans d'autre grilles comme la 
+\begin_inset Formula \( D_{n} \)
+\end_inset 
+
+ ou la 
+\begin_inset Formula \( E_{n} \)
+\end_inset 
+
+ 
+\begin_inset LatexCommand \cite{Pack}
+
+\end_inset 
+
+
+\begin_inset LatexCommand \cite{Coxeter}
+
+\end_inset 
+
+.
+\layout Section
+
+Applications 
+\layout Subsection
+
+L'extraction de surfaces 
+\layout Standard
+
+Une application importante de la topologie discrète est l'extraction des
+ frontières des objets échantillonés avec une grille 
+\begin_inset Formula \( n \)
+\end_inset 
+
+-dimensionel.
+ Le but étant l'obtention d'une varité 
+\begin_inset Formula \( (n-1) \)
+\end_inset 
+
+-dimensionel correspondante à la frontière d'un ensemble connexe des points
+ qui représent l'objet.
+ 
+\layout Standard
+
+Le cas 
+\begin_inset Formula \( 3D \)
+\end_inset 
+
+ de ce problème est bien connu dans le domaine de l'imagerie médicale.
+ Il est souvent resolu dans la grille 
+\begin_inset Formula \( Z^{n} \)
+\end_inset 
+
+ par l'application de l'algorithme de 
+\emph on 
+marching cubes
+\emph default 
+ 
+\latex latex 
+
+\begin_inset LatexCommand \cite{MarchingCubes}
+
+\end_inset 
+
+
+\latex default 
+.
+\layout Subsubsection
+
+La définition d'un objet discret
+\layout Standard
+
+\i \={U}
+n objet est défini dans la grille d'échantillonnage comme un ensemble de
+ points.
+ L'analog continu d'un objet est obtenu en associant à chaque point de la
+ grille le 
+\begin_inset Formula \( K \)
+\end_inset 
+
+-complexe construit à partir de la figure de Voronoï de la grille 
+\begin_inset LatexCommand \cite{Ayala}
+
+\end_inset 
+
+, ensuite, nous considérons que une cellule 
+\begin_inset Formula \( m \)
+\end_inset 
+
+-dimensionel 
+\begin_inset Formula \( \sigma _{m} \)
+\end_inset 
+
+ de la structure du 
+\begin_inset Formula \( K \)
+\end_inset 
+
+-complexe appartiens à l'objet si tous ses voisins de dimension supérieur
+ appartient aussi.
+ La frontière de l'objet est composé de tous les cellules 
+\begin_inset Formula \( \sigma _{m} \)
+\end_inset 
+
+ 
+\begin_inset Formula \( (m<n) \)
+\end_inset 
+
+ qui ont un voisin de dimension supérieure qui appartiens à l'objet et un'autre
+ que n'appartiens pas 
+\begin_inset LatexCommand \cite{IbanezDGCI97}
+
+\end_inset 
+
+.
+\layout Subsubsection
+
+La structure de support de la frontière
+\layout Standard
+
+Pour bien déterminer les éléments du 
+\begin_inset Formula \( K \)
+\end_inset 
+
+-complexe qui font partie de la frontière de l'objet, nous nous servont
+ du graphe de conexité de la grille.
+ Le graphe de conexite permet de définir une structure dual à la grille,
+ dans laquelle toute cellule 
+\begin_inset Formula \( \sigma _{m} \)
+\end_inset 
+
+ du 
+\begin_inset Formula \( K \)
+\end_inset 
+
+-complex de la grille est associée à une cellule 
+\begin_inset Formula \( \alpha _{n-m} \)
+\end_inset 
+
+ du 
+\begin_inset Formula \( K \)
+\end_inset 
+
+-complex de la structure dual.
+ La figure 
+\begin_inset LatexCommand \ref{fig:duality}
+
+\end_inset 
+
+ illustre un exemple de cette relation de dualité pour le cas de la grille
+ hexagonale.
+\layout Standard
+
+\begin_float fig 
+\layout Standard
+\align center 
+
+\begin_inset Figure size 232 116
+file ../../articles/topology/duality.eps
+flags 13
+
+\end_inset 
+
+
+\layout Caption
+
+
+\begin_inset LatexCommand \label{fig:duality}
+
+\end_inset 
+
+Duality relation of the 
+\begin_inset Formula \( 2-D \)
+\end_inset 
+
+ Voronoi region and the modular cell
+\end_float 
+ 
+\layout Standard
+
+La structure de support de la frontière est définie comme un sous-ensemble
+ du 
+\begin_inset Formula \( K \)
+\end_inset 
+
+-simplex du graphe de conexité.
+ Ce sous-ensemble est conformé par tous les cellules tels que ses images
+ dans la relation de dualité soient dans la frontière de l'objet.
+\layout Standard
+
+Le fait d'avoir un graphe de conexité qui est un 
+\begin_inset Formula \( K \)
+\end_inset 
+
+-simplex garantie que la frontière d'un objet est un 
+\begin_inset Formula \( K \)
+\end_inset 
+
+-complexe 
+\begin_inset Formula \( (n-1) \)
+\end_inset 
+
+-dimensionel bien défini, qui marque l'interface entre l'objet et son complement
+ sans ambiguités.
+ Cette propriété ne peut pas être obtenue dans la grille 
+\begin_inset Formula \( Z^{n} \)
+\end_inset 
+
+ par aucune des conexitées usuels: 
+\begin_inset Formula \( \left\{ 6,18,26\right\}  \)
+\end_inset 
+
+.
+\layout Subsection
+
+L'interpolation 
+\layout Standard
+
+L'interpolation est une tâche qui se realise souvent dans le traitement
+ des données discrets.
+ En principe, si l'échantillonnage a été realise en respectant les conditions
+ établies par le theoreme de Shannon, l'ensemble des valeurs discrets contient
+ la totalité de l'information de la signal original.
+ Il faut remarquer que sa signifie que à partir de l'échantillonnage il
+ est possible de 
+\emph on 
+reconstruir par interpolation la signal original
+\emph default 
+ sans erreur, et non que l'échantillonnage lui même soit équivalent à la
+ signal.
+ Il est vrai, néanmoins, que certains operations du domain continu peuvent
+ être réalisées sur ses équivalent dans le domains discrete, tel est le
+ cas du filtrage lineaire.
+ Mais, pour le cas général, il faut revenir sur le domaine continu 
+\begin_inset LatexCommand \cite{Rosenfeld}
+
+\end_inset 
+
+.
+\layout Standard
+
+Le noyau d'interpolation est typiquement la transformée de fourier d'un
+ fonction définie comme 
+\begin_inset Formula \( 1 \)
+\end_inset 
+
+ à l'interieur d'une hyper-sphère et zéro a l'exterieur.
+ Ce type de fonction a un support infini, ce qui difficulte son utilisation
+ dans les applications pratiques.
+ Quand la distribution d'energie du spectre de la signal decroit rápidement
+ par rapport à la frequence, des interpolation d'ordre inferieur peuvent
+ se montrer suffisament precises.
+\layout Standard
+
+Dans la plupart d'application de traitement d'image des interpolations lineaires
+ sont effectues par souci de limitation de temps de calcul.
+ Exceptionellement, certains applications utilisent des interpolations par
+ de B-Splines cubiques qui prennent en compte 
+\begin_inset Formula \( 4^{n} \)
+\end_inset 
+
+ points de la grille pour calculer la valeur d'un point du domain continu
+ 
+\begin_inset Formula \( n \)
+\end_inset 
+
+-dimensionel (des exemples classique sont l'application des rotation sur
+ les images et la conversion d'une image de coordonnées rectangulaires à
+ polaires 
+\begin_inset LatexCommand \cite{Rosenfeld}
+
+\end_inset 
+
+).
+ Un analyse particulierment interesante est présenté dans 
+\begin_inset LatexCommand \cite{SignalReconstruction}
+
+\end_inset 
+
+, ou un algorithme choisi de façon adaptative sur chaque point la taille
+ du support du noyau d'interpolation.
+\layout Standard
+
+Differentes éléments doivent être considerés pour estimer le coût de calcul
+ de l'interpolation, entre eux, la capacité de reutilisation de calculs
+ est d'une grande importance.
+ Nous analysons ici trois cas classiques:
+\layout Itemize
+
+Interpolation sur un seul point
+\layout Itemize
+
+Interpolation sur un ensemble de points
+\layout Itemize
+
+Evaluation analytique de la fonction
+\layout Subsubsection
+
+L'interpolatoin sur un seul point
+\layout Standard
+
+L'interpolation nous permet de calculer la valeur original d'une signal
+ à partir de la connaissance d'une grille et les valeurs échantillonées
+ avec elle.
+ La figure 
+\begin_inset LatexCommand \ref{fig:interp2d}
+
+\end_inset 
+
+ illustre le cas 
+\begin_inset Formula \( 2D \)
+\end_inset 
+
+ pour un interpolatoin de primer ordre.
+ Les valeurs sont interpolées à l'intérieur de la figure de Delaunay: un
+ carré pour la grille 
+\begin_inset Formula \( Z^{2} \)
+\end_inset 
+
+, un triangle pour la grille 
+\begin_inset Formula \( A^{*}_{2} \)
+\end_inset 
+
+ (hexagonale).
+\layout Standard
+
+Dans la grille 
+\begin_inset Formula \( Z^{2} \)
+\end_inset 
+
+ la valeur interpolée 
+\begin_inset Formula \( VI \)
+\end_inset 
+
+ d'un point à l'interieur du carrée est calculé par:
+\layout Standard
+
+
+\begin_inset Formula 
+\begin{equation}
+VI=V_{00}(1-x)(1-y)+V_{10}(x)(1-y)+V_{01}(1-x)(y)+V_{11}(x)(y)
+\end{equation}
+
+\end_inset 
+
+
+\layout Standard
+
+Le nombre d'operations peut être reduit par factorisation:
+\layout Standard
+
+
+\begin_inset Formula 
+\begin{equation}
+VI=(V_{00}(1-x)+V_{10}(x))(1-y)+(V_{01}(1-x)+V_{11}(x))(y)
+\end{equation}
+
+\end_inset 
+
+
+\layout Standard
+
+Une interpolation lineaire necessite de deux produits et une additions.
+ L'interpolation bilineaire necessite six produits et six additions.
+ Le cas général d'un interpolation 
+\begin_inset Formula \( N \)
+\end_inset 
+
+-lineaire est présenté dans la table (
+\begin_inset LatexCommand \ref{tab:compcostZn}
+
+\end_inset 
+
+).
+ Le processus équivalent dans la grille hexagonale est illustre dans la
+ figure (
+\begin_inset LatexCommand \ref{fig:interp2d}
+
+\end_inset 
+
+), il se realize en utilisant l'equation:
+\layout Standard
+
+
+\begin_inset Formula 
+\begin{equation}
+\label{eqn:hexaginterp}
+VI=\left[ \begin{array}{ccc}
+V_{0} & V_{1} & V_{2}
+\end{array}\right] \left[ \begin{array}{ccc}
+-1 & -\frac{\sqrt{3}}{3} & 1\\
+1 & -\frac{\sqrt{3}}{3} & 0\\
+0 & \frac{2\sqrt{3}}{3} & 0
+\end{array}\right] \left[ \begin{array}{c}
+x\\
+y\\
+1
+\end{array}\right] 
+\end{equation}
+
+\end_inset 
+
+
+\layout Standard
+
+Où 
+\begin_inset Formula \( (x,y) \)
+\end_inset 
+
+ sont les coordonnées cartesiens du point à interpoler.
+ Les valeures de la matrice interne sont obtenus par l'inversion d'une matrice
+ dont les colonnes sont les coordonnées homogenes des sommets de la figure
+ de Delaunay: 
+\layout Standard
+
+
+\begin_inset Formula 
+\begin{equation}
+\left[ \begin{array}{ccc}
+-1 & -\frac{\sqrt{3}}{3} & 1\\
+1 & -\frac{\sqrt{3}}{3} & 0\\
+0 & \frac{2\sqrt{3}}{3} & 0
+\end{array}\right] =\left[ \begin{array}{ccc}
+0 & 1 & \frac{1}{2}\\
+0 & 0 & \frac{\sqrt{3}}{2}\\
+1 & 1 & 1
+\end{array}\right] ^{-1}
+\end{equation}
+
+\end_inset 
+
+
+\layout Standard
+
+Cette matrice peut être précalculée por chacune de six cellules modulaires
+ de la grille 
+\begin_inset Formula \( A_{2} \)
+\end_inset 
+
+ (hexagonale).
+ Des operations additionels doivent être effectuées pour déterminer dans
+ quel type de cellule (parmi les six) se trouve le point à interpoler.
+\layout Standard
+
+Le coût de calcul 
+\begin_inset Formula \( n \)
+\end_inset 
+
+-dimensionel (sans compter l'inversion de matrice ni la détermination du
+ type de cellule) est présenté dans la table (
+\begin_inset LatexCommand \ref{tab:interpcostAn}
+
+\end_inset 
+
+).
+ Le nombre d'operations est exponentiel sur 
+\begin_inset Formula \( n \)
+\end_inset 
+
+ dans le cas de la grille 
+\begin_inset Formula \( Z^{n} \)
+\end_inset 
+
+ tandis que il est d'ordre 
+\begin_inset Formula \( n^{2} \)
+\end_inset 
+
+ dans le cas de 
+\begin_inset Formula \( A^{*}_{n} \)
+\end_inset 
+
+.
+ Néanmoins, le coût de détermination du type de cellule peut donner un balance
+ favorable à la grille 
+\begin_inset Formula \( Z^{n} \)
+\end_inset 
+
+ en dimension 
+\begin_inset Formula \( 2 \)
+\end_inset 
+
+ et 
+\begin_inset Formula \( 3 \)
+\end_inset 
+
+.
+\layout Standard
+
+Une augmentation de l'ordre d'interpolation implique l'inclusion des figures
+ de Delaunay voisines de façon augmenter la taille du support.
+ Le role complementaire de la figure de Voronoï et de Delaunay dans l'interpolat
+ion peut être étudié à partir des conceptes exposés en 
+\begin_inset LatexCommand \cite{Chui}
+
+\end_inset 
+
+, où sont proposés les 
+\emph on 
+Box-Splines
+\emph default 
+ comme une généralisation des B-Splines, ce developpement montre comment
+ les notions mono-dimensionels peuvent être extrapolés pour des dimensions
+ supérieures sans recourir à la solution facile à court terme des produits
+ tensoriels et de fonctions séparables.
+ La configuration des voisinages des Box-Splines pour le cas 
+\begin_inset Formula \( 2-D \)
+\end_inset 
+
+ est illustrée dans la figure 
+\begin_inset LatexCommand \ref{fig:topo2d}
+
+\end_inset 
+
+ d.
+ 
+\layout Standard
+
+Le noyau d'interpolation d'ordre zéro est un fonction de valeur 
+\begin_inset Formula \( 1 \)
+\end_inset 
+
+ à l'interieur de la figure de Voronoï et nulle ailleurs.
+ Le noyau d'interpolation d'ordre 1 est le résultat de la correlation de
+ deux noyaux d'ordre zéro.
+ En générale le noyau d'interpolation d'ordre 
+\begin_inset Formula \( n \)
+\end_inset 
+
+ est la correlation de 
+\begin_inset Formula \( n \)
+\end_inset 
+
+ noyaux d'ordre zéro.
+\layout Subsubsection
+
+Interpolation d'un ensemble de points
+\layout Standard
+
+Quand l'interpolation se realise pour un group de points à l'intereur de
+ la même figure de Delaunay, certains calculs sont réutilisés, ce qui change
+ le balance de coût de calcul.
+ Le cas montré dans la figure permet de reduire les operations dans la grille
+ 
+\begin_inset Formula \( Z^{2} \)
+\end_inset 
+
+ à seulement l'evaluation d'un polynome d'ordre 
+\begin_inset Formula \( n \)
+\end_inset 
+
+ avec 
+\begin_inset Formula \( n \)
+\end_inset 
+
+ variables.
+ Malgré que ce dernier présentation est plus compacte, elle n'est pas aproprié
+ pour être efficacement évaluée comme celle de la table (
+\begin_inset LatexCommand \ref{tab:compcostZn}
+
+\end_inset 
+
+), Il faut donç retenir le coût de calcul de la première.
+\layout Standard
+
+Dans la grille 
+\begin_inset Formula \( A^{*}_{n} \)
+\end_inset 
+
+, le calcul se reduit à une equation lineaire.
+ Seulement 
+\begin_inset Formula \( n \)
+\end_inset 
+
+ produits et 
+\begin_inset Formula \( (n-1) \)
+\end_inset 
+
+ additions doivent être effectués pour évaluer chaque point interpolé.
+ Si le nombre de points à evaluer au sein d'un même cellule de Delaunay
+ est importante, le coût de la détermination de la cellule n'est pas relevante.
+\layout Subsubsection
+
+Evaluation analytique
+\layout Standard
+
+Il existe toute une varieté d'applications dans lesquelles il est interessant
+ de disposer de l'expression analytique du processus d'interpolation.
+ Parmi elles: l'evaluation des dérives ou integrales de la signal originale
+ et la resolution des equations implicites par recherche de racines.
+\layout Standard
+
+Pour ce type d'applications il resulte convenable d'utiliser la grille 
+\begin_inset Formula \( A^{*}_{n} \)
+\end_inset 
+
+ car l'expression analytique est un equation lineaire tandis que pour la
+ grille 
+\begin_inset Formula \( Z^{n} \)
+\end_inset 
+
+ cette expression est un polynôme d'ordre 
+\begin_inset Formula \( n \)
+\end_inset 
+
+ et 
+\begin_inset Formula \( n \)
+\end_inset 
+
+ variables.
+\layout Subsubsection
+
+Exemples d'applications
+\layout Standard
+
+La plupart d'application d'imagerie médicale 
+\begin_inset Formula \( 3D \)
+\end_inset 
+
+ (volumes des données CT-scanner ou IRM), utilisent l'interpolation trilineaire
+ car elle donne le moindre coût de calcul dans la grille 
+\begin_inset Formula \( Z^{3} \)
+\end_inset 
+
+.
+ La région de Delaunay de cette grille étant un cube, un point de l'espace
+ continu a huit points de la grille comme voisins.
+ L'interpolation trilineaire est la façon las plus simple de prendre en
+ compte les huit valeurs de ces points pour calculer la valeur correspondante
+ au point de l'espace continu.
+\layout Standard
+
+La structure de la grille 
+\begin_inset Formula \( A^{*}_{2} \)
+\end_inset 
+
+(ou BCC) a un tetrahedre comme figure de Delaunay, une interpolation lineaire
+ suffit pour calculer la valeur de la signal dans un point de l'espace continu
+ car seulement quatre valeurs doivent être prises en compte.
+\layout Standard
+
+Le rendu de volume directe est une des applications qui sont très touchées
+ par ce coût de calcul, typiquement les algorithmes de rendu doivent calculer
+ des integrales de certains parametres (opacité, densité) le long des lignes
+ qui relient un pixel de l'écran avec l'objet à l'interieur du volume de
+ données.
+ Souvent ces parametres sont calculés par interpolations trilineaires qui
+ se effectuent pour chaque cellule de Delaunay qui est traverse pour la
+ ligne de visée 
+\latex latex 
+
+\begin_inset LatexCommand \cite{Rendering}
+
+\end_inset 
+
+
+\latex default 
+.
+ Le processus équivalent dans la grille 
+\begin_inset Formula \( A^{*}_{_{3}} \)
+\end_inset 
+
+ se realise simplement avec une interpolations lineaire pour chaque cellule
+ de Delaunay.
+\layout Section
+
+Conclusions
+\layout Standard
+
+Nous avons défini ici une topologie discrète dans la grille 
+\begin_inset Formula \( A^{*}_{n} \)
+\end_inset 
+
+.
+ Le nombre important de symmetries de cette grille fait possible un ensemble
+ de propriétes que difficilment peuvenet être obtenues pour une topologie
+ dans la grille 
+\begin_inset Formula \( Z^{n} \)
+\end_inset 
+
+.
+\layout Standard
+
+Nous avons mis en oeuvre une méthode d'extraction des surfaces à partir
+ des volumes de données échantillonnées avec la grille 
+\begin_inset Formula \( A^{*}_{3} \)
+\end_inset 
+
+.
+ La applicabilité d'une procedure similaire pour la dimension 
+\begin_inset Formula \( n \)
+\end_inset 
+
+ a été prouvé également.
+\layout Standard
+
+Les meilleures configurations géométrique présentes dans la grille 
+\begin_inset Formula \( A^{*}_{n} \)
+\end_inset 
+
+ permetent de simplifier les processus de reconstruction de la signal continue
+ par des interpolations.
+ Cet grille est utilisé aussi dans le domain de la reconstruction par projection
+s qui est essentiel pour la tomographie médicale 
+\begin_inset LatexCommand \cite{MatejLewit}
+
+\end_inset 
+
+, ce dernier fait permet d'envisager la possibilité de disponer des volumes
+ de données médicales échantillonées sur la grille 
+\begin_inset Formula \( A^{*}_{3} \)
+\end_inset 
+
+au lieu de 
+\begin_inset Formula \( Z^{3} \)
+\end_inset 
+
+.
+ Les avantages seront encore plus importantes dans le domain des images
+ 
+\begin_inset Formula \( 4D \)
+\end_inset 
+
+ et 
+\begin_inset Formula \( 5D \)
+\end_inset 
+
+ qui se perfilent dans les applications médicales 
+\begin_inset LatexCommand \cite{UdupaDGCI}
+
+\end_inset 
+
+.
+\layout Section
+
+Appendice
+\layout Standard
+
+Nous avons réservé cette appendice pour les détails de calcul de nos développeme
+nts, de façon à montrer seulement les résultat dans le corps du texte.
+\layout Subsection
+
+
+\begin_inset LatexCommand \label{sec:pnbn}
+
+\end_inset 
+
+Relations entre 
+\begin_inset Formula \( p_{n} \)
+\end_inset 
+
+ et 
+\begin_inset Formula \( b_{n} \)
+\end_inset 
+
+ 
+\layout Standard
+
+Dans le processus de construction d'un ensemble élémentaire 
+\begin_inset Formula \( n \)
+\end_inset 
+
+-dimensionel 
+\begin_inset Formula \( \Theta _{n} \)
+\end_inset 
+
+ à partir de un'autre 
+\begin_inset Formula \( \Theta _{(n-1)} \)
+\end_inset 
+
+, un nouveau point est placé à une distance 
+\begin_inset Formula \( p_{n} \)
+\end_inset 
+
+ du sous-espace déterminé par l'ensemble élémentaire 
+\begin_inset Formula \( \Theta _{(n-1)} \)
+\end_inset 
+
+.
+ Soit 
+\begin_inset Formula \( b_{n} \)
+\end_inset 
+
+ la distance entre le barycentre de l'ensemble 
+\begin_inset Formula \( \Theta _{(n-1)} \)
+\end_inset 
+
+ et ses points, la longueur 
+\begin_inset Formula \( p_{n} \)
+\end_inset 
+
+ es calculé de façon a obtenir un distance égale à 
+\begin_inset Formula \( 1 \)
+\end_inset 
+
+ entre le nouveau point et les points de l'ensemble 
+\begin_inset Formula \( \Theta _{(n-1)} \)
+\end_inset 
+
+.
+ Le segment 
+\begin_inset Formula \( p_{n} \)
+\end_inset 
+
+ est perpendiculaire au sous-espace déterminé par l'ensemble élémentaire
+ 
+\begin_inset Formula \( \Theta _{(n-1)} \)
+\end_inset 
+
+ où se trouve le barycentre.
+ Les segments 
+\begin_inset Formula \( p_{n} \)
+\end_inset 
+
+ et 
+\begin_inset Formula \( b_{n-1} \)
+\end_inset 
+
+ forment un triangle droit dont l'hypotenuse a une longueur égale a 
+\begin_inset Formula \( 1 \)
+\end_inset 
+
+ (voir la figure
+\protected_separator 
+
+\begin_inset LatexCommand \ref{fig:pnbn}
+
+\end_inset 
+
+).
+ 
+\layout Standard
+
+La position du barycentre de 
+\begin_inset Formula \( \Theta _{(n-1)} \)
+\end_inset 
+
+ est calculé à partir des vecteurs de position 
+\begin_inset Formula \( \overrightarrow{V_{i}} \)
+\end_inset 
+
+ des 
+\begin_inset Formula \( (n-1) \)
+\end_inset 
+
+ points de l'ensemble par l'equation :
+\layout Standard
+
+
+\begin_inset Formula 
+\begin{equation}
+\overrightarrow{B_{(n-1)}}=\frac{1}{n}\sum ^{n}_{i=1}\overrightarrow{V_{i}}
+\end{equation}
+
+\end_inset 
+
+
+\layout Standard
+
+Pour obtenir l'ensemble 
+\begin_inset Formula \( \Theta _{n} \)
+\end_inset 
+
+ nous ajoutons un nouveau point dans la position 
+\begin_inset Formula \( \overrightarrow{V_{n+1}} \)
+\end_inset 
+
+.
+ Les 
+\begin_inset Formula \( (n-1) \)
+\end_inset 
+
+ premières composantes de ce vecteur sont exactement celles du barycentre
+ de 
+\begin_inset Formula \( \Theta _{(n-1)} \)
+\end_inset 
+
+, et la 
+\begin_inset Formula \( n \)
+\end_inset 
+
+-ème composante est égale à 
+\begin_inset Formula \( p_{n} \)
+\end_inset 
+
+:
+\layout Standard
+
+
+\begin_inset Formula 
+\begin{equation}
+\overrightarrow{V_{n+1}}=\left( \overrightarrow{B_{(n-1)}},p_{n}\right) 
+\end{equation}
+
+\end_inset 
+
+
+\layout Standard
+
+Le barycentre du nouveau ensemble 
+\begin_inset Formula \( \Theta _{n} \)
+\end_inset 
+
+ peut maintenant être calculé
+\protected_separator 
+:
+\layout Standard
+
+
+\begin_inset Formula 
+\begin{eqnarray}
+\overrightarrow{B_{n}} & = & \frac{1}{(n+1)}\sum ^{n}_{i=1}\overrightarrow{V_{i}}+\frac{1}{(n+1)}\overrightarrow{V_{(n+1)}}\\
+ & = & \frac{1}{(n+1)}\left( n\overrightarrow{B_{(n-1)}},0\right) +\frac{1}{(n+1)}\left( \overrightarrow{B_{(n-1)}},p_{n}\right) \nonumber \\
+ & = & \left( \overrightarrow{B_{(n-1)}},\frac{p_{n}}{(n+1)}\right) \nonumber 
+\end{eqnarray}
+
+\end_inset 
+
+
+\layout Standard
+
+La distance entre le nouveau barycentre et l'ancien est 
+\begin_inset Formula \( p_{n}/(n+1) \)
+\end_inset 
+
+.
+ Les segments 
+\begin_inset Formula \( b_{n} \)
+\end_inset 
+
+, 
+\begin_inset Formula \( b_{n-1} \)
+\end_inset 
+
+ et 
+\begin_inset Formula \( p_{n}/(n+1) \)
+\end_inset 
+
+ forment un triangle droit, et satisfassent en conséquence la relation :
+\layout Standard
+
+
+\begin_inset Formula 
+\begin{equation}
+\label{eqn:pnbn}
+b^{2}_{n}=b^{2}_{(n-1)}+\left( \frac{p_{n}}{\left( n+1\right) }\right) ^{2}
+\end{equation}
+
+\end_inset 
+
+
+\layout Standard
+
+La distance entre le nouveau barycentre et le nouveau point est
+\protected_separator 
+:
+\layout Standard
+
+
+\begin_inset Formula 
+\begin{eqnarray}
+b_{n} & = & \left\Vert \left( \overrightarrow{V}-\overrightarrow{B_{(n-1)}}\right) \right\Vert \label{eqn:pnbnline} \\
+ & = & \left\Vert \left( \overrightarrow{0},\left( p_{n}-\frac{p_{n}}{(n+1)}\right) \right) \right\Vert \nonumber \\
+ & = & \frac{n}{(n+1)}p_{n}\nonumber 
+\end{eqnarray}
+
+\end_inset 
+
+
+\layout Standard
+
+En prenant en compte les equations (
+\begin_inset LatexCommand \ref{eqn:pnbn}
+
+\end_inset 
+
+) et (
+\begin_inset LatexCommand \ref{eqn:pnbnline}
+
+\end_inset 
+
+) nous arrivons à
+\protected_separator 
+:
+\layout Standard
+
+
+\begin_inset Formula 
+\begin{eqnarray}
+b^{2}_{n} & = & b_{(n-1)}^{2}+\frac{b_{n}^{2}}{n^{2}}\\
+ & = & \frac{n^{2}}{\left( n^{2}-1\right) }b_{(n-1)}^{2}\nonumber \\
+ & = & \frac{n^{2}}{(n+1)(n-1)}b_{(n-1)}^{2}\nonumber \\
+ & = & \left[ \prod ^{n}_{i=2}\frac{i^{2}}{\left( i+1\right) \left( i-1\right) }\right] b^{2}_{1}\nonumber \\
+ & = & \frac{2n!n!}{(n+1)!(n-1)!}\left( \frac{1}{2}\right) ^{2}\nonumber \\
+ & = & \frac{n}{2(n+1)}\nonumber 
+\end{eqnarray}
+
+\end_inset 
+
+
+\layout Standard
+
+et avec (
+\begin_inset LatexCommand \ref{eqn:pnbnline}
+
+\end_inset 
+
+) on arrive à
+\protected_separator 
+:
+\layout Standard
+
+
+\begin_inset Formula 
+\begin{eqnarray}
+p^{2}_{n} & = & \frac{\left( n+1\right) ^{2}}{n^{2}}b^{2}_{n}\\
+ & = & \frac{\left( n+1\right) }{2n}\nonumber 
+\end{eqnarray}
+
+\end_inset 
+
+
+\layout Subsection
+
+Calcul des Hypervolumes 
+\layout Subsubsection
+
+hypervolume de l'enveloppe convexe
+\layout Standard
+
+Le hypervolume de l'enveloppe convexe de l'ensemble élémentaire 
+\begin_inset Formula \( n \)
+\end_inset 
+
+-dimensionel 
+\begin_inset Formula \( \Theta _{n} \)
+\end_inset 
+
+ peut être calculé comme celui d'une pyramide de hauteur 
+\begin_inset Formula \( p_{n} \)
+\end_inset 
+
+ et de base égale à l'enveloppe convexe de l'ensemble élémentaire 
+\begin_inset Formula \( (n-1) \)
+\end_inset 
+
+-dimensionel 
+\begin_inset Formula \( \Theta _{(n-1)} \)
+\end_inset 
+
+.
+\layout Standard
+
+L'integrale qui calcule cette hypervolume somme des prismes infinitesimaux
+ d'hauteur 
+\begin_inset Formula \( dx \)
+\end_inset 
+
+ et base égale à une figure congruente avec 
+\begin_inset Formula \( \Theta _{(n-1)} \)
+\end_inset 
+
+ variant lineairement en taille avec 
+\begin_inset Formula \( x \)
+\end_inset 
+
+.
+ Un changement dans les dimensions lineaires d'un objet 
+\begin_inset Formula \( (n-1) \)
+\end_inset 
+
+-dimensionel produit un changement proportionel à 
+\begin_inset Formula \( l^{(n-1)} \)
+\end_inset 
+
+ dans son hyper-volume.
+\layout Standard
+
+
+\begin_inset Formula 
+\begin{eqnarray}
+Ve_{n} & = & \int _{0}^{p_{n}}Ve_{(n-1)}\left( \frac{x}{p_{n}}\right) ^{(n-1)}dx\\
+ & = & Ve_{(n-1)}\left( \frac{1}{p_{n}}\right) ^{(n-1)}\int _{0}^{p_{n}}x^{(n-1)}dx\nonumber \\
+ & = & Ve_{(n-1)}\left( \frac{1}{p_{n}}\right) ^{(n-1)}\frac{\left( p_{n}\right) ^{n}}{n}\nonumber \\
+ & = & Ve_{(n-1)}\frac{p_{n}}{n}\nonumber 
+\end{eqnarray}
+
+\end_inset 
+
+
+\layout Standard
+
+En utilisant cette relation recursive nous obtenons
+\protected_separator 
+:
+\layout Standard
+
+
+\begin_inset Formula 
+\begin{eqnarray}
+Ve_{n} & = & \prod _{i=1}^{n}\frac{p_{i}}{i}=\prod ^{n}_{i=1}\left( \sqrt{\frac{(i+1)}{2i}}\right) \frac{1}{i}=\prod _{i=1}^{n}\sqrt{\left( \frac{i+1}{2i^{3}}\right) }\\
+ & = & \sqrt{\prod ^{n}_{i=1}\frac{(i+1)}{2i^{3}}}=\sqrt{\frac{(n+1)!}{2^{n}(n!)^{3}}}=\frac{1}{n!}\sqrt{\frac{(n+1)!}{2^{n}n!}}\nonumber \\
+ & = & \frac{1}{n!}\sqrt{\frac{(n+1)}{2^{n}}}\nonumber 
+\end{eqnarray}
+
+\end_inset 
+
+
+\layout Subsubsection
+
+Hypervolume de la cellule élémentaire
+\layout Standard
+
+Nous designons par 
+\emph on 
+cellule élémentaire
+\emph default 
+ de la grille, la région de l'espace definie par des combinaisons lineaires
+ des vecteurs de la base vectorielle de la grille, tels que les coefficients
+ de la combinaison lineaire appartient tous à l'intervale 
+\begin_inset Formula \( \left[ 0,1\right]  \)
+\end_inset 
+
+ 
+\begin_inset LatexCommand \cite{Kittel}
+
+\end_inset 
+
+
+\begin_inset LatexCommand \cite{Xtal}
+
+\end_inset 
+
+.
+ Elle peut être définie de façon recursive comme le prisme de hauteur 
+\begin_inset Formula \( p_{n} \)
+\end_inset 
+
+ et base égale à la cellule élémentaire de la base 
+\begin_inset Formula \( (n-1) \)
+\end_inset 
+
+-dimensionel.
+ Le volume 
+\begin_inset Formula \( Vc_{n} \)
+\end_inset 
+
+ de cette cellule est
+\protected_separator 
+:
+\layout Standard
+
+
+\begin_inset Formula 
+\begin{eqnarray}
+Vc_{n} & = & Vc_{(n-1)\; }p_{n}=\prod _{i=1}^{n}p_{i}=\prod _{i=1}^{n}\sqrt{\frac{(i+1)}{2i}}\\
+ & = & \sqrt{\prod ^{n}_{i=1}\frac{(i+1)}{2i}}=\sqrt{\frac{(n+1)!}{2^{n}n!}}\nonumber \\
+ & = & \sqrt{\frac{(n+1)}{2^{n}}}\nonumber 
+\end{eqnarray}
+
+\end_inset 
+
+
+\layout Subsection
+
+
+\begin_inset LatexCommand \label{sec:reciprocalgrid}
+
+\end_inset 
+
+La grille réciproque
+\layout Standard
+
+La base vectorielle de la grille réciproque 
+\begin_inset Formula \( A^{*}_{n} \)
+\end_inset 
+
+ peut être construite de façon incremental, depuis le cas de dimension 
+\begin_inset Formula \( 2 \)
+\end_inset 
+
+, en ajoutant des termes à fur et a mesure que la dimension augmente.
+ Le cas 
+\begin_inset Formula \( 2D \)
+\end_inset 
+
+ est simplement
+\protected_separator 
+:
+\layout Standard
+
+
+\begin_inset Formula 
+\begin{equation}
+C_{ij}=\left[ \begin{array}{cc}
+p_{1} & 0\\
+\frac{p_{1}}{2} & p_{2}
+\end{array}\right] \; \Rightarrow \; D_{ij}=\left[ \begin{array}{cc}
+\frac{1}{p_{1}} & \frac{-1}{2p_{2}}\\
+0 & \frac{1}{p_{2}}
+\end{array}\right] 
+\end{equation}
+
+\end_inset 
+
+
+\layout Standard
+
+Pour passer d'un matrice de dimension 
+\begin_inset Formula \( (n-1) \)
+\end_inset 
+
+ à une de dimension 
+\begin_inset Formula \( n \)
+\end_inset 
+
+, nous ajoutons un vecteur avec ses 
+\begin_inset Formula \( (n-1) \)
+\end_inset 
+
+ premières composantes nulles et la 
+\begin_inset Formula \( n \)
+\end_inset 
+
+-ème composante égale a 
+\begin_inset Formula \( 1/p_{n} \)
+\end_inset 
+
+, cette valeur garantie que le produit scalaire des vecteurs 
+\begin_inset Formula \( \overrightarrow{C_{n}} \)
+\end_inset 
+
+ et 
+\begin_inset Formula \( \overrightarrow{D_{n}} \)
+\end_inset 
+
+ sera égale à 
+\begin_inset Formula \( 1 \)
+\end_inset 
+
+ puisque la composante 
+\begin_inset Formula \( n \)
+\end_inset 
+
+-ème de 
+\begin_inset Formula \( \overrightarrow{C_{n}} \)
+\end_inset 
+
+ est égale à 
+\begin_inset Formula \( p_{n} \)
+\end_inset 
+
+.
+ 
+\layout Standard
+
+Pour chacun des vecteurs 
+\begin_inset Formula \( \left\{ \overrightarrow{D_{i}}\right\} ,i=1\ldots n-1 \)
+\end_inset 
+
+, une 
+\begin_inset Formula \( n \)
+\end_inset 
+
+-ème composant doit être ajoutée.
+ La valeur de cette composante est calculée de tel façon que le produit
+ scalaire de vecteurs 
+\begin_inset Formula \( \overrightarrow{C_{n}} \)
+\end_inset 
+
+ et 
+\begin_inset Formula \( \overrightarrow{D_{i}} \)
+\end_inset 
+
+ soit zéro pour 
+\begin_inset Formula \( i=1\ldots n-1 \)
+\end_inset 
+
+.
+\layout Standard
+
+Pour induction: si jusqu'a la dimension 
+\begin_inset Formula \( (n-1) \)
+\end_inset 
+
+ les composants ajoutées sont égales à 
+\begin_inset Formula \( (-1/(j\cdot p_{j})) \)
+\end_inset 
+
+, donç pour la dimension 
+\begin_inset Formula \( n \)
+\end_inset 
+
+ ils sont 
+\begin_inset Formula \( (-1/(n\cdot p_{n})) \)
+\end_inset 
+
+.
+\layout Standard
+
+Étant donnée que les composantes de 
+\begin_inset Formula \( \overrightarrow{C_{n}} \)
+\end_inset 
+
+ sont
+\protected_separator 
+:
+\layout Standard
+
+
+\begin_inset Formula 
+\begin{equation}
+\left( \overrightarrow{C_{n}}\right) _{j}=\left\{ \begin{array}{ccc}
+\frac{p_{j}}{(j+1)} & \mbox {for} & j<n\\
+p_{n} & \mbox {for} & j=n
+\end{array}\right. 
+\end{equation}
+
+\end_inset 
+
+
+\layout Standard
+
+et ceux de 
+\begin_inset Formula \( \overrightarrow{D_{i}} \)
+\end_inset 
+
+ sont
+\protected_separator 
+:
+\layout Standard
+
+
+\begin_inset Formula 
+\begin{equation}
+\left( \overrightarrow{D_{i}}\right) _{j}=\left\{ \begin{array}{ccc}
+0 & \mbox {if} & j<i\\
+\frac{1}{p_{i}} & \mbox {if} & i=j\\
+\frac{-1}{j\cdot p_{j}} & \mbox {if} & j>i
+\end{array}\right. 
+\end{equation}
+
+\end_inset 
+
+
+\layout Standard
+
+le produit scalaire est
+\protected_separator 
+:
+\layout Standard
+
+
+\begin_inset Formula 
+\begin{eqnarray}
+\overrightarrow{C_{n}}\cdot \overrightarrow{D_{i}} & = & \sum ^{n}_{j=1}\left( \overrightarrow{C_{n}}\right) _{j}\left( \overrightarrow{D_{i}}\right) _{j}\\
+ & = & \left( \frac{p_{i}}{(i+1)}\right) \left( \frac{1}{p_{i}}\right) +\sum ^{n-1}_{j>i}\left( \frac{p_{j}}{(j+1)}\right) \left( \frac{-1}{j.p_{j}}\right) +\left( p_{n}\right) X\nonumber \\
+ & = & \frac{1}{(i+1)}-\sum ^{n-1}_{j>i}\left( \frac{1}{j(j+1)}\right) +\left( p_{n}\right) X\nonumber 
+\end{eqnarray}
+
+\end_inset 
+
+
+\layout Standard
+
+où 
+\begin_inset Formula \( X \)
+\end_inset 
+
+ est la 
+\begin_inset Formula \( n \)
+\end_inset 
+
+-ème composant recherchée.
+ Le résultat de la somme générique est
+\protected_separator 
+:
+\layout Standard
+
+
+\begin_inset Formula 
+\begin{equation}
+\sum ^{b}_{j=a}\frac{1}{j(j+1)}=\frac{1}{a}-\frac{1}{(b+1)}
+\end{equation}
+
+\end_inset 
+
+
+\layout Standard
+
+Donç
+\protected_separator 
+:
+\layout Standard
+
+
+\begin_inset Formula 
+\begin{eqnarray}
+X & = & \left( \frac{1}{p_{n}}\right) \left[ \left( \frac{1}{(i+1)}-\frac{1}{n}\right) -\frac{1}{(i+1)}\right] \\
+ & = & \frac{-1}{n\cdot p_{n}}\nonumber 
+\end{eqnarray}
+
+\end_inset 
+
+
+\layout Subsection
+
+Produit scalaires
+\layout Subsubsection
+
+Les vecteurs de base de la grille compacte
+\layout Standard
+
+L'expresion générale du produit scalaire des vecteurs 
+\begin_inset Formula \( \overrightarrow{C_{i}} \)
+\end_inset 
+
+ et 
+\begin_inset Formula \( \overrightarrow{C_{j}} \)
+\end_inset 
+
+ avec 
+\begin_inset Formula \( i<j \)
+\end_inset 
+
+ est
+\protected_separator 
+:
+\layout Standard
+
+
+\begin_inset Formula 
+\begin{eqnarray}
+\overrightarrow{C_{i}}\cdot \overrightarrow{C_{j}} & = & \sum ^{n}_{k=1}\left( \overrightarrow{C_{i}}\right) _{k}\left( \overrightarrow{C_{j}}\right) _{k}\\
+ & = & \sum ^{i-1}_{k=1}\left( \frac{p_{k}}{(k+1)}\right) \left( \frac{p_{k}}{(k+1)}\right) +\left( p_{i}\right) \left( \frac{p_{i}}{(i+1)}\right) \nonumber \\
+ & = & \sum ^{i-1}_{k=1}\left( \frac{(k+1)}{2k(k+1)^{2}}\right) +\left( \frac{(i+1)}{2i(i+1)}\right) \nonumber \\
+ & = & \frac{1}{2}\sum ^{i-1}_{k=1}\left( \frac{1}{k(k+1)}\right) +\left( \frac{1}{2i}\right) \nonumber \\
+ & = & \frac{1}{2}\left[ 1-\frac{1}{i}\right] +\left( \frac{1}{2i}\right) \nonumber \\
+ & = & \frac{1}{2}\nonumber 
+\end{eqnarray}
+
+\end_inset 
+
+
+\layout Standard
+
+De façon similaire, pour le cas 
+\begin_inset Formula \( i=j \)
+\end_inset 
+
+ le produit est
+\protected_separator 
+:
+\layout Standard
+
+
+\begin_inset Formula 
+\begin{eqnarray}
+\overrightarrow{C_{i}}\cdot \overrightarrow{C_{i}} & = & \sum ^{n}_{k=1}\left( \overrightarrow{C_{i}}\right) _{k}\left( \overrightarrow{C_{i}}\right) _{k}\\
+ & = & \sum ^{i-1}_{k=1}\left( \frac{p_{k}}{(k+1)}\right) \left( \frac{p_{k}}{(k+1)}\right) +\left( p_{i}\right) \left( p_{i}\right) \nonumber \\
+ & = & \sum ^{i-1}_{k=1}\left( \frac{(k+1)}{2k(k+1)^{2}}\right) +\left( \frac{i+1}{2i}\right) \nonumber \\
+ & = & \frac{1}{2}\sum ^{i-1}_{k=1}\left( \frac{1}{k(k+1)}\right) +\left( \frac{i+1}{2i}\right) \nonumber \\
+ & = & \frac{1}{2}\left( 1-\frac{1}{i}\right) +\left( \frac{i+1}{2i}\right) =\left( \frac{i-1}{2i}\right) +\left( \frac{i+1}{2i}\right) \nonumber \\
+ & = & 1\nonumber 
+\end{eqnarray}
+
+\end_inset 
+
+
+\layout Subsubsection
+
+
+\begin_inset LatexCommand \label{sec:recipbasisproduct}
+
+\end_inset 
+
+Les vecteurs de base de la grille réciproque 
+\layout Standard
+
+La expression générale du produit scalaire des vecteurs de base 
+\begin_inset Formula \( \overrightarrow{D_{i}} \)
+\end_inset 
+
+ et 
+\begin_inset Formula \( \overrightarrow{D_{j}} \)
+\end_inset 
+
+ avec 
+\begin_inset Formula \( i<j \)
+\end_inset 
+
+ est
+\protected_separator 
+:
+\layout Standard
+
+
+\begin_inset Formula 
+\begin{eqnarray}
+\overrightarrow{D_{i}}\cdot \overrightarrow{D_{j}} & = & \sum ^{n}_{k=1}\left( \overrightarrow{D_{i}}\right) _{k}\left( \overrightarrow{D_{j}}\right) _{k}=\sum ^{n}_{k=j}\left( \overrightarrow{D_{i}}\right) _{k}\left( \overrightarrow{D_{j}}\right) _{k}\\
+ & = & \sum ^{n}_{k=j+1}\left( \frac{-1}{kp_{k}}\right) \left( \frac{-1}{kp_{k}}\right) +\left( \frac{1}{p_{j}}\right) \left( \frac{-1}{jp_{j}}\right) \nonumber \\
+ & = & \sum ^{n}_{k=j+1}\left( \frac{2k}{k^{2}(k+1)}\right) -\left( \frac{2j}{j(j+1)}\right) \nonumber \\
+ & = & 2\sum ^{n}_{k=j+1}\left( \frac{1}{k(k+1)}\right) -\left( \frac{2}{(j+1)}\right) \nonumber \\
+ & = & 2\left[ \frac{1}{j+1}-\frac{1}{n+1}\right] -\frac{2}{j+1}\nonumber \\
+ & = & \frac{-2}{n+1}\nonumber 
+\end{eqnarray}
+
+\end_inset 
+
+
+\layout Standard
+
+Pour le cas 
+\begin_inset Formula \( i=j \)
+\end_inset 
+
+ le produit devient
+\protected_separator 
+:
+\layout Standard
+
+
+\begin_inset Formula 
+\begin{eqnarray}
+\overrightarrow{D_{i}}\cdot \overrightarrow{D_{i}} & = & \sum ^{n}_{k=1}\left( \overrightarrow{D_{i}}\right) _{k}\left( \overrightarrow{D_{i}}\right) _{k}=\sum ^{n}_{k=i}\left( \overrightarrow{D_{i}}\right) _{k}\left( \overrightarrow{D_{i}}\right) _{k}\\
+ & = & \sum ^{n}_{k=i+1}\left( \frac{-1}{kp_{k}}\right) ^{2}+\left( \frac{1}{p_{i}}\right) ^{2}\nonumber \\
+ & = & \sum ^{n}_{k=i+1}\left( \frac{2k}{k^{2}(k+1)}\right) +\left( \frac{2i}{i+1}\right) \nonumber \\
+ & = & 2\left( \frac{1}{i+1}-\frac{1}{n+1}\right) +\left( \frac{2i}{i+1}\right) \nonumber \\
+ & = & 2-\frac{2}{n+1}\nonumber \\
+ & = & \frac{2n}{n+1}\nonumber 
+\end{eqnarray}
+
+\end_inset 
+
+
+\layout Standard
+
+En conclusion nous trouvons que tous les vecteurs de base ont la même magnitude.
+\layout Subsection
+
+
+\begin_inset LatexCommand \label{sec:sumbasisvectors}
+
+\end_inset 
+
+The somme des vecteurs de base de la grille 
+\begin_inset Formula \( A_{n}^{*} \)
+\end_inset 
+
+
+\layout Standard
+
+Nous montrons ici que le vecteur résultant de la somme de tous les vecteur
+ de base de la grille 
+\begin_inset Formula \( A^{*}_{n} \)
+\end_inset 
+
+ a la même magnitude que chacun d'entre eux.
+\layout Standard
+
+Soit 
+\begin_inset Formula \( \overrightarrow{SD} \)
+\end_inset 
+
+ le vecteur résultant de la somme de tous les vecteur de base de la grille
+ 
+\begin_inset Formula \( A^{*}_{n} \)
+\end_inset 
+
+:
+\begin_inset Formula 
+\begin{eqnarray}
+\overrightarrow{SD} & = & \sum ^{n}_{j=1}\overrightarrow{D_{j}}=\left[ \begin{array}{ccccc}
+\sum ^{n}_{j=1}D_{1j}, & \sum ^{n}_{j=1}D_{2j}, & \cdots , & \sum ^{n}_{j=1}D_{(n-1)j,} & \sum ^{n}_{j=1}D_{nj}
+\end{array}\right] 
+\end{eqnarray}
+
+\end_inset 
+
+
+\layout Standard
+
+Chaque composante 
+\begin_inset Formula \( \left( \overrightarrow{SD}\right) _{i} \)
+\end_inset 
+
+ peut être calculée comme
+\protected_separator 
+:
+\layout Standard
+
+
+\begin_inset Formula 
+\begin{eqnarray}
+\left( \overrightarrow{SD}\right) _{i} & = & \sum ^{n}_{j=1}D_{ij}=\frac{1}{p_{i}}+\sum ^{i-1}_{j=1}\frac{-1}{jp_{j}}\\
+ & = & \frac{1}{p_{i}}-\frac{(i-1)}{ip_{i}}=\frac{1}{ip_{i}}\nonumber \\
+ & = & \sqrt{\frac{2}{i(i+1)}}\nonumber 
+\end{eqnarray}
+
+\end_inset 
+
+
+\layout Standard
+
+La magnitude du vecteur 
+\begin_inset Formula \( \overrightarrow{SD} \)
+\end_inset 
+
+ est donç:
+\layout Standard
+
+
+\begin_inset Formula 
+\begin{eqnarray}
+\left\Vert \overrightarrow{SD}\right\Vert ^{2} & = & \sum ^{n}_{i=1}\left( SD_{i}\right) ^{2}=\sum ^{n}_{i=1}\frac{2}{i(i+1)}\\
+ & = & 2\left( 1-\frac{1}{(n+1)}\right) =\frac{2n}{(n+1)}\nonumber 
+\end{eqnarray}
+
+\end_inset 
+
+
+\layout Standard
+
+Le produit escalaire entre le vecteur 
+\begin_inset Formula \( \overrightarrow{SD} \)
+\end_inset 
+
+ et un vecteur de base 
+\begin_inset Formula \( \overrightarrow{D_{i}} \)
+\end_inset 
+
+ est
+\protected_separator 
+:
+\layout Standard
+
+
+\begin_inset Formula 
+\begin{eqnarray}
+\overrightarrow{D_{i}}\cdot \overrightarrow{SD} & = & \sum ^{n}_{k=1}D_{ki}SD_{k}=\sum ^{n}_{k=1}D_{ki}\frac{1}{kp_{k}}\\
+ & = & \frac{1}{p_{i}}\frac{1}{ip_{i}}+\sum ^{n}_{k=i+1}\left( \frac{-1}{kp_{k}}\right) \left( \frac{1}{kp_{k}}\right) \nonumber \\
+ & = & \frac{2}{(i+1)}-2\sum ^{n}_{k=i+1}\frac{1}{k(k+1)}\nonumber \\
+ & = & \frac{2}{(i+1)}-2\left( \frac{1}{(i+1)}-\frac{1}{(n+1)}\right) \nonumber \\
+ & = & \frac{2}{(n+1)}\nonumber 
+\end{eqnarray}
+
+\end_inset 
+
+
+\layout Standard
+
+Ce qui implique que le vecteur 
+\begin_inset Formula \( \overrightarrow{SD} \)
+\end_inset 
+
+ forme le même angle 
+\begin_inset Formula \( \alpha  \)
+\end_inset 
+
+ avec tous les vecteurs de base
+\protected_separator 
+:
+\layout Standard
+
+
+\begin_inset Formula 
+\begin{equation}
+\alpha =cos^{-1}\left( \frac{1}{n}\right) 
+\end{equation}
+
+\end_inset 
+
+
+\layout Subsubsection
+
+
+\begin_inset LatexCommand \label{sec:sumofkvectors}
+
+\end_inset 
+
+La somme de 
+\begin_inset Formula \( k \)
+\end_inset 
+
+ vecteurs de base
+\layout Standard
+
+Soit 
+\begin_inset Formula \( \overrightarrow{S_{k}} \)
+\end_inset 
+
+ le vecteur résultant de la somme des premiers 
+\begin_inset Formula \( k \)
+\end_inset 
+
+ vecteurs de base de la grille réciproque 
+\begin_inset Formula \( A^{*}_{n} \)
+\end_inset 
+
+.
+ Les composantes de 
+\begin_inset Formula \( \overrightarrow{S_{k}} \)
+\end_inset 
+
+ sont
+\protected_separator 
+:
+\layout Standard
+
+
+\begin_inset Formula 
+\begin{equation}
+\left( \overrightarrow{S_{k}}\right) _{i}=S_{ik}=\sum ^{k}_{j=1}D_{ij}=\left\{ \begin{array}{ccc}
+\sum ^{i}_{j=1}D_{ij} & \mbox {for} & i\leq k\\
+\sum ^{k}_{j=1}D_{ij} & \mbox {for} & i>k
+\end{array}\right. 
+\end{equation}
+
+\end_inset 
+
+
+\layout Standard
+
+Étant donnée que la matrice de composants 
+\begin_inset Formula \( D_{ij} \)
+\end_inset 
+
+ est une matrice triangulaire supérieure, la somme pour chaque composante
+ 
+\begin_inset Formula \( i\leq k \)
+\end_inset 
+
+ est faite depuis 
+\begin_inset Formula \( 1 \)
+\end_inset 
+
+ jusqu'a la diagonale.
+ Suivant l'expression
+\protected_separator 
+:
+\layout Standard
+
+
+\begin_inset Formula 
+\begin{equation}
+\sum ^{i}_{j=1}D_{ij}=\frac{1}{p_{i}}+\sum ^{i-1}_{j=1}\left( \frac{-1}{ip_{i}}\right) =\frac{1}{p_{i}}-\frac{(i-1)}{ip_{i}}=\frac{1}{ip_{i}}
+\end{equation}
+
+\end_inset 
+
+
+\layout Standard
+
+Pour le cas 
+\begin_inset Formula \( i>k \)
+\end_inset 
+
+ la somme va jusqu'a 
+\begin_inset Formula \( k \)
+\end_inset 
+
+, mais tous les termes sont égaux
+\protected_separator 
+:
+\layout Standard
+
+
+\begin_inset Formula 
+\begin{equation}
+\sum ^{k}_{j=1}D_{ij}=\sum ^{k}_{j=1}\left( \frac{-1}{ip_{i}}\right) =\frac{-k}{ip_{i}}
+\end{equation}
+
+\end_inset 
+
+
+\layout Standard
+
+ce qui donne finalement
+\protected_separator 
+:
+\layout Standard
+
+
+\begin_inset Formula 
+\begin{equation}
+\left( \overrightarrow{S_{k}}\right) _{i}=\left\{ \begin{array}{ccc}
+\frac{1}{ip_{i}} & \mbox {for} & i\leq k\\
+\frac{-k}{ip_{i}} & \mbox {for} & i>k
+\end{array}\right. 
+\end{equation}
+
+\end_inset 
+
+
+\layout Standard
+
+A manière d'exemple, nous trouvons jusqu'a la dimension 5
+\protected_separator 
+:
+\layout Standard
+
+
+\begin_inset Formula 
+\begin{equation}
+\left[ \begin{array}{c}
+\overrightarrow{S_{1}}\\
+\overrightarrow{S_{2}}\\
+\overrightarrow{S_{3}}\\
+\overrightarrow{S_{4}}\\
+\overrightarrow{S_{5}}
+\end{array}\right] =\left[ \begin{array}{ccccc}
+\frac{1}{1p_{1}} & \frac{-1}{2p_{2}} & \frac{-1}{3p_{3}} & \frac{-1}{4p_{4}} & \frac{-1}{5p_{5}}\\
+\frac{1}{1p_{1}} & \frac{1}{2p_{2}} & \frac{-2}{3p_{3}} & \frac{-2}{4p_{4}} & \frac{-2}{5p_{5}}\\
+\frac{1}{1p_{1}} & \frac{1}{2p_{2}} & \frac{1}{3p_{3}} & \frac{-3}{4p_{4}} & \frac{-3}{5p_{5}}\\
+\frac{1}{1p_{1}} & \frac{1}{2p_{2}} & \frac{1}{3p_{3}} & \frac{1}{4p_{4}} & \frac{-4}{5p_{5}}\\
+\frac{1}{1p_{1}} & \frac{1}{2p_{2}} & \frac{1}{3p_{3}} & \frac{1}{4p_{4}} & \frac{1}{5p_{5}}
+\end{array}\right] 
+\end{equation}
+
+\end_inset 
+
+
+\layout Standard
+
+Le produit scalaire du vecteur 
+\begin_inset Formula \( \overrightarrow{S_{k}} \)
+\end_inset 
+
+ avec un des vecteurs 
+\begin_inset Formula \( \overrightarrow{D_{i}} \)
+\end_inset 
+
+ 
+\begin_inset Formula \( \left( i\leq k\right)  \)
+\end_inset 
+
+ de la base participant à la somme, est:
+\layout Standard
+
+
+\begin_inset Formula 
+\begin{eqnarray}
+\overrightarrow{S_{k}}\cdot \overrightarrow{D_{i}} & = & \sum ^{n}_{j=1}S_{jk}D_{ji}\\
+ & = & S_{ik}D_{ii}+\sum ^{n}_{j=i+1}S_{jk}D_{ji}\nonumber \\
+ & = & \left( \frac{1}{ip_{i}}\right) \left( \frac{1}{p_{i}}\right) +\sum ^{k}_{j=i+1}\left( \frac{1}{jp_{j}}\right) \left( \frac{-1}{jp_{j}}\right) +\sum ^{n}_{j=k+1}\left( \frac{-k}{jp_{j}}\right) \left( \frac{-1}{jp_{j}}\right) \nonumber \\
+ & = & \frac{2}{(i+1)}-\sum ^{k}_{j=i+1}\frac{2}{j(j+1)}+k\sum ^{n}_{j=k+1}\frac{2}{j(j+1)}\nonumber \\
+ & = & \frac{2}{(i+1)}-2\left( \frac{1}{(i+1)}-\frac{1}{(k+1)}\right) +2k\left( \frac{1}{(k+1)}-\frac{1}{(n+1)}\right) \nonumber \\
+ & = & \frac{2(n+1-k)}{(n+1)}\nonumber 
+\end{eqnarray}
+
+\end_inset 
+
+
+\layout Standard
+
+La magnitude du vecteur 
+\begin_inset Formula \( \overrightarrow{S_{k}} \)
+\end_inset 
+
+ est:
+\layout Standard
+
+
+\begin_inset Formula 
+\begin{eqnarray}
+\left\Vert \overrightarrow{S_{k}}\right\Vert ^{2} & = & \overrightarrow{S_{k}}\cdot \overrightarrow{S_{k}}=\sum ^{n}_{j=1}S^{2}_{jk}\\
+ & = & \sum ^{k}_{j=1}\left( \frac{1}{jp_{j}}\right) ^{2}+\sum ^{n}_{j=k+1}\left( \frac{-k}{jp_{j}}\right) ^{2}\nonumber \\
+ & = & \sum ^{k}_{j=1}\frac{1}{j(j+1)}+k^{2}\sum ^{n}_{j=k+1}\frac{1}{j(j+1)}\nonumber \\
+ & = & 1-\frac{1}{(k+1)}+\frac{k^{2}}{(k+1)}-\frac{k^{2}}{(n+1)}\nonumber \\
+ & = & \frac{2k(n+1-k)}{(n+1)}\nonumber 
+\end{eqnarray}
+
+\end_inset 
+
+
+\layout Subsubsection
+
+Relation entre deux sommes partielles de vecteurs
+\layout Standard
+
+Soient 
+\begin_inset Formula \( \overrightarrow{S_{k_{1}}} \)
+\end_inset 
+
+ et 
+\begin_inset Formula \( \overrightarrow{S_{k_{2}}} \)
+\end_inset 
+
+ deux vecteurs obtenus par la somme de 
+\begin_inset Formula \( k_{1} \)
+\end_inset 
+
+et 
+\begin_inset Formula \( k_{2} \)
+\end_inset 
+
+ vecteurs de base respectivement.
+ Nous considerons le cas 
+\begin_inset Formula \( k_{1}<k_{2} \)
+\end_inset 
+
+ soumis à la condition de que tous les vecteurs participant à la somme de
+ 
+\begin_inset Formula \( \overrightarrow{S_{k_{1}}} \)
+\end_inset 
+
+ le font aussi à la somme de 
+\begin_inset Formula \( \overrightarrow{S_{k_{1}}} \)
+\end_inset 
+
+.
+ Les magnitudes de 
+\begin_inset Formula \( \overrightarrow{S_{k_{2}}} \)
+\end_inset 
+
+ et 
+\begin_inset Formula \( \overrightarrow{S_{k_{1}}} \)
+\end_inset 
+
+ sont connues, il nous suffit donç d'étudier son produit scalaire:
+\layout Standard
+
+
+\begin_inset Formula 
+\begin{eqnarray}
+\overrightarrow{S_{k_{1}}}\cdot \overrightarrow{S_{k_{2}}} & = & \sum ^{n}_{j=1}S_{jk_{1}}S_{jk_{2}}\\
+ & = & \sum ^{k_{1}}_{j=1}S_{jk_{1}}S_{jk_{2}}+\sum ^{k_{2}}_{j=k_{1}+1}S_{jk_{1}}S_{jk_{2}}+\sum ^{n}_{j=k_{2}+1}S_{jk_{1}}S_{jk_{2}}\nonumber \\
+ & = & \sum ^{k_{1}}_{j=1}\left( \frac{1}{jp_{j}}\right) ^{2}+\sum ^{k_{2}}_{j=k_{1}+1}\left( \frac{-k_{1}}{jp_{j}}\right) \left( \frac{1}{jp_{j}}\right) +\sum ^{n}_{j=k_{2}+1}\left( \frac{-k_{1}}{jp_{j}}\right) \left( \frac{-k_{2}}{jp_{j}}\right) \nonumber \\
+ & = & 2\left( 1-\frac{1}{k_{1}+1}\right) -2k_{1}\left( \frac{1}{k_{1}+1}-\frac{1}{k_{2}+1}\right) +2k_{1}k_{2}\left( \frac{1}{k_{2}+1}-\frac{1}{n+1}\right) \nonumber \\
+ & = & \frac{2k_{1}(n+1-k_{2})}{(n+1)}\nonumber 
+\end{eqnarray}
+
+\end_inset 
+
+
+\layout Standard
+
+Une façon plus directe d'obtenir le même résultat est de remplacer 
+\begin_inset Formula \( \overrightarrow{S_{k_{1}}} \)
+\end_inset 
+
+ par la somme de les 
+\begin_inset Formula \( k_{1} \)
+\end_inset 
+
+ vecteurs de base:
+\layout Standard
+
+
+\begin_inset Formula 
+\begin{eqnarray}
+\overrightarrow{S_{k_{1}}}\cdot \overrightarrow{S_{k_{2}}} & = & \overrightarrow{S_{k_{2}}}\cdot \sum ^{k_{1}}_{j=1}\overrightarrow{D_{j}}\\
+ & = & \sum ^{k_{1}}_{j=1}\overrightarrow{S_{k_{2}}}\cdot \overrightarrow{D_{j}}\nonumber \\
+ & = & \sum ^{k_{1}}_{j=1}\left( \frac{2(n+1-k_{2)}}{(n+1)}\right) \nonumber \\
+ & = & \frac{2k_{1}(n+1-k_{2})}{(n+1)}\nonumber 
+\end{eqnarray}
+
+\end_inset 
+
+
+\layout Subsection
+
+La cellule modulaire
+\layout Subsubsection
+
+
+\begin_inset LatexCommand \label{sec:modularcell}
+
+\end_inset 
+
+Definition
+\layout Standard
+
+La cellule modulaire est définie ici comme l'enveloppe convexe de points
+ placés dans les position déterminées par les vecteurs 
+\begin_inset Formula \( \left\{ \overrightarrow{S_{k}},\: k=1\ldots n\right\}  \)
+\end_inset 
+
+ et l'origine.
+ Soit 
+\begin_inset Formula \( \left\{ \overrightarrow{V_{i}}\right\}  \)
+\end_inset 
+
+ un ensem,ble de 
+\begin_inset Formula \( n \)
+\end_inset 
+
+ vecteurs lineairement independantes.
+ Soit 
+\begin_inset Formula \( \overrightarrow{S} \)
+\end_inset 
+
+ la somme de tous les vecteurs 
+\begin_inset Formula \( \left\{ \overrightarrow{V_{i}}\right\}  \)
+\end_inset 
+
+.
+ 
+\layout Standard
+
+
+\begin_inset Formula 
+\begin{equation}
+\overrightarrow{S}=\sum ^{n}_{i=1}\overrightarrow{V_{i}}\; \Longrightarrow \overrightarrow{\; V_{k}}=\overrightarrow{S}-\sum _{i\neq k}\overrightarrow{V_{i}}
+\end{equation}
+
+\end_inset 
+
+
+\layout Standard
+
+Soit 
+\begin_inset Formula \( \overrightarrow{P} \)
+\end_inset 
+
+ un vecteur qui peut être exprimé comme une combinaison lineaire de vecteurs
+ 
+\begin_inset Formula \( \left\{ \overrightarrow{V_{i}}\right\}  \)
+\end_inset 
+
+ avec des coefficients non-negatives:
+\layout Standard
+
+
+\begin_inset Formula 
+\begin{eqnarray}
+\overrightarrow{P} & = & \sum ^{n}_{i=1}c_{i}\overrightarrow{V_{i}}\\
+ & = & \sum _{i\neq k}c_{i}\overrightarrow{V_{i}}+c_{k}\overrightarrow{V_{k}}\nonumber \\
+ & = & \sum _{i\neq k}c_{i}\overrightarrow{V_{i}}+c_{k}\left( \overrightarrow{S}-\sum _{i\neq k}\overrightarrow{V_{i}}\right) \nonumber \\
+ & = & \sum _{i\neq k}\left( c_{i}-c_{k}\right) \overrightarrow{V_{i}}+c_{k}\overrightarrow{S}\nonumber 
+\end{eqnarray}
+
+\end_inset 
+
+
+\layout Standard
+
+Un nouveau ensemble est obtenu en remplaçant le vecteur 
+\begin_inset Formula \( \overrightarrow{V_{k}} \)
+\end_inset 
+
+ par le vecteur 
+\begin_inset Formula \( \overrightarrow{S} \)
+\end_inset 
+
+.
+ Le vecteur 
+\begin_inset Formula \( \overrightarrow{P} \)
+\end_inset 
+
+ peut être exprimé comme une combinaison lineaire de cette nouvelle base
+ en utilisant que de coefficients non-nuls, si et seulement si, 
+\begin_inset Formula \( c_{k} \)
+\end_inset 
+
+ est le moindre coefficient parmi les 
+\begin_inset Formula \( c_{i} \)
+\end_inset 
+
+.
+\layout Standard
+
+De point de vue géométrique, cela veut dire que le vecteur 
+\begin_inset Formula \( \overrightarrow{P} \)
+\end_inset 
+
+ est contenu à l'interieur de au moins une des pyramides inversées définies
+ par les vecteurs 
+\begin_inset Formula \( \overrightarrow{V_{i}} \)
+\end_inset 
+
+ avec 
+\begin_inset Formula \( i\neq k \)
+\end_inset 
+
+ et 
+\begin_inset Formula \( \overrightarrow{S} \)
+\end_inset 
+
+ (le vecteur 
+\begin_inset Formula \( \overrightarrow{P} \)
+\end_inset 
+
+ peut être contenu en plusieurs pyramides s'il est placé à la frontière,
+ c'est à dire, si un ou plusieurs coefficients 
+\begin_inset Formula \( c_{i} \)
+\end_inset 
+
+ sont nulls).
+\layout Standard
+
+Soit 
+\begin_inset Formula \( \overrightarrow{Q} \)
+\end_inset 
+
+ un vecteur qui n'est pas contenu dans la pyramide, en consequence, un ou
+ plusieurs coefficients 
+\begin_inset Formula \( c_{i} \)
+\end_inset 
+
+ sont negatifs.
+ Soit 
+\begin_inset Formula \( c_{k} \)
+\end_inset 
+
+ le minimum parmi les coefficients 
+\begin_inset Formula \( c_{i} \)
+\end_inset 
+
+ (forcement negatif).
+ Son vecteur correspondant 
+\begin_inset Formula \( \overrightarrow{V_{k}} \)
+\end_inset 
+
+ peut être exprimée en termes du vecteur 
+\begin_inset Formula \( -\overrightarrow{S} \)
+\end_inset 
+
+: 
+\layout Standard
+
+
+\begin_inset Formula 
+\begin{eqnarray}
+\overrightarrow{Q} & = & \sum ^{n}_{i=1}c_{i}\overrightarrow{V_{i}}\\
+ & = & \sum _{i\neq k}c_{i}\overrightarrow{V_{i}}+c_{k}\overrightarrow{V_{k}}\nonumber \\
+ & = & \sum _{i\neq k}c_{i}\overrightarrow{V_{i}}+c_{k}\left( \overrightarrow{S}-\sum _{i\neq k}\overrightarrow{V_{i}}\right) \nonumber \\
+ & = & \sum _{i\neq k}\left( c_{i}-c_{k}\right) \overrightarrow{V_{i}}-c_{k}\left( -\overrightarrow{S}\right) \nonumber 
+\end{eqnarray}
+
+\end_inset 
+
+
+\layout Standard
+
+Ce qui prouve que dans ce cas, le vecteur 
+\begin_inset Formula \( \overrightarrow{Q} \)
+\end_inset 
+
+ peut s'exprimer en termes des vecteurs 
+\begin_inset Formula \( \left\{ \overrightarrow{V_{i\neq k}},-\overrightarrow{S}\right\}  \)
+\end_inset 
+
+, en utilisant que de coefficients non-negatifs (
+\begin_inset Formula \( -c_{k} \)
+\end_inset 
+
+ est positif, et 
+\begin_inset Formula \( (c_{i}-c_{k}) \)
+\end_inset 
+
+ est donc positif 
+\begin_inset Formula \( \forall i \)
+\end_inset 
+
+ puisque 
+\begin_inset Formula \( c_{k} \)
+\end_inset 
+
+ est le minimum de tous les 
+\begin_inset Formula \( c_{i} \)
+\end_inset 
+
+).
+\layout Standard
+
+Avec la base étendue de la grille 
+\begin_inset Formula \( A^{*}_{n} \)
+\end_inset 
+
+, tout vecteur de l'espace peut s'exprimer avec des coefficient non-negatifs
+ dans une de bases conformées par 
+\begin_inset Formula \( n \)
+\end_inset 
+
+ vecteurs parmi les 
+\begin_inset Formula \( (n+1) \)
+\end_inset 
+
+ de la base étendue.
+ Une fois que la base est trouvée, elle peut être refinée par l'inclusion
+ des vecteurs de sommes partiels 
+\begin_inset Formula \( \overrightarrow{S_{k}} \)
+\end_inset 
+
+.
+ Tout vecteur de l'espace sera inclus dans un de ces ensembles refinées.
+ De point de vue géométrique, chaque ensemble corresponds à une cellule
+ modulaire.
+ En conséquence, l'espace autour d'un point peut être divisé en figures
+ congruents avec la cellule modulaire transfomée par las symmetries propres
+ à la grille.
+\layout Subsubsection
+
+Les symmetries de la cellule modulaire
+\layout Standard
+
+Nous vérifions ici que chacune des 
+\begin_inset Formula \( n \)
+\end_inset 
+
+ cellules modulaires peut s'inscrire dans une hyper-sphère 
+\begin_inset Formula \( n \)
+\end_inset 
+
+-dimensionel.
+ Les coordonnées du centre de la sphère étant:
+\layout Standard
+
+
+\begin_inset Formula 
+\begin{equation}
+\overrightarrow{C}=\frac{1}{\left( n+1\right) }\sum ^{n}_{k=1}\overrightarrow{S}_{k}
+\end{equation}
+
+\end_inset 
+
+
+\layout Standard
+
+Les composants 
+\begin_inset Formula \( \left( \overrightarrow{C}\right) _{j} \)
+\end_inset 
+
+ du vecteur 
+\begin_inset Formula \( \overrightarrow{C} \)
+\end_inset 
+
+ sont:
+\layout Standard
+
+
+\begin_inset Formula 
+\begin{eqnarray}
+\left( \overrightarrow{C}\right) _{j} & = & \frac{1}{\left( n+1\right) }\sum ^{n}_{k=1}\left( \overrightarrow{S_{k}}\right) _{j}\\
+ & = & \frac{1}{\left( n+1\right) }\sum ^{j-1}_{k=1}\left( \frac{-k}{jp_{j}}\right) +\frac{1}{\left( n+1\right) }\sum ^{n}_{k=j}\left( \frac{1}{jp_{j}}\right) \nonumber \\
+ & = & \frac{1}{\left( n+1\right) }\frac{1}{\left( jp_{j}\right) }\left[ -\frac{j\left( j+1\right) }{2}+\left( n+1\right) \right] \nonumber \\
+ & = & -\sqrt{\frac{j\left( j+1\right) }{2}}\frac{1}{\left( n+1\right) }+\sqrt{\frac{2}{j\left( j+1\right) }}\nonumber 
+\end{eqnarray}
+
+\end_inset 
+
+
+\layout Standard
+
+Le vecteur 
+\begin_inset Formula \( \overrightarrow{R_{k}} \)
+\end_inset 
+
+ qui représent la position relative d'un point placé dans la position 
+\begin_inset Formula \( \overrightarrow{S_{k}} \)
+\end_inset 
+
+, par rapport au centre de la hyper-sphère, a composants 
+\begin_inset Formula \( \left( \overrightarrow{R_{k}}\right) _{j} \)
+\end_inset 
+
+:
+\layout Standard
+
+
+\begin_inset Formula 
+\begin{equation}
+\left( \overrightarrow{R_{k}}\right) _{j}=\left( \overrightarrow{S_{k}}\right) _{j}-\left( \overrightarrow{C}\right) _{j}=\left\{ \begin{array}{ccc}
+\frac{1}{(n+1)}\sqrt{\frac{j(j+1)}{2}} & \mbox {for} & i\leq k\\
+\frac{1}{(n+1)}\sqrt{\frac{j(j+1)}{2}}-(k+1)\sqrt{\frac{2}{j(j+1)}} & \mbox {for} & i>k
+\end{array}\right. 
+\end{equation}
+
+\end_inset 
+
+
+\layout Standard
+
+La magnitude du vecteur 
+\begin_inset Formula \( \overrightarrow{R_{k}} \)
+\end_inset 
+
+ est:
+\layout Standard
+
+
+\begin_inset Formula 
+\begin{equation}
+\left\Vert \overrightarrow{R_{k}}\right\Vert =\sum _{j=1}^{n}\left[ \left( \overrightarrow{R_{k}}\right) _{j}\right] ^{2}=\sqrt{\frac{n(n+2)}{6(n+1)}}
+\end{equation}
+
+\end_inset 
+
+
+\layout Standard
+
+ce qui est independant de 
+\begin_inset Formula \( k \)
+\end_inset 
+
+.
+ En consèquence le barycentre des sommets de la cellule modulaire est équidistan
+t de tous.
+ Ce fait à des importantes implications, parmi elles:
+\layout Itemize
+
+La cellule modulaire peut s'inscrire dans une hyper-sphère 
+\begin_inset Formula \( n \)
+\end_inset 
+
+ dimensionel.
+\layout Itemize
+
+Le barycentre de la cellule modulaire est un sommet de la figure de Voronoï
+ de chaque node appartenant à la cellule modulaire.
+\layout Itemize
+
+La figure de Voronoï de la grille 
+\begin_inset Formula \( A^{*}_{n} \)
+\end_inset 
+
+ (pour toute dimension 
+\begin_inset Formula \( n \)
+\end_inset 
+
+) a un seul type de sommet (c'est à dire : tous ses sommets sont géométriquement
+ équivalents).
+\layout Itemize
+
+Il y en a autant de sommet dans la figure de Voronoï que de cellules modulaires
+ autour d'un point de la grille.
+ Plus précisement 
+\begin_inset Formula \( (n+1)! \)
+\end_inset 
+
+ ( 6 dans le cas 
+\begin_inset Formula \( 2D \)
+\end_inset 
+
+, correspondant à la grille hexagonale.
+ 24 dans le cas 
+\begin_inset Formula \( 3D \)
+\end_inset 
+
+, correspondant à l'octahedre tronqué, figure de Voronoï de la grille BCC).
+\layout Bibliography
+\bibitem {Rosenfeld}
+
+A.Rosenfeld, A.
+ Kak, 
+\shape italic 
+Digital picture processing,
+\shape default 
+ Academic Press Inc., 1982.
+\layout Bibliography
+\bibitem {Udupa}
+
+J.K.Udupa, G.T.Herman, 
+\shape italic 
+3-D Imaging in Medicine,
+\shape default 
+ CRC Press, 1989.
+\layout Bibliography
+\bibitem {Kittel}
+
+C.Kittel, 
+\shape italic 
+Introduction to solid-state physics,
+\shape default 
+ John Wiley & Sons Inc., 1971.
+\layout Bibliography
+\bibitem {Xtal}
+
+D.Schwarzenbach, 
+\shape italic 
+Cristalographie, 
+\shape default 
+Presses polytechniques et universitaires romandes, 1993.
+\layout Bibliography
+\bibitem {Pack}
+
+J.H.Conway, N.J.A.Sloane, 
+\shape italic 
+Sphere packing lattice and groups,
+\shape default 
+ Second edition, Springer-Verlag, A series of comprehensive studies in mathemati
+cs, 1993.
+\layout Bibliography
+\bibitem {Coxeter}
+
+H.S.M.Coxeter, 
+\shape italic 
+Introduction to Geometry,
+\shape default 
+ second edition John Wiley & Sons Inc., 1969.
+\layout Bibliography
+\bibitem {LevyENST}
+
+Rapport de stage de Levy, sur la conversion des grilles hexagona-carre.
+\layout Bibliography
+\bibitem {Ulichney}
+
+R.Ulichney, 
+\shape italic 
+Digital Halftoning,
+\shape default 
+ Cambridge MA, MIT Press, 1987.
+\layout Bibliography
+\bibitem {Japon}
+
+K.Miyazaki, 
+\shape italic 
+An adventure in multidimensional space,
+\shape default 
+ A Wiley Inter-science publication, John Wiley & Sons Inc., 1983 
+\layout Bibliography
+\bibitem {Viterbo}
+
+E.Viterbo, E.Biglieri, 
+\shape italic 
+\emph on 
+Computing the Voronoi cell of a lattice: the diamond-cutting algorith
+\shape default 
+\emph default 
+m, 
+\emph on 
+IEEE transactions on information theory
+\emph default 
+.
+ 
+\series bold 
+42
+\series default 
+, No.
+ 1, January 1996.
+\layout Bibliography
+\bibitem {Kinsey}
+
+L.C.Kinsey, 
+\shape italic 
+Topology of surfaces,
+\shape default 
+ Undergraduate Texts in Mathematics, Springer-Verlag, New York, 1993.
+\layout Bibliography
+\bibitem {Mersereau}
+
+D.E.Dudgeon, R.M.
+ Mersereau, 
+\shape italic 
+Multidimensional digital signal processing,
+\shape default 
+ Prentice-Hall, Englwood Cliffs NJ, 1984.
+\layout Bibliography
+\bibitem {Nogly}
+
+D.Nogly, M.Schladt,
+\shape italic 
+ 
+\emph on 
+Digital Topology on Graphs,
+\shape default 
+\emph default 
+ 
+\emph on 
+Computer Vision and Image Understanding
+\emph default 
+, 
+\series bold 
+63
+\series default 
+, No.2, March, 1996, 394-396
+\layout Bibliography
+\bibitem {MarchingCubes}
+
+W.E.
+ Lorensen, H.E.
+ Cline,
+\emph on 
+ 
+\shape italic 
+Marching Cubes: A high resolution 3D surface construction algorithm,
+\shape default 
+\emph default 
+ 
+\emph on 
+Computer Graphics
+\emph default 
+, 
+\series bold 
+21
+\series default 
+, No.4, Jul 1987, 163-169.
+\layout Bibliography
+\bibitem {UdupaDGCI}
+
+J.K.
+ Udupa, 
+\shape italic 
+\emph on 
+Digital object definition in 3D imaging,
+\shape default 
+\emph default 
+ 
+\emph on 
+6th International Workshop, Discrete Geometry for Computer Imagery DGCI'96
+\emph default 
+,
+\emph on 
+ November 1996, Lyon, France.
+ Lecture Notes in Computer Science, Springer Verlag.
+\layout Bibliography
+\bibitem {Morpho}
+
+E.R.
+ Dougherty, 
+\shape italic 
+Mathematical Morphology in image processing
+\shape default 
+, Marcel Dekker, New York 1991.
+\layout Bibliography
+\bibitem {Ayala}
+
+R.Ayala, E.Domínguez, A.R.
+ Francés, A.Quintero, J.Rubio, 
+\shape italic 
+\emph on 
+On surfaces in digital topology
+\shape default 
+\emph default 
+.
+ 
+\emph on 
+Proceedings of the 5th Colloquium of Discrete Geometry for Computer Imagery
+ DGCI
+\emph default 
+, 
+\emph on 
+1995
+\emph default 
+.
+ 271-276.
+\layout Bibliography
+\bibitem {Serra}
+
+J.Serra,
+\shape italic 
+ Image Analysis and Mathematical Morphology
+\shape default 
+, Academic Press Inc.
+ 1982.
+\layout Bibliography
+\bibitem {Martin}
+
+G.E.Martin, 
+\shape italic 
+Transformation Geometry, An Introduction to Symmetry,
+\shape default 
+ Springer Verlag Berlin, 1982.
+\layout Bibliography
+\bibitem {Chui}
+
+Ch.K.Chui, 
+\shape italic 
+Multivariate Splines,
+\shape default 
+ Texas A&M University CBMS-NSF Regional conferences Series in Applied Mathematic
+s Philadelphia Pennsilvania, 1988.
+\layout Bibliography
+\bibitem {Rendering}
+
+Tiede et al, 
+\shape italic 
+\emph on 
+Investigation of Medical 3D-Rendering Algorithms
+\shape default 
+\emph default 
+.
+ 
+\emph on 
+IEEE Computer Graphics & Applications
+\emph default 
+, 
+\series bold 
+10
+\series default 
+, No.2, 1990, 41-53.
+\layout Bibliography
+\bibitem {MatejLewit}
+
+S.
+ Matej, R.M.
+ Lewit, 
+\shape italic 
+\emph on 
+
+\begin_inset Quotes eld
+\end_inset 
+
+Efficient 3D Grids for Image Reconstruction Using Spherically-Symmetric
+ Volume Elements
+\begin_inset Quotes erd
+\end_inset 
+
+,
+\shape default 
+ IEEE Trans.
+ on Nuclear Science
+\emph default 
+,
+\series bold 
+ 
+\series default 
+Vol.
+ 42, No.
+ 4, pp.
+ 1361-1370, Aug.
+ 1995.
+\layout Bibliography
+\bibitem {HexagonalTomography}
+
+S.
+ Matej, G.T.
+ Herman, A.
+ Vardi, 
+\begin_inset Quotes eld
+\end_inset 
+
+Binary Tomography on the Hexagonal Grid Using Gibbs Priors
+\begin_inset Quotes erd
+\end_inset 
+
+, 
+\emph on 
+Int.
+ J.
+ Imaging Syst.
+ Technol
+\emph default 
+.
+ Vol 9, pp 126-131, 1998.
+\layout Bibliography
+\bibitem {HermanSimplyConnected}
+
+G.T.
+ Herman, 
+\begin_inset Quotes eld
+\end_inset 
+
+Finitary 1-Simply Connected Digital Spaces
+\begin_inset Quotes erd
+\end_inset 
+
+, 
+\emph on 
+Graphical Models and Image Processing
+\emph default 
+, Vol.
+ 60, No.
+ 1, pp.
+ 46-56, January 1998.
+\layout Bibliography
+\bibitem {HermanJordan}
+
+G.T.
+ Herman, E.
+ Zhao, 
+\emph on 
+
+\begin_inset Quotes eld
+\end_inset 
+
+Jordan Surfaces in Simply Connected Digital Spaces
+\emph default 
+
+\begin_inset Quotes erd
+\end_inset 
+
+, Journal of Mathematical Imaging and Vision 6, pp.
+ 121-138, 1996.
+\layout Bibliography
+\bibitem {HermanSummerSchool}
+
+G.T.
+ Herman, 
+\begin_inset Quotes eld
+\end_inset 
+
+Biomedical Applications of Digital Geometry
+\begin_inset Quotes erd
+\end_inset 
+
+, 
+\emph on 
+Third IEEE-EMBS International Summer School
+\emph default 
+, Berder Island, Brittany, France, June 1998.
+\layout Bibliography
+\bibitem {IbanezDGCI96}
+
+L.
+ Ibáñez, C.
+ Hamitouche, C.
+ Roux, 
+\shape italic 
+\emph on 
+
+\begin_inset Quotes eld
+\end_inset 
+
+Determination of Discrete Sampling Grids with Optimal Topological and Spectral
+ Properties
+\begin_inset Quotes erd
+\end_inset 
+
+,
+\shape default 
+\emph default 
+ 
+\emph on 
+Proc.
+ 6th International Workshop in Discrete Geometry for Computer Imagery DGCI96,
+ 
+\emph default 
+Lecture Notes in Computer Science 1176, Springer Verlag, Lyon, France 1996,
+ pp.
+ 181-192.
+\layout Bibliography
+\bibitem {IbanezDGCI97}
+
+L.
+ Ibáñez, C.
+ Hamitouche, C.
+ Roux, 
+\shape italic 
+\emph on 
+
+\begin_inset Quotes eld
+\end_inset 
+
+
+\shape default 
+\emph default 
+Ray-Tracing and 3-D Objects Representation in the BCC and FCC Grid
+\shape italic 
+\emph on 
+
+\begin_inset Quotes erd
+\end_inset 
+
+,
+\shape default 
+\emph default 
+ 
+\emph on 
+Proc.
+ 7th International Workshop in Discrete Geometry for Computer Imagery DGCI97,
+ 
+\emph default 
+Lecture Notes in Computer Science, Springer Verlag, Montpellier, France
+ 1997.
+\layout Bibliography
+\bibitem {IbanezEMBS98}
+
+L.E.
+ Ibáñez, C.
+ Hamitouche, C.
+ Roux, 
+\begin_inset Quotes eld
+\end_inset 
+
+
+\emph on 
+Ray Casting in the BCC Grid Applied to 3D Medical Image Visualization
+\emph default 
+
+\begin_inset Quotes erd
+\end_inset 
+
+, IEEE-EMBS, Engineering in Medicine and Biology Society, annual conference,
+ Hong-Kong, 1998.
+\layout Bibliography
+\bibitem {SphericalCodes}
+
+References de codes spheriques.
+\layout Bibliography
+\bibitem {SignalReconstruction}
+
+Article de reconstruccion de signales par interpolation adaptative (qui
+ utilise une sinc de taille differente pour chaque point).
+\layout Section
+\bibitem {21}
+
+Figures
+\layout Standard
+
+\begin_float fig 
+\layout Standard
+\align center 
+
+\begin_inset Figure size 340 79
+file ../../articles/topology/topo2d.eps
+width 1 12
+height 1 2.8
+flags 9
+
+\end_inset 
+
+
+\layout Caption
+
+
+\begin_inset LatexCommand \label{fig:topo2d}
+
+\end_inset 
+
+Topological relations in 2-D imaging
+\end_float 
+\layout Standard
+
+\begin_float fig 
+\layout Standard
+\align center 
+
+\begin_inset Figure size 226 85
+file ../../articles/topology/topohex.eps
+width 1 8
+height 1 3
+flags 9
+
+\end_inset 
+
+
+\layout Caption
+
+
+\begin_inset LatexCommand \label{fig:hexagonal}
+
+\end_inset 
+
+Topological relations in 2-D hexagonal grid
+\end_float 
+\layout Standard
+
+\begin_float fig 
+\layout Standard
+\align center 
+
+\begin_inset Figure size 319 139
+file ../../articles/topology/Relations3d.eps
+flags 10
+
+\end_inset 
+
+
+\layout Caption
+
+
+\begin_inset LatexCommand \label{fig:topo3d}
+
+\end_inset 
+
+Topological relations in 3-D cubic grid
+\end_float 
+\layout Standard
+
+\begin_float fig 
+\layout Standard
+\align center 
+
+\begin_inset Figure size 306 77
+file ../../articles/topology/elemset.eps
+flags 5
+
+\end_inset 
+
+
+\layout Caption
+
+
+\begin_inset LatexCommand \label{fig:elemset}
+
+\end_inset 
+
+Incremental construction of the elementary set
+\end_float 
+\layout Standard
+
+\begin_float fig 
+\layout Standard
+\align center 
+
+\begin_inset Figure size 340 56
+file ../../articles/topology/Elementary.eps
+width 1 12
+height 1 2
+flags 10
+
+\end_inset 
+
+
+\layout Caption
+
+
+\begin_inset LatexCommand \label{fig:elemsetwrl}
+
+\end_inset 
+
+Elementary set
+\end_float 
+\layout Standard
+
+\begin_float fig 
+\layout Standard
+\align center 
+
+\begin_inset Figure size 198 168
+file ../../articles/topology/pnbn.eps
+flags 9
+
+\end_inset 
+
+
+\layout Caption
+
+
+\begin_inset LatexCommand \label{fig:pnbn}
+
+\end_inset 
+
+Recursive relations between 
+\begin_inset Formula \( p_{n} \)
+\end_inset 
+
+, 
+\begin_inset Formula \( b_{n} \)
+\end_inset 
+
+ and 
+\begin_inset Formula \( b_{(n-1)} \)
+\end_inset 
+
+
+\end_float 
+\layout Standard
+
+\begin_float fig 
+\layout Standard
+\align center 
+
+\begin_inset Figure size 197 122
+file ../../articles/topology/neighbors.eps
+flags 9
+
+\end_inset 
+
+
+\layout Caption
+
+
+\begin_inset LatexCommand \label{fig:inmediateneighbors}
+
+\end_inset 
+
+Determination of immediate neighbors on the hexagonal grid
+\end_float 
+\layout Standard
+
+\begin_float fig 
+\layout Standard
+\align center 
+
+\begin_inset Figure size 340 141
+file ../../articles/topology/BCCFCC.eps
+width 1 12
+height 1 5
+flags 10
+
+\end_inset 
+
+
+\layout Caption
+
+
+\begin_inset LatexCommand \label{fig:bccbasisvectors}
+
+\end_inset 
+
+Vector basis of the 
+\begin_inset Formula \( A_{3}^{*} \)
+\end_inset 
+
+(BCC) grid.
+\end_float 
+\layout Standard
+
+\begin_float fig 
+\layout Standard
+\align center 
+
+\begin_inset Figure size 356 87
+file ../../articles/topology/symmetry2d.eps
+flags 13
+
+\end_inset 
+
+
+\layout Caption
+
+
+\begin_inset LatexCommand \label{fig:symmetries}
+
+\end_inset 
+
+Symmetries for the 
+\begin_inset Formula \( 2-D \)
+\end_inset 
+
+ optimal grid
+\end_float 
+\layout Standard
+
+\begin_float fig 
+\layout Standard
+\align center 
+
+\begin_inset Figure size 339 119
+file ../../articles/topology/moducell.eps
+flags 9
+
+\end_inset 
+
+
+\layout Caption
+
+
+\begin_inset LatexCommand \label{fig:modular_cell}
+
+\end_inset 
+
+Modular cells in 
+\begin_inset Formula \( 2-D \)
+\end_inset 
+
+ and 
+\begin_inset Formula \( 3-D \)
+\end_inset 
+
+
+\end_float 
+ 
+\layout Standard
+
+\begin_float fig 
+\layout Standard
+\align center 
+
+\begin_inset Figure size 255 85
+file ../../articles/topology/interp2d.eps
+width 1 9
+height 1 3
+flags 9
+
+\end_inset 
+
+
+\layout Caption
+
+
+\begin_inset LatexCommand \label{fig:interp2d}
+
+\end_inset 
+
+Interpolation inside Delaunay regions.
+ (Left) Square grid.
+ (Right) Hexagonal grid
+\end_float 
+\layout Section
+
+Tables 
+\layout Standard
+
+\begin_float tab 
+\layout Standard
+\added_space_top 0.3cm \added_space_bottom 0.3cm \align center \LyXTable
+multicol5
+7 8 0 0 -1 -1 -1 -1
+1 1 0 0
+1 0 0 0
+1 0 0 0
+1 0 0 0
+1 0 0 0
+1 0 0 0
+1 1 0 0
+8 1 0 "" ""
+8 1 0 "" ""
+8 1 0 "" ""
+8 1 0 "" ""
+8 1 0 "" ""
+8 1 0 "" ""
+8 1 0 "" ""
+8 1 1 "" ""
+0 8 1 1 0 0 0 "" ""
+0 8 1 1 0 0 0 "" ""
+0 8 1 1 0 0 0 "" ""
+0 8 1 1 0 0 0 "" ""
+0 8 1 1 0 0 0 "" ""
+0 8 1 1 0 0 0 "" ""
+0 8 1 1 0 0 0 "" ""
+0 8 1 1 0 0 0 "" ""
+0 8 1 0 0 0 0 "" ""
+0 8 1 0 0 0 0 "" ""
+0 8 1 0 0 0 0 "" ""
+0 8 1 0 0 0 0 "" ""
+0 8 1 0 0 0 0 "" ""
+0 8 1 0 0 0 0 "" ""
+0 8 1 0 0 0 0 "" ""
+0 8 1 0 0 0 0 "" ""
+0 8 1 0 0 0 0 "" ""
+0 8 1 0 0 0 0 "" ""
+0 8 1 0 0 0 0 "" ""
+0 8 1 0 0 0 0 "" ""
+0 8 1 0 0 0 0 "" ""
+0 8 1 0 0 0 0 "" ""
+0 8 1 0 0 0 0 "" ""
+0 8 1 0 0 0 0 "" ""
+0 8 1 0 0 0 0 "" ""
+0 8 1 0 0 0 0 "" ""
+0 8 1 0 0 0 0 "" ""
+0 8 1 0 0 0 0 "" ""
+0 8 1 0 0 0 0 "" ""
+0 8 1 0 0 0 0 "" ""
+0 8 1 0 0 0 0 "" ""
+0 8 1 0 0 0 0 "" ""
+0 8 1 0 0 0 0 "" ""
+0 8 1 0 0 0 0 "" ""
+0 8 1 0 0 0 0 "" ""
+0 8 1 0 0 0 0 "" ""
+0 8 1 0 0 0 0 "" ""
+0 8 1 0 0 0 0 "" ""
+0 8 1 0 0 0 0 "" ""
+0 8 1 0 0 0 0 "" ""
+0 8 1 0 0 0 0 "" ""
+0 8 1 0 0 0 0 "" ""
+0 8 1 0 0 0 0 "" ""
+0 8 1 0 0 0 0 "" ""
+0 8 1 0 0 0 0 "" ""
+0 8 1 0 0 0 0 "" ""
+0 8 1 0 0 0 0 "" ""
+0 8 1 0 0 0 0 "" ""
+0 8 1 1 0 0 0 "" ""
+0 8 1 1 0 0 0 "" ""
+0 8 1 1 0 0 0 "" ""
+0 8 1 1 0 0 0 "" ""
+0 8 1 1 0 0 0 "" ""
+0 8 1 1 0 0 0 "" ""
+0 8 1 1 0 0 0 "" ""
+0 8 1 1 0 0 0 "" ""
+
+
+\begin_inset Formula \( n \)
+\end_inset 
+
+
+\newline 
+
+\begin_inset Formula \( b_{n}^{2} \)
+\end_inset 
+
+
+\newline 
+
+\begin_inset Formula \( p_{n}^{2} \)
+\end_inset 
+
+
+\newline 
+
+\begin_inset Formula \( b_{n} \)
+\end_inset 
+
+
+\newline 
+
+\begin_inset Formula \( p_{n} \)
+\end_inset 
+
+
+\newline 
+
+\begin_inset Formula \( Ve_{n} \)
+\end_inset 
+
+
+\newline 
+
+\begin_inset Formula \( Vc_{n} \)
+\end_inset 
+
+
+\newline 
+
+\begin_inset Formula \( \approx Vc_{n} \)
+\end_inset 
+
+
+\newline 
+
+\begin_inset Formula \( 0 \)
+\end_inset 
+
+
+\newline 
+
+\begin_inset Formula \( 0 \)
+\end_inset 
+
+
+\newline 
+
+\begin_inset Formula \( 0 \)
+\end_inset 
+
+
+\newline 
+
+\begin_inset Formula \( 0 \)
+\end_inset 
+
+
+\newline 
+
+\begin_inset Formula \( 0 \)
+\end_inset 
+
+
+\newline 
+
+\begin_inset Formula \( 0 \)
+\end_inset 
+
+
+\newline 
+
+\begin_inset Formula \( 0 \)
+\end_inset 
+
+
+\newline 
+
+\begin_inset Formula \( 0.000 \)
+\end_inset 
+
+
+\newline 
+
+\begin_inset Formula \( 1 \)
+\end_inset 
+
+
+\newline 
+
+\begin_inset Formula \( \frac{1}{4} \)
+\end_inset 
+
+
+\newline 
+
+\begin_inset Formula \( \frac{2}{2} \)
+\end_inset 
+
+
+\newline 
+
+\begin_inset Formula \( \frac{1}{2} \)
+\end_inset 
+
+
+\newline 
+
+\begin_inset Formula \( 1 \)
+\end_inset 
+
+
+\newline 
+
+\begin_inset Formula \( 1 \)
+\end_inset 
+
+
+\newline 
+
+\begin_inset Formula \( 1 \)
+\end_inset 
+
+
+\newline 
+
+\begin_inset Formula \( 1.000 \)
+\end_inset 
+
+
+\newline 
+
+\begin_inset Formula \( 2 \)
+\end_inset 
+
+
+\newline 
+
+\begin_inset Formula \( \frac{2}{6} \)
+\end_inset 
+
+
+\newline 
+
+\begin_inset Formula \( \frac{3}{4} \)
+\end_inset 
+
+
+\newline 
+
+\begin_inset Formula \( \frac{\sqrt{3}}{3} \)
+\end_inset 
+
+
+\newline 
+
+\begin_inset Formula \( \frac{\sqrt{3}}{2} \)
+\end_inset 
+
+
+\newline 
+
+\begin_inset Formula \( \frac{\sqrt{3}}{4} \)
+\end_inset 
+
+
+\newline 
+
+\begin_inset Formula \( \frac{\sqrt{3}}{2} \)
+\end_inset 
+
+
+\newline 
+
+\begin_inset Formula \( 0.866 \)
+\end_inset 
+
+
+\newline 
+
+\begin_inset Formula \( 3 \)
+\end_inset 
+
+
+\newline 
+
+\begin_inset Formula \( \frac{3}{8} \)
+\end_inset 
+
+
+\newline 
+
+\begin_inset Formula \( \frac{4}{6} \)
+\end_inset 
+
+
+\newline 
+
+\begin_inset Formula \( \frac{\sqrt{6}}{4} \)
+\end_inset 
+
+
+\newline 
+
+\begin_inset Formula \( \frac{\sqrt{6}}{3} \)
+\end_inset 
+
+
+\newline 
+
+\begin_inset Formula \( \frac{\sqrt{1}}{72} \)
+\end_inset 
+
+
+\newline 
+
+\begin_inset Formula \( \frac{\sqrt{2}}{2} \)
+\end_inset 
+
+
+\newline 
+
+\begin_inset Formula \( 0.707 \)
+\end_inset 
+
+
+\newline 
+
+\begin_inset Formula \( 4 \)
+\end_inset 
+
+
+\newline 
+
+\begin_inset Formula \( \frac{4}{10} \)
+\end_inset 
+
+
+\newline 
+
+\begin_inset Formula \( \frac{5}{8} \)
+\end_inset 
+
+
+\newline 
+
+\begin_inset Formula \( \frac{\sqrt{10}}{5} \)
+\end_inset 
+
+
+\newline 
+
+\begin_inset Formula \( \frac{\sqrt{10}}{4} \)
+\end_inset 
+
+
+\newline 
+
+\begin_inset Formula \( \frac{\sqrt{5}}{9216} \)
+\end_inset 
+
+
+\newline 
+
+\begin_inset Formula \( \frac{\sqrt{5}}{4} \)
+\end_inset 
+
+
+\newline 
+
+\begin_inset Formula \( 0.559 \)
+\end_inset 
+
+
+\newline 
+
+\begin_inset Formula \( 5 \)
+\end_inset 
+
+
+\newline 
+
+\begin_inset Formula \( \frac{5}{12} \)
+\end_inset 
+
+
+\newline 
+
+\begin_inset Formula \( \frac{6}{10} \)
+\end_inset 
+
+
+\newline 
+
+\begin_inset Formula \( \frac{\sqrt{15}}{6} \)
+\end_inset 
+
+
+\newline 
+
+\begin_inset Formula \( \frac{\sqrt{15}}{5} \)
+\end_inset 
+
+
+\newline 
+
+\begin_inset Formula \( \frac{\sqrt{1}}{76800} \)
+\end_inset 
+
+
+\newline 
+
+\begin_inset Formula \( \frac{\sqrt{3}}{4} \)
+\end_inset 
+
+
+\newline 
+
+\begin_inset Formula \( 0.433 \)
+\end_inset 
+
+
+\layout Caption
+
+
+\begin_inset LatexCommand \label{tab:basic}
+
+\end_inset 
+
+Values of basic parameters of the elementary set
+\end_float 
+\layout Standard
+
+\begin_float tab 
+\layout Standard
+\align center \LyXTable
+multicol5
+3 2 0 0 -1 -1 -1 -1
+1 1 0 0
+1 0 0 0
+1 1 0 0
+8 1 0 "" ""
+8 1 1 "" ""
+0 8 1 1 0 0 0 "" ""
+0 8 1 1 0 0 0 "" ""
+0 8 1 0 0 0 0 "" ""
+0 8 1 0 0 0 0 "" ""
+0 8 1 1 0 0 0 "" ""
+0 8 1 1 0 0 0 "" ""
+
+Operation
+\newline 
+Order
+\newline 
+Products
+\newline 
+
+\begin_inset Formula \( 2^{(n+1)}-2 \)
+\end_inset 
+
+
+\newline 
+Sums
+\newline 
+
+\begin_inset Formula \( (2^{n}-1)-(n+1) \)
+\end_inset 
+
+
+\layout Caption
+
+
+\begin_inset LatexCommand \label{tab:compcostZn}
+
+\end_inset 
+
+Computational load in 
+\begin_inset Formula \( Z^{n} \)
+\end_inset 
+
+ grid interpolation
+\end_float 
+\layout Standard
+
+\begin_float tab 
+\layout Standard
+\align center \LyXTable
+multicol5
+3 2 0 0 -1 -1 -1 -1
+1 1 0 0
+1 0 0 0
+1 1 0 0
+8 1 0 "" ""
+8 1 1 "" ""
+0 8 1 1 0 0 0 "" ""
+0 8 1 1 0 0 0 "" ""
+0 8 1 0 0 0 0 "" ""
+0 8 1 0 0 0 0 "" ""
+0 8 1 1 0 0 0 "" ""
+0 8 1 1 0 0 0 "" ""
+
+Operation
+\newline 
+Order
+\newline 
+Products
+\newline 
+
+\begin_inset Formula \( (n+1)(n+2) \)
+\end_inset 
+
+
+\newline 
+Sums
+\newline 
+
+\begin_inset Formula \( n(n+2) \)
+\end_inset 
+
+
+\layout Caption
+
+
+\begin_inset LatexCommand \label{tab:interpcostAn}
+
+\end_inset 
+
+Computational load in the 
+\begin_inset Formula \( A^{*}_{n} \)
+\end_inset 
+
+ grid interpolation
+\end_float 
+\the_end

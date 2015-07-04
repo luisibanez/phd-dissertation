@@ -1,0 +1,159 @@
+#This file was created by <ibanez> Sat Jul 25 09:26:04 1998
+#LyX 0.12 (C) 1995-1998 Matthias Ettrich and the LyX Team
+\lyxformat 2.15
+\textclass article
+\language default
+\inputencoding default
+\fontscheme default
+\graphics default
+\paperfontsize default
+\spacing single 
+\papersize Default
+\paperpackage a4
+\use_geometry 0
+\use_amsmath 0
+\paperorientation portrait
+\secnumdepth 3
+\tocdepth 3
+\paragraph_separation indent
+\defskip medskip
+\quotes_language english
+\quotes_times 2
+\papercolumns 1
+\papersides 1
+\paperpagestyle default
+
+\layout Standard
+
+Sachant que l'unité fondamentale des organismes biologiques est la cellule,
+ et que le comportement des cellules est un fonction de sa differentication
+ (un niveau d'especialization) qui est déterminé pendant le developement
+ embryonaire.
+\layout Standard
+
+Il resulte attirante de modeliser la morphologie par une ensemble des element
+ resemblant aux cellules.
+ Les elements suivantes doivent etre pris en compte:
+\layout Standard
+
+La cellule se divide avec duplication de l'ADN
+\layout Standard
+
+parametre: temps d'attente pour se diviser (Td).
+\layout Standard
+
+La cellule se difference apres sa division, en fonction des conditions externes:
+ particulierement les cellules voisines deja differenties.
+\layout Standard
+
+La cellule se deplace
+\layout Standard
+
+La cellule differentie produit des substances que n'ont une destination
+ personale, mais qui sont necesaires pour le developement de l'individu.
+ Ces substances sont specifiques du type de tissu.
+\layout Standard
+
+Las cellules differnties ne se reproduisent point.
+ (tres rarement)
+\layout Standard
+
+Las nouvelles cellules 
+\begin_inset Quotes eld
+\end_inset 
+
+differenties
+\begin_inset Quotes erd
+\end_inset 
+
+ doivent provenir des cellules non differenties qui restent comme capital
+ de regeneration, ces cellules se divisen et se differentien ulterieurement.
+\layout Section
+
+Modele de la cellule:
+\layout Standard
+
+la cellule sera modelise par une ellipsoide a symetrie de revolution,
+\layout Enumerate
+
+Elle ocupe une space (donc a un rayon)
+\layout Enumerate
+
+Elle a un degree de aplatisement ( facteur float)
+\layout Enumerate
+
+Elle a une position ( x,y,z).
+\layout Enumerate
+
+Elle a des variables d'etat interne qui indiquent sa differentiation
+\layout Enumerate
+
+ces variables se comportent de façon similaire au reponse des neurones,
+ cette a dire, elles sont a variation continue, mais ses reactions se produisent
+ de façon binaire apres le depasement d'un seuil.
+\layout Enumerate
+
+Les cellules une fois differenties suivent un programme predefinie.
+\layout Standard
+
+Pour nos besoins de modelisation on se limitera aux types de cellules suivantes
+ (donc tissus) :
+\layout Standard
+
+miocytes (Cellules allonges
+\layout Standard
+
+chondrocites
+\layout Standard
+
+internes-> externes (degree de fibracion de la matrix intercellulaire)
+\layout Standard
+
+osteocytes
+\layout Standard
+
+osteoblastes, osteoclastes, osteocytes.
+\layout Standard
+
+Las cellules seront modellises en utilisant les techniques de la programation
+ orientee object :
+\layout Standard
+
+Le code genetique sera represente par de fonctions de logique flue qui agiront
+ en raison des conditions externes\i \c{ }
+ l'etat interne de la cellule 
+\layout Section
+
+Faits a prendre en compte
+\layout Standard
+
+Le process initiaux de la vie embrionayre: la division cellulaire et la
+ formation de la morule.
+ Prends 4 jour !!, temps assez surprenant pour une process qui est relativement
+ simple, que-est-ce qui se passe d'autre pendant ce temps ?
+\layout Standard
+
+Les process de migrations cellulaires qui suivent la formation de la morule,
+ resemblent de façon importante l'equivalent des 
+\begin_inset Quotes eld
+\end_inset 
+
+forks
+\begin_inset Quotes erd
+\end_inset 
+
+ en Unix, la cellule, vue comme une machine a états, se divise pour suivre
+ le developement de deux alternatives d'un programe.
+ Ce possibilite, unie au fait que les differentiations cellulaires sont
+ faites en prennant en compte les voisins qui se trouvent autour au moment
+ ou la cellule est active pour la differentiation (voir le gene et la forme).
+\layout Standard
+
+Ce qui nous indique une sorte de programation 
+\emph on 
+geometrique
+\emph default 
+ dans lequel les pliements geometriques de la masse cellulaires ainsi comme
+ ces migrations permetent de dedoubler le code stoque dans l'ADN, sorte
+ de decodage ?
+\the_end

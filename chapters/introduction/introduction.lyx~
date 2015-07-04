@@ -1,0 +1,273 @@
+#This file was created by <ibanez> Sun Mar 26 22:37:11 2000
+#LyX 0.12 (C) 1995-1998 Matthias Ettrich and the LyX Team
+\lyxformat 2.15
+\textclass book
+\begin_preamble
+\usepackage{url}
+\end_preamble
+\language french
+\inputencoding default
+\fontscheme default
+\graphics default
+\paperfontsize default
+\spacing onehalf 
+\papersize Default
+\paperpackage a4
+\use_geometry 0
+\use_amsmath 0
+\paperorientation portrait
+\secnumdepth 3
+\tocdepth 3
+\paragraph_separation indent
+\defskip medskip
+\quotes_language english
+\quotes_times 2
+\papercolumns 1
+\papersides 2
+\paperpagestyle default
+
+\layout Chapter*
+
+Introduction
+\layout Standard
+
+Le présent rapport de thèse condense notre travail réalisé autour de la
+ segmentation de volumes des donnes des structures osseuses.
+ L'objectif de cette segmentation étant celui de faire une contribution
+ à l'étude de la morphologie et la fonctionalité des os longs.
+\layout Standard
+
+Notre travail à été caractérisé par un importante effort interdisciplinaire.
+ La compréhension du comportement et des caracteristiques des organes biologique
+s ne pouvant pas être atteinte avec la contribution d'une seule discipline.
+ La variété de concepts dérivée de cette interdisciplinarité ainsi que la
+ compréhension des multiples relations existantes entre eux est, à notre
+ considération, le produit le plus importante qui résulte de cet travail.
+ 
+\layout Standard
+
+Le fait de que la forme des structures osseuses soit soumise aussi bien
+ au processus qui génèrent la forme de l'organisme, qu'a l'activité dont
+ cette forme est responsable, et à l'adaptaion des espèces aux conditions
+ de l'environnement, ne peut pas être appréciée avec les seuls yeux du traitemen
+t de signal.
+ 
+\layout Standard
+
+De la même façon, l'analyse du processus de morphogenèse fait sous la lumière
+ de la théorie de l'information, ou celui de la modelation des surfaces
+ à la lumière de la cinématique, résulte en une nouvelle dimensionalité
+ et changent completment notre perception de les mécanismes, impliqués,
+ ses finalités et limitations.
+\layout Section*
+
+La démarche suivie
+\layout Standard
+
+Dés le début de notre travail notre intérêt était dirigé vers la segmentation
+ et modelation des surfaces articulaires.
+ Bien si l'intention finale était celle de décrire la fonctionalité des
+ os longs dans sa généralité, des travaux précédentes réalises dans notre
+ laboratoire avaient développé des méthodologies appropriés et efficaces
+ pour segmentation et modelation de la partie médiale des os longs.
+ Cette méthodologies, néanmoins, trouvaient des inconvénients dans les regions
+ articulaires car la configuration géométrique et la composition tissulaire
+ font que les caracteristiques de l'image soient très différentes de celles
+ qui peuvent être observées dans la partie médiale des os.
+\layout Standard
+
+Le diagramme présenté dans la figure 
+\begin_inset LatexCommand \ref{fig: PlanInitial}
+
+\end_inset 
+
+ montre le plan original de notre travail.
+ Ce plan supposait que les structures articulaires pouvaient être segmentées
+ à base d'opérations de traitement d'image.
+ Cette étape était censée de fournir une vérité du terrain à partir de laquelle
+ serait possible de passer à étudier les caracteristiques de la forme des
+ surfaces extraites.
+ L'étude de la forme devrait conduire ensuite à la définition de contraintes
+ mécaniques imposés par la morphologie.
+\layout Standard
+
+\begin_float fig 
+\layout Standard
+\align center 
+
+\begin_inset Figure size 476 76
+file diagramme_initial.eps
+width 4 80
+flags 8
+
+\end_inset 
+
+
+\layout Caption
+
+
+\begin_inset LatexCommand \label{fig: PlanInitial}
+
+\end_inset 
+
+Plan original de travail
+\end_float 
+\layout Standard
+
+Le diagramme de la figure 
+\begin_inset LatexCommand \ref{fig: PlanReel}
+
+\end_inset 
+
+ montre, d'autre part, la démarche réelle suivie le long de cet travail
+ de thèse.
+ Il faut remarquer elle n'a pas été du tout une suite des pas nettement
+ définis et exécutés séquentiellement mais plutôt un processus de maturation
+ d'idées avec des boucles de retour (
+\emph on 
+feedback
+\emph toggle 
+ ?).
+ 
+\layout Standard
+
+\begin_float fig 
+\layout Standard
+\align center 
+
+\begin_inset Figure size 595 337
+file diagramme_reel.eps
+width 4 100
+flags 8
+
+\end_inset 
+
+
+\layout Caption
+
+
+\begin_inset LatexCommand \label{fig: PlanReel}
+
+\end_inset 
+
+Plan réel suivi dans cet travail
+\end_float 
+\layout Standard
+
+Le problème de la segmentation de données à été adressé par un étude des
+ divers opérateurs de détection des surfaces, avec une catégorisation de
+ ses procès intermédiaires.
+ Cet étude est décrit en détail dans le chapitre
+\protected_separator 
+
+\begin_inset LatexCommand \ref{sec: DetectionSurfaces}
+
+\end_inset 
+
+.
+\layout Standard
+
+L'extraction des surfaces à partir de volumes des donnes nous a conduit
+ à la discipline de la topologie discrète.
+ Une étude approfondi dans ce domaine nous a montré la l'importance d'utiliser
+ la grille BCC comme grille d'échantillonage pour les volumes de donnes,
+ et en générale, sa famille N-D pour l'échantillonage de fonctions de dimension
+ supérieure.
+ La description des avantages de cette grilles aussi bien de point de vue
+ topologique que de point de vue du traitement de signal et l'objet du chapitre
+\protected_separator 
+
+\begin_inset LatexCommand \ref{sec: Topologie}
+
+\end_inset 
+
+.
+\layout Standard
+
+Pour analyser la morphologie des structures osseuses il résulte indispensable
+ d'étudier les procès qui génèrent la forme.
+ Ces procès sont l'objet d'étude de domaines tels que la biologie du développeme
+nt, la embryologie, la paléontologie et la biologie cellulaire.
+ Le chapitre 
+\begin_inset LatexCommand \ref{sec: Morphogenese}
+
+\end_inset 
+
+ présente notre étude de mécanismes involucrés dans la morphogenèse.
+\layout Standard
+
+Une fois forts des éléments de base de la morphogenèse il nous a été possible
+ de proposer un modèle capable de représenter les formes osseuses, en utilisant
+ un paradigme similaire à celui qui a lieu dans le processus naturel.
+ Cet modèle suit l'approche des modeles déformables à fin de combler l'insufissa
+nce des procès de détections de contours pour garantir l'extraction des
+ surfaces connexes et sans regions manquantes.
+ Le modèle développé est décrit dans le chapitre 
+\begin_inset LatexCommand \ref{sec: Modelation}
+
+\end_inset 
+
+, il utilise des fonctions implicites pour définir le support d'une surface
+ déformable.
+ Cette approche permet de résoudre au même temps la segmentation et la modelatio
+n de la surface articulaire.
+\layout Standard
+
+Finalement l'analyse de la forme des surfaces articulaires à nécessité de
+ l'étude de la cinématique géométrique.
+ Le chapitre 
+\begin_inset LatexCommand \ref{sec: Fonctionalite}
+
+\end_inset 
+
+ montre les relations entre la morphologie de la surface et las restrictions
+ imposées pour le mouvement.
+ Il est montré que la forme même des surfaces articulaires peut être modélisée
+ par des fonctions implicites que au lieu d'être bases sur des fonctions
+ convexes, soient construites comme des evolvents des surfaces associés
+ à la fonctionalité mécanique.
+ Ce chapitre ferme le boucle qui relie la fonctionalité et la morphologie
+ des surfaces articulaires.
+\layout Chapter
+
+Détection de surfaces
+\begin_inset LatexCommand \label{sec: DetectionSurfaces}
+
+\end_inset 
+
+
+\layout Chapter
+
+Topologie discrète
+\begin_inset LatexCommand \label{sec: Topologie}
+
+\end_inset 
+
+
+\layout Chapter
+
+Morphogenèse
+\begin_inset LatexCommand \label{sec: Morphogenese}
+
+\end_inset 
+
+
+\layout Chapter
+
+Modelation
+\begin_inset LatexCommand \label{sec: Modelation}
+
+\end_inset 
+
+
+\layout Chapter
+
+Fonctionalité
+\begin_inset LatexCommand \label{sec: Fonctionalite}
+
+\end_inset 
+
+
+\layout Standard
+
+\the_end

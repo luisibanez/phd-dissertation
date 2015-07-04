@@ -1,0 +1,422 @@
+#This file was created by <ibanez> Tue Feb  1 09:41:36 2000
+#LyX 0.12 (C) 1995-1998 Matthias Ettrich and the LyX Team
+\lyxformat 2.15
+\textclass book
+\language french
+\inputencoding default
+\fontscheme default
+\graphics default
+\paperfontsize default
+\spacing single 
+\papersize Default
+\paperpackage a4
+\use_geometry 0
+\use_amsmath 0
+\paperorientation portrait
+\secnumdepth 4
+\tocdepth 4
+\paragraph_separation indent
+\defskip medskip
+\quotes_language english
+\quotes_times 2
+\papercolumns 1
+\papersides 2
+\paperpagestyle default
+
+\layout Standard
+
+
+\begin_inset LatexCommand \tableofcontents
+
+\end_inset 
+
+
+\layout Chapter
+
+Fonctionnalité des articulations osseuses
+\layout Section
+
+Justification de notre démarche
+\layout Standard
+
+Nôtre étude de la relation entre la morphologie et la fonctionnalité s'a
+ adressé initialement à déterminer comment la forme de la surface des structures
+ articulaires était un facteur déterminant de l'éventai des degrés de liberté
+ du mouvement.
+ Une révision des notions de l'anatomie a rapidement modifié cette vision
+ initiale, basiquement par les raisons suivantes: 
+\layout Standard
+
+\begin_float fig 
+\layout Standard
+\align center 
+
+\begin_inset Figure size 283 119
+file mopho_function.eps
+width 1 10
+flags 8
+
+\end_inset 
+
+
+\layout Caption
+
+
+\begin_inset LatexCommand \label{fig: MophFunction}
+
+\end_inset 
+
+Relation entre la morphologie et la fonctionalité dans les structures biologique
+s.
+\end_float 
+\layout Itemize
+
+la fonctionnalité et la morphologie sont interdépendantes.
+\layout Itemize
+
+la morphologie articulaire n'est pas suffisante pour déterminer le mouvement.
+\layout Subsection
+
+Interdépendance
+\layout Standard
+
+Nous avons montré dans le chapitre concernant la morphogenèse que la morphologie
+ de la plupart de structures organiques n'est pas complètement déterminé
+ par le génome.
+ Le système musculo-esqueletal, en particulier, est modelé depuis la gestation
+ par la pratique quotidienne même.
+ Sans l'exercice qui le foetus fait dans l'uterus, son squelette ne réussira
+ pas a se former dans la normalité.
+ Sans les exercices progressives d'agitation des membres des quatre premiers
+ mois du nouveau né, ses structures osseuses et articulaires ne seront pas
+ suffisamment fortes pour affronter la marche à quatre pattes.
+ Les structures articulaires sont modelées à long terme par la confrontation
+ résultante des mouvements des membres.
+ 
+\layout Standard
+
+Il y a donc une interconnexion mutuelle entre la morphologie et la fonctionalité.
+ La fonctionalité instantanée, c'est à dire, les capacités de mouvement
+ d'une structure dans un instant donnée, est bien soumise à la forme des
+ surfaces articulaires.
+ Mais, au même temps l'exécution fréquente d'activités légèrement éloignés
+ de cette fonctionalité introduisent des modifications dans la morphologie.
+ La figure 
+\begin_inset LatexCommand \ref{fig: MophFunction}
+
+\end_inset 
+
+ illustre cette interaction.
+ La morphologie devient donc, une sorte de mémoire de l'activité physique
+ de l'individu, qui s'optimise pour mieux lui permettre de réaliser le type
+ d'activités qu'il a exercé le long de son histoire.
+ Ce qui peut également s'interpréter comme si la morphologie était développée
+ par apprentisage, à partir d'un grand nombre d'exemples de mouvements exercés.
+ 
+\layout Standard
+
+Un modelation à plus long terme se réalise au niveau de l'espèce par les
+ mécanismes de l'évolution naturel.
+ Les modifications de comportement qui subisent les espèces pour mieux s'adapter
+ au conditions changeantes de l'énvironement se reflètent en modifications
+ de sa morphologie.
+ Cettes modifications morphologiques leur permettent de mieux répondre a
+ les nouvelles exigences fonctionales.
+ Tel est le cas de l'élongement des oses des membres dans les espèces qui
+ se sont adapté pour la course au lieu de la marche.
+\layout Standard
+
+Le fait de que ces adaptations sont contraintes de se réaliser à partir
+ de l'état précédente de la morphologie, fassent que la structure résultante
+ ne soit pas toujours parfaitement adaptée pour la nouvelle fonctionalité.
+ Il est simplement le mieux qu'on pouvait faire avec la morphologie existante
+ précédemment.
+ La faiblesse de certains adaptations se manifeste dans la forme de:
+\layout Itemize
+
+Malformations génétiques fréquentes
+\layout Itemize
+
+Activités qui conduisent fréquement au luxations 
+\layout Standard
+
+La variabilité de la formation du tendon du biceps par rapport a la capsule
+ articulaire gleno-humeral est un exemple du premier manifestation.
+ Les fréquentes pathologies des vertèbres lumbares es un exemple de l'imperfecti
+on de l'adaptation du squelette à la position erecte.
+\layout Subsection
+
+Insufissance
+\layout Standard
+
+D'autre part, l'intention de déterminer les conditions de mouvement seulement
+ à partir de la morphologie des articulations est notablement insuffisante.
+ Il y a tout un ensemble d'éléments qui doivent être pris en compte pour
+ avoir une description consistante de la pièce articulaire.
+ La fonctionalité complète des structures osseuses est déterminé par son
+ interaction avec les muscles, tendons et ligaments que lui sont connexes.
+ 
+\layout Standard
+
+Malgré cettes limitations, il est claire que bien si nôtre plan initial
+ n'est pas suffisante pour déterminer complètement les caracteristiques
+ du mouvement, il est une pièce nécessaire et fondamentale pour mieux comprendre
+ les mécanismes impliqués.
+\layout Section
+
+Anatomie articulaire
+\layout Standard
+
+La figure 
+\begin_inset LatexCommand \ref{fig: ElementsArticulaires}
+
+\end_inset 
+
+ présente les éléments fondamentaux d'une structure articulaire typique.
+ Deux pieces osseuses sont confrontées.
+ Chacune d'entre elles a une structure composée d'une couche d'os compacte
+ à l'extérieur et une os trabéculaire à l'intérieur.
+ Les surfaces confrontées sont recouvertes de cartilage.
+ Les deux surfaces cartilagineuses sont connectées entre elles par la membrane
+ synoviale qui s'attache dans ses bords.
+ La combinaison des cartilages et membrane synoviale forme une cavité fermée
+ qui est remplie de liquide synoviale.
+ Ce liquide fourni la lubrification nécessaire pour garantir la liberté
+ de mouvement entre les deux cartilages.
+\layout Standard
+
+Le liquide synoviale est imbibé dans le tissu cartilagineux, qui se comporte
+ comme une éponge.
+ Quand le cartilage est soumis à pression, il libère une portion de liquide
+ synoviale.
+ Cette portion de liquide est résorbée par le cartilage au moment de retirer
+ la pression 
+\begin_inset LatexCommand \cite{Wright93}
+
+\end_inset 
+
+.
+ Étant donnée que la capsule est fermé, il y a toujours un pellicule de
+ liquide synoviale entre les deux cartilages.
+ Le cartilage est un tissu conformé par fibres collagènes qui s'entrelacent
+ dans un millieu composée de cellules écartées et une matrice intercellulaire.
+ Il est élastique est se déforme sous pression, ce qui permet une meilleur
+ distribution de la force transmise entre les pieces osseuses.
+ Le cartilage n'est pas vascularisé, il est nourri par les substances présents
+ dans le liquide synoviale de la cavité articulaire.
+\layout Standard
+
+\begin_float fig 
+\layout Standard
+\align center 
+
+\begin_inset Figure size 311 184
+file articulation.eps
+width 1 11
+flags 8
+
+\end_inset 
+
+
+\layout Caption
+
+
+\begin_inset LatexCommand \label{fig: ElementsArticulaires}
+
+\end_inset 
+
+Éléments de la capsule articulaire : Membrane synoviale, ligament collatéral,
+ ligament intra-articulaire, cartilage, os trabéculaire, os compacte, gaine
+ synoviale et liquide synoviale.
+\end_float 
+ 
+\layout Section
+
+Interaction entre surfaces sans friction
+\layout Standard
+
+Pour approcher l'étude des structures articulaires nous traitons d'abord
+ les interactions entre surfaces sans friction.
+ Les interaction articulaires sont très proches des surfaces sans friction,
+ le mécanisme du cartilage, en combinaison avec la capsule articulaire et
+ l'action du liquide synoviale dépassent largement la performance des mécanismes
+ de lubrification qui sont habituelment utilisés par les ingénieurs dans
+ la machinerie.
+ Il a été montré que le cartilage est un élément actif qui réagit a la charge
+ appliquée sur lui.
+ Il est également réactif à l'application succesive d'éforts.
+ 
+\layout Standard
+
+Comme consequence de l'absence de friction, les forces appliquées entre
+ les deux surfaces articulaires sont toujours perpendiculaires à la surface.
+ La stabilité de l'articulation est garanti par les ligaments qui empechent
+ que les surfaces cartilagineuses glissent entre elles jusqu'a desenssembler
+ l'articulation.
+\layout Subsection
+
+Mouvement et forme
+\layout Standard
+
+Les seules forces Ce qui peut etre remarque dans l'estructure de l'os trabeculai
+re ou les lignes de colonnes ossifies sont normales a la surface.
+\layout Subsection
+
+Les courbes parallels
+\layout Standard
+
+Les conditions imposes par le mouvement de l'articulation conduisent à considere
+r les familles des courbes construises par generation des paralleles.
+ L'analyse des évolutes fournit un support pour la comprension de cette
+ type des courbes.
+\layout Subsection
+
+Les surfaces déformables
+\layout Standard
+
+Le comportement des articulations a été extensemenet traité dans la literature
+ de la génie mecanique et de la robotique.
+ Nous considerons ici l'analyse presente dans 
+\begin_inset LatexCommand \cite{RimonBurdick1}
+
+\end_inset 
+
+ et 
+\begin_inset LatexCommand \cite{RimonBurdick2}
+
+\end_inset 
+
+ car ils ont montre l'importance des deformations dans le comportement d'une
+ articulation de forme non triviale.
+ 
+\layout Standard
+
+La conception mecanique de deux pieces articulaires qui ont qu'un point
+ de contacte n'est pas adapté a la realité biologique.
+ Les articulations avec un seul point de contacte developpent une enorme
+ concentration de forces dans ce point.
+ Les articulations biologiques, grâce a la presence du cartilage, arrivent
+ a obtenir une distribution plus étendue de la force et par cette voie un
+ meilleur comportement dinamique.
+ Cette configuration nous oblige a considerer les deformations du cartilage
+ comme partie fondamentale de l'interaction entre les deux structures osseuses
+ confrontées.
+\layout Standard
+
+L'interaction entre les deux corps est modelisée comme une si les deux restaient
+ rigides et il se supperposaient mutuellement.
+ Un force etant generé par la superposicion en dependenant de la distance
+ pour laquelle il faudrait deplacer un de deux corps pour les remettre en
+ condition de contacte.
+ La formulation est fait habituellement comme une fonction potentiel 
+\begin_inset Formula \( U \)
+\end_inset 
+
+:
+\layout Standard
+
+
+\begin_inset Formula 
+\[
+U_{i}\left( q\right) =\frac{1}{2+q}\eta _{i}o^{2+p}_{i}\left( q\right) \]
+
+\end_inset 
+
+
+\layout Standard
+
+Où 
+\begin_inset Formula \( o_{i} \)
+\end_inset 
+
+ est la distance de superposition, 
+\begin_inset Formula \( q \)
+\end_inset 
+
+ est la configuration du corps en coordonnées generalisées ( 
+\begin_inset Formula \( \left( x,y,\theta \right)  \)
+\end_inset 
+
+ pour le cas 2D).
+ Deux differentes approaches utilisent des valeurs differents pour le coefficien
+t 
+\begin_inset Formula \( p \)
+\end_inset 
+
+.
+ La theorie de Hertz utilise 
+\begin_inset Formula \( p=0.5 \)
+\end_inset 
+
+, tandis que celle de Gesley utilise 
+\begin_inset Formula \( p=0 \)
+\end_inset 
+
+.
+\layout Subsection
+
+Le cas bidimensionel
+\layout Standard
+
+
+\begin_inset LatexCommand \cite{Porteus94}
+
+\end_inset 
+
+
+\layout Standard
+
+La forme générale des articulations est la spirale .
+ Cette configuration est en partie relie au fait d'avoir une position de
+ verrouillage (close packaging) de l'articulation.
+ Typiquement cette position correspond à la configuration dans laquelle
+ l'articulation doit supporter des efforts de charge maximales 
+\begin_inset LatexCommand \cite{Wright93}
+
+\end_inset 
+
+.
+\layout Subsection
+
+le cas tridimensionel
+\layout Standard
+
+
+\begin_inset LatexCommand \cite{Ball00}
+
+\end_inset 
+
+
+\layout Section
+
+Les Ligaments
+\layout Standard
+
+Les ligaments imposent des contraintes de mouvement assez importantes.
+ Ils produisent des configurations qui sont tres proches de l'arrangement
+ de quattre barres (figure ?)
+\begin_inset LatexCommand \cite{Wright93}
+
+\end_inset 
+
+.
+\layout Section
+
+Insertions muscularies
+\layout Standard
+
+Bien si on fait référence aux insertions musculaires, ce concept peut être
+\layout Standard
+
+étendu aux insertion tendoniens et ligamentaires.
+ Elles toutes sont responsables de la transmision des forces depuis et vers
+ les structures osseuses.
+\layout Standard
+
+
+\begin_inset LatexCommand \BibTeX[plain]{/home/ibanez/documents/Bibliography/these.bib}
+
+\end_inset 
+
+
+\the_end

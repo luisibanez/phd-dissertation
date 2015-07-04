@@ -1,0 +1,18 @@
+\setlength{\unitlength}{4144sp}%
+%
+\begingroup\makeatletter\ifx\SetFigFont\undefined%
+\gdef\SetFigFont#1#2#3#4#5{%
+  \reset@font\fontsize{#1}{#2pt}%
+  \fontfamily{#3}\fontseries{#4}\fontshape{#5}%
+  \selectfont}%
+\fi\endgroup%
+\begin{picture}(4256,5369)(5262,-6203)
+\thicklines
+\put(6558,-1951){\vector( 1, 0){2773}}
+\put(5284,-1036){\vector( 1, 0){4017}}
+\put(7711,-4786){\vector( 3,-1){1714.500}}
+\put(7441,-4111){\vector( 4,-1){2050.588}}
+\put(6701,-3765){\vector( 1, 0){2795}}
+\put(6522,-3248){\vector( 1, 0){2854}}
+\put(5436,-3990){\vector( 2,-1){4052.400}}
+\end{picture}

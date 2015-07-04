@@ -1,0 +1,651 @@
+#This file was created by <ibanez> Mon Mar 13 11:44:05 2000
+#LyX 0.12 (C) 1995-1998 Matthias Ettrich and the LyX Team
+\lyxformat 2.15
+\textclass article
+\language default
+\inputencoding default
+\fontscheme default
+\graphics default
+\paperfontsize default
+\spacing single 
+\papersize Default
+\paperpackage a4
+\use_geometry 0
+\use_amsmath 0
+\paperorientation portrait
+\secnumdepth 3
+\tocdepth 3
+\paragraph_separation indent
+\defskip medskip
+\quotes_language english
+\quotes_times 2
+\papercolumns 1
+\papersides 1
+\paperpagestyle default
+
+\layout Section
+
+Interaction entre surfaces sans friction
+\layout Standard
+
+Pour approcher l'étude des structures articulaires nous traitons d'abord
+ les interactions entre surfaces sans friction.
+ Les interaction articulaires sont très proches des surfaces sans friction,
+ le mécanisme du cartilage, en combinaison avec la capsule articulaire et
+ l'action du liquide synoviale dépassent largement la performance des mécanismes
+ de lubrification qui sont habituelment utilisés par les ingénieurs dans
+ la machinerie 
+\begin_inset LatexCommand \cite{Poitout87}
+
+\end_inset 
+
+.
+ Il a été montré que le cartilage est un élément actif qui réagit à la charge
+ appliquée sur lui.
+ Cette réaction est fonction de l'intensité de la charge ainsi que de la
+ fréquence avec laquelle la charge est appliquée.
+ Les études qui cherchent évaluer les characteristiques mécaniques des structure
+s articulaires considèrent que les valeurs nominales sont atteints seulement
+ après une séquence des applications de charges.
+\layout Standard
+
+La réaction du cartilage à la première application d'une force est assez
+ différente de sa réaction après d'avoir rejeté cette force une dizaine
+ des fois.
+ Ceci est relevant pour les études de mouvement repetitifs tels que la marche.
+\layout Standard
+
+Comme conséquence de l'absence de friction, les forces appliquées entre
+ les deux surfaces articulaires sont toujours perpendiculaires à la surface.
+ La stabilité de l'articulation est garantie par les ligaments qui empêchent
+ les surfaces cartilagineuses de glisser entre elles, et risquer de desensembler
+ l'articulation.
+\layout Standard
+
+\begin_float fig 
+\layout Standard
+\align center 
+
+\begin_inset Figure size 476 161
+file condyle_femoral.eps
+width 3 80
+flags 8
+
+\end_inset 
+
+
+\layout Caption
+
+
+\begin_inset LatexCommand \label{fig: CondyleFemoraux}
+
+\end_inset 
+
+Courbure des condyles fémoraux.
+\end_float 
+\layout Subsection
+
+Mouvement et forme
+\layout Standard
+
+Etant donné que les forces sont toujours appliqués dans la direction normale
+ à la surface, la transmision des effort vers l'intérieur de l'os doit suivre
+ les direction des lignes normales à la surface.
+ Si dans une courbe on projet ses normales, elles se intersectent entre
+ elles pour former comme enveloppe une courbe connue sous le nom de 
+\emph on 
+l'évolute
+\emph toggle 
+ de la courbe originale 
+\begin_inset LatexCommand \cite{Porteus94}
+
+\end_inset 
+
+.
+ La figure 
+\begin_inset LatexCommand \ref{fig: CondyleFemoraux}
+
+\end_inset 
+
+ montre le cas de une coupe axiale des condyles fémoraux.
+ A Gauche, les lignes normales sont projetés vers le centre du condyle.
+ A Droite nous pouvons voir l'évolute résultante.
+\layout Standard
+
+Cette évolute a pour nous deux significations.
+ D'une part, elle représente une region de concentration d'efforts, en supposant
+ que on applique des forces tout au long de la surface de l'os corticale.
+ En pratique, seulement une region de l'os cortical est soumis à la charge.
+ Il est le rôle du cartilage, d'ettendre cette zone autant que possible
+ à fin d'éviter l'usure par fatigue de l'os corticale.
+\begin_float fig 
+\layout Standard
+\align center 
+
+\begin_inset Figure size 476 335
+file joint_freedom.eps
+width 3 80
+flags 8
+
+\end_inset 
+
+
+\layout Caption
+
+
+\begin_inset LatexCommand \label{fig: JointFreedom}
+
+\end_inset 
+
+Analyse de dégrées de liberté du mouvement entre deux pieces articulaires
+\end_float 
+\layout Standard
+
+D'autre part, l'évolute a une signification dynamique, que nous analysons
+ dans les sections suivantes d'après les conceptes exposes en 
+\begin_inset LatexCommand \cite{Hertz56}
+
+\end_inset 
+
+.
+ La figure 
+\begin_inset LatexCommand \ref{fig: JointFreedom}
+
+\end_inset 
+
+ illustre les rélations entre deux surfaces articulaires et ses dégrees
+ de liberté du mouvement.
+ La figure montre une coupe axiale de l'articulation.
+ Les surfaces sont donc visibles comme deux courbes 
+\begin_inset Formula \( A \)
+\end_inset 
+
+ et 
+\begin_inset Formula \( B \)
+\end_inset 
+
+ respectivement.
+ Prenons pour notre analyses les points 
+\begin_inset Formula \( \left\{ a_{i}\right\}  \)
+\end_inset 
+
+ et les points 
+\begin_inset Formula \( \left\{ b_{i}\right\}  \)
+\end_inset 
+
+, appartenant aux courbes 
+\begin_inset Formula \( A \)
+\end_inset 
+
+ et 
+\begin_inset Formula \( B \)
+\end_inset 
+
+ respectivement.
+ Ces points représentent la region en contacte entre les deux surfaces articulai
+res.
+ Nous cherchons établir comment la piece articulare 
+\begin_inset Formula \( A \)
+\end_inset 
+
+ peut se deplacer par rapport à la piece 
+\begin_inset Formula \( B \)
+\end_inset 
+
+.
+\layout Subsubsection
+
+Glissement en contacte
+\layout Standard
+
+Prenons d'abord la supposition naïve de que les points 
+\begin_inset Formula \( \left\{ a_{i}\right\}  \)
+\end_inset 
+
+ sont en contacte avec les points 
+\begin_inset Formula \( \left\{ b_{i}\right\}  \)
+\end_inset 
+
+ et que le contact et maintenu pendant un mouvement infinitésimal de 
+\begin_inset Formula \( A \)
+\end_inset 
+
+.
+ Dans cettes circonstances les points 
+\begin_inset Formula \( \left\{ a_{i}\right\}  \)
+\end_inset 
+
+ sont contraints de se déplacer localement dans la direction tangent à la
+ courbe 
+\begin_inset Formula \( B \)
+\end_inset 
+
+.
+ Le déplacement instantané du point 
+\begin_inset Formula \( a_{i} \)
+\end_inset 
+
+ doit donc suivre la direction tangente à la courbe 
+\begin_inset Formula \( B \)
+\end_inset 
+
+ dans le point 
+\begin_inset Formula \( b_{i} \)
+\end_inset 
+
+.
+\layout Standard
+
+Le seul mouvement 
+\emph on 
+rigide
+\emph toggle 
+ qui peut satisfaire cettes contraintes pour l'ensemble des points 
+\begin_inset Formula \( \left\{ a_{i}\right\}  \)
+\end_inset 
+
+ est une rotation dont le centre est l'intersection des lignes normales
+ à la courbe 
+\begin_inset Formula \( B \)
+\end_inset 
+
+ dans les points 
+\begin_inset Formula \( \left\{ b_{i}\right\}  \)
+\end_inset 
+
+.
+ Strictement ce point (centre de rotation) existe que pour le cas où les
+ points 
+\begin_inset Formula \( \left\{ b_{i}\right\}  \)
+\end_inset 
+
+ sont placés sur un arc de cercle.
+ Dans tout autre cas, l'intersection des ses lignes normales est justement
+ l'évolute de la section de courbe couverte par les point 
+\begin_inset Formula \( \left\{ b_{i}\right\}  \)
+\end_inset 
+
+.
+\layout Standard
+
+Il est claire que la plupart des articulations sont loin d'avoir une profile
+ complètement circulaire.
+ Ce qui conduit a conclure que les points 
+\begin_inset Formula \( \left\{ a_{i}\right\}  \)
+\end_inset 
+
+ ne peuvent pas rester en contacte avec les points 
+\begin_inset Formula \( \left\{ b_{i}\right\}  \)
+\end_inset 
+
+ ou que leur mouvement ne peut pas être rigide.
+ Si nous nous attachons à la supposition du mouvement rigide, nous arrivons
+ à deduir que 
+\layout Enumerate
+
+La surface 
+\begin_inset Formula \( A \)
+\end_inset 
+
+ a toujour une courbure superieure a celle de la surface 
+\begin_inset Formula \( B \)
+\end_inset 
+
+
+\layout Enumerate
+
+Seulement un point peut etre en contacte entre les deux surfaces.
+\layout Standard
+
+La première conclusion ne pose pas aucun probleme, par contre, la seconde
+ fairait que toute la force resultante du contacte entre les deux courbes
+ serait concentré dans un point, ce qui conduirait rapidement à la degradation
+ de la structure osseuse par fatigue mécanique.
+\layout Standard
+
+\begin_float fig 
+\layout Standard
+\align center 
+
+\begin_inset Figure size 476 162
+file joint_elastic.eps
+width 3 80
+flags 8
+
+\end_inset 
+
+
+\layout Caption
+
+
+\begin_inset LatexCommand \label{fig: JointElastic}
+
+\end_inset 
+
+Illustration de la necessité d'elasticité du cartilage pour étendre la distribut
+ion de force le long d'une region de contacte.
+\end_float 
+\begin_float fig 
+\layout Standard
+\align center 
+
+\begin_inset Figure size 476 173
+file joint_elastic_curve.eps
+width 3 80
+flags 8
+
+\end_inset 
+
+
+\layout Caption
+
+
+\begin_inset LatexCommand \label{fig: JointElasticCurve}
+
+\end_inset 
+
+Illustration du role de l'élasticité du cartilage dans une articulation
+ concave.
+\end_float 
+\layout Standard
+
+Si par contre nous gardons la supposition de que les points restent en contacte,
+ il faut accepter donc un mouvement non-rigide pour l'ensemble des points
+ 
+\begin_inset Formula \( \left\{ a_{i}\right\}  \)
+\end_inset 
+
+.
+ Ceci est possible pour le cartilage car il a des propriètes élastiques.
+ La figure 
+\begin_inset LatexCommand \ref{fig: JointElastic}
+
+\end_inset 
+
+ illustre ce concept pour le cas extrême d'un os cortical sphérique et une
+ surface articulaire plane confrontée.
+ Le cartilage se compresse pour mantenir le contacte et distribuer la force
+ entre les deux pièces.
+ La figure 
+\begin_inset LatexCommand \ref{fig: JointElasticCurve}
+
+\end_inset 
+
+ présente un cas plus realiste où les deux surfaces confrontées ont des
+ courbures similaires.
+ Plus strictement, les deux surfaces sont recouvertes du cartilage.
+ L'adaptation de la courbure et fait donc de deux cotes de l'interface,
+ par compression de chacun des cartilages.
+\layout Standard
+
+Dans ces nouvelles conditions, le mouvement de la pièce 
+\begin_inset Formula \( A \)
+\end_inset 
+
+ peut suivre l'évolute de la pièce 
+\begin_inset Formula \( B \)
+\end_inset 
+
+.
+ C'est-à-dire que la sequence des centres de rotation de la pièce 
+\begin_inset Formula \( A \)
+\end_inset 
+
+ par rapport à la pièce 
+\begin_inset Formula \( B \)
+\end_inset 
+
+, est justement l'évolute de la courbe 
+\begin_inset Formula \( B \)
+\end_inset 
+
+ correspondant à la region de contacte entre les deux pièces.
+\layout Standard
+
+A fur et à mesure que le mouvement progresse, la région de contacte peut
+ se déplacer le long de la courbe 
+\begin_inset Formula \( B \)
+\end_inset 
+
+.
+ Ce déplacemente est reliée à la nouvelle distribution des forces excerces
+ par les muscles et ligaments, ainsi que à la correspondance entre les courbures
+ locales des courbes 
+\begin_inset Formula \( A \)
+\end_inset 
+
+ et 
+\begin_inset Formula \( B \)
+\end_inset 
+
+.
+\layout Subsubsection
+
+Roullement
+\layout Standard
+
+Dans l'analyse précédente nous avons supposé que la pièce 
+\begin_inset Formula \( A \)
+\end_inset 
+
+ le long de son mouvement confronte differentes régions de sa surface contre
+ la meme région de la surface 
+\begin_inset Formula \( B \)
+\end_inset 
+
+.
+ Cela conduit à que les centres de rotation de 
+\begin_inset Formula \( A \)
+\end_inset 
+
+ se trouvent sur une région reduite de l'évolute de 
+\begin_inset Formula \( B \)
+\end_inset 
+
+.
+\layout Standard
+
+Il peut arriver neanmoins que la région de contacte en 
+\begin_inset Formula \( B \)
+\end_inset 
+
+ change aussi.
+ Ce qui fairait que les centres de rotation de la pièce 
+\begin_inset Formula \( A \)
+\end_inset 
+
+ couvrent une plus large région de l'évolute de la pièce 
+\begin_inset Formula \( B \)
+\end_inset 
+
+.
+\layout Subsubsection
+
+Symmetrie
+\layout Standard
+
+L'analyse precedente a été fait pour la pièce 
+\begin_inset Formula \( A \)
+\end_inset 
+
+ en prenant la pièce 
+\begin_inset Formula \( B \)
+\end_inset 
+
+ comme repère.
+ Nous pouvons également prendre comme repère, peut être fait pour la pièce
+ 
+\begin_inset Formula \( B \)
+\end_inset 
+
+
+\layout Subsection
+
+Kinematic References
+\layout Standard
+
+
+\begin_inset LatexCommand \cite{Hunt90}
+
+\end_inset 
+
+
+\begin_inset LatexCommand \cite{Dijksman}
+
+\end_inset 
+
+
+\begin_inset LatexCommand \cite{McCarthy}
+
+\end_inset 
+
+
+\begin_inset LatexCommand \cite{Ball}
+
+\end_inset 
+
+
+\layout Subsection
+
+Les courbes parallèles
+\layout Standard
+
+Les conditions imposes par le mouvement de l'articulation conduisent à considére
+r les familles des courbes construises par génération des parallèles.
+ L'analyse des évolutes fournit un support pour la compréhension de cette
+ type des courbes.
+\layout Subsection
+
+Les surfaces déformables
+\layout Standard
+
+Le comportement des articulations a été profondement traité dans la literature
+ de la génie mécanique et de la robotique.
+ Nous considérons ici l'analyse présenté dans 
+\begin_inset LatexCommand \cite{RimonBurdick1}
+
+\end_inset 
+
+ et 
+\begin_inset LatexCommand \cite{RimonBurdick2}
+
+\end_inset 
+
+ car ils ont montre l'importance des déformations dans le comportement d'une
+ articulation de forme non triviale.
+ 
+\layout Standard
+
+La conception mécanique de deux pieces articulaires qui ont qu'un point
+ de contacte n'est pas adapté a la réalité biologique.
+ Les articulations avec un seul point de contacte développent une énorme
+ concentration de forces dans ce point.
+ Les articulations biologiques, grâce a la présence du cartilage, arrivent
+ a obtenir une distribution plus étendue de la force et par cette voie un
+ meilleur comportement dynamique.
+ Cette configuration nous oblige a considérer les déformations du cartilage
+ comme partie fondamentale de l'interaction entre les deux structures osseuses
+ confrontées.
+\layout Standard
+
+L'interaction entre les deux corps est modélisée comme une si les deux restaient
+ rigides et il se superposaient mutuellement.
+ Un force étant générée par la superposition en dependenant de la distance
+ pour laquelle il faudrait deplacer un de deux corps pour les remettre en
+ condition de contacte.
+ La formulation est fait habituellement comme une fonction potentiel 
+\begin_inset Formula \( U \)
+\end_inset 
+
+:
+\layout Standard
+
+
+\begin_inset Formula 
+\[
+U_{i}\left( q\right) =\frac{1}{2+q}\eta _{i}o^{2+p}_{i}\left( q\right) \]
+
+\end_inset 
+
+
+\layout Standard
+
+Où 
+\begin_inset Formula \( o_{i} \)
+\end_inset 
+
+ est la distance de superposition, 
+\begin_inset Formula \( q \)
+\end_inset 
+
+ est la configuration du corps en coordonnées generalisées ( 
+\begin_inset Formula \( \left( x,y,\theta \right)  \)
+\end_inset 
+
+ pour le cas 2D).
+ Deux differentes approaches utilisent des valeurs differents pour le coefficien
+t 
+\begin_inset Formula \( p \)
+\end_inset 
+
+.
+ La theorie de Hertz utilise 
+\begin_inset Formula \( p=0.5 \)
+\end_inset 
+
+, tandis que celle de Gesley utilise 
+\begin_inset Formula \( p=0 \)
+\end_inset 
+
+.
+\layout Subsection
+
+Le cas bidimensionel
+\layout Standard
+
+La forme générale des articulations est la spirale .
+ Cette configuration est en partie relie au fait d'avoir une position de
+ verrouillage (close packaging) de l'articulation.
+ Typiquement cette position correspond à la configuration dans laquelle
+ l'articulation doit supporter des efforts de charge maximales 
+\begin_inset LatexCommand \cite{Wright93}
+
+\end_inset 
+
+.
+\layout Subsection
+
+le cas tridimensionel
+\layout Standard
+
+
+\begin_inset LatexCommand \cite{Ball00}
+
+\end_inset 
+
+
+\layout Section
+
+Les Ligaments
+\layout Standard
+
+Les ligaments imposent des contraintes de mouvement assez importantes.
+ Ils produisent des configurations qui sont tres proches de l'arrangement
+ de quattre barres (figure ?)
+\begin_inset LatexCommand \cite{Wright93}
+
+\end_inset 
+
+.
+\layout Section
+
+Insertions muscularies
+\layout Standard
+
+Bien si on fait référence aux insertions musculaires, ce concept peut être
+\layout Standard
+
+étendu aux insertion tendoniens et ligamentaires.
+ Elles toutes sont responsables de la transmision des forces depuis et vers
+ les structures osseuses.
+\the_end

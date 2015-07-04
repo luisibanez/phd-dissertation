@@ -1,0 +1,624 @@
+#This file was created by <ibanez> Sun Mar 26 12:21:13 2000
+#LyX 0.12 (C) 1995-1998 Matthias Ettrich and the LyX Team
+\lyxformat 2.15
+\textclass article
+\language default
+\inputencoding default
+\fontscheme default
+\graphics default
+\paperfontsize default
+\spacing single 
+\papersize Default
+\paperpackage a4
+\use_geometry 0
+\use_amsmath 0
+\paperorientation portrait
+\secnumdepth 3
+\tocdepth 3
+\paragraph_separation indent
+\defskip medskip
+\quotes_language english
+\quotes_times 2
+\papercolumns 1
+\papersides 1
+\paperpagestyle default
+
+\layout Bibliography
+\bibitem {1}
+
+P.S.
+ Stevens, 
+\shape italic 
+Les Formes dans la Nature
+\shape default 
+.
+ ditions Seuil, 1976
+\layout Bibliography
+\bibitem {FractalGrowth}
+
+J.A.
+ Kaandorp, 
+\shape italic 
+Fractal Modelling.
+ Growth and Form in Biology
+\shape default 
+.
+ Springer Verlag 1994
+\layout Bibliography
+\bibitem {KaminaArthrologie}
+
+P.
+ Kamina, J.P.
+ Francke 
+\shape italic 
+Arthrologie des Membres, description et fonction
+\shape default 
+ Anatomie, Introduction a la Clinique.
+ ed.Maloine, 1986.
+\layout Bibliography
+\bibitem {KaminaOsteologie}
+
+P.
+ Kamina, 
+\shape italic 
+Osteologie des Membres
+\shape default 
+ Anatomie, Introduction a la Clinique.
+ ed.Maloine, 1986.
+\layout Bibliography
+\bibitem {KaminaMyologie}
+
+P.
+ Kamina, Y.
+ Rideau 
+\shape italic 
+Myologie des Membres
+\shape default 
+ Anatomie, Introduction a la Clinique.
+ ed.Maloine, 1987.
+\layout Bibliography
+\bibitem {AnatomieCompare}
+
+A.
+ Beaumont, P.Cassier 
+\shape italic 
+Biologie Animale
+\shape default 
+ Les Cords, Anatomie compare des vertébrés.
+ ed Dunod.
+ 6ème edition.
+ 1987.
+\layout Bibliography
+\bibitem {Larsen}
+
+W.
+ J.
+ Larsen, Embryologie Humaine, DeBoeck Université, 1997
+\layout Bibliography
+\bibitem {StabiliteStructurelle}
+
+R.
+ Thom, 
+\shape italic 
+Stabilité Structurelle et Morphogènse
+\shape default 
+ Essai d'une thèorie générale des modèles.
+ ed.
+ InterEditions, Deuxime Edition.
+ 1977.
+\layout Bibliography
+\bibitem {Histologie}
+
+Bloom, Fawcett, 
+\shape italic 
+A Textbook of Histology
+\shape default 
+ eleventh edition, 1986, ed.
+ WB Sanders Company.
+\layout Bibliography
+\bibitem {AnatomieGray}
+
+Gardner, Gray, O'Rahilly,
+\shape italic 
+ Anatomie
+\shape default 
+ ed.
+ Doin editeurs, 1979.
+ 
+\layout Bibliography
+\bibitem {BiomecaniqueOrthopedique}
+
+D.
+ Poitout,
+\shape italic 
+ Biomécanique Orthopédique
+\shape default 
+ ed Masson, 1987.
+ 
+\layout Bibliography
+\bibitem {MathematicalBiology}
+
+J.D.
+ Murray, 
+\shape italic 
+Mathematical Biology
+\shape default 
+, Springer Verlag, 1990.
+ 
+\layout Bibliography
+\bibitem {MorphoRules}
+
+G.F.
+ Oster, N.
+ Shubin, J.D.
+ Murray, P.Alberch 
+\shape italic 
+Evolution and Morphogenetic Rules: The Shape of the Vertebrate Limb in Ontogeny
+ and Phylogeny
+\shape default 
+, Evolution, Vol.
+ 42, No.
+ 5, 1988, 862-884.
+\layout Bibliography
+\bibitem {MechanicalMorphogenesis}
+
+G.F.
+ Oster, J.D.
+ Murray, K.
+ Harris 
+\shape italic 
+Mechanical Aspects of Mesenchymal morphogenesis
+\shape default 
+ J.Embryol.exp.Morph.
+ Vol 78.
+ 83-125, 1983.
+\layout Bibliography
+\bibitem {CondensationModel}
+
+G.F.
+ Oster, J.D.
+ Murray, K.
+ Maini 
+\shape italic 
+A Model for chondrogenic condensations in the developing limb: the role
+ of extracellular matrix and cell tractions
+\shape default 
+ J.Embryol.exp.Morph.
+ Vol 89.
+ 93-112, 1985.
+\layout Bibliography
+\bibitem {MathMorphogenesis}
+
+G.F.
+ Oster, J.D.
+ Murray, K.
+ Harris 
+\shape italic 
+A Mechanical Model for Mesenchymal Morphogenesis
+\shape default 
+ J.Math.
+ Biology.
+ Vol.
+ 17, 125-129, 1983.
+\layout Bibliography
+\bibitem {PhysicalModel}
+
+J.D.
+ Murray, K.
+ Maini, R.T.Tranquilo 
+\shape italic 
+Mechanochemical models for generating biological pattern and form in development
+\shape default 
+ Physics Reports (Review Section of Physics Letters) Vol 171, No.
+ 2, 59-84, 1988.
+\layout Bibliography
+\bibitem {MechanicalBasisMorphogenesis}
+
+G.M.
+ Odell, G.Oster, P.
+ Alberch, B.
+ Burnside.
+ 
+\shape italic 
+The Mechanical Basis of Morphogenesis
+\shape default 
+ Developmental Biology, Vol 85, 446-462, 1981.
+\layout Bibliography
+\bibitem {CatastrophePoston}
+
+T.
+ Poston, I.
+ Stewart, E.Pitman 
+\shape italic 
+Catastrophe Theory and Its Applications
+\shape default 
+ 1978.
+\layout Bibliography
+\bibitem {GenomeHumain}
+
+D.
+ Cohen 
+\shape italic 
+Les gènes de l'espoir
+\shape default 
+ A la decouverte du gnome humain, editions Robert Laffont S.A.
+ Paris 1993.
+\layout Bibliography
+\bibitem {GeneForme}
+
+R.
+ Chandebois,
+\emph on 
+ Le gène et la forme, ou la démythification de l'ADN
+\emph default 
+,  éditions spaces 34, 1989.
+\layout Bibliography
+\bibitem {Tabin}
+
+R.
+ L.
+ Johnson, C.
+ J.
+ Tabin, 
+\emph on 
+Molecular Models for Vertebrate Limb Development
+\emph default 
+, Cell, Vol.
+ 90, september 1997, pp 979-990.
+\layout Bibliography
+\bibitem {ShubinAlberchMorphogeneticApproach}
+
+N.
+ Shubin, P.
+ Alberch, 
+\emph on 
+A Morphogenetic approach to the Origin and Basic Organization of the Tetrapod
+ Limb
+\emph default 
+, Evolutionary Biology, Vol.
+ 20, No.
+ 1, 1986, pp.
+ 319-387.
+\layout Bibliography
+\bibitem {Shubin}
+
+N.
+ Shubin, C.
+ Tabin, S.
+ Carroll,
+\emph on 
+ Fossils, Genes and the Evolution of Animal Limbs
+\emph default 
+, Nature 388:639, 1997.
+\layout Bibliography
+\bibitem {TheTreeOfLife}
+
+The tree of life, a representation des liaisons phylogenetiques.
+ 
+\latex latex 
+\color blue
+
+\backslash 
+url{http://phylogeny.arizona.edu/tree/phylogeny.html}
+\latex default 
+\color default
+.
+\layout Bibliography
+\bibitem {Lindenmayer}
+
+Przemyslaw Prusinkiewicz, A.
+ Lindenmayer, 
+\emph on 
+The Algorithmic Beauty of Plants
+\emph toggle 
+.
+ Springer Verlag, 1996.
+\layout Bibliography
+\bibitem {27}
+
+M.
+ B.
+ Nielsen, C.
+ Gramkow, S.
+ Kreigorg, 
+\begin_inset Quotes eld
+\end_inset 
+
+
+\emph on 
+Non-Rigid Image Registration Using Bone Growth Model
+\emph default 
+
+\begin_inset Quotes erd
+\end_inset 
+
+ MICCAI'98 
+\begin_inset Info ibanez Wed Jun 10 11:20:46 1998
+
+Completar esta referencia : anales de congreso que nos dio
+Christian.
+
+Hay una segunda publicacion en el mismo congreso
+el ano siguiente:  esta en el libro que nos presto
+Stephen Aylward
+\end_inset 
+
+
+\layout Bibliography
+\bibitem {Mupad}
+
+MuPad, distribution-uni.paderborn.de
+\layout Bibliography
+\bibitem {FingeredFish}
+
+An evolutionary breakdown: the discovery of a fingered fish.
+ 
+\latex latex 
+\color blue
+
+\backslash 
+url{http://sln2.fi.edu/qa98/biology/journals/part14.html}
+\layout Bibliography
+\bibitem {LuxationHanche}
+
+E.
+ Le Guillou, R.
+ Paule, 
+\emph on 
+Les autres foyers de luxation congenitale de hanche
+\emph default 
+.
+ annales du congrès : Luxation congenitale de hanche, aspect antrhopologique
+ historique et médical.
+ Brest septembre 1997.
+\layout Bibliography
+\bibitem {CellComputing}
+
+C.
+ Emmeche, 
+\emph on 
+The Computational Notion of Life
+\emph default 
+, Theoria - Segunda Epoca, 9 (21), pp.
+ 1-30, 1994.
+ 
+\layout Bibliography
+\bibitem {MetaBalls}
+
+S.
+ Muraki, 
+\emph on 
+Multiscale Volume Representation by a DOG Wavelet
+\emph default 
+, IEEE Transactions on Visualization and Computer Graphics\i \c{ }
+ Vol.
+ 
+\series bold 
+1
+\series default 
+, Number 2, Jun.
+ 1995, pp.
+ 109-116.
+\layout Bibliography
+\bibitem {HarmoniquesSpheriques}
+
+Coatrieux, presenté au Forum de Jeunes Chercheurs, Brest 1998.
+\layout Bibliography
+\bibitem {AtlasMaturationSqueletique}
+
+M.
+ Sempé, C.
+ Pavía, 
+\emph on 
+Atlas de la maturation squelettique
+\emph default 
+, ed.
+ Simep 1979.
+\layout Bibliography
+\bibitem {AtlasMain}
+
+P.
+ Sempé, M.
+ Sempé, 
+\emph on 
+Croissance et maturation osseuse
+\emph default 
+, Théraplix, Printel, Paris.
+\layout Bibliography
+\bibitem {AtlaMain2}
+
+W.W.
+ Greulich, S.I.
+ Pyle, 
+\emph on 
+Radiograhic atlas of skeletal development of the hand and wrist
+\emph default 
+, Standford University Press, Stanford, California, 1959.
+\begin_inset Info ibanez Sun Jan  9 17:49:57 2000
+
+Hasta aqui ya lo pasamos a la base
+de referencias de Bibtex
+\end_inset 
+
+
+\layout Bibliography
+\bibitem {Vascularization}
+
+A.
+ I.
+ Caplan, S.
+ Koutroupas, 
+\emph on 
+The control of muscle and cartilage development in the chick limb: the role
+ of differential vascularization
+\emph default 
+, J.
+ Embryol.
+ exp.
+ Morph.
+ Vol.
+ 29, No.
+ 3, pp.
+ 571-583, 1973.
+\layout Bibliography
+\bibitem {ElbowDevelopment}
+
+N.
+ Holder, 
+\emph on 
+An experimental investigation into the early development of the chick elvow
+ joint
+\emph default 
+, J.
+ Embryol.
+ exp.
+ Morph, Vol.
+ 39, pp.
+ 115-127, 1977.
+\layout Bibliography
+\bibitem {DiffProliferation}
+
+M.Y.
+ Janners, R.L.
+ Searls, 
+\emph on 
+Changes in Rate of Proliferation during the Differentiation of Cartilage
+ and Muscle in the Mesenchyme of the Embryonic Chick Wing,
+\emph default 
+ Developmental Biology, Vol.
+ 23, 1970, pp.136-165.
+\layout Bibliography
+\bibitem {RoleOfMovementInVivo}
+
+D.B.
+ Drachman, L.
+ Sokoloff, 
+\emph on 
+The Role of Movement in Embryonic Joint Development
+\emph default 
+, Developmental Biology, Vol 14.
+ 1966, pp.
+\protected_separator 
+401-420.
+\layout Bibliography
+\bibitem {RoleOfMovementInVitro}
+
+G.
+ Lelkes, 
+\emph on 
+Experiments in vitro on the Role of Movement in the Development of Joints
+\emph default 
+, J.
+ Embryol.
+ exp.
+ Morph., Vol.
+ 6, Part 2, june 1958, pp.
+ 183-186.
+\layout Bibliography
+\bibitem {HumanShoulder}
+
+H.
+ Andersen, 
+\emph on 
+Histochemistry and Development of the Human Shoulder and Acromio-Clavicular
+ Joints with Particular Reference to the Early Development of the Clavicule
+\emph default 
+, Acta anat., Vol.
+ 55, 1963, pp 124-165.
+\layout Bibliography
+\bibitem {Haeckel}
+
+E.
+ Haeckel, 
+\emph on 
+Anthropogenie oder Entwickelungsgeschichte des Menschen
+\emph default 
+.
+ Engelmann, Leipzig, 1874.
+\layout Bibliography
+\bibitem {Richardson97}
+
+M.K.
+ Richardson, J.
+ Hanken, L.
+ Selwood, G.M.
+ Wright, R.J.
+ Richards, C.
+ Pieau, A.
+ Raynaud, 
+\emph on 
+Haeckel embryos, and evolution
+\emph toggle 
+, Science, Vol 280, pp.983-984, 1997.
+\layout Bibliography
+\bibitem {Richardson97b}
+
+M.K.
+ Richardson, J.
+ Hanken, M.J.
+ Gooneratne, C.
+ Pieau, A.
+ Raynaud, L.
+ Selwood, G.M.
+ Wright, 
+\emph on 
+There is no highly conserved embryonic stage in the vertebrates: implications
+ for current theories of evolutions and development
+\emph default 
+.
+ Anat.
+ Embryol.
+ 196, pp.
+ 91-106, 1997.
+\layout Bibliography
+\bibitem {Aisemberg}
+
+G.O.
+ Aisemberg, Department of Biological Sciences, Lehman College, City University
+ of New York, course Bio268.
+ 
+\latex latex 
+
+\backslash 
+url{http://www.lehman.cuny.edu/depts/biology/aisemberg/Bio268.html}
+\layout Bibliography
+\bibitem {VisibleEmbryo}
+
+Visible Embryo project 
+\latex latex 
+
+\backslash 
+url{http://www.visiembryo.com}
+\layout Bibliography
+\bibitem {DNAComputing}
+
+L.F.
+ Landweber, E.B.
+ Baum, 
+\emph on 
+DNA Based Computers II
+\emph toggle 
+, Series in Discrete Mathematics and Theoretical Computer Science, DIMACS
+ Workshop, American Mathematical Society, June 10-12, 1996, Vol 44.
+\layout Bibliography
+\bibitem {SkeletonKeys}
+
+J.H.
+ Schwartz, 
+\emph on 
+Skeleton Keys, an Introduction to Human Skeletal Morphology, Development,
+ and Analysis
+\emph toggle 
+.
+ Oxford University Press, 1995.
+\layout Bibliography
+\bibitem {VertebratesMorphogenesis}
+
+T.W.
+ Torrey,
+\emph on 
+ Morphogenesis of the Vertebrates
+\emph toggle 
+, Third edition, John Wiley & Sons, Inc.
+ 1971.
+\the_end
